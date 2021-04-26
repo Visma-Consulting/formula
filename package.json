@@ -1,7 +1,7 @@
 {
   "name": "@visma/formula",
   "version": "0.1.0",
-  "homepage": "https://github.com/Visma-AS/formula",
+  "homepage": "https://github.com/Visma-AS/formula#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/Visma-AS/formula.git"
