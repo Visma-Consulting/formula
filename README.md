@@ -1,13 +1,13 @@
 ## `<Formula>`
 
 ```js
-import Formula from "@visma/formula";
+import Formula from '@visma/formula';
 
 // ...
 
 <Formula
   axios={(axios) => {
-    axios.defaults.baseURL = "https://example.com/formula/api";
+    axios.defaults.baseURL = 'https://example.com/formula/api';
   }}
   id="1"
 />;
@@ -16,14 +16,14 @@ import Formula from "@visma/formula";
 ## `<FormulaProvider>`, `<Form>`
 
 ```js
-import { Form, FormulaProvider } from "@visma/formula";
+import { Form, FormulaProvider } from '@visma/formula';
 
 function App() {
   return (
     <FormulaProvider
       axios={(axios) => {
-        axios.defaults.baseURL = "https://example.com/formula/api";
-        axios.defaults.headers.common.Authorization = "Bearer <token>";
+        axios.defaults.baseURL = 'https://example.com/formula/api';
+        axios.defaults.headers.common.Authorization = 'Bearer <token>';
       }}
     >
       <FormExample />
@@ -41,7 +41,7 @@ function FormExample() {
 See [src/api.js](src/api.js) for all API hooks.
 
 ```js
-import { usePublicForms } from "@visma/formula";
+import { usePublicForms } from '@visma/formula';
 
 function ListForms() {
   const forms = usePublicForms();
@@ -50,7 +50,7 @@ function ListForms() {
 ```
 
 ```js
-import { useForm, useLocalize } from "@visma/formula";
+import { useForm, useLocalize } from '@visma/formula';
 
 function FormTitle({ id }) {
   const form = useForm(id);
