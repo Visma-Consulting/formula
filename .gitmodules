@@ -1,0 +1,3 @@
+[submodule "@visma/rjsf"]
+	path = @visma/rjsf
+	url = git@github.com:Visma-AS/react-jsonschema-form.git
