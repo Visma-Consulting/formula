@@ -1,4 +1,35 @@
-## `<Formula>`
+## `<Formula>` 🏎
+
+# Simple form
+
+```js
+import Formula from '@visma/formula';
+
+// ...
+
+<Formula
+  config={{
+    title: 'Sign in',
+    elements: [
+      {
+        key: 'email',
+        type: 'email',
+        name: 'Email Address',
+        required: true,
+      },
+      {
+        key: 'password',
+        type: 'password',
+        name: 'Password',
+        required: true,
+      },
+    ],
+  }}
+  onSubmit={({ formData }) => console.log(formData)}
+/>;
+```
+
+### Load external config
 
 ```js
 import Formula from '@visma/formula';
@@ -50,12 +81,11 @@ function ListForms() {
 ```
 
 ```js
-import { useForm, useLocalize } from '@visma/formula';
+import { useForm } from '@visma/formula';
 
 function FormTitle({ id }) {
   const form = useForm(id);
-  const localize = useLocalize();
 
-  return <h1>{localize(form.title)}</h1>;
+  return <h1>{form.title}</h1>;
 }
 ```

@@ -1,14 +1,20 @@
 import { useFormulaContext } from './Context';
+import useFormConfig from './useForm';
+import useForms from './useForms';
 
-export function usePublicForms() {
+export function useFormRaw(id) {
+  const { useAxios } = useFormulaContext();
+  return useAxios(`/form/${id}`).data;
+}
+
+export const useForm = (...args) => useFormRaw(...args) |> useFormConfig;
+
+export function usePublicFormsRaw() {
   const { useAxios } = useFormulaContext();
   return useAxios('/form/published/public').data;
 }
 
-export function useForm(id) {
-  const { useAxios } = useFormulaContext();
-  return useAxios(`/form/${id}`).data;
-}
+export const usePublicForms = () => usePublicFormsRaw() |> useForms;
 
 export function useFields() {
   const { useAxios } = useFormulaContext();

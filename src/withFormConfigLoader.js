@@ -1,8 +1,8 @@
-import { useForm } from './api';
+import { useFormRaw } from './api';
 
 export default function withFormConfigLoader(Component) {
   function FormConfigLoader({ id, ...other }) {
-    return <Component {...other} config={useForm(id)} />;
+    return <Component {...other} config={useFormRaw(id)} />;
   }
 
   return function Formula(props) {

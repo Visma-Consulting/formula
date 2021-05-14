@@ -1,18 +1,11 @@
 import RJSFForm from '@visma/rjsf-material-ui';
-import useResolveElementReferences from './useResolveElementReferences';
-import convertLegacyTranslationsToIntlProps from './convertLegacyTranslationsToIntlProps';
-import useLocalizeConfig from './useLocalizeConfig';
+import useForm from './useForm';
 import configToSchemas from './configToSchemas';
 import { withFormulaProvider } from './Context';
 import withFormConfigLoader from './withFormConfigLoader';
 
 function Formula({ config, ...otherProps }) {
-  const props =
-    config
-    |> useResolveElementReferences()
-    |> convertLegacyTranslationsToIntlProps
-    |> useLocalizeConfig()
-    |> configToSchemas;
+  const props = config |> useForm |> configToSchemas;
 
   return <RJSFForm {...otherProps} {...props} />;
 }
