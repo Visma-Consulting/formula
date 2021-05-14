@@ -1,4 +1,4 @@
-import { mapValues, pick, omit } from 'lodash';
+import { mapValues, omitBy, pickBy } from 'lodash';
 
 const translateProperties = [
   'title',
@@ -14,16 +14,19 @@ const translateProperties = [
   'enumNames',
 ];
 
+const isLecacyTranslationObject = (value, key) =>
+  typeof value === 'object' && translateProperties.includes(key);
+
 const translateArrayProperties = ['choices', 'elements'];
 
 export default function convertLegacyTranslationsToIntlProps(config) {
-  const translated = omit(config, translateProperties);
-  const translate = pick(config, translateProperties);
+  const translatedConfig = omitBy(config, isLecacyTranslationObject);
+  const translate = pickBy(config, isLecacyTranslationObject);
   if (Object.keys(translate).length) {
-    translated.intl = translate;
+    translatedConfig.intl = translate;
   }
 
-  return mapValues(translated, (value, key) =>
+  return mapValues(translatedConfig, (value, key) =>
     translateArrayProperties.includes(key)
       ? value.map(convertLegacyTranslationsToIntlProps)
       : value
