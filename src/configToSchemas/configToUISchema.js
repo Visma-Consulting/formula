@@ -33,6 +33,9 @@ export default function configToUISchema(config) {
       ),
       'ui:should-update': content,
     }),
+    email: () => ({
+      'ui:widget': 'email',
+    }),
     form: () =>
       Object.fromEntries(
         elements.map((element, index) => [
@@ -43,6 +46,9 @@ export default function configToUISchema(config) {
     image: () => ({
       'ui:field': () => <img src={url} alt={alt} />,
       'ui:should-update': url,
+    }),
+    password: () => ({
+      'ui:widget': 'password',
     }),
     range: () => ({
       'ui:widget': 'range',

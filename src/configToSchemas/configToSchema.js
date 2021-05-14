@@ -48,6 +48,7 @@ export default function configToSchema(config) {
       format: 'date',
       type: 'string',
     }),
+    email: text,
     form: () => ({
       title,
       type: 'object',
@@ -80,6 +81,7 @@ export default function configToSchema(config) {
       type: 'array',
       uniqueItems: true,
     }),
+    password: text,
     range: () => ({
       default: defaultValue ?? minimum ?? 0,
       maximum,
