@@ -6,7 +6,7 @@ import configToSchemas from './configToSchemas';
 import { withFormulaProvider } from './Context';
 import withFormConfigLoader from './withFormConfigLoader';
 
-function Formula({ config }) {
+function Formula({ config, ...otherProps }) {
   const props =
     config
     |> useResolveElementReferences()
@@ -14,7 +14,7 @@ function Formula({ config }) {
     |> useLocalizeConfig()
     |> configToSchemas;
 
-  return <RJSFForm {...props} />;
+  return <RJSFForm {...otherProps} {...props} />;
 }
 
 export const Form = Formula |> withFormConfigLoader;
