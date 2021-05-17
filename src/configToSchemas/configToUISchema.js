@@ -1,4 +1,5 @@
 import Markdown from 'markdown-to-jsx';
+import * as list from './list';
 
 export default function configToUISchema(config) {
   const {
@@ -13,7 +14,7 @@ export default function configToUISchema(config) {
     type,
   } = config;
 
-  return {
+  const converter = {
     body: () => ({
       'ui:field': () => (
         <Markdown
@@ -66,5 +67,11 @@ export default function configToUISchema(config) {
       'ui:field': () => <h4>{content}</h4>,
       'ui:should-update': content,
     }),
-  }[type]?.();
+  }[type];
+
+  if (!converter) {
+    return;
+  }
+
+  return converter() |> list.uiSchema(config);
 }

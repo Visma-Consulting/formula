@@ -35,7 +35,8 @@
     "lodash": "^4.17.21",
     "markdown-to-jsx": "^7.1.2",
     "tiny-invariant": "^1.1.0",
-    "use-axios": "^0.3.7"
+    "use-axios": "^0.3.7",
+    "util-deprecate": "^1.0.2"
   },
   "devDependencies": {
     "@postinumero/library-scripts": "^0.1.4"

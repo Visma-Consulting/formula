@@ -6,6 +6,7 @@ export default function configToSchemas(config) {
     type: 'form',
     ...config,
   };
+
   return {
     schema: configToSchema(formConfig),
     uiSchema: configToUISchema(formConfig),

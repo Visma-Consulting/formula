@@ -1,3 +1,6 @@
+import * as list from './list';
+import * as title from './title';
+
 // Dummy schema for title/body/image element.
 const any = () => ({ type: 'string' });
 
@@ -7,16 +10,13 @@ export default function configToSchema(config) {
     choices,
     default: defaultValue,
     elements,
-    list,
     maximum,
     minimum,
     multipleOf,
-    name,
     no,
     pattern,
     readOnly,
     required,
-    title,
     type,
     yes,
   } = config;
@@ -24,7 +24,6 @@ export default function configToSchema(config) {
   const selectableItem = () => ({
     enum: choices.map((v, i) => v?.enum || String(i)),
     enumNames: choices.map((v) => v?.enumNames || v),
-    title: name,
     type: 'string',
   });
 
@@ -33,7 +32,6 @@ export default function configToSchema(config) {
     ...(required ? { minLength: 1 } : undefined),
     pattern,
     readOnly,
-    title: name,
     type: 'string',
   });
 
@@ -50,7 +48,6 @@ export default function configToSchema(config) {
     }),
     email: text,
     form: () => ({
-      title,
       type: 'object',
       properties: Object.fromEntries(
         elements.map((element, index) => [
@@ -59,25 +56,18 @@ export default function configToSchema(config) {
         ])
       ),
     }),
-    formGroup: () => {
-      const item = {
-        type: 'object',
-        properties: Object.fromEntries(
-          elements.map((element, index) => [
-            element.key ?? String(index),
-            configToSchema(element),
-          ])
-        ),
-      };
-      return {
-        title,
-        ...(list ? { type: 'array', items: item } : item),
-      };
-    },
+    formGroup: () => ({
+      type: 'object',
+      properties: Object.fromEntries(
+        elements.map((element, index) => [
+          element.key ?? String(index),
+          configToSchema(element),
+        ])
+      ),
+    }),
     image: any,
     multiselect: () => ({
       items: selectableItem(),
-      title: name,
       type: 'array',
       uniqueItems: true,
     }),
@@ -90,7 +80,6 @@ export default function configToSchema(config) {
       type: 'number',
     }),
     select: () => ({
-      title: name,
       ...selectableItem(),
     }),
     text,
@@ -104,5 +93,5 @@ export default function configToSchema(config) {
     return {};
   }
 
-  return converter();
+  return converter() |> title.schema(config) |> list.schema(config);
 }
