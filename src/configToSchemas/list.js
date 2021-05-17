@@ -1,20 +1,10 @@
-export const schema = (config) => (item) => {
-  const { list } = config;
-  const { title } = item;
+const toArray = ({ title, ...item }) => ({
+  title,
+  type: 'array',
+  items: item,
+});
 
-  return {
-    title,
-    ...(list
-      ? {
-          type: 'array',
-          items: {
-            ...item,
-            title: undefined, // Remove title from each individual element
-          },
-        }
-      : item),
-  };
-};
+export const schema = (config) => (item) => config.list ? toArray(item) : item;
 
 export const uiSchema = (config) => (item) =>
   config.list ? { items: item } : item;
