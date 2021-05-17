@@ -46,6 +46,13 @@ export default function configToUISchema(config) {
           configToUISchema(element),
         ])
       ),
+    formGroup: () =>
+      Object.fromEntries(
+        elements.map((element, index) => [
+          element.key ?? String(index),
+          configToUISchema(element),
+        ])
+      ),
     image: () => ({
       'ui:field': () => <img src={url} alt={alt} />,
       'ui:should-update': url,
