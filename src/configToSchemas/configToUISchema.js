@@ -12,6 +12,8 @@ export default function configToUISchema(config) {
     selectWidget,
     url,
     type,
+    showCharacterCounter,
+    maxLength,
   } = config;
 
   const converter = {
@@ -60,8 +62,12 @@ export default function configToUISchema(config) {
       //'ui:field': autocomplete ? Autocomplete : undefined,
       'ui:enumDisabled': choicesDisabled,
     }),
+    text: () => ({
+      'ui:options': { showCharacterCounter, maxLength },
+    }),
     textarea: () => ({
       'ui:widget': 'textarea',
+      'ui:options': { showCharacterCounter, maxLength },
     }),
     title: () => ({
       'ui:field': () => <h4>{content}</h4>,

@@ -33,6 +33,8 @@ export default function configToSchema(config) {
     pattern,
     readOnly,
     type: 'string',
+    maxLength: config.maxLength,
+    showCharacterCounter: config.showCharacterCounter,
   });
 
   const converter = {
