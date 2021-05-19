@@ -1,6 +1,6 @@
 {
   "name": "@visma/formula",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "https://github.com/Visma-AS/formula#readme",
   "repository": {
     "type": "git",
@@ -29,8 +29,8 @@
     "react/react-in-jsx-scope": "off"
   },
   "dependencies": {
-    "@visma/rjsf-core": "^2.5.1-formula.5",
-    "@visma/rjsf-material-ui": "^2.5.1-formula.5",
+    "@visma/rjsf-core": "^2.5.1-formula.6",
+    "@visma/rjsf-material-ui": "^2.5.1-formula.6",
     "axios": "^0.21.0",
     "lodash": "^4.17.21",
     "markdown-to-jsx": "^7.1.2",

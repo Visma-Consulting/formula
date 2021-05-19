@@ -1,4 +1,4 @@
-# x.y.z
+# 0.2.0
 
 - **Breaking:** `useLocalize` is removed. API localizes configs.
 - **Deprecation:** `field.name` is deprecated. Use `field.title` instead.
