@@ -3,11 +3,13 @@ import useForm from './useForm';
 import configToSchemas from './configToSchemas';
 import { withFormulaProvider } from './Context';
 import withFormConfigLoader from './withFormConfigLoader';
+import useSubmit from './useSubmit';
 
-function Formula({ config, ...otherProps }) {
-  const props = config |> useForm |> configToSchemas;
+function Formula(props) {
+  const { config, ...otherProps } = props |> useSubmit;
+  const schemaProps = config |> useForm |> configToSchemas;
 
-  return <RJSFForm {...otherProps} {...props} />;
+  return <RJSFForm {...otherProps} {...schemaProps} />;
 }
 
 export const Form = Formula |> withFormConfigLoader;

@@ -41,6 +41,7 @@ import Formula from '@visma/formula';
     axios.defaults.baseURL = 'https://example.com/formula/api';
   }}
   id="1"
+  onPostSubmit={(id, { formData }) => console.log(id, formData)}
 />;
 ```
 
