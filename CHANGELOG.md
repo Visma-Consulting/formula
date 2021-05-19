@@ -1,3 +1,7 @@
+# 0.2.1
+
+- Added character counter to text and multiline text fields.
+
 # 0.2.0
 
 - **Breaking:** `useLocalize` is removed. API localizes configs.
