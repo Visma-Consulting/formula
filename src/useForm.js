@@ -3,7 +3,10 @@ import convertLegacyTranslationsToIntlProps from './convertLegacyTranslationsToI
 import useLocalizeConfig from './useLocalizeConfig';
 
 export default (config) =>
-  config
+  ({
+    type: 'form',
+    ...config,
+  }
   |> useResolveElementReferences()
   |> convertLegacyTranslationsToIntlProps
-  |> useLocalizeConfig();
+  |> useLocalizeConfig());

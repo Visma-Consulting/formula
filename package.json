@@ -32,6 +32,7 @@
     "@visma/rjsf-core": "^2.5.1-formula.6",
     "@visma/rjsf-material-ui": "^2.5.1-formula.6",
     "axios": "^0.21.0",
+    "immer": "^9.0.2",
     "lodash": "^4.17.21",
     "markdown-to-jsx": "^7.1.2",
     "tiny-invariant": "^1.1.0",
