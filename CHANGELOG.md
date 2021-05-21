@@ -1,3 +1,7 @@
+# x.y.z
+
+- Forward ref from `<Formula>` and `<Form>` to react-jsonschema-form `<Form>`.
+
 # 0.2.1
 
 - Added character counter to text and multiline text fields.

@@ -1,12 +1,13 @@
+import { forwardRef } from 'react';
 import { useFormRaw } from './api';
 
-export default function withFormConfigLoader(Component) {
-  function FormConfigLoader({ id, ...other }) {
-    return <Component {...other} config={useFormRaw(id)} />;
-  }
+export default (function withFormConfigLoader(Component) {
+  const FormConfigLoader = forwardRef(({ id, ...other }, ref) => (
+    <Component ref={ref} {...other} config={useFormRaw(id)} />
+  ));
 
-  return function Formula(props) {
+  return forwardRef((props, ref) => {
     const Formula = props.id ? FormConfigLoader : Component;
-    return <Formula {...props} />;
-  };
-}
+    return <Formula ref={ref} {...props} />;
+  });
+});

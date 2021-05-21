@@ -1,4 +1,4 @@
-import { createContext, useContext, useRef } from 'react';
+import { createContext, forwardRef, useContext, useRef } from 'react';
 import { create as createUseAxios } from 'use-axios';
 import { create as createAxios } from 'axios';
 import invariant from 'tiny-invariant';
@@ -26,11 +26,12 @@ export function FormulaProvider({ axios, children }) {
   );
 }
 
-export const withFormulaProvider = (Component) => ({ axios, ...other }) => (
-  <FormulaProvider axios={axios}>
-    <Component {...other} />
-  </FormulaProvider>
-);
+export const withFormulaProvider = (Component) =>
+  forwardRef(({ axios, ...other }, ref) => (
+    <FormulaProvider axios={axios}>
+      <Component ref={ref} {...other} />
+    </FormulaProvider>
+  ));
 
 export function useFormulaContext() {
   const context = useContext(Context);
