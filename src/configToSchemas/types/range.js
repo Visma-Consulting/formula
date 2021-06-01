@@ -1,12 +1,7 @@
-export default ({ default: defaultValue, maximum, minimum, multipleOf }) => ({
-  schema: {
-    default: defaultValue ?? minimum ?? 0,
-    maximum,
-    minimum,
-    multipleOf,
-    type: 'number',
-  },
-  uiSchema: {
-    'ui:widget': 'range',
-  },
+import extendType from './_extendType';
+import number from './number';
+
+export default extendType(number, (config) => (props) => {
+  props.uiSchema ??= {};
+  props.uiSchema['ui:widget'] = 'range';
 });

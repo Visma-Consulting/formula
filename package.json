@@ -18,15 +18,16 @@
   "main": "./lib/main.cjs",
   "module": "./lib/main.js",
   "files": [
+    "lang",
     "lib"
   ],
   "scripts": {
+    "prebuild": "npm run messages:extract && npm run messages:compile",
     "build": "library-scripts build",
     "prepare": "npm run build",
-    "watch": "library-scripts watch"
-  },
-  "eslintConfig": {
-    "react/react-in-jsx-scope": "off"
+    "watch": "library-scripts watch",
+    "messages:extract": "formatjs extract 'src/**/*.{js,jsx,ts,tsx}' --out-file lang/fi-FI.json --id-interpolation-pattern [sha512:contenthash:base64:6]",
+    "messages:compile": "formatjs compile-folder --ast lang dist/compiled-lang"
   },
   "dependencies": {
     "@visma/rjsf-core": "^2.5.1-formula.6",
@@ -35,12 +36,15 @@
     "immer": "^9.0.2",
     "lodash": "^4.17.21",
     "markdown-to-jsx": "^7.1.2",
+    "moment": "^2.29.1",
+    "react-dates": "^21.8.0",
     "tiny-invariant": "^1.1.0",
     "use-axios": "^0.3.7",
     "util-deprecate": "^1.0.2"
   },
   "devDependencies": {
-    "@postinumero/library-scripts": "^0.1.4"
+    "@postinumero/library-scripts": "^0.1.4",
+    "babel-plugin-formatjs": "^10.2.15"
   },
   "peerDependencies": {
     "react": "^17.0.1",

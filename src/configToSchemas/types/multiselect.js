@@ -7,4 +7,7 @@ export default extendType(select, (config) => (props) => {
     type: 'array',
     uniqueItems: true,
   };
+  props.uiSchema = {
+    'ui:widget': { 0: 'checkboxes' }[config.multiselectWidget],
+  };
 });

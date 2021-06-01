@@ -12,6 +12,7 @@ export default (config) => (props) => {
       title,
       type: 'array',
       items: itemsSchema,
+      maxItems: config.maxItems,
     };
 
     props.uiSchema = {

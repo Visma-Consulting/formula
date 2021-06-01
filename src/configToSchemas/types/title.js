@@ -1,4 +1,3 @@
-import Markdown from 'markdown-to-jsx';
 import extendType from './_extendType';
 import _dummy from './_dummy';
 
