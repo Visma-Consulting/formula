@@ -1,5 +1,9 @@
-# x.y.z
+# 0.2.2
 
+- Fix recursion in localizing and normalizing config
+- Enable defining extraTypes and extraTypePlugins
+- More field types
+- Add description and help texts
 - Forward ref from `<Formula>` and `<Form>` to react-jsonschema-form `<Form>`.
 
 # 0.2.1
