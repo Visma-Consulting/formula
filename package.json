@@ -27,7 +27,7 @@
     "prepare": "npm run build",
     "watch": "library-scripts watch",
     "messages:extract": "formatjs extract 'src/**/*.{js,jsx,ts,tsx}' --out-file lang/fi-FI.json --id-interpolation-pattern [sha512:contenthash:base64:6]",
-    "messages:compile": "formatjs compile-folder --ast lang dist/compiled-lang"
+    "messages:compile": "formatjs compile-folder --ast lang lib/compiled-lang"
   },
   "dependencies": {
     "@visma/rjsf-core": "^2.5.1-formula.6",
