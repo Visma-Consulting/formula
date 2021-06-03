@@ -28,7 +28,11 @@ export default function convertLegacyTranslationsToIntlProps(config) {
 
   return mapValues(translatedConfig, (value, key) =>
     translateArrayProperties.includes(key)
-      ? value.map(convertLegacyTranslationsToIntlProps)
+      ? value.map((value) =>
+          typeof value === 'object'
+            ? convertLegacyTranslationsToIntlProps(value)
+            : value
+        )
       : value
   );
 }
