@@ -1,9 +1,10 @@
 import produce from 'immer';
 import { flow } from 'lodash';
+import * as autocomplete from './autocomplete';
 import * as showCharacterCounter from './showCharacterCounter';
 
 // Order of plugins
-const typePlugins = [showCharacterCounter];
+const typePlugins = [autocomplete, showCharacterCounter];
 
 export default ({ extraTypePlugins = [], config }) =>
   // Run plugins in the given order
