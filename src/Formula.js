@@ -1,18 +1,18 @@
 import { forwardRef } from 'react';
 import RJSFForm from '@visma/rjsf-material-ui';
-import useForm from './useForm';
+import useNormalizeConfig from './useNormalizeConfig';
 import configToSchemas from './configToSchemas';
 import { withFormulaProvider } from './Context';
 import withFormConfigLoader from './withFormConfigLoader';
 import useSubmit from './useSubmit';
 
-function Formula(props, ref) {
+function Base(props, ref) {
   const { config, ...otherProps } = props |> useSubmit;
-  const schemaProps = config |> useForm |> configToSchemas;
+  const schemaProps = config |> useNormalizeConfig() |> configToSchemas;
 
   return <RJSFForm ref={ref} {...otherProps} {...schemaProps} />;
 }
 
-export const Form = Formula |> forwardRef |> withFormConfigLoader;
+export const Form = Base |> forwardRef |> withFormConfigLoader;
 
-export default Form |> withFormulaProvider;
+export const Formula = Form |> withFormulaProvider;

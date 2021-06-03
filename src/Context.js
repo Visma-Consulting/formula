@@ -37,7 +37,7 @@ export function useFormulaContext() {
   const context = useContext(Context);
   invariant(
     context,
-    'You should not use Formula hooks outside a <FormulaContext>'
+    'You should not use Formula hooks outside a <FormulaProvider>'
   );
 
   return context;

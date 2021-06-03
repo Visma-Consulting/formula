@@ -1,7 +1,7 @@
 import { mapValues } from 'lodash';
-import useLocalize from './useLocalize';
+import { useLocalize } from './useLocalize';
 
-export default function useLocalizeConfig() {
+export function useLocalizeConfig() {
   const localize = useLocalize();
 
   return function localizeConfig({ intl, ...other }) {

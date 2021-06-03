@@ -1,33 +1,47 @@
 import { useFormulaContext } from './Context';
-import useFormConfig from './useForm';
-import useForms from './useForms';
+import useNormalizeConfig from './useNormalizeConfig';
+import { setDefaultType } from './utils';
 
-export function useFormRaw(id) {
+function useEndpoint(path) {
   const { useAxios } = useFormulaContext();
-  return useAxios(`/form/${id}`).data;
+  return useAxios(path).data;
 }
 
-export const useForm = (...args) => useFormRaw(...args) |> useFormConfig;
+export const useForm = (id, options) =>
+  useEndpoint(`/form/${id}`) |> useNormalizeConfig(options);
 
-export function usePublicFormsRaw() {
-  const { useAxios } = useFormulaContext();
-  return useAxios('/form/published/public').data;
-}
+export const useForms = ({ status, visibility } = {}, options) =>
+  useEndpoint(['/form', status, visibility].filter(Boolean).join('/')).map(
+    useNormalizeConfig(options)
+  );
 
-export const usePublicForms = () => usePublicFormsRaw() |> useForms;
+export const useFormGroup = (id, options) =>
+  useEndpoint(`/formgroup/${id}`)
+  |> useNormalizeConfig(options |> setDefaultType('formGroup'));
 
-export function useFields() {
-  const { useAxios } = useFormulaContext();
-  return useAxios('/field').data;
-}
+export const useFormGroups = (options) =>
+  useEndpoint('/formgroup').map(
+    useNormalizeConfig(options |> setDefaultType('formGroup'))
+  );
 
-export function useFormGroups() {
-  const { useAxios } = useFormulaContext();
-  return useAxios('/formgroup').data;
-}
+export const useField = (id, options) =>
+  useEndpoint(`/field/${id}`) |> useNormalizeConfig(options);
+
+export const useFields = (options) =>
+  useEndpoint('/field').map(useNormalizeConfig(options));
 
 export function useApi() {
-  const { axios } = useFormulaContext();
+  const { axios, refetch } = useFormulaContext();
+
+  // Trigger refetching paths on form update. Only the paths that are loaded
+  // will be actually refetched.
+  async function refetchForms(id) {
+    await refetch(`/form/${id}`);
+    await refetch('/form');
+    await refetch('/form/draft');
+    await refetch('/form/published');
+    await refetch('/form/published/public');
+  }
 
   return {
     async handleSubmit({ config, formData }) {
@@ -43,6 +57,14 @@ export function useApi() {
         // captchaChallenge: recaptcha,
       });
       return response.data;
+    },
+    async putForm(form) {
+      await axios.put(`/form`, form);
+      await refetchForms(form._id);
+    },
+    async deleteForm(id) {
+      await axios.delete(`/form/${id}`);
+      await refetchForms(id);
     },
   };
 }

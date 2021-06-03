@@ -1,6 +1,6 @@
 import { useIntl } from 'react-intl';
 
-export default function useLocalize() {
+export function useLocalize() {
   const { locale, defaultLocale } = useIntl();
   const [lang] = locale.split('-');
   const [defaultLang] = defaultLocale.split('-');
