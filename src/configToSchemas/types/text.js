@@ -5,7 +5,7 @@ const textDefault = deprecate(
   'field.textDefault is deprecated. Use field.default instead.'
 );
 
-export default (config) => {
+export default ({ config }) => {
   if (config.textDefault) {
     config = textDefault(config);
   }

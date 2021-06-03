@@ -3,14 +3,13 @@ import { flow } from 'lodash';
 import * as showCharacterCounter from './showCharacterCounter';
 
 // Order of plugins
-const converters = [showCharacterCounter];
+const typePlugins = [showCharacterCounter];
 
-export default (config) =>
-  // Run plugins in given order
+export default ({ extraTypePlugins = [], config }) =>
+  // Run plugins in the given order
   flow(
-    converters
-      // Plugin type must match with config type
+    [...typePlugins, ...extraTypePlugins]
+      // Plugin type must match with the config type
       .filter(({ types }) => types.includes(config.type))
-      .map(({ default: converter }) => converter)
-      .map((converter) => config |> converter |> produce)
+      .map(({ converter }) => config |> converter |> produce)
   );

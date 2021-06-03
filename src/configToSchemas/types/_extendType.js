@@ -1,4 +1,4 @@
 import produce from 'immer';
 
-export default (type, callback) => (config) =>
-  type(config) |> (config |> callback |> produce);
+export default (type, callback) => (props) =>
+  type(props) |> (props |> callback |> produce);

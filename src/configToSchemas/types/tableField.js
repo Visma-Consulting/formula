@@ -2,7 +2,7 @@ function TableField() {
   return '(TableField stub)';
 }
 
-export default (config) => {
+export default ({ config }) => {
   return {
     schema: {
       type: 'object',

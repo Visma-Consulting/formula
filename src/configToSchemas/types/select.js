@@ -1,4 +1,6 @@
-export default ({ choices, choicesDisabled, placeholder, selectWidget }) => ({
+export default ({
+  config: { choices, choicesDisabled, placeholder, selectWidget },
+}) => ({
   schema: {
     enum: choices.map((v, i) => v?.enum || String(i)),
     enumNames: choices.map((v) => v?.enumNames || v),

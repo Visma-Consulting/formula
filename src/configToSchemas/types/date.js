@@ -43,7 +43,7 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
   );
 }
 
-export default ({ disableBefore, disableAfter }) => ({
+export default ({ config: { disableBefore, disableAfter } }) => ({
   schema: {
     format: 'date',
     type: 'string',

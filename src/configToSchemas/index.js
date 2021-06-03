@@ -1,13 +1,19 @@
-import * as types from './types';
+import * as builtInTypes from './types';
 import typePlugins from './typePlugins';
 import commonPlugins from './commonPlugins';
 
-export default (config) => {
-  const typeConverter = types[config.type];
+export default (props) => {
+  const types = { ...builtInTypes, ...props.extraTypes };
+  const typeConverter = types[props.config.type];
   if (!typeConverter) {
     // eslint-disable-next-line no-console
-    console.error(`Config type "${config.type}" is not implemented.`);
+    console.error(`Config type "${props.config.type}" is not implemented.`);
     return { schema: {} };
   }
-  return typeConverter(config) |> typePlugins(config) |> commonPlugins(config);
+  const { config, ...otherProps } = props;
+
+  return {
+    ...otherProps,
+    ...(typeConverter(props) |> typePlugins(props) |> commonPlugins(config)),
+  };
 };

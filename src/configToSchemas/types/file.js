@@ -1,4 +1,4 @@
-export default ({ acceptFiles }) => ({
+export default ({ config: { acceptFiles } }) => ({
   schema: {
     format: 'data-url',
     type: 'string',

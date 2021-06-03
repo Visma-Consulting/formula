@@ -50,7 +50,7 @@ const booleanDefault = deprecate(
   'field.booleanDefault is deprecated. Use field.default instead.'
 );
 
-export default (config) => {
+export default ({ config }) => {
   if (config.booleanDefault) {
     config = booleanDefault(config);
   }

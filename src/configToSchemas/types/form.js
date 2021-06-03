@@ -1,9 +1,9 @@
 import configToProps from '..';
 
-export default (config) => {
+export default ({ config, ...otherProps }) => {
   const properties = config.elements.map((element, index) => [
     element.key ?? String(index),
-    configToProps(element),
+    configToProps({ ...otherProps, config: element }),
   ]);
   return {
     schema: {

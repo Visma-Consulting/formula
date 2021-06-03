@@ -5,10 +5,15 @@ import configToSchemas from './configToSchemas';
 import { withFormulaProvider } from './Context';
 import withFormConfigLoader from './withFormConfigLoader';
 import useSubmit from './useSubmit';
+import { update } from 'lodash/fp';
 
 function Base(props, ref) {
   const { config, ...otherProps } = props |> useSubmit;
-  const schemaProps = config |> useNormalizeConfig() |> configToSchemas;
+  const schemaProps =
+    props
+    |> useSubmit
+    |> update('config', useNormalizeConfig())
+    |> configToSchemas;
 
   return <RJSFForm ref={ref} {...otherProps} {...schemaProps} />;
 }
