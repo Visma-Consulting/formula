@@ -1,11 +1,12 @@
 import deprecate from 'util-deprecate';
 
-const selectWidget = deprecate(({ selectWidget, ...config }) => {
-  return {
+const selectWidget = deprecate(
+  ({ selectWidget, ...config }) => ({
     widget: { 0: 'radio' }[selectWidget],
     ...config,
-  };
-}, 'config.selectWidget is deprecated. Use config.widget instead. Example: "widget": "radio"');
+  }),
+  'config.selectWidget is deprecated. Use config.widget instead. Example: "widget": "radio"'
+);
 
 export default ({ config }) => {
   if (config.selectWidget) {

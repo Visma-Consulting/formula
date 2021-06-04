@@ -2,7 +2,7 @@ import deprecate from 'util-deprecate';
 
 const textDefault = deprecate(
   ({ textDefault, ...other }) => ({ default: textDefault, ...other }),
-  'field.textDefault is deprecated. Use field.default instead.'
+  'config.textDefault is deprecated. Use config.default instead.'
 );
 
 export default ({ config }) => {
