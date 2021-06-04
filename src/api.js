@@ -30,7 +30,7 @@ export const useField = (id, options) =>
 export const useFields = (options) =>
   useEndpoint('/field').map(useNormalizeConfig(options));
 
-export function useApi() {
+export function useMutations() {
   const { axios, refetch } = useFormulaContext();
 
   // Trigger refetching paths on form update. Only the paths that are loaded
@@ -44,7 +44,7 @@ export function useApi() {
   }
 
   return {
-    async handleSubmit({ config, formData }) {
+    async submit({ config, formData }) {
       const response = await axios.post('/formdata', {
         // _id: initialFormData?._id,
         // _rev: initialFormData?._rev,

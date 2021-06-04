@@ -1,10 +1,10 @@
-import { useApi } from './api';
+import { useMutations } from './api';
 
 export default ({ onSubmit, onPostSubmit, ...other }) => {
-  const api = useApi();
+  const { submit } = useMutations();
   const { config } = other;
 
-  onSubmit ??= api.handleSubmit;
+  onSubmit ??= submit;
 
   const handleSubmit = (data, ...rest) =>
     onSubmit({ ...data, config }, ...rest);
