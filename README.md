@@ -73,10 +73,10 @@ function FormExample() {
 See [src/api.js](src/api.js) for all API hooks.
 
 ```js
-import { usePublicForms } from '@visma/formula';
+import { useForms } from '@visma/formula';
 
 function ListForms() {
-  const forms = usePublicForms();
+  const forms = useForms({ status: 'published', visibility: 'public' });
   // ...
 }
 ```
