@@ -47,7 +47,20 @@ const SwitchWithEmptyOption = ({ onChange, options, value, ...other }) => {
 
 const booleanDefault = deprecate(
   ({ booleanDefault, ...other }) => ({ default: booleanDefault, ...other }),
-  'field.booleanDefault is deprecated. Use field.default instead.'
+  'config.booleanDefault is deprecated. Use config.default instead.'
+);
+
+const booleanWidget = deprecate(
+  ({ booleanWidget, ...config }) => ({
+    widget: {
+      0: 'radio',
+      1: 'select',
+      2: 'switch',
+      3: 'switchWithEmptyOption',
+    }[booleanWidget],
+    ...config,
+  }),
+  'config.booleanWidget is deprecated. Use config.widget instead. Example: "widget": "radio"'
 );
 
 export default ({ config }) => {
@@ -55,7 +68,11 @@ export default ({ config }) => {
     config = booleanDefault(config);
   }
 
-  const { default: defaults, booleanWidget, yes, no } = config;
+  if (config.booleanWidget !== undefined) {
+    config = booleanWidget(config);
+  }
+
+  const { default: defaults, yes, no } = config;
 
   return {
     schema: {
@@ -64,12 +81,11 @@ export default ({ config }) => {
       default: defaults,
     },
     uiSchema: {
-      'ui:widget': {
-        0: 'radio',
-        1: 'select',
-        2: Switch,
-        3: SwitchWithEmptyOption,
-      }[booleanWidget],
+      'ui:widget':
+        {
+          switch: Switch,
+          switchWithEmptyOption: SwitchWithEmptyOption,
+        }[config.widget] ?? config.widget,
     },
   };
 };
