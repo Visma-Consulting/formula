@@ -8,14 +8,15 @@ import useSubmit from './useSubmit';
 import { update } from 'lodash/fp';
 
 function Base(props, ref) {
-  const { config, ...otherProps } = props |> useSubmit;
-  const schemaProps =
-    props
-    |> useSubmit
-    |> update('config', useNormalizeConfig())
-    |> configToSchemas;
-
-  return <RJSFForm ref={ref} {...otherProps} {...schemaProps} />;
+  return (
+    <RJSFForm
+      ref={ref}
+      {...(props
+        |> useSubmit
+        |> update('config', useNormalizeConfig())
+        |> configToSchemas)}
+    />
+  );
 }
 
 export const Form = Base |> forwardRef |> withFormConfigLoader;

@@ -1,6 +1,7 @@
 import { setDefaultType } from '../utils';
 import convertLegacyTranslationsToIntlProps from './convertLegacyTranslationsToIntlProps';
 import { useLocalizeConfig } from '../useLocalizeConfig';
+import { flow } from 'lodash';
 
 export default ({
   // Optionally disable localizing config – mainly for editor to show original config.
@@ -9,9 +10,12 @@ export default ({
   type = 'form',
 } = {}) => {
   const localizeConfig = useLocalizeConfig();
-  return (config) =>
-    config
-    |> setDefaultType(type)
-    |> convertLegacyTranslationsToIntlProps
-    |> (localize ? localizeConfig : (config) => config);
+
+  return flow(
+    [
+      setDefaultType(type),
+      convertLegacyTranslationsToIntlProps,
+      localize && localizeConfig,
+    ].filter(Boolean)
+  );
 };
