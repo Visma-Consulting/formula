@@ -33,15 +33,24 @@ export const useFields = (options) =>
 export function useMutations() {
   const { axios, refetch } = useFormulaContext();
 
-  // Trigger refetching paths on form update. Only the paths that are loaded
-  // will be actually refetched.
-  async function refetchForms(id) {
-    await refetch(`/form/${id}`);
-    await refetch('/form');
-    await refetch('/form/draft');
-    await refetch('/form/published');
-    await refetch('/form/published/public');
-  }
+  // Trigger refetching paths on update. Only the paths that are currently
+  // loaded by the app, will be refetched.
+  const refetchPaths = (paths) =>
+    Promise.all(paths.map((path) => refetch(path)));
+
+  const refetchForms = (id) =>
+    refetchPaths([
+      `/form/${id}`,
+      '/form',
+      '/form/draft',
+      '/form/published',
+      '/form/published/public',
+    ]);
+
+  const refetchFormGroups = (id) =>
+    refetchPaths([`/formgroup/${id}`, '/formgroup']);
+
+  const refetchFields = (id) => refetchPaths([`/field/${id}`, '/field']);
 
   return {
     async submit({ config, formData }) {
@@ -58,13 +67,44 @@ export function useMutations() {
       });
       return response.data;
     },
-    async putForm(form) {
-      await axios.put(`/form`, form);
-      await refetchForms(form._id);
+
+    async postForm(data) {
+      await axios.post(`/form`, data);
+      await refetchForms(data._id);
+    },
+    async putForm(data) {
+      await axios.put(`/form`, data);
+      await refetchForms(data._id);
     },
     async deleteForm(id) {
       await axios.delete(`/form/${id}`);
       await refetchForms(id);
+    },
+
+    async postFormGroup(data) {
+      await axios.post(`/formgroup`, data);
+      await refetchFormGroups(data._id);
+    },
+    async putFormGroup(data) {
+      await axios.put(`/formgroup`, data);
+      await refetchFormGroups(data._id);
+    },
+    async deleteFormGroup(id) {
+      await axios.delete(`/formgroup/${id}`);
+      await refetchFormGroups(id);
+    },
+
+    async postField(data) {
+      await axios.post(`/field`, data);
+      await refetchFields(data._id);
+    },
+    async putField(data) {
+      await axios.put(`/field`, data);
+      await refetchFields(data._id);
+    },
+    async deleteField(id) {
+      await axios.delete(`/field/${id}`);
+      await refetchFields(id);
     },
   };
 }
