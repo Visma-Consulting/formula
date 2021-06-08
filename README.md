@@ -26,6 +26,11 @@ import Formula from '@visma/formula';
     ],
   }}
   onSubmit={({ formData }) => console.log(formData)}
+  /*
+  Set false to disable confirm dialog.
+  Optionally use object { title, description }.
+  */
+  confirm
 />;
 ```
 
