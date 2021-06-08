@@ -1,4 +1,5 @@
 import { forwardRef } from 'react';
+import invariant from 'tiny-invariant';
 import { useForm } from './api';
 import useResolveElementReferences from './useResolveElementReferences';
 
@@ -11,9 +12,14 @@ export default function withFormConfigLoader(Component) {
     />
   ));
 
-  const Loader = forwardRef(({ id, ...other }, ref) => (
-    <Resolver ref={ref} {...other} config={useForm(id)} />
-  ));
+  const Loader = forwardRef(({ id, ...other }, ref) => {
+    invariant(
+      !(id && other.config),
+      'You should not use prop `id` with `config`'
+    );
+
+    return <Resolver ref={ref} {...other} config={useForm(id)} />;
+  });
 
   return forwardRef((props, ref) => {
     const Formula =
