@@ -1,5 +1,5 @@
 import { setDefaultType } from '../utils';
-import convertLegacyTranslationsToIntlProps from './convertLegacyTranslationsToIntlProps';
+// import convertLegacyTranslationsToIntlProps from './convertLegacyTranslationsToIntlProps';
 import { useLocalizeConfig } from '../useLocalizeConfig';
 import { flow } from 'lodash';
 import maybeSetElements from './maybeSetElements';
@@ -16,7 +16,7 @@ export default ({
     [
       setDefaultType(type),
       maybeSetElements,
-      convertLegacyTranslationsToIntlProps,
+      //convertLegacyTranslationsToIntlProps,
       localize && localizeConfig,
     ].filter(Boolean)
   );

@@ -1,19 +1,45 @@
-import { mapValues } from 'lodash';
+import { mapValues, omitBy, pickBy } from 'lodash';
 import { useLocalize } from './useLocalize';
+
+export const translateProperties = [
+  'title',
+  'name',
+  'description',
+  'help',
+  'patternDescription',
+  'yes',
+  'no',
+  'tableColumns',
+  'content',
+  'successText',
+  'enumNames',
+  'textDefault',
+];
+
+export const translateArrayProperties = ['choices', 'elements'];
+
+export const isLecacyTranslationObject = (value, key) =>
+  typeof value === 'object' && translateProperties.includes(key);
 
 export function useLocalizeConfig() {
   const localize = useLocalize();
 
-  return function localizeConfig({ intl, ...other }) {
+  return function localizeConfig(config) {
+    const translatedConfig = omitBy(config, isLecacyTranslationObject);
+    const translate = pickBy(config, isLecacyTranslationObject);
+    if (Object.keys(translate).length) {
+      translatedConfig.intl = translate;
+    }
+
     return {
-      ...mapValues(other, (value, key) =>
-        Array.isArray(value)
+      ...mapValues(translatedConfig, (value, key) =>
+        translateArrayProperties.includes(key)
           ? value.map((value) =>
               typeof value === 'object' ? localizeConfig(value) : value
             )
           : value
       ),
-      ...mapValues(intl, localize),
+      ...mapValues(translate, localize),
     };
   };
 }
