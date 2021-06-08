@@ -4,6 +4,7 @@ import useNormalizeConfig from './useNormalizeConfig';
 import configToSchemas from './configToSchemas';
 import { withFormulaProvider } from './Context';
 import withFormConfigLoader from './withFormConfigLoader';
+import withFormDataLoader from './withFormDataLoader';
 import withConfirmSubmit from './withConfirmSubmit';
 import useSubmit from './useSubmit';
 import { update } from 'lodash/fp';
@@ -21,6 +22,10 @@ function Base(props, ref) {
 }
 
 export const Form =
-  Base |> forwardRef |> withFormConfigLoader |> withConfirmSubmit;
+  Base
+  |> forwardRef
+  |> withFormConfigLoader
+  |> withFormDataLoader
+  |> withConfirmSubmit;
 
 export const Formula = Form |> withFormulaProvider;

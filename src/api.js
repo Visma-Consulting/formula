@@ -30,6 +30,8 @@ export const useField = (id, options) =>
 export const useFields = (options) =>
   useEndpoint('/field').map(useNormalizeConfig(options));
 
+export const useFormData = (id, options) => useEndpoint(`/formdata/${id}`);
+
 export function useMutations() {
   const { axios, refetch } = useFormulaContext();
 
