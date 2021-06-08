@@ -1,8 +1,8 @@
 import configToProps from '..';
 
 export default ({ config, ...otherProps }) => {
-  const properties = config.elements.map((element, index) => [
-    element.key ?? String(index),
+  const properties = config.elements.map((element) => [
+    element.key,
     configToProps({ ...otherProps, config: element }),
   ]);
   return {
@@ -12,8 +12,12 @@ export default ({ config, ...otherProps }) => {
         properties.map(([name, { schema }]) => [name, schema])
       ),
     },
-    uiSchema: Object.fromEntries(
-      properties.map(([name, { uiSchema }]) => [name, uiSchema])
-    ),
+    uiSchema: {
+      ...Object.fromEntries(
+        properties.map(([name, { uiSchema }]) => [name, uiSchema])
+      ),
+      // Ensure order of the elements is remained.
+      'ui:order': properties.map(([key]) => key),
+    },
   };
 };
