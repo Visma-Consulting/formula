@@ -32,6 +32,8 @@ export const useFields = (options) =>
 
 export const useFormData = (id, options) => useEndpoint(`/formdata/${id}`);
 
+export const useTags = () => useEndpoint('/form/tags');
+
 export function useMutations() {
   const { axios, refetch } = useFormulaContext();
 
@@ -47,6 +49,7 @@ export function useMutations() {
       '/form/draft',
       '/form/published',
       '/form/published/public',
+      '/form/tags',
     ]);
 
   const refetchFormGroups = (id) =>
