@@ -1,3 +1,4 @@
+export bmi from './bmi';
 export body from './body';
 export boolean from './boolean';
 export date from './date';
