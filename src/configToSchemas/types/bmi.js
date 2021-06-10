@@ -8,20 +8,26 @@ function Bmi(props) {
   if (formData) {
     const path = props.id.split('_').slice(1, -1);
     const data = get(formData, path);
+    let height, weight;
 
     if (data) {
-      const weight = data.weight;
-      const height = data.height;
+      height = data[props.options.heightFieldKey];
+      weight = data[props.options.weightFieldKey];
+    } else if (formData.height && formData.weight) {
+      height = formData[props.options.heightFieldKey];
+      weight = formData[props.options.weightFieldKey];
+    }
+
+    if (height && weight) {
       const bmi = useMemo(() => {
         return (weight / (height * height / 10000));
       }, [weight, height])
       return 'Painoindeksisi (BMI) = ' + bmi.toFixed(2) + ' kg/m2';
     } else {
-      return 'Painoindeksikysymysryhmä toimii oikein, kun painoindeksikysymys lisätään lomakkeesseen ja lomakkeesta löytyy pituus ja paino-kysymykset.';
+      return 'Painoindeksikysymys toimii oikein, kun samasta kysymysryhmästä löytyy pituus- ja painokysymykset.';
     }
-
   } else {
-    return 'Painoindeksikysymys toimii oikein, kun lomakkeesta löytyy pituus ja paino-kysymykset.';
+    return 'Painoindeksikysymys toimii oikein, kun samasta kysymysryhmästä löytyy pituus- ja painokysymykset.';
   }
 }
 
