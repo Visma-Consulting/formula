@@ -13,6 +13,7 @@ export default (config) => (props) => {
       type: 'array',
       items: itemsSchema,
       maxItems: config.maxItems,
+      minItems: config.minItems
     };
 
     props.uiSchema = {
