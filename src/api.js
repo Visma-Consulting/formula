@@ -108,5 +108,9 @@ export function useMutations() {
       await axios.delete(`/field/${id}`);
       await refetchFields(id);
     },
+
+    async importData(data) {
+      await axios.post('/port', data);
+    },
   };
 }
