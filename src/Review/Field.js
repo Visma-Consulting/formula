@@ -1,10 +1,18 @@
 import Typography from '@material-ui/core/Typography';
 import { createContext, useContext } from 'react';
 import * as types from './types';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  typeContainer: {
+    marginBottom: theme.spacing(3),
+  },
+}));
 
 const TitleVariantContext = createContext();
 
 export default function Field(props) {
+  const classes = useStyles();
   const Type = types[props.schema.type];
   if (!Type) {
     console.error('Not implemented', props.schema.type, props);
@@ -25,17 +33,16 @@ export default function Field(props) {
         }[variant]
       }
     >
-      <div>
+      <>
         {props.schema.title && (
           <Typography variant={variant} gutterBottom>
             {props.schema.title}
           </Typography>
         )}
-        <div>
+        <div className={classes.typeContainer}>
           <Type {...props} />
         </div>
-        <br />
-      </div>
+      </>
     </TitleVariantContext.Provider>
   );
 }
