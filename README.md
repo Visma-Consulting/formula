@@ -33,6 +33,7 @@ import Formula from '@visma/formula';
 
 ```js
 import Formula from '@visma/formula';
+import { fi } from 'date-fns/locale';
 
 // ...
 
@@ -49,6 +50,7 @@ import Formula from '@visma/formula';
   messages.
   */
   confirm={false}
+  dateFnsLocale={fi}
 />;
 ```
 

@@ -8,16 +8,15 @@ import withFormDataLoader from './withFormDataLoader';
 import withConfirmSubmit from './withConfirmSubmit';
 import useSubmit from './useSubmit';
 import { update } from 'lodash/fp';
+import withReview from './withReview';
 
 function Base(props, ref) {
+  props = props |> useSubmit |> update('config', useNormalizeConfig());
+
+  const Form = RJSFForm |> withReview;
+
   return (
-    <RJSFForm
-      ref={ref}
-      {...(props
-        |> useSubmit
-        |> update('config', useNormalizeConfig())
-        |> configToSchemas)}
-    />
+    <Form ref={ref} formulaProps={props} {...(props |> configToSchemas)} />
   );
 }
 

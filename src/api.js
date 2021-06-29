@@ -58,18 +58,8 @@ export function useMutations() {
   const refetchFields = (id) => refetchPaths([`/field/${id}`, '/field']);
 
   return {
-    async submit({ config, formData }) {
-      const response = await axios.post('/formdata', {
-        // _id: initialFormData?._id,
-        // _rev: initialFormData?._rev,
-        form: {
-          id: config._id,
-          rev: config._rev,
-        },
-        values: formData,
-        status: 'SUBMITTED',
-        // captchaChallenge: recaptcha,
-      });
+    async submit(data) {
+      const response = await axios.post('/formdata', data);
       return response.data;
     },
 

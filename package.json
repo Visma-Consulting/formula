@@ -33,6 +33,7 @@
     "@visma/rjsf-core": "file:@visma/rjsf/packages/core",
     "@visma/rjsf-material-ui": "file:@visma/rjsf/packages/material-ui",
     "axios": "^0.21.0",
+    "date-fns": "^2.22.1",
     "immer": "^9.0.2",
     "lodash": "^4.17.21",
     "markdown-to-jsx": "^7.1.2",
