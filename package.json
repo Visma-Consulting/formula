@@ -39,6 +39,7 @@
     "markdown-to-jsx": "^7.1.2",
     "moment": "^2.29.1",
     "react-dates": "^21.8.0",
+    "react-rte": "^0.16.3",
     "tiny-invariant": "^1.1.0",
     "use-axios": "^0.3.7",
     "util-deprecate": "^1.0.2"
