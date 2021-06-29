@@ -10,13 +10,17 @@ import useSubmit from './useSubmit';
 import { update } from 'lodash/fp';
 import withReview from './withReview';
 
+const RJSFFormWithPlugins = RJSFForm |> withReview;
+
 function Base(props, ref) {
   props = props |> useSubmit |> update('config', useNormalizeConfig());
 
-  const Form = RJSFForm |> withReview;
-
   return (
-    <Form ref={ref} formulaProps={props} {...(props |> configToSchemas)} />
+    <RJSFFormWithPlugins
+      ref={ref}
+      formulaProps={props}
+      {...(props |> configToSchemas)}
+    />
   );
 }
 
