@@ -2,25 +2,29 @@ import { useIntl } from 'react-intl';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import deprecate from 'util-deprecate';
+import { Typography } from '@material-ui/core';
 
 const Switch = ({ onChange, options, schema, value }) => (
-  <ToggleButtonGroup
-    exclusive
-    value={value}
-    onChange={(event, value) => {
-      onChange(value);
-    }}
-  >
-    {options.enumOptions.map(({ label, value }, index) => (
-      <ToggleButton
-        key={index}
-        value={value}
-        disabled={schema.readOnly || options.readonly}
-      >
-        {label}
-      </ToggleButton>
-    ))}
-  </ToggleButtonGroup>
+  <>
+    <Typography variant="subtitle1">{schema.title}</Typography>
+    <ToggleButtonGroup
+      exclusive
+      value={value}
+      onChange={(event, value) => {
+        onChange(value);
+      }}
+    >
+      {options.enumOptions.map(({ label, value }, index) => (
+        <ToggleButton
+          key={index}
+          value={value}
+          disabled={schema.readOnly || options.readonly}
+        >
+          {label}
+        </ToggleButton>
+      ))}
+    </ToggleButtonGroup>
+  </>
 );
 
 const NOTHING = 'nothing';
