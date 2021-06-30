@@ -1,4 +1,4 @@
-import { useIntl } from 'react-intl';
+import { defineMessage, useIntl } from 'react-intl';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import deprecate from 'util-deprecate';
@@ -93,3 +93,9 @@ export default ({ config }) => {
     },
   };
 };
+
+export const name = defineMessage({
+  defaultMessage: 'Totuusarvo',
+});
+
+export const showInEditor = true;

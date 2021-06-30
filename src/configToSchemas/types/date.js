@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { SingleDatePicker } from 'react-dates';
 import 'react-dates/initialize';
 import moment from 'moment';
-import { useIntl } from 'react-intl';
+import { defineMessage, useIntl } from 'react-intl';
 /* eslint import/no-webpack-loader-syntax: "off" */
 /* eslint import/no-unresolved: "off" */
 import '!style-loader!css-loader!react-dates/lib/css/_datepicker.css';
@@ -56,3 +56,9 @@ export default ({ config: { disableBefore, disableAfter } }) => ({
     },
   },
 });
+
+export const name = defineMessage({
+  defaultMessage: 'Päivämäärä',
+});
+
+export const showInEditor = true;

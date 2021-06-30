@@ -1,3 +1,4 @@
+import { defineMessage } from 'react-intl';
 import deprecate from 'util-deprecate';
 
 const textDefault = deprecate(
@@ -30,3 +31,9 @@ export default ({ config }) => {
     uiSchema: { patternDescription },
   };
 };
+
+export const name = defineMessage({
+  defaultMessage: 'Tekstikenttä',
+});
+
+export const showInEditor = true;
