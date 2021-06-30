@@ -36,4 +36,4 @@ export const name = defineMessage({
   defaultMessage: 'Tekstikenttä',
 });
 
-export const showInEditor = true;
+export const elementType = 'field';

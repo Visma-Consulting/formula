@@ -16,4 +16,4 @@ export const name = defineMessage({
   defaultMessage: 'Tiedosto',
 });
 
-export const showInEditor = true;
+export const elementType = 'field';

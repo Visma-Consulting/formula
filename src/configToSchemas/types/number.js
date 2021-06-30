@@ -16,4 +16,4 @@ export const name = defineMessage({
   defaultMessage: 'Kokonaisluku',
 });
 
-export const showInEditor = true;
+export const elementType = 'field';

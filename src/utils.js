@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 export const setDefaultType = (type) => (config) => ({ type, ...config });
 
-export const typesWithElements = ['form', 'formGroup', 'formgroup'];
+export const typesWithElements = ['form', 'formGroup'];
 
 export const omitDeepBy = (object, test) =>
   mapValues(omitBy(object, test), function traverse(entry) {

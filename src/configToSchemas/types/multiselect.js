@@ -31,7 +31,7 @@ export const name = defineMessage({
   defaultMessage: 'Monivalinta',
 });
 
-export const showInEditor = true;
+export const elementType = 'field';
 
 export const widgets = [
   {

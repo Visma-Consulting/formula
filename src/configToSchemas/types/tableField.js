@@ -33,4 +33,4 @@ export const name = defineMessage({
   defaultMessage: 'Taulukko',
 });
 
-export const showInEditor = true;
+export const elementType = 'field';

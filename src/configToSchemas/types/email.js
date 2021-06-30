@@ -11,4 +11,4 @@ export const name = defineMessage({
   defaultMessage: 'Sähköpostiosoite',
 });
 
-export const showInEditor = true;
+export const elementType = 'field';

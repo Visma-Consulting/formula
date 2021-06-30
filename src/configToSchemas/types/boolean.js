@@ -98,4 +98,4 @@ export const name = defineMessage({
   defaultMessage: 'Totuusarvo',
 });
 
-export const showInEditor = true;
+export const elementType = 'field';

@@ -11,4 +11,4 @@ export const name = defineMessage({
   defaultMessage: 'Monirivinen tekstikenttä',
 });
 
-export const showInEditor = true;
+export const elementType = 'field';

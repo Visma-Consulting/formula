@@ -61,4 +61,4 @@ export const name = defineMessage({
   defaultMessage: 'Päivämäärä',
 });
 
-export const showInEditor = true;
+export const elementType = 'field';

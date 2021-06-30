@@ -12,4 +12,4 @@ export const name = defineMessage({
   defaultMessage: 'Rikastettu tekstikenttä',
 });
 
-export const showInEditor = true;
+export const elementType = 'field';

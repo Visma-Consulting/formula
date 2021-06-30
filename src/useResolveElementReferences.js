@@ -3,8 +3,7 @@ import { typesWithElements } from './utils';
 
 export default function useResolveElementReferences() {
   const registry = {
-    // In list of elements the type of `formGroup` element is spelled in lowercase
-    formgroup: useFormGroups(),
+    formGroup: useFormGroups(),
     field: useFields(),
   };
 
@@ -24,7 +23,7 @@ export default function useResolveElementReferences() {
       elements: elements.map(resolveElement),
     });
 
-    return typesWithElements.includes(config.type)
+    return typesWithElements.includes(config?.type)
       ? resolveConfig(config)
       : config;
   };

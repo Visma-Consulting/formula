@@ -2,6 +2,7 @@ export * as body from './body';
 export * as boolean from './boolean';
 export * as date from './date';
 export * as email from './email';
+export * as field from './field';
 export * as file from './file';
 export * as form from './form';
 export * as formGroup from './formGroup';

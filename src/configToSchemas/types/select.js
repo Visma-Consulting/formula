@@ -20,6 +20,7 @@ export default ({ config }) => {
     choicesDisabled,
     placeholder,
     default: defaults,
+    selectType = 'string',
   } = config;
 
   return {
@@ -27,7 +28,7 @@ export default ({ config }) => {
       default: defaults,
       enum: choices.map((v, i) => v?.enum || String(i)),
       enumNames: choices.map((v) => v?.enumNames || v),
-      type: 'string',
+      type: selectType,
     },
     uiSchema: {
       'ui:placeholder': placeholder,
@@ -42,7 +43,7 @@ export const name = defineMessage({
   defaultMessage: 'Valinta',
 });
 
-export const showInEditor = true;
+export const elementType = 'field';
 
 export const widgets = [
   {
