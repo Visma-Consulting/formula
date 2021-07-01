@@ -30,8 +30,8 @@
     "messages:compile": "formatjs compile-folder --ast lang lib/compiled-lang"
   },
   "dependencies": {
-    "@visma/rjsf-core": "file:@visma/rjsf/packages/core",
-    "@visma/rjsf-material-ui": "file:@visma/rjsf/packages/material-ui",
+    "@visma/rjsf-core": "^2.5.1-formula.6",
+    "@visma/rjsf-material-ui": "^2.5.1-formula.6",
     "axios": "^0.21.0",
     "date-fns": "^2.22.1",
     "immer": "^9.0.2",
