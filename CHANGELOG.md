@@ -1,3 +1,12 @@
+# 0.4.0
+
+- **Breaking:** <del>`formgroup`</del> Only camel case field type `formGroup` is supported
+- Add autocomplete field
+- Pass minItems to repeatable field
+- Review submitted form
+- Add richtext field
+- Add dynamic elements support
+
 # 0.3.0
 
 - **Breaking:** `usePublicForms()` is replaced with `useForms({ status: 'published', visibility: 'public' })`
