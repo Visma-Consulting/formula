@@ -1,6 +1,6 @@
 # 0.4.1
 
-- autocomplete field fixes
+- Autocomplete field fixes
 
 # 0.4.0
 
