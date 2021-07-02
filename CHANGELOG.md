@@ -1,3 +1,7 @@
+# 0.4.1
+
+- autocomplete field fixes
+
 # 0.4.0
 
 - **Breaking:** <del>`formgroup`</del> Only camel case field type `formGroup` is supported
