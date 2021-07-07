@@ -5,6 +5,7 @@ import { useLocalizeConfig } from '../useLocalizeConfig';
 import { flow } from 'lodash';
 import maybeSetElements from './maybeSetElements';
 import setElementDefaultKeys from './setElementDefaultKeys';
+import fieldTitleSupport from './fieldTitleSupport';
 
 export default ({
   // Optionally disable localizing config – mainly for editor to show original config.
@@ -20,6 +21,7 @@ export default ({
       // affective.
       omitNullValues,
       setDefaultType(type),
+      fieldTitleSupport,
       // If applicable type and elements are not defined.
       maybeSetElements,
       // Use element index as default key.
