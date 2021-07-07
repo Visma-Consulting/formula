@@ -1,3 +1,7 @@
+# 0.4.2
+
+- Fix normalizing field titles
+
 # 0.4.1
 
 - Autocomplete field fixes
