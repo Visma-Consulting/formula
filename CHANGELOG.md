@@ -1,3 +1,11 @@
+# 0.4.3
+
+- Legacy mode update: If legacy mode is detected, legacy style data is used in API requests
+- Fix `readOnly` config
+- Fix empty list of `choices` in dynamic list item, when `oneOf` has multiple fields with same key
+- Fix `choices` when `enumNames` is empty
+- Issue with undefined config
+
 # 0.4.2
 
 - Fix normalizing field titles
