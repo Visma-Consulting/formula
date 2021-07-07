@@ -1,7 +1,7 @@
 export default (config) => (props) => {
   props.schema ??= {};
-  props.schema.required = config.required;
-  props.schema.readOnly = config.readOnly;
+  props.schema.required ??= config.required;
+  props.schema.readOnly ??= config.readOnly;
 
   props.uiSchema ??= {};
   props.uiSchema['ui:help'] = config.help;

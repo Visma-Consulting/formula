@@ -8,7 +8,9 @@ export default (config) => (props) => {
       props: configToSchemas({
         config: {
           ...config,
-          elements: filterElements(config.elements, { type: choice.enum }),
+          elements: filterElements(config.elements, {
+            [config.oneOf.key]: choice.enum,
+          }),
           oneOf: undefined,
           list: false,
         },
@@ -16,17 +18,19 @@ export default (config) => (props) => {
     }));
     props.schema.type = 'object';
     props.schema.properties = {
-      type: {
+      [config.oneOf.key]: {
         type: 'string',
+        title: config.oneOf.title,
+        default: config.oneOf.default,
         enum: config.oneOf.choices.map((choice) => choice.enum),
         enumNames: config.oneOf.choices.map((choice) => choice.enumNames),
       },
     };
     props.schema.dependencies = {
-      type: {
+      [config.oneOf.key]: {
         oneOf: choicesAndProps.map(({ choice, props }) => ({
           properties: {
-            type: { enum: [choice.enum] },
+            [config.oneOf.key]: { enum: [choice.enum] },
             ...props.schema.properties,
           },
         })),

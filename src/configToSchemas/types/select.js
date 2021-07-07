@@ -24,14 +24,21 @@ export default ({ config }) => {
     default: defaults,
     selectType = 'string',
   } = config;
-
   return {
-    schema: {
-      default: defaults,
-      enum: choices.map((v, i) => v?.enum || String(i)),
-      enumNames: choices.map((v) => v?.enumNames || v),
-      type: selectType,
-    },
+    schema: choices.length
+      ? {
+          default: defaults,
+          enum: choices.map((v, i) => v?.enum || String(i)),
+          enumNames: choices.map((v) =>
+            typeof v === 'object' ? v.enumNames : v
+          ),
+          type: selectType,
+        }
+      : {
+          default: defaults,
+          type: selectType,
+          readOnly: true,
+        },
     uiSchema: {
       'ui:placeholder': placeholder,
       'ui:widget': ensureValueIsAvailable(config.widget, widgets),
