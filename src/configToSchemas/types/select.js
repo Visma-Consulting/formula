@@ -1,14 +1,16 @@
 import { defineMessage } from 'react-intl';
 import deprecate from 'util-deprecate';
 import { ensureValueIsAvailable } from '../../utils';
+import { setLegacyMode } from '../../legacyMode';
 
-const selectWidget = deprecate(
-  ({ selectWidget, ...config }) => ({
+const selectWidget = deprecate(({ selectWidget, ...config }) => {
+  setLegacyMode();
+
+  return {
     widget: { 0: 'radio' }[selectWidget],
     ...config,
-  }),
-  'config.selectWidget is deprecated. Use config.widget instead. Example: "widget": "radio"'
-);
+  };
+}, 'config.selectWidget is deprecated. Use config.widget instead. Example: "widget": "radio"');
 
 export default ({ config }) => {
   if (config.selectWidget) {

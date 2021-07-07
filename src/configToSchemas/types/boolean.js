@@ -3,6 +3,7 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import deprecate from 'util-deprecate';
 import { Typography } from '@material-ui/core';
+import { setLegacyMode } from '../../legacyMode';
 
 const Switch = ({ onChange, options, schema, value }) => (
   <>
@@ -49,13 +50,16 @@ const SwitchWithEmptyOption = ({ onChange, options, value, ...other }) => {
   );
 };
 
-const booleanDefault = deprecate(
-  ({ booleanDefault, ...other }) => ({ default: booleanDefault, ...other }),
-  'config.booleanDefault is deprecated. Use config.default instead.'
-);
+const booleanDefault = deprecate(({ booleanDefault, ...other }) => {
+  setLegacyMode();
 
-const booleanWidget = deprecate(
-  ({ booleanWidget, ...config }) => ({
+  return { default: booleanDefault, ...other };
+}, 'config.booleanDefault is deprecated. Use config.default instead.');
+
+const booleanWidget = deprecate(({ booleanWidget, ...config }) => {
+  setLegacyMode();
+
+  return {
     widget: {
       0: 'radio',
       1: 'select',
@@ -63,9 +67,8 @@ const booleanWidget = deprecate(
       3: 'switchWithEmptyOption',
     }[booleanWidget],
     ...config,
-  }),
-  'config.booleanWidget is deprecated. Use config.widget instead. Example: "widget": "radio"'
-);
+  };
+}, 'config.booleanWidget is deprecated. Use config.widget instead. Example: "widget": "radio"');
 
 export default ({ config }) => {
   if (config.booleanDefault) {

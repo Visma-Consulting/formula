@@ -1,4 +1,5 @@
 import { useFormulaContext } from './Context';
+import { handleLegacyConfig } from './legacyMode';
 import useNormalizeConfig from './useNormalizeConfig';
 import { setDefaultType } from './utils';
 
@@ -64,11 +65,11 @@ export function useMutations() {
     },
 
     async postForm(data) {
-      await axios.post(`/form`, data);
+      await axios.post(`/form`, handleLegacyConfig(data));
       await refetchForms(data._id);
     },
     async putForm(data) {
-      await axios.put(`/form`, data);
+      await axios.put(`/form`, handleLegacyConfig(data));
       await refetchForms(data._id);
     },
     async deleteForm(id) {
@@ -77,11 +78,11 @@ export function useMutations() {
     },
 
     async postFormGroup(data) {
-      await axios.post(`/formgroup`, data);
+      await axios.post(`/formgroup`, handleLegacyConfig(data));
       await refetchFormGroups(data._id);
     },
     async putFormGroup(data) {
-      await axios.put(`/formgroup`, data);
+      await axios.put(`/formgroup`, handleLegacyConfig(data));
       await refetchFormGroups(data._id);
     },
     async deleteFormGroup(id) {
@@ -90,11 +91,11 @@ export function useMutations() {
     },
 
     async postField(data) {
-      await axios.post(`/field`, data);
+      await axios.post(`/field`, handleLegacyConfig(data));
       await refetchFields(data._id);
     },
     async putField(data) {
-      await axios.put(`/field`, data);
+      await axios.put(`/field`, handleLegacyConfig(data));
       await refetchFields(data._id);
     },
     async deleteField(id) {

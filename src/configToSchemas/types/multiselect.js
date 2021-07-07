@@ -3,14 +3,16 @@ import extendType from './_extendType';
 import select from './select';
 import { defineMessage } from 'react-intl';
 import { ensureValueIsAvailable } from '../../utils';
+import { setLegacyMode } from '../../legacyMode';
 
-const multiselectWidget = deprecate(
-  ({ multiselectWidget, ...config }) => ({
+const multiselectWidget = deprecate(({ multiselectWidget, ...config }) => {
+  setLegacyMode();
+
+  return {
     widget: { 0: 'checkboxes' }[multiselectWidget],
     ...config,
-  }),
-  'config.multiselectWidget is deprecated. Use config.widget instead. Example: "widget": "checkboxes"'
-);
+  };
+}, 'config.multiselectWidget is deprecated. Use config.widget instead. Example: "widget": "checkboxes"');
 
 export default extendType(select, ({ config }) => (props) => {
   if (config.multiselectWidget !== undefined) {

@@ -1,10 +1,12 @@
 import { defineMessage } from 'react-intl';
 import deprecate from 'util-deprecate';
+import { setLegacyMode } from '../../legacyMode';
 
-const textDefault = deprecate(
-  ({ textDefault, ...other }) => ({ default: textDefault, ...other }),
-  'config.textDefault is deprecated. Use config.default instead.'
-);
+const textDefault = deprecate(({ textDefault, ...other }) => {
+  setLegacyMode();
+
+  return { default: textDefault, ...other };
+}, 'config.textDefault is deprecated. Use config.default instead.');
 
 export default ({ config }) => {
   if (config.textDefault) {
