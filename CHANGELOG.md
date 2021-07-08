@@ -1,3 +1,8 @@
+# 0.4.4
+
+- Fix `autocomplete` when `choices` is undefined
+- Remove `"type":"form"` in legacy mode
+
 # 0.4.3
 
 - Legacy mode update: If legacy mode is detected, legacy style data is used in API requests
