@@ -30,6 +30,7 @@ function AutocompleteField(props) {
 
 export const converter = (config) => (props) => {
   if (config.autocomplete) {
+    props.schema.items.enumNames ??= [];
     // Allow values outside the choices
     delete props.schema.items.enum;
 
