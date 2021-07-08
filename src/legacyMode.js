@@ -10,6 +10,10 @@ export function setLegacyMode() {
 
 export const handleLegacyConfig = produce((config) => {
   if (isLegacyMode) {
+    if (config.type === 'form') {
+      delete config.type;
+    }
+
     if (config.type === 'boolean') {
       config.booleanWidget = {
         radio: 0,
