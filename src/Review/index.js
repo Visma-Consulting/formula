@@ -19,9 +19,7 @@ export default function Review(props) {
   return (
     <>
       <Field root {...props} />
-      {props.formulaProps?.config.successText && (
-        <Markdown>{props.formulaProps?.config.successText}</Markdown>
-      )}
+      <Markdown>{props.formulaProps?.config.successText}</Markdown>
       <div className={classes.buttonContainer}>
         {props.reviewProps?.actions}
         <Button

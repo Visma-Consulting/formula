@@ -1,6 +1,7 @@
 # x.y.z
 
 - Fix required elements
+- Fix body field when content is undefined
 
 # 0.4.4
 
