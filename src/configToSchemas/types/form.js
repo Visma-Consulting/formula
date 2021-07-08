@@ -26,6 +26,9 @@ export default ({ config, ...otherProps }) => {
       properties: Object.fromEntries(
         properties.map(([name, { schema }]) => [name, schema])
       ),
+      required: config.elements
+        .filter(({ required }) => required)
+        .map(({ key }) => key),
     },
     uiSchema: {
       ...Object.fromEntries(

@@ -12,9 +12,12 @@ export default function useResolveElementReferences() {
       const registryElements = registry[element.type];
 
       return registryElements
-        ? registryElements.find(
-            (registryElement) => registryElement._id === element.id
-          ) |> resolveElementReferences
+        ? {
+            ...element,
+            ...(registryElements.find(
+              (registryElement) => registryElement._id === element.id
+            ) |> resolveElementReferences),
+          }
         : element;
     };
 

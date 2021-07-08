@@ -1,3 +1,7 @@
+# x.y.z
+
+- Fix required elements
+
 # 0.4.4
 
 - Fix `autocomplete` when `choices` is undefined
