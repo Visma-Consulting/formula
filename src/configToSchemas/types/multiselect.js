@@ -18,16 +18,20 @@ export default extendType(select, ({ config }) => (props) => {
   if (config.multiselectWidget !== undefined) {
     config = multiselectWidget(config);
   }
-
-  if (config.choices?.length) {
-    props.schema = {
-      items: props.schema,
-      type: 'array',
-      uniqueItems: true,
-      default: [],
-    };
-  }
-
+  props.schema = config.choices?.length
+    ? {
+        items: props.schema,
+        type: 'array',
+        uniqueItems: true,
+        default: [],
+      }
+    : // Empty list of choices (enums) matches incorrectly when used in
+      // dynamic list item, when oneOf has multiple fields with same key.
+      {
+        type: 'string',
+        default: [],
+        readOnly: true,
+      };
   props.uiSchema = {
     'ui:widget': config.choices?.length
       ? ensureValueIsAvailable(config.widget, widgets)
