@@ -34,14 +34,19 @@ export default ({ config }) => {
           ),
           type: selectType,
         }
-      : {
-          default: defaults,
+      : // Empty list of choices (enums) matches incorrectly when used in
+        // dynamic list item, when oneOf has multiple fields with same key.
+        {
           type: selectType,
+          default: '',
           readOnly: true,
         },
     uiSchema: {
       'ui:placeholder': placeholder,
-      'ui:widget': ensureValueIsAvailable(config.widget, widgets),
+      'ui:widget': choices.length
+        ? ensureValueIsAvailable(config.widget, widgets)
+        : // If enums are not set, we widget may throw error.
+          undefined,
       //'ui:field': autocomplete ? Autocomplete : undefined,
       'ui:enumDisabled': choicesDisabled,
     },

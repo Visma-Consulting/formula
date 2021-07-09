@@ -1,3 +1,7 @@
+# x.y.z
+
+- Fix `select` when `choices` is empty
+
 # 0.4.5
 
 - Fix required elements
