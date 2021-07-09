@@ -45,7 +45,7 @@ export default ({ config }) => {
       'ui:placeholder': placeholder,
       'ui:widget': choices.length
         ? ensureValueIsAvailable(config.widget, widgets)
-        : // If enums are not set, we widget may throw error.
+        : // If enums are not set, the widget may throw error.
           undefined,
       //'ui:field': autocomplete ? Autocomplete : undefined,
       'ui:enumDisabled': choicesDisabled,

@@ -19,13 +19,20 @@ export default extendType(select, ({ config }) => (props) => {
     config = multiselectWidget(config);
   }
 
-  props.schema = {
-    items: props.schema,
-    type: 'array',
-    uniqueItems: true,
-  };
+  if (config.choices?.length) {
+    props.schema = {
+      items: props.schema,
+      type: 'array',
+      uniqueItems: true,
+      default: [],
+    };
+  }
+
   props.uiSchema = {
-    'ui:widget': ensureValueIsAvailable(config.widget, widgets),
+    'ui:widget': config.choices?.length
+      ? ensureValueIsAvailable(config.widget, widgets)
+      : // If enums are not set, the widget may throw error.
+        undefined,
   };
 });
 
