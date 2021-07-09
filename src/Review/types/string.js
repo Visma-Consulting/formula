@@ -1,7 +1,12 @@
 import { format } from 'date-fns';
 import { PageTitle } from '../../configToSchemas/types/pageTitle';
 import Typography from '@material-ui/core/Typography';
+import prettyBytes from 'pretty-bytes';
+import { byteLength } from 'base64-js';
+import { useIntl } from 'react-intl';
 import { useFormulaContext } from '../../Context';
+
+const dataUrlByteLength = (dataUrl) => byteLength(dataUrl.split(',')[1]);
 
 export default ({ formData, schema, uiSchema }) => {
   const { dateFnsLocale } = useFormulaContext();
@@ -12,6 +17,17 @@ export default ({ formData, schema, uiSchema }) => {
 
   if (schema.format === 'date') {
     formData = format(new Date(formData), 'P', { locale: dateFnsLocale });
+  }
+
+  const { locale } = useIntl();
+
+  if (schema.format === 'data-url') {
+    return (
+      <>
+        {decodeURIComponent(formData.match(/name=(?<name>.*);/).groups.name)} (
+        {prettyBytes(dataUrlByteLength(formData), { locale })})
+      </>
+    );
   }
 
   if (uiSchema?.['ui:field'] === PageTitle) {

@@ -1,6 +1,7 @@
 # x.y.z
 
 - Fix `select` when `choices` is empty
+- Pretty print file size in review
 
 # 0.4.5
 
