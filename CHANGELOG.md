@@ -1,3 +1,7 @@
+# 0.4.7
+
+- Fix `multiselect` when `choices` is empty
+
 # 0.4.6
 
 - Fix `select` when `choices` is empty
