@@ -1,4 +1,4 @@
-# 0.4.7
+# 0.4.8
 
 - Fix `multiselect` when `choices` is empty
 
