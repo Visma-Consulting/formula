@@ -4,9 +4,11 @@ import { useLocalize } from './useLocalize';
 export const translateProperties = [
   'title',
   'name',
+  'default',
   'description',
   'help',
   'patternDescription',
+  'placeholder',
   'yes',
   'no',
   'tableColumns',

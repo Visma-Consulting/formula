@@ -33,11 +33,13 @@
     "@visma/rjsf-core": "file:@visma/rjsf/packages/core",
     "@visma/rjsf-material-ui": "file:@visma/rjsf/packages/material-ui",
     "axios": "^0.21.0",
+    "date-fns": "^2.22.1",
     "immer": "^9.0.2",
     "lodash": "^4.17.21",
     "markdown-to-jsx": "^7.1.2",
     "moment": "^2.29.1",
     "react-dates": "^21.8.0",
+    "react-rte": "^0.16.3",
     "tiny-invariant": "^1.1.0",
     "use-axios": "^0.3.7",
     "util-deprecate": "^1.0.2"
@@ -50,5 +52,10 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-intl": "^5.12.0"
+  },
+  "eslintConfig": {
+    "rules": {
+      "react/react-in-jsx-scope": "off"
+    }
   }
 }

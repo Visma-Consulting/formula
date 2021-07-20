@@ -1,4 +1,6 @@
+import { defineMessage } from 'react-intl';
 import deprecate from 'util-deprecate';
+import { ensureValueIsAvailable } from '../../utils';
 
 const selectWidget = deprecate(
   ({ selectWidget, ...config }) => ({
@@ -13,19 +15,47 @@ export default ({ config }) => {
     config = selectWidget(config);
   }
 
-  const { choices, choicesDisabled, placeholder, widget } = config;
+  const {
+    choices = [],
+    choicesDisabled,
+    placeholder,
+    default: defaults,
+    selectType = 'string',
+  } = config;
 
   return {
     schema: {
+      default: defaults,
       enum: choices.map((v, i) => v?.enum || String(i)),
       enumNames: choices.map((v) => v?.enumNames || v),
-      type: 'string',
+      type: selectType,
     },
     uiSchema: {
       'ui:placeholder': placeholder,
-      'ui:widget': widget,
+      'ui:widget': ensureValueIsAvailable(config.widget, widgets),
       //'ui:field': autocomplete ? Autocomplete : undefined,
       'ui:enumDisabled': choicesDisabled,
     },
   };
 };
+
+export const name = defineMessage({
+  defaultMessage: 'Valinta',
+});
+
+export const elementType = 'field';
+
+export const widgets = [
+  {
+    value: 'select',
+    message: defineMessage({
+      defaultMessage: 'Valintalista',
+    }),
+  },
+  {
+    value: 'radio',
+    message: defineMessage({
+      defaultMessage: 'Radiopainikkeet',
+    }),
+  },
+];

@@ -3,9 +3,9 @@ import invariant from 'tiny-invariant';
 import { useForm } from './api';
 import useResolveElementReferences from './useResolveElementReferences';
 
-export default function withFormConfigLoader(Component) {
+export default function withFormConfigLoader(Form) {
   const Resolver = forwardRef(({ config, ...other }, ref) => (
-    <Component
+    <Form
       ref={ref}
       {...other}
       config={config |> useResolveElementReferences()}
@@ -22,14 +22,14 @@ export default function withFormConfigLoader(Component) {
   });
 
   return forwardRef((props, ref) => {
-    const Formula =
+    const WithFormConfigLoader =
       // Load config and resolve elements
       props.id
         ? Loader
         : // Optionally resolve directly provided config
         props.resolve
         ? Resolver
-        : Component;
-    return <Formula ref={ref} {...props} />;
+        : Form;
+    return <WithFormConfigLoader ref={ref} {...props} />;
   });
 }

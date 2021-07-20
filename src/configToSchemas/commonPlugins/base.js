@@ -11,4 +11,7 @@ export default (config) => (props) => {
   if (config.hidden) {
     props.uiSchema['ui:widget'] = 'hidden';
   }
+  props.uiSchema['ui:options'] ??= {};
+  // ArrayField requires access to config, to filter item properties per each item
+  props.uiSchema['ui:options'].element = config;
 };

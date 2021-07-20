@@ -1,3 +1,5 @@
+import { defineMessage } from 'react-intl';
+
 function TableField() {
   return '(TableField stub)';
 }
@@ -26,3 +28,9 @@ export default ({ config }) => {
     },
   };
 };
+
+export const name = defineMessage({
+  defaultMessage: 'Taulukko',
+});
+
+export const elementType = 'field';

@@ -1,6 +1,8 @@
 import deprecate from 'util-deprecate';
 import extendType from './_extendType';
 import select from './select';
+import { defineMessage } from 'react-intl';
+import { ensureValueIsAvailable } from '../../utils';
 
 const multiselectWidget = deprecate(
   ({ multiselectWidget, ...config }) => ({
@@ -21,6 +23,27 @@ export default extendType(select, ({ config }) => (props) => {
     uniqueItems: true,
   };
   props.uiSchema = {
-    'ui:widget': config.widget,
+    'ui:widget': ensureValueIsAvailable(config.widget, widgets),
   };
 });
+
+export const name = defineMessage({
+  defaultMessage: 'Monivalinta',
+});
+
+export const elementType = 'field';
+
+export const widgets = [
+  {
+    value: 'select',
+    message: defineMessage({
+      defaultMessage: 'Monivalintalista',
+    }),
+  },
+  {
+    value: 'checkboxes',
+    message: defineMessage({
+      defaultMessage: 'Valintaruudut',
+    }),
+  },
+];
