@@ -1,23 +1,8 @@
 import { mapValues, omitBy, pickBy } from 'lodash';
-
-const translateProperties = [
-  'title',
-  'name',
-  'description',
-  'help',
-  'patternDescription',
-  'yes',
-  'no',
-  'tableColumns',
-  'content',
-  'successText',
-  'enumNames',
-];
-
-const isLecacyTranslationObject = (value, key) =>
-  typeof value === 'object' && translateProperties.includes(key);
-
-const translateArrayProperties = ['choices', 'elements'];
+import {
+  isLecacyTranslationObject,
+  translateArrayProperties,
+} from '../useLocalizeConfig';
 
 export default function convertLegacyTranslationsToIntlProps(config) {
   const translatedConfig = omitBy(config, isLecacyTranslationObject);

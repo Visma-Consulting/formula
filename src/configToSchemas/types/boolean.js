@@ -1,26 +1,30 @@
-import { useIntl } from 'react-intl';
+import { defineMessage, useIntl } from 'react-intl';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import deprecate from 'util-deprecate';
+import { Typography } from '@material-ui/core';
 
 const Switch = ({ onChange, options, schema, value }) => (
-  <ToggleButtonGroup
-    exclusive
-    value={value}
-    onChange={(event, value) => {
-      onChange(value);
-    }}
-  >
-    {options.enumOptions.map(({ label, value }, index) => (
-      <ToggleButton
-        key={index}
-        value={value}
-        disabled={schema.readOnly || options.readonly}
-      >
-        {label}
-      </ToggleButton>
-    ))}
-  </ToggleButtonGroup>
+  <>
+    <Typography variant="subtitle1">{schema.title}</Typography>
+    <ToggleButtonGroup
+      exclusive
+      value={value}
+      onChange={(event, value) => {
+        onChange(value);
+      }}
+    >
+      {options.enumOptions.map(({ label, value }, index) => (
+        <ToggleButton
+          key={index}
+          value={value}
+          disabled={schema.readOnly || options.readonly}
+        >
+          {label}
+        </ToggleButton>
+      ))}
+    </ToggleButtonGroup>
+  </>
 );
 
 const NOTHING = 'nothing';
@@ -47,7 +51,20 @@ const SwitchWithEmptyOption = ({ onChange, options, value, ...other }) => {
 
 const booleanDefault = deprecate(
   ({ booleanDefault, ...other }) => ({ default: booleanDefault, ...other }),
-  'field.booleanDefault is deprecated. Use field.default instead.'
+  'config.booleanDefault is deprecated. Use config.default instead.'
+);
+
+const booleanWidget = deprecate(
+  ({ booleanWidget, ...config }) => ({
+    widget: {
+      0: 'radio',
+      1: 'select',
+      2: 'switch',
+      3: 'switchWithEmptyOption',
+    }[booleanWidget],
+    ...config,
+  }),
+  'config.booleanWidget is deprecated. Use config.widget instead. Example: "widget": "radio"'
 );
 
 export default ({ config }) => {
@@ -55,7 +72,11 @@ export default ({ config }) => {
     config = booleanDefault(config);
   }
 
-  const { default: defaults, booleanWidget, yes, no } = config;
+  if (config.booleanWidget !== undefined) {
+    config = booleanWidget(config);
+  }
+
+  const { default: defaults, yes, no } = config;
 
   return {
     schema: {
@@ -64,12 +85,17 @@ export default ({ config }) => {
       default: defaults,
     },
     uiSchema: {
-      'ui:widget': {
-        0: 'radio',
-        1: 'select',
-        2: Switch,
-        3: SwitchWithEmptyOption,
-      }[booleanWidget],
+      'ui:widget':
+        {
+          switch: Switch,
+          switchWithEmptyOption: SwitchWithEmptyOption,
+        }[config.widget] ?? config.widget,
     },
   };
 };
+
+export const name = defineMessage({
+  defaultMessage: 'Totuusarvo',
+});
+
+export const elementType = 'field';

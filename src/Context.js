@@ -1,17 +1,17 @@
-import { createContext, forwardRef, useContext, useRef } from 'react';
+import { createContext, forwardRef, useContext, useMemo, useRef } from 'react';
 import { create as createUseAxios } from 'use-axios';
 import { create as createAxios } from 'axios';
 import invariant from 'tiny-invariant';
 
 const Context = createContext();
 
-function create(config) {
-  const axios = createAxios(config);
+function create() {
+  const axios = createAxios();
 
   return { axios, ...createUseAxios(axios) };
 }
 
-export function FormulaProvider({ axios, children }) {
+export function FormulaProvider({ axios, children, dateFnsLocale }) {
   const contextRef = useRef();
   if (!contextRef.current) {
     contextRef.current = create();
@@ -22,14 +22,21 @@ export function FormulaProvider({ axios, children }) {
   }
 
   return (
-    <Context.Provider value={contextRef.current}>{children}</Context.Provider>
+    <Context.Provider
+      value={useMemo(
+        () => ({ ...contextRef.current, dateFnsLocale }),
+        [contextRef.current, dateFnsLocale]
+      )}
+    >
+      {children}
+    </Context.Provider>
   );
 }
 
-export const withFormulaProvider = (Component) =>
+export const withFormulaProvider = (Form) =>
   forwardRef(({ axios, ...other }, ref) => (
     <FormulaProvider axios={axios}>
-      <Component ref={ref} {...other} />
+      <Form ref={ref} {...other} />
     </FormulaProvider>
   ));
 

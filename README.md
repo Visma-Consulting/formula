@@ -29,10 +29,11 @@ import Formula from '@visma/formula';
 />;
 ```
 
-### Load external config
+### Load external config + other props
 
 ```js
 import Formula from '@visma/formula';
+import { fi } from 'date-fns/locale';
 
 // ...
 
@@ -41,7 +42,15 @@ import Formula from '@visma/formula';
     axios.defaults.baseURL = 'https://example.com/formula/api';
   }}
   id="1"
-  onPostSubmit={(id, { formData }) => console.log(id, formData)}
+  // Resume editing
+  dataId="123"
+  onPostSubmit={(dataId, { formData }) => console.log(dataId, formData)}
+  /*
+  Disable confirm dialog or use object { title, description } for other
+  messages.
+  */
+  confirm={false}
+  dateFnsLocale={fi}
 />;
 ```
 
@@ -73,10 +82,10 @@ function FormExample() {
 See [src/api.js](src/api.js) for all API hooks.
 
 ```js
-import { usePublicForms } from '@visma/formula';
+import { useForms } from '@visma/formula';
 
 function ListForms() {
-  const forms = usePublicForms();
+  const forms = useForms({ status: 'published', visibility: 'public' });
   // ...
 }
 ```

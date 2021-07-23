@@ -1,18 +1,47 @@
-import { useApi } from './api';
+import { useMutations } from './api';
 
-export default ({ onSubmit, onPostSubmit, ...other }) => {
-  const api = useApi();
+export default ({
+  onSubmit,
+  onPostSubmit,
+  onPreSubmit,
+  confirm,
+  formMetaData,
+  ...other
+}) => {
+  const { submit } = useMutations();
   const { config } = other;
 
-  onSubmit ??= api.handleSubmit;
-
-  const handleSubmit = (data, ...rest) =>
-    onSubmit({ ...data, config }, ...rest);
+  onSubmit ??= submit;
 
   return {
-    onSubmit: onPostSubmit
-      ? async (...args) => onPostSubmit(await handleSubmit(...args), ...args)
-      : handleSubmit,
+    async onSubmit(...args) {
+      let allowSubmitting = true;
+
+      // Maybe prevent submit, optionally get args.
+      if (onPreSubmit) {
+        allowSubmitting = await onPreSubmit(...args);
+        if (Array.isArray(allowSubmitting)) {
+          args = allowSubmitting;
+        }
+      }
+
+      if (allowSubmitting) {
+        const [{ formData }] = args;
+        const data = {
+          status: 'SUBMITTED',
+          form: {
+            id: config._id,
+            rev: config._rev,
+          },
+          ...formMetaData,
+          values: formData,
+          // captchaChallenge: recaptcha,
+        };
+        const response = await onSubmit(data, ...args);
+
+        onPostSubmit?.(response, data, ...args);
+      }
+    },
     ...other,
   };
 };

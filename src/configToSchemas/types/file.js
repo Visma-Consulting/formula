@@ -1,3 +1,5 @@
+import { defineMessage } from 'react-intl';
+
 export default ({ config: { acceptFiles } }) => ({
   schema: {
     format: 'data-url',
@@ -9,3 +11,9 @@ export default ({ config: { acceptFiles } }) => ({
     },
   },
 });
+
+export const name = defineMessage({
+  defaultMessage: 'Tiedosto',
+});
+
+export const elementType = 'field';
