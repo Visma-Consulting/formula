@@ -11,12 +11,15 @@ export default function withFormDataLoader(Form) {
 
     const { values: formData, form } = useFormData(dataId);
 
+    const formId = String(form.id);
+    const formRev = String(form.rev);
+
     invariant(
-      !id || id === form.id,
+      id == null || String(id) === formId,
       'Form data is linked to a different form id. You should not provide `id` with `dataId`'
     );
     invariant(
-      !rev || rev === form.rev,
+      rev == null || String(rev) === formRev,
       'Form data is linked to a different form revision. You should not provide `rev` with `dataId`'
     );
 
@@ -25,8 +28,8 @@ export default function withFormDataLoader(Form) {
         ref={ref}
         {...other}
         formData={formData}
-        id={String(form.id)}
-        rev={String(form.rev)}
+        id={formId}
+        rev={formRev}
       />
     );
   });

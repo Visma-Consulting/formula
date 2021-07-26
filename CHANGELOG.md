@@ -1,3 +1,7 @@
+# x.y.z
+
+- Fix resuming form when `id` is not `string` type
+
 # 0.4.8
 
 - Fix `multiselect` when `choices` is empty
