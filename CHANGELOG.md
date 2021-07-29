@@ -1,6 +1,7 @@
-# x.y.z
+# 0.4.9
 
 - Fix resuming form when `id` is not `string` type
+- Add function for imports to API
 
 # 0.4.8
 
