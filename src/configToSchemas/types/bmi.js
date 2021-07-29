@@ -1,6 +1,7 @@
 import { utils } from '@visma/rjsf-core';
 import { get } from 'lodash';
 import { useContext, useMemo } from 'react';
+import { defineMessage } from 'react-intl';
 
 function Bmi(props) {
   const { formData } = useContext(utils.Context);
@@ -22,13 +23,11 @@ function Bmi(props) {
       const bmi = useMemo(() => {
         return (weight / (height * height / 10000));
       }, [weight, height])
-      return 'Painoindeksisi (BMI) = ' + bmi.toFixed(2) + ' kg/m2';
-    } else {
-      return 'Painoindeksikysymys toimii oikein, kun samasta kysymysryhmästä löytyy pituus- ja painokysymykset.';
+      return 'Painoindeksisi (BMI) = ' + bmi.toFixed(2) + ' kg/m²';
     }
-  } else {
-    return 'Painoindeksikysymys toimii oikein, kun samasta kysymysryhmästä löytyy pituus- ja painokysymykset.';
   }
+
+  return 'Painoindeksikysymys toimii oikein, kun samasta kysymysryhmästä löytyy pituus- ja painokysymykset.';
 }
 
 export default (props) => {
@@ -48,3 +47,9 @@ export default (props) => {
     },
   };
 };
+
+export const name = defineMessage({
+  defaultMessage: 'Painoindeksi',
+});
+
+export const elementType = 'field';
