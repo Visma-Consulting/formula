@@ -14,6 +14,10 @@ export default ({ formData, schema, uiSchema }) => {
     formData = format(new Date(formData), 'P', { locale: dateFnsLocale });
   }
 
+  if (uiSchema?.['ui:options']?.unit) {
+    formData = `${formData} ${uiSchema['ui:options'].unit}`;
+  }
+
   if (uiSchema?.['ui:field'] === PageTitle) {
     return (
       <Typography variant="h5" gutterBottom>
