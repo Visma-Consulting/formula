@@ -11,14 +11,13 @@ export const translateProperties = [
   'placeholder',
   'yes',
   'no',
-  'tableColumns',
   'content',
   'successText',
   'enumNames',
-  'textDefault',
+  'textDefault'
 ];
 
-export const translateArrayProperties = ['choices', 'elements'];
+export const translateArrayProperties = ['choices', 'elements', 'tableColumns'];
 
 export const isLecacyTranslationObject = (value, key) =>
   typeof value === 'object' && translateProperties.includes(key);
