@@ -11,6 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
+import { Typography } from '@material-ui/core';
 
 const defaultValue = '';
 const makeTable = (initValues, rows, cols) => {
@@ -49,7 +50,7 @@ function TableField(props) {
     useLabel = false,
     tableColumns = [],
     label,
-    name,
+    title,
     description,
   } = config;
   const totalRows = getTotalRows( props );
@@ -87,6 +88,7 @@ function TableField(props) {
             .map((_, colNum) => (
               <TableCell key={`col-${colNum}`}>
                 <TextField
+                  style={{width: '100%'}}
                   variant="outlined"
                   size="small"
                   defaultValue={tableData[rowNum][colNum]}
@@ -120,6 +122,7 @@ function TableField(props) {
 
   return (
     <div>
+      <Typography variant="subtitle1">{title}</Typography>
       <TableContainer>
         <Table size="small">
           <TableHead>
