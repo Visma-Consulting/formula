@@ -1,3 +1,7 @@
+# x.y.z
+
+- Use OpenAPI schema and client generator
+
 # 0.4.9
 
 - Fix resuming form when `id` is not `string` type

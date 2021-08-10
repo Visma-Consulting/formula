@@ -1,24 +1,19 @@
 import { createContext, forwardRef, useContext, useMemo, useRef } from 'react';
-import { create as createUseAxios } from 'use-axios';
-import { create as createAxios } from 'axios';
 import invariant from 'tiny-invariant';
+import { clientPromise } from './client';
 
 const Context = createContext();
-
-function create() {
-  const axios = createAxios();
-
-  return { axios, ...createUseAxios(axios) };
-}
 
 export function FormulaProvider({ axios, children, dateFnsLocale }) {
   const contextRef = useRef();
   if (!contextRef.current) {
-    contextRef.current = create();
+    contextRef.current = {};
   }
 
   if (axios) {
-    axios(contextRef.current.axios);
+    (async function () {
+      axios(await clientPromise);
+    })();
   }
 
   return (

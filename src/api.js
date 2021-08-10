@@ -1,110 +1,112 @@
-import { useFormulaContext } from './Context';
 import { handleLegacyConfig } from './legacyMode';
 import useNormalizeConfig from './useNormalizeConfig';
 import { setDefaultType } from './utils';
+import * as client from './client';
 
-function useEndpoint(path) {
-  const { useAxios } = useFormulaContext();
-  return useAxios(path).data;
-}
+export * from './client';
 
-export const useForm = (id, options) =>
-  useEndpoint(`/form/${id}`) |> useNormalizeConfig(options);
+export const useForm = (formId, options) =>
+  client.useForm({ formId }) |> useNormalizeConfig(options);
 
 export const useForms = ({ status, visibility } = {}, options) =>
-  useEndpoint(['/form', status, visibility].filter(Boolean).join('/')).map(
-    useNormalizeConfig(options)
-  );
+  ({
+    '': client.useForms,
+    draft: client.useDraftForms,
+    published: client.usePublishedForms,
+    'published/public': client.usePublishedPublicForms,
+  }
+    [[status, visibility].filter(Boolean)]()
+    .map(useNormalizeConfig(options)));
 
-export const useFormGroup = (id, options) =>
-  useEndpoint(`/formgroup/${id}`)
+export const useFormGroup = (formGroupId, options) =>
+  client.useFormGroup({ formGroupId })
   |> useNormalizeConfig(options |> setDefaultType('formGroup'));
 
 export const useFormGroups = (options) =>
-  useEndpoint('/formgroup').map(
-    useNormalizeConfig(options |> setDefaultType('formGroup'))
-  );
+  client
+    .useFormGroups()
+    .map(useNormalizeConfig(options |> setDefaultType('formGroup')));
 
-export const useField = (id, options) =>
-  useEndpoint(`/field/${id}`) |> useNormalizeConfig(options);
+export const useField = (fieldId, options) =>
+  client.useField({ fieldId }) |> useNormalizeConfig(options);
 
 export const useFields = (options) =>
-  useEndpoint('/field').map(useNormalizeConfig(options));
+  client.useFields().map(useNormalizeConfig(options));
 
-export const useFormData = (id, options) => useEndpoint(`/formdata/${id}`);
+export const useFormData = (dataId) => client.useFormData({ dataId });
 
-export const useTags = () => useEndpoint('/form/tags');
+export const useTags = () => client.useFormTags();
 
 export function useMutations() {
-  const { axios, refetch } = useFormulaContext();
-
   // Trigger refetching paths on update. Only the paths that are currently
   // loaded by the app, will be refetched.
-  const refetchPaths = (paths) =>
-    Promise.all(paths.map((path) => refetch(path)));
+  const refetch = (response) => Promise.all(response);
 
-  const refetchForms = (id) =>
-    refetchPaths([
-      `/form/${id}`,
-      '/form',
-      '/form/draft',
-      '/form/published',
-      '/form/published/public',
-      '/form/tags',
+  const refetchForms = (formId) =>
+    refetch([
+      client.refetchForm({ formId }),
+      client.refetchForms(),
+      client.refetchDraftForms(),
+      client.refetchPublishedForms(),
+      client.refetchPublishedPublicForms(),
+      client.refetchFormTags(),
     ]);
 
-  const refetchFormGroups = (id) =>
-    refetchPaths([`/formgroup/${id}`, '/formgroup']);
+  const refetchFormGroups = (formGroupId) =>
+    refetch([
+      client.refetchFormGroup({ formGroupId }),
+      client.refetchFormGroups(),
+    ]);
 
-  const refetchFields = (id) => refetchPaths([`/field/${id}`, '/field']);
+  const refetchFields = (fieldId) =>
+    refetch([client.refetchField({ fieldId }), client.refetchFields()]);
 
   return {
     async submit(data) {
-      const response = await axios.post('/formdata', data);
-      return response.data;
+      return client.postFormData(null, data);
     },
 
     async postForm(data) {
-      await axios.post(`/form`, handleLegacyConfig(data));
+      await client.postForm(null, handleLegacyConfig(data));
       await refetchForms(data._id);
     },
     async putForm(data) {
-      await axios.put(`/form`, handleLegacyConfig(data));
+      await client.putForm(null, handleLegacyConfig(data));
       await refetchForms(data._id);
     },
-    async deleteForm(id) {
-      await axios.delete(`/form/${id}`);
-      await refetchForms(id);
+    async deleteForm(formId) {
+      await client.deleteForm({ formId });
+      await refetchForms(formId);
     },
 
     async postFormGroup(data) {
-      await axios.post(`/formgroup`, handleLegacyConfig(data));
+      await client.postFormGroup(null, handleLegacyConfig(data));
       await refetchFormGroups(data._id);
     },
     async putFormGroup(data) {
-      await axios.put(`/formgroup`, handleLegacyConfig(data));
+      await client.putFormGroup(null, handleLegacyConfig(data));
       await refetchFormGroups(data._id);
     },
-    async deleteFormGroup(id) {
-      await axios.delete(`/formgroup/${id}`);
-      await refetchFormGroups(id);
+    async deleteFormGroup(formGroupId) {
+      await client.deleteFormGroup({ formGroupId });
+      await refetchFormGroups(formGroupId);
     },
 
     async postField(data) {
-      await axios.post(`/field`, handleLegacyConfig(data));
+      await client.postField(null, handleLegacyConfig(data));
       await refetchFields(data._id);
     },
     async putField(data) {
-      await axios.put(`/field`, handleLegacyConfig(data));
+      await client.putField(null, handleLegacyConfig(data));
       await refetchFields(data._id);
     },
-    async deleteField(id) {
-      await axios.delete(`/field/${id}`);
-      await refetchFields(id);
+    async deleteField(fieldId) {
+      await client.deleteField({ fieldId });
+      await refetchFields(fieldId);
     },
 
     async importData(data) {
-      await axios.post('/port', data);
+      await client.postConfigs(null, data);
     },
   };
 }
