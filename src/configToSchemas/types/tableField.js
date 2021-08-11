@@ -76,8 +76,10 @@ function TableField(props) {
 
   const tableData = makeTable(formData?.table || [], totalRows, totalCols);
 
+  console.log(tableColumns)
+
   const tableHeaders = tableColumns.map((columnName, index) => (
-    <TableCell key={index}>{columnName['fi']}</TableCell>
+    <TableCell key={index}>{columnName}</TableCell>
   ));
 
   const tableCells = tableData
