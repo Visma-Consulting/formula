@@ -30,6 +30,10 @@ export default ({ formData, schema, uiSchema }) => {
     );
   }
 
+  if (uiSchema?.['ui:options']?.unit) {
+    formData = `${formData} ${uiSchema['ui:options'].unit}`;
+  }
+
   if (uiSchema?.['ui:field'] === PageTitle) {
     return (
       <Typography variant="h5" gutterBottom>

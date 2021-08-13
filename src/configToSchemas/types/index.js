@@ -1,3 +1,4 @@
+export * as bmi from './bmi';
 export * as body from './body';
 export * as boolean from './boolean';
 export * as date from './date';
