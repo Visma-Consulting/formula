@@ -1,0 +1,509 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "TodoMVC"
+  },
+  "servers": [
+    {
+      "url": "https://api.example.com/v1"
+    }
+  ],
+  "paths": {
+    "/form": {
+      "get": {
+        "summary": "List all forms",
+        "operationId": "getForms",
+        "responses": {
+          "200": {
+            "description": "An array of forms",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forms"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a form",
+        "operationId": "postForm",
+        "responses": {
+          "201": {
+            "description": "Null response"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a form",
+        "operationId": "putForm",
+        "responses": {
+          "200": {
+            "description": "Null response"
+          }
+        }
+      }
+    },
+    "/form/draft": {
+      "get": {
+        "summary": "List draft forms",
+        "operationId": "getDraftForms",
+        "responses": {
+          "200": {
+            "description": "An array of forms",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forms"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/form/published": {
+      "get": {
+        "summary": "List published forms",
+        "operationId": "getPublishedForms",
+        "responses": {
+          "200": {
+            "description": "An array of forms",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forms"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/form/published/public": {
+      "get": {
+        "summary": "List published public forms",
+        "operationId": "getPublishedPublicForms",
+        "responses": {
+          "200": {
+            "description": "An array of forms",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forms"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/form/tags": {
+      "get": {
+        "summary": "List form tags",
+        "operationId": "getFormTags",
+        "responses": {
+          "200": {
+            "description": "An array of form tags",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tags"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/form/{formId}": {
+      "get": {
+        "summary": "Get a form by id",
+        "operationId": "getForm",
+        "parameters": [
+          {
+            "name": "formId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A form",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Form"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a form",
+        "operationId": "deleteForm",
+        "parameters": [
+          {
+            "name": "formId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Null response"
+          }
+        }
+      }
+    },
+    "/formgroup": {
+      "get": {
+        "summary": "List all form groups",
+        "operationId": "getFormGroups",
+        "responses": {
+          "200": {
+            "description": "An array of form groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FormGroups"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a form group",
+        "operationId": "postFormGroup",
+        "responses": {
+          "201": {
+            "description": "Null response"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a form group",
+        "operationId": "putFormGroup",
+        "responses": {
+          "200": {
+            "description": "Null response"
+          }
+        }
+      }
+    },
+    "/formgroup/{formGroupId}": {
+      "get": {
+        "summary": "Get a form group by id",
+        "operationId": "getFormGroup",
+        "parameters": [
+          {
+            "name": "formGroupId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the form group",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A form group",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FormGroup"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a form group",
+        "operationId": "deleteFormGroup",
+        "parameters": [
+          {
+            "name": "formGroupId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the form group",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Null response"
+          }
+        }
+      }
+    },
+    "/field": {
+      "get": {
+        "summary": "List all fields",
+        "operationId": "getFields",
+        "responses": {
+          "200": {
+            "description": "An array of fields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Fields"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a field",
+        "operationId": "postField",
+        "responses": {
+          "201": {
+            "description": "Null response"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a field",
+        "operationId": "putField",
+        "responses": {
+          "200": {
+            "description": "Null response"
+          }
+        }
+      }
+    },
+    "/field/{fieldId}": {
+      "get": {
+        "summary": "Get a field by id",
+        "operationId": "getField",
+        "parameters": [
+          {
+            "name": "fieldId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the field",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A field",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Field"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a field",
+        "operationId": "deleteField",
+        "parameters": [
+          {
+            "name": "fieldId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the field",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Null response"
+          }
+        }
+      }
+    },
+    "/formdata": {
+      "get": {
+        "summary": "List all form data",
+        "operationId": "getFormDatas",
+        "responses": {
+          "200": {
+            "description": "An array of form data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Datas"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/formdata/{dataId}": {
+      "get": {
+        "summary": "Get a form data by id",
+        "operationId": "getFormData",
+        "parameters": [
+          {
+            "name": "dataId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the data",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A form data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Data"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Submit a form",
+        "operationId": "postFormData",
+        "responses": {
+          "201": {
+            "description": "A form data id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/port": {
+      "get": {
+        "summary": "Export configs",
+        "operationId": "getConfigs",
+        "responses": {
+          "200": {
+            "description": "A full export of everything",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Port"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Import configs",
+        "operationId": "postConfigs",
+        "responses": {
+          "201": {
+            "description": "Null response"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Form": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "integer"
+          },
+          "_rev": {
+            "type": "integer"
+          }
+        }
+      },
+      "Forms": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Form"
+        }
+      },
+      "FormGroup": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "integer"
+          },
+          "_rev": {
+            "type": "integer"
+          }
+        }
+      },
+      "FormGroups": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/FormGroup"
+        }
+      },
+      "Field": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "integer"
+          },
+          "_rev": {
+            "type": "integer"
+          }
+        }
+      },
+      "Fields": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Field"
+        }
+      },
+      "Tag": {
+        "type": "string"
+      },
+      "Tags": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Tag"
+        }
+      },
+      "Port": {
+        "type": "object",
+        "properties": {}
+      },
+      "Data": {
+        "type": "object",
+        "properties": {}
+      },
+      "Datas": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Data"
+        }
+      }
+    }
+  }
+}
