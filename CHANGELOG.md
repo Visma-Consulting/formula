@@ -1,6 +1,8 @@
-# x.y.z
+# 0.4.10
 
 - Use OpenAPI schema and client generator
+- Add table type
+- BMI type fixes
 
 # 0.4.9
 
