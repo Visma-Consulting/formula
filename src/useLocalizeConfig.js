@@ -4,6 +4,7 @@ import { useLocalize } from './useLocalize';
 export const translateProperties = [
   'title',
   'name',
+  'label',
   'default',
   'description',
   'help',
