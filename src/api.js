@@ -15,7 +15,7 @@ export const useForms = ({ status, visibility } = {}, options) =>
     published: client.usePublishedForms,
     'published/public': client.usePublishedPublicForms,
   }
-    [[status, visibility].filter(Boolean)]()
+    [[status, visibility].filter(Boolean).join('/')]()
     .map(useNormalizeConfig(options)));
 
 export const useFormGroup = (formGroupId, options) =>
