@@ -1,3 +1,8 @@
+# 0.4.11
+
+- Fix using label instead of title
+- Fix `useForms` API, when fetching published public forms
+
 # 0.4.10
 
 - Use OpenAPI schema and client generator
