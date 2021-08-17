@@ -76,8 +76,6 @@ function TableField(props) {
 
   const tableData = makeTable(formData?.table || [], totalRows, totalCols);
 
-  console.log(tableColumns)
-
   const tableHeaders = tableColumns.map((columnName, index) => (
     <TableCell key={index}>{columnName}</TableCell>
   ));
@@ -124,7 +122,8 @@ function TableField(props) {
 
   return (
     <div>
-      <Typography variant="subtitle1">{title}</Typography>
+      <Typography variant="subtitle1">{useLabel ? label : title}</Typography>
+      {description ?? <Typography variant="caption">{description}</Typography>}
       <TableContainer>
         <Table size="small">
           <TableHead>
