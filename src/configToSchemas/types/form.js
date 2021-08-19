@@ -1,25 +1,10 @@
-import deprecate from 'util-deprecate';
 import configToProps from '..';
-import { setLegacyMode } from '../../legacyMode';
-
-const formgroupType = deprecate((config) => {
-  setLegacyMode();
-
-  return { ...config, type: 'formGroup' };
-}, 'type "formgroup" is deprecated. Use "formGroup" instead.');
 
 export default ({ config, ...otherProps }) => {
-  const properties = config.elements
-    .map((element) => {
-      if (element.type === 'formgroup') {
-        return formgroupType(element);
-      }
-      return element;
-    })
-    .map((element) => [
-      element.key,
-      configToProps({ ...otherProps, config: element }),
-    ]);
+  const properties = config.elements.map((element) => [
+    element.key,
+    configToProps({ ...otherProps, config: element }),
+  ]);
   return {
     schema: {
       type: 'object',

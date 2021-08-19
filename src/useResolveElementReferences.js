@@ -7,27 +7,31 @@ export default function useResolveElementReferences() {
     field: useFields(),
   };
 
-  return function resolveElementReferences(config) {
-    const resolveElement = (element) => {
-      const registryElements = registry[element.type];
+  function resolveElement(element) {
+    const registryElements = registry[element.type];
 
-      return registryElements
-        ? {
-            ...element,
-            ...(registryElements.find(
-              (registryElement) => registryElement._id === element.id
-            ) |> resolveElementReferences),
-          }
-        : element;
-    };
+    return registryElements
+      ? {
+          ...element,
+          ...(registryElements.find(
+            (registryElement) => registryElement._id === element.id
+          ) |> resolveElementReferences),
+        }
+      : element;
+  }
 
-    const resolveConfig = ({ elements, ...other }) => ({
+  function resolveConfig({ elements, ...other }) {
+    return {
       ...other,
       elements: elements.map(resolveElement),
-    });
+    };
+  }
 
+  function resolveElementReferences(config) {
     return typesWithElements.includes(config?.type)
       ? resolveConfig(config)
       : config;
-  };
+  }
+
+  return resolveElementReferences;
 }
