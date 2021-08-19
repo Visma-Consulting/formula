@@ -1,3 +1,7 @@
+# x.y.z
+
+- Fix processing form group elements in legacy mode
+
 # 0.4.11
 
 - Fix using label instead of title
