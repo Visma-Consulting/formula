@@ -1,5 +1,7 @@
 # x.y.z
 
+# 0.4.12
+
 - Fix processing form group elements in legacy mode
 
 # 0.4.11
