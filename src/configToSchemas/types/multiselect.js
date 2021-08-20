@@ -18,7 +18,7 @@ export default extendType(select, ({ config }) => (props) => {
   if (config.multiselectWidget !== undefined) {
     config = multiselectWidget(config);
   }
-  props.schema = config.choices?.length
+  props.schema = config.choices?.length || config.autocomplete
     ? {
         items: props.schema,
         type: 'array',
