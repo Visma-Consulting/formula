@@ -33,7 +33,7 @@ export default (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {formData.table.map((rowItem, rowIndex) => (
+          {formData.table?.map((rowItem, rowIndex) => (
             <TableRow key={'row-'+rowIndex}>{rowItem.map((item, itemIndex) => (
               <TableCell key={'cell-'+rowIndex+'-'+itemIndex}>
                 {item}
