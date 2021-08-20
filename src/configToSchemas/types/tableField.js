@@ -15,22 +15,25 @@ import { Typography } from '@material-ui/core';
 
 const defaultValue = '';
 const makeTable = (initValues, rows, cols) => {
-  return [...Array(rows)]
-    .map((_, rowNum) => [...Array(cols)]
-      .map((_, colNum) => (initValues[rowNum] && initValues[rowNum][colNum]) || defaultValue));
+  return [...Array(rows)].map((_, rowNum) =>
+    [...Array(cols)].map(
+      (_, colNum) =>
+        (initValues[rowNum] && initValues[rowNum][colNum]) || defaultValue
+    )
+  );
 };
 
-const getTotalRows = ({formData, uiSchema}) => {
+const getTotalRows = ({ formData, uiSchema }) => {
   const field = uiSchema['ui:options']?.element || {};
   const { tableRowMinimum = 0 } = field;
   return Math.max(Number(tableRowMinimum), formData?.table?.length || 0);
-}
+};
 
-const getTotalColumns = ({uiSchema}) => {
+const getTotalColumns = ({ uiSchema }) => {
   const field = uiSchema['ui:options'].element || {};
   const { tableColumns = [] } = field;
   return tableColumns.length || 0;
-}
+};
 
 function TableField(props) {
   const {
@@ -41,8 +44,9 @@ function TableField(props) {
     errorSchema,
     uiSchema,
     idSchema,
+    schema,
   } = props;
-  const config = uiSchema['ui:options'].element
+  const config = uiSchema['ui:options'].element;
   const {
     tableAddAllowed = false,
     tableRowMinimum = 0,
@@ -53,26 +57,25 @@ function TableField(props) {
     title,
     description,
   } = config;
-  const totalRows = getTotalRows( props );
-  const totalCols = getTotalColumns( props );
+  const totalRows = getTotalRows(props);
+  const totalCols = getTotalColumns(props);
 
   const [rev, setRev] = useState(uniqueId());
 
   const onPropertyChange = (tableData) => {
-    onChange(
-      { table: tableData },
-      errorSchema
-    );
-    if (totalRows !== tableData.length) { setRev(uniqueId()); }
+    onChange({ table: tableData }, errorSchema);
+    if (totalRows !== tableData.length) {
+      setRev(uniqueId());
+    }
   };
 
   const onAddRow = (_) => {
     onPropertyChange(makeTable(tableData, totalRows + 1, totalCols));
-  }
+  };
 
   const onRemoveRow = (rowNum) => {
     onPropertyChange(tableData.filter((_, index) => index !== rowNum));
-  }
+  };
 
   const tableData = makeTable(formData?.table || [], totalRows, totalCols);
 
@@ -80,72 +83,76 @@ function TableField(props) {
     <TableCell key={index}>{columnName}</TableCell>
   ));
 
-  const tableCells = tableData
-    .map((row, rowNum) => (
-      <TableRow key={`row-${rowNum}-${rev}`}>
-        {
-          row
-            .map((_, colNum) => (
-              <TableCell key={`col-${colNum}`}>
-                <TextField
-                  style={{width: '100%'}}
-                  variant="outlined"
-                  size="small"
-                  defaultValue={tableData[rowNum][colNum]}
-                  disabled={disabled}
-                  readOnly={readonly}
-                  onChange={(event) => {
-                    tableData[rowNum][colNum] = event.target.value || defaultValue;
-                    onPropertyChange(tableData);
+  const tableCells = tableData.map((row, rowNum) => (
+    <TableRow key={`row-${rowNum}-${rev}`}>
+      {row
+        .map((_, colNum) => (
+          <TableCell key={`col-${colNum}`}>
+            <TextField
+              style={{ width: '100%' }}
+              variant="outlined"
+              size="small"
+              defaultValue={tableData[rowNum][colNum]}
+              disabled={disabled}
+              readOnly={readonly}
+              onChange={(event) => {
+                tableData[rowNum][colNum] = event.target.value || defaultValue;
+                onPropertyChange(tableData);
+              }}
+            />
+          </TableCell>
+        ))
+        .concat(
+          tableData.length > tableRowMinimum ? (
+            rowNum >= tableRowMinimum ? (
+              <TableCell key={'remove'}>
+                <IconButton
+                  onClick={(_) => {
+                    onRemoveRow(rowNum);
                   }}
-                />
+                  disabled={disabled || readonly}
+                >
+                  <DeleteIcon />
+                </IconButton>
               </TableCell>
-            ))
-            .concat(
-              tableData.length > tableRowMinimum ?
-                ( rowNum >= tableRowMinimum ?
-                    (
-                      <TableCell key={'remove'}>
-                        <IconButton
-                          onClick={(_) => { onRemoveRow(rowNum); }}
-                          disabled={disabled || readonly}
-                        ><DeleteIcon/></IconButton>
-                      </TableCell>
-                    ) :
-                    (<TableCell key={'remove'}>&nbsp;</TableCell>)
-                ) :
-                []
+            ) : (
+              <TableCell key={'remove'}>&nbsp;</TableCell>
             )
-        }
-      </TableRow>
-    ));
+          ) : (
+            []
+          )
+        )}
+    </TableRow>
+  ));
 
   return (
     <div>
-      <Typography variant="subtitle1">{useLabel ? label : title}</Typography>
-      {description ?? <Typography variant="caption">{description}</Typography>}
+      <Typography variant="subtitle1">{schema.title}</Typography>
       <TableContainer>
         <Table size="small">
           <TableHead>
-            <TableRow>
-              {tableHeaders}
-            </TableRow>
+            <TableRow>{tableHeaders}</TableRow>
           </TableHead>
-          <TableBody>
-            {tableCells}
-          </TableBody>
+          <TableBody>{tableCells}</TableBody>
         </Table>
       </TableContainer>
-      { tableAddAllowed &&
-        totalRows < tableRowMaximum &&
+      {tableAddAllowed && totalRows < tableRowMaximum && (
         <IconButton
           onClick={onAddRow}
           disabled={disabled || readonly}
           edge="start"
-          style={{margin: '5px'}}
-        ><AddIcon/></IconButton>
-      }
-    </div>);
+          style={{ margin: '5px' }}
+        >
+          <AddIcon />
+        </IconButton>
+      )}
+      {description ?? (
+        <Typography variant="caption" color="textSecondary">
+          {description}
+        </Typography>
+      )}
+    </div>
+  );
 }
 
 export default ({ config }) => {
