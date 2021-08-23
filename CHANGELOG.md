@@ -1,5 +1,6 @@
 # x.y.z
 
+- Fix opening review
 - Add boolean type widgets
 
 # 0.4.14
