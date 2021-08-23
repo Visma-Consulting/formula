@@ -4,6 +4,7 @@ import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import deprecate from 'util-deprecate';
 import { Typography } from '@material-ui/core';
 import { setLegacyMode } from '../../legacyMode';
+import { ensureValueIsAvailable } from '../../utils';
 
 const Switch = ({ onChange, options, schema, value }) => (
   <>
@@ -92,7 +93,7 @@ export default ({ config }) => {
         {
           switch: Switch,
           switchWithEmptyOption: SwitchWithEmptyOption,
-        }[config.widget] ?? config.widget,
+        }[ensureValueIsAvailable(config.widget, widgets)] ?? config.widget,
     },
   };
 };
@@ -102,3 +103,36 @@ export const name = defineMessage({
 });
 
 export const elementType = 'field';
+
+export const widgets = [
+  {
+    value: 'checkbox',
+    message: defineMessage({
+      defaultMessage: 'Valintaruutu',
+    }),
+  },
+  {
+    value: 'select',
+    message: defineMessage({
+      defaultMessage: 'Valintalista',
+    }),
+  },
+  {
+    value: 'radio',
+    message: defineMessage({
+      defaultMessage: 'Radiopainikkeet',
+    }),
+  },
+  {
+    value: 'switch',
+    message: defineMessage({
+      defaultMessage: 'Painikkeet',
+    }),
+  },
+  {
+    value: 'switchWithEmptyOption',
+    message: defineMessage({
+      defaultMessage: 'Painikkeet tyhjällä valinnalla',
+    }),
+  },
+];
