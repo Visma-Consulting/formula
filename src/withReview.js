@@ -6,7 +6,7 @@ export default function withReview(Form) {
     ({ review, onSubmit, ...other }, ref) => {
       const [submittedFormData, setSubmittedFormData] = useState();
 
-      return submittedFormData ? (
+      return submittedFormData !== undefined ? (
         <Review {...other} formData={submittedFormData} />
       ) : (
         <Form

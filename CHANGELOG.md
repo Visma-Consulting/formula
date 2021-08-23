@@ -1,3 +1,9 @@
+# x.y.z
+
+- Show true and false optinal texts correctly in review
+- Fix opening review
+- Add boolean type widgets
+
 # 0.4.14
 
 - Fix localizing config when config has a table and a field with choices/elements
