@@ -1,5 +1,7 @@
 # x.y.z
 
+- Fix localizing config when config has a table and a field with choices/elements
+
 # 0.4.13
 
 - Table type fixes
