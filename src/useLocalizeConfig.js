@@ -15,12 +15,12 @@ export const translateProperties = [
   'content',
   'successText',
   'enumNames',
-  'textDefault'
+  'textDefault',
 ];
 
 export const translateArrayProperties = ['choices', 'elements'];
 
-export const translateArray = ['tableColumns']
+export const translateArray = ['tableColumns'];
 
 export const isLecacyTranslationObject = (value, key) =>
   typeof value === 'object' && translateProperties.includes(key);
@@ -38,12 +38,13 @@ export function useLocalizeConfig() {
     return {
       ...mapValues(translatedConfig, (value, key) =>
         translateArrayProperties.includes(key)
-          ? value.map((value) => typeof value === 'object' ? localizeConfig(value) : value)
-          : value
-      ),
-      ...mapValues(translatedConfig, (value, key) =>
-        translateArray.includes(key)
-          ? value.map((value) => typeof value === 'object' ? localize(value) : value)
+          ? value.map((value) =>
+              typeof value === 'object' ? localizeConfig(value) : value
+            )
+          : translateArray.includes(key)
+          ? value.map((value) =>
+              typeof value === 'object' ? localize(value) : value
+            )
           : value
       ),
       ...mapValues(translate, localize),
