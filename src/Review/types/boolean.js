@@ -1,1 +1,1 @@
-export default ({ formData, schema }) => schema.enumNames?.[formData ? 1 : 0];
+export default ({ formData, schema }) => schema.enumNames?.[formData ? 0 : 1];

@@ -1,5 +1,6 @@
 # x.y.z
 
+- Show true and false optinal texts correctly in review
 - Fix opening review
 - Add boolean type widgets
 
