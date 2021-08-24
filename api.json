@@ -353,6 +353,22 @@
             }
           }
         }
+      },
+      "post": {
+        "summary": "Submit a form",
+        "operationId": "postFormData",
+        "responses": {
+          "201": {
+            "description": "A form data id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/formdata/{dataId}": {
@@ -383,9 +399,9 @@
           }
         }
       },
-      "post": {
-        "summary": "Submit a form",
-        "operationId": "postFormData",
+      "put": {
+        "summary": "Resubmit a form",
+        "operationId": "putFormData",
         "responses": {
           "201": {
             "description": "A form data id",
