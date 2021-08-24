@@ -1,37 +1,22 @@
-import { forwardRef } from 'react';
 import RJSFForm from '@visma/rjsf-material-ui';
-import { update } from 'lodash/fp';
-import useNormalizeConfig from './useNormalizeConfig';
 import configToSchemas from './configToSchemas';
 import { withFormulaProvider } from './Context';
+import useDynamicElements from './useDynamicElements';
+import { useNormalizeConfigProp } from './useNormalizeConfig';
+import useSubmit from './useSubmit';
+import { withPropsUpdater } from './utils';
+import withConfirmSubmit from './withConfirmSubmit';
 import withFormConfigLoader from './withFormConfigLoader';
 import withFormDataLoader from './withFormDataLoader';
-import withConfirmSubmit from './withConfirmSubmit';
-import useSubmit from './useSubmit';
 import withReview from './withReview';
-import useDynamicElements from './useDynamicElements';
-
-const RJSFFormWithPlugins = RJSFForm |> withReview;
-
-function Base(props, ref) {
-  props =
-    props
-    |> useSubmit
-    |> update('config', useNormalizeConfig())
-    |> useDynamicElements;
-
-  return (
-    <RJSFFormWithPlugins
-      ref={ref}
-      formulaProps={props}
-      {...(props |> configToSchemas)}
-    />
-  );
-}
 
 export const Form =
-  Base
-  |> forwardRef
+  RJSFForm
+  |> withPropsUpdater(useSubmit)
+  |> withReview
+  |> withPropsUpdater(configToSchemas)
+  |> withPropsUpdater(useDynamicElements)
+  |> withPropsUpdater(useNormalizeConfigProp)
   |> withFormConfigLoader
   |> withFormDataLoader
   |> withConfirmSubmit;

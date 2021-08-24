@@ -1,13 +1,13 @@
-import { setDefaultType } from '../utils';
-import omitNullValues from './omitNullValues';
+import { flow } from 'lodash';
 // import convertLegacyTranslationsToIntlProps from './convertLegacyTranslationsToIntlProps';
 import { useLocalizeConfig } from '../useLocalizeConfig';
-import { flow } from 'lodash';
-import maybeSetElements from './maybeSetElements';
-import setElementDefaultKeys from './setElementDefaultKeys';
+import { setDefaultType } from '../utils';
 import fieldTitleSupport from './fieldTitleSupport';
+import maybeSetElements from './maybeSetElements';
+import omitNullValues from './omitNullValues';
+import setElementDefaultKeys from './setElementDefaultKeys';
 
-export default ({
+const useNormalizeConfig = ({
   // Optionally disable localizing config – mainly for editor to show original config.
   localize = true,
   // Default to top level form config.
@@ -31,3 +31,10 @@ export default ({
     ].filter(Boolean)
   );
 };
+
+export default useNormalizeConfig;
+
+export const useNormalizeConfigProp = (props) => ({
+  ...props,
+  config: useNormalizeConfig()(props.config),
+});

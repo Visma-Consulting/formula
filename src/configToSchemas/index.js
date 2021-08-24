@@ -14,10 +14,11 @@ export default (props) => {
     console.error(`Config type "${props.config.type}" is not implemented.`);
     return { schema: {} };
   }
-  const { config, ...otherProps } = props;
 
   return {
-    ...otherProps,
-    ...(typeConverter(props) |> typePlugins(props) |> commonPlugins(config)),
+    ...props,
+    ...(typeConverter(props)
+      |> typePlugins(props)
+      |> commonPlugins(props.config)),
   };
 };
