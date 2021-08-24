@@ -63,7 +63,11 @@ export function useMutations() {
 
   return {
     async submit(data) {
-      return client.postFormData(null, data);
+      if (data._id) {
+        return client.putFormData({ dataId: data._id }, data);
+      } else {
+        return client.postFormData(null, data);
+      }
     },
 
     async postForm(data) {
