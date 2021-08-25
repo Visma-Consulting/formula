@@ -1,8 +1,7 @@
 import { forwardRef, useRef } from 'react';
-
-import ConfirmDialog from './ConfirmDialog';
 import { FormattedMessage } from 'react-intl';
 import invariant from 'tiny-invariant';
+import ConfirmDialog, { isCaptchaRequired } from './ConfirmDialog';
 
 export default function withConfirmSubmit(Form) {
   return forwardRef(({ confirm = true, ...other }, ref) => {
@@ -13,18 +12,23 @@ export default function withConfirmSubmit(Form) {
       'You should not use prop `confirm` with `onPreSubmit`'
     );
 
+    const showConfirm = confirm || isCaptchaRequired(other.config);
+
     return (
       <>
-        {confirm && (
+        {showConfirm && (
           <ConfirmDialog
             title={<FormattedMessage defaultMessage="Lähetetäänkö lomake?" />}
             ref={confirmDialogRef}
-            {...confirm}
+            {...other}
           ></ConfirmDialog>
         )}
         <Form
           ref={ref}
-          onPreSubmit={confirm && (() => confirmDialogRef.current.confirm())}
+          onPreSubmit={
+            showConfirm &&
+            ((...args) => confirmDialogRef.current.confirm(...args))
+          }
           {...other}
         />
       </>

@@ -442,6 +442,24 @@
           }
         }
       }
+    },
+    "/config": {
+      "get": {
+        "summary": "Get public server config",
+        "operationId": "getConfig",
+        "responses": {
+          "200": {
+            "description": "Public server config",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Config"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -518,6 +536,19 @@
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Data"
+        }
+      },
+      "Config": {
+        "type": "object",
+        "properties": {
+          "recaptcha": {
+            "type": "object",
+            "properties": {
+              "sitekey": {
+                "type": "string"
+              }
+            }
+          }
         }
       }
     }
