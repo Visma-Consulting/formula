@@ -1,5 +1,5 @@
 import { mapValues, omitBy } from 'lodash';
-import { useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 
 export const setDefaultType = (type) => (config) => ({ type, ...config });
 
@@ -32,3 +32,6 @@ export function useStatePreferInitial(initialState) {
 
   return state;
 }
+
+export const withPropsUpdater = (updater) => (Component) =>
+  forwardRef((props, ref) => <Component ref={ref} {...updater(props)} />);

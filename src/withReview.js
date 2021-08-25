@@ -3,7 +3,7 @@ import Review from './Review';
 
 export default function withReview(Form) {
   const ReviewAfterSubmit = forwardRef(
-    ({ review, onSubmit, ...other }, ref) => {
+    ({ review, onPostSubmit, ...other }, ref) => {
       const [submittedFormData, setSubmittedFormData] = useState();
 
       return submittedFormData !== undefined ? (
@@ -11,9 +11,9 @@ export default function withReview(Form) {
       ) : (
         <Form
           ref={ref}
-          onSubmit={async (...args) => {
-            const response = await onSubmit?.(...args);
-            const [{ formData }] = args;
+          onPostSubmit={async (...args) => {
+            const response = await onPostSubmit?.(...args);
+            const [, , { formData }] = args;
             setSubmittedFormData(formData);
             return response;
           }}
