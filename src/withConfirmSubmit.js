@@ -1,16 +1,11 @@
 import { forwardRef, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
-import invariant from 'tiny-invariant';
 import ConfirmDialog, { isCaptchaRequired } from './ConfirmDialog';
+import { chain } from './utils';
 
 export default function withConfirmSubmit(Form) {
-  return forwardRef(({ confirm = true, ...other }, ref) => {
+  return forwardRef(({ confirm = true, onPreSubmit, ...other }, ref) => {
     const confirmDialogRef = useRef();
-
-    invariant(
-      !(confirm && other.onPreSubmit),
-      'You should not use prop `confirm` with `onPreSubmit`'
-    );
 
     const showConfirm = confirm || isCaptchaRequired(other.config);
 
@@ -25,11 +20,12 @@ export default function withConfirmSubmit(Form) {
         )}
         <Form
           ref={ref}
-          onPreSubmit={
-            showConfirm &&
-            ((...args) => confirmDialogRef.current.confirm(...args))
-          }
           {...other}
+          onPreSubmit={chain([
+            onPreSubmit,
+            showConfirm &&
+              ((...args) => confirmDialogRef.current.confirm(...args)),
+          ])}
         />
       </>
     );

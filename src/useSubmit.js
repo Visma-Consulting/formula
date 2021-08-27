@@ -1,4 +1,5 @@
 import { useMutations } from './api';
+import { chain } from './utils';
 
 export default ({
   onSubmit,
@@ -14,18 +15,9 @@ export default ({
   onSubmit ??= submit;
 
   return {
-    async onSubmit(...args) {
-      let allowSubmitting = true;
-
-      // Maybe prevent submit, optionally get args.
-      if (onPreSubmit) {
-        allowSubmitting = await onPreSubmit(...args);
-        if (Array.isArray(allowSubmitting)) {
-          args = allowSubmitting;
-        }
-      }
-
-      if (allowSubmitting) {
+    onSubmit: chain([
+      onPreSubmit,
+      async (...args) => {
         const [{ captchaChallenge, formData }] = args;
         const data = {
           status: 'SUBMITTED',
@@ -40,8 +32,8 @@ export default ({
         const response = await onSubmit(data, ...args);
 
         onPostSubmit?.(response, data, ...args);
-      }
-    },
+      },
+    ]),
     ...other,
   };
 };
