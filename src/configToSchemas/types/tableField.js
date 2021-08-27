@@ -127,7 +127,6 @@ function TableField(props) {
 
   return (
     <div>
-      <Typography variant="subtitle1">{schema.title}</Typography>
       <TableContainer>
         <Table size="small">
           <TableHead>
@@ -158,6 +157,7 @@ function TableField(props) {
 export default ({ config }) => {
   return {
     schema: {
+      format: 'table',
       type: 'object',
       properties: {
         table: {
