@@ -13,12 +13,12 @@ import withReview from './withReview';
 export const Form =
   RJSFForm
   |> withPropsUpdater(useSubmit)
+  |> withConfirmSubmit
   |> withReview
   |> withPropsUpdater(configToSchemas)
   |> withPropsUpdater(useDynamicElements)
   |> withPropsUpdater(useNormalizeConfigProp)
   |> withFormConfigLoader
-  |> withFormDataLoader
-  |> withConfirmSubmit;
+  |> withFormDataLoader;
 
 export const Formula = Form |> withFormulaProvider;

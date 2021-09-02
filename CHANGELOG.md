@@ -1,5 +1,6 @@
 # 0.4.17
 
+- Add optional CAPTCHA
 - Fix transition to success/review
 
 # 0.4.16

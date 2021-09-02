@@ -26,7 +26,7 @@ export default ({
       }
 
       if (allowSubmitting) {
-        const [{ formData }] = args;
+        const [{ captchaChallenge, formData }] = args;
         const data = {
           status: 'SUBMITTED',
           form: {
@@ -35,7 +35,7 @@ export default ({
           },
           ...formMetaData,
           values: formData,
-          // captchaChallenge: recaptcha,
+          captchaChallenge,
         };
         const response = await onSubmit(data, ...args);
 

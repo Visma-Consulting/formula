@@ -1,5 +1,3 @@
-import { FormattedMessage } from 'react-intl';
-
 import {
   Button,
   Dialog,
@@ -8,20 +6,39 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@material-ui/core';
+import useDarkMode from '@super-template/lab/src/darkMode/useDarkMode';
+import produce from 'immer';
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { FormattedMessage } from 'react-intl';
+import { useConfig } from './api';
 
 const preventDefault = (event) => {
   event.preventDefault();
 };
+
+export const isCaptchaRequired = (config) =>
+  config.publicForm &&
+  // Form may not have `requireCaptcha` defined.
+  (config.requireCaptcha || config.requireCaptcha === undefined);
 
 export default forwardRef(function ConfirmDialog(
   { title, description, children, onConfirm, ...other },
   ref
 ) {
   useImperativeHandle(ref, () => ({
-    confirm() {
+    confirm(...args) {
       return new Promise((resolve) => {
-        confirmRef.current = resolve;
+        confirmRef.current = function (confirm) {
+          resolve(
+            isCaptchaRequired(other.config)
+              ? confirm &&
+                  produce(args, ([data]) => {
+                    data.captchaChallenge = confirm;
+                  })
+              : confirm
+          );
+        };
         setOpen(true);
       });
     },
@@ -30,21 +47,36 @@ export default forwardRef(function ConfirmDialog(
   const confirmRef = useRef();
 
   const [open, setOpen] = useState(false);
+  const [showReCAPTCHA, setShowReCAPTCHA] = useState(
+    isCaptchaRequired(other.config)
+  );
+  const [captchaChallenge, setCaptchaChallenge] = useState();
+  const [darkMode] = useDarkMode();
+  const { recaptcha } = useConfig();
 
-  const handleClose = (event) => {
+  function handleClose() {
     setOpen(false);
+    if (showReCAPTCHA && captchaChallenge) {
+      setShowReCAPTCHA(false);
+    }
+  }
+
+  function handleDismiss() {
+    handleClose();
     confirmRef.current(false);
-  };
+  }
 
-  function handleConfirm(event) {
-    setOpen(false);
-    confirmRef.current(true);
+  function handleConfirm() {
+    handleClose();
+    confirmRef.current(
+      isCaptchaRequired(other.config) ? captchaChallenge : true
+    );
   }
 
   return (
     <Dialog
       open={open}
-      onClose={handleClose}
+      onClose={handleDismiss}
       onClick={preventDefault}
       aria-labelledby="confirm-dialog-title"
       aria-describedby="confirm-dialog-description"
@@ -57,11 +89,21 @@ export default forwardRef(function ConfirmDialog(
           </DialogContentText>
         </DialogContent>
       )}
+      {showReCAPTCHA && (
+        <DialogContent>
+          <ReCAPTCHA
+            sitekey={recaptcha.sitekey}
+            onChange={setCaptchaChallenge}
+            theme={darkMode ? 'dark' : 'light'}
+          />
+        </DialogContent>
+      )}
       <DialogActions>
-        <Button onClick={handleClose}>
+        <Button onClick={handleDismiss}>
           <FormattedMessage defaultMessage="Peruuta" />
         </Button>
         <Button
+          disabled={showReCAPTCHA && !captchaChallenge}
           onClick={handleConfirm}
           variant="contained"
           color="primary"
