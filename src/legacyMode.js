@@ -37,8 +37,10 @@ export const handleLegacyConfig = produce((config) => {
       //delete config.widget;
     }
 
-    if (config.type === 'text' || config.type === 'textarea') {
-      config.textDefault = config.default;
+    if (config.type === 'text' || config.type === 'textarea' || config.type === 'richtext') {
+      //config.default = config.textDefault;
+      config.textDefault = config.default ? config.default : config.textDefault;
+      config.default = config.textDefault ? config.textDefault : config.default;
       //delete config.default;
     }
 

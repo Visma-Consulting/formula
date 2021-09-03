@@ -6,6 +6,7 @@ export const translateProperties = [
   'name',
   'label',
   'default',
+  'textDefault',
   'description',
   'help',
   'patternDescription',
