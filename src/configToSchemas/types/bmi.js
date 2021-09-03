@@ -1,46 +1,51 @@
+import { Typography } from '@material-ui/core';
 import { utils } from '@visma/rjsf-core';
 import { get } from 'lodash';
-import { useContext, useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { defineMessage, FormattedMessage } from 'react-intl';
 
 function Bmi(props) {
   const { formData } = useContext(utils.Context);
-  const [height, setHeight] = useState();
-  const [weight, setWeight] = useState();
+  const path = props.id.split('_').slice(1, -1);
 
   useEffect(() => {
-    if (formData && formData !== 'NaN') {
-      const path = props.id.split('_').slice(1, -1);
-      const data = get(formData, path);
+    const data = get(formData, path);
+    const height = data[props.options.heightFieldKey];
+    const weight = data[props.options.weightFieldKey];
 
-      if (data) {
-        setHeight(data[props.options.heightFieldKey]);
-        setWeight(data[props.options.weightFieldKey]);
-      } else if (formData.height && formData.weight) {
-        setHeight(formData[props.options.heightFieldKey]);
-        setWeight(formData[props.options.weightFieldKey]);
-      } else {
-        setWeight(10);
-        setHeight(50);
-      }
-    }
-  }, [formData])
-
-  useEffect(() => {
-    props.onChange((weight / (height * height / 10000)).toFixed(2));
-  }, [height, weight])
+    const bmi = weight / ((height * height) / 10000);
+    setTimeout(() => {
+      props.onChange(isNaN(bmi) ? '' : bmi.toFixed(2));
+    });
+  }, [formData, path, props]);
 
   if (!isNaN(props.value) || !props.value) {
-    return <FormattedMessage defaultMessage="Painoindeksisi (BMI) = {bmi} kg/m²"
-                             values={{bmi: props.value}}/>;
+    return (
+      <>
+        <Typography variant="subtitle1" color="texSecondary">
+          {props.label}
+        </Typography>
+        <FormattedMessage
+          defaultMessage="{bmi} kg/m²"
+          values={{ bmi: props.value }}
+        />
+      </>
+    );
   }
 
-  return <FormattedMessage defaultMessage="Painoindeksikysymys toimii oikein, kun samasta kysymysryhmästä löytyy pituus- ja painokysymykset." />;
+  return (
+    <>
+      <Typography variant="subtitle1" color="texSecondary">
+        {props.label}
+      </Typography>
+      <FormattedMessage defaultMessage="Painoindeksikysymys toimii oikein, kun samasta kysymysryhmästä löytyy ensimmäisenä pituuskysymys ja toisena painokysymys. Mitään muuta ei saa olla samassa kysymysryhmässä." />
+    </>
+  );
 }
 
 export default (props) => {
   const {
-    config: { heightFieldKey, weightFieldKey },
+    config: { heightFieldKey = 0, weightFieldKey = 1 },
   } = props;
   return {
     schema: {
@@ -51,7 +56,7 @@ export default (props) => {
       'ui:options': {
         heightFieldKey,
         weightFieldKey,
-        unit: 'kg/m²'
+        unit: 'kg/m²',
       },
     },
   };
