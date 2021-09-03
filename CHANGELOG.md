@@ -1,3 +1,7 @@
+# 0.4.19
+
+- Upgrade to `@visma/rjsf-*@^3.1.0`
+
 # 0.4.18
 
 - Add optional CAPTCHA
