@@ -36,5 +36,5 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         # ignore prepare script on npm ci, as package is prepared before publish
         run: |
-          npm ci --ignore-scripts
+          npm ci --legacy-peer-deps --ignore-scripts
           npm publish
