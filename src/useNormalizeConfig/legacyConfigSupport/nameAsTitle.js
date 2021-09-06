@@ -1,5 +1,5 @@
 import deprecate from 'util-deprecate';
-import { setLegacyMode } from '../legacyMode';
+import { setLegacyMode } from '../../legacyMode';
 
 const nameAsTitle = deprecate(({ name, ...config }, props) => {
   setLegacyMode();
@@ -11,10 +11,8 @@ const nameAsTitle = deprecate(({ name, ...config }, props) => {
 }, 'config.name is deprecated. Use config.title instead.');
 
 export default (config) => {
-  const { name } = config;
-
-  if (name) {
-    return nameAsTitle(config);
+  if (config.name) {
+    config = nameAsTitle(config);
   }
 
   return config;
