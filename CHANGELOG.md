@@ -1,3 +1,7 @@
+# 0.4.23
+
+- Upgrade to `@visma/rjsf-*@^3.1.0-1`
+
 # 0.4.22
 
 - BMI type update: fallback to index keys
