@@ -35,3 +35,19 @@ export function useStatePreferInitial(initialState) {
 
 export const withPropsUpdater = (updater) => (Component) =>
   forwardRef((props, ref) => <Component ref={ref} {...updater(props)} />);
+
+// Chain function calls until some returns falsy return value. Optionally update args.
+export const chain =
+  (funcs) =>
+  async (...args) => {
+    for (const func of funcs.filter(Boolean)) {
+      const proceed = await func(...args);
+      if (Array.isArray(proceed)) {
+        args = proceed;
+      }
+      if (!proceed) {
+        return proceed;
+      }
+    }
+    return args;
+  };

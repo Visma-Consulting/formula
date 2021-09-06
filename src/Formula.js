@@ -9,11 +9,13 @@ import withConfirmSubmit from './withConfirmSubmit';
 import withFormConfigLoader from './withFormConfigLoader';
 import withFormDataLoader from './withFormDataLoader';
 import withReview from './withReview';
+import withSteps from './withSteps';
 
 export const Form =
   RJSFForm
   |> withPropsUpdater(useSubmit)
   |> withConfirmSubmit
+  |> withSteps
   |> withReview
   |> withPropsUpdater(configToSchemas)
   |> withPropsUpdater(useDynamicElements)
