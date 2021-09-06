@@ -82,6 +82,8 @@ export default ({ config }) => {
 
   const { default: defaults, yes, no } = config;
 
+  const widget = ensureValueIsAvailable(config.widget, widgets);
+
   return {
     schema: {
       type: 'boolean',
@@ -93,7 +95,7 @@ export default ({ config }) => {
         {
           switch: Switch,
           switchWithEmptyOption: SwitchWithEmptyOption,
-        }[ensureValueIsAvailable(config.widget, widgets)] ?? config.widget,
+        }[widget] ?? widget,
     },
   };
 };
@@ -111,12 +113,13 @@ export const widgets = [
       defaultMessage: 'Valintaruutu',
     }),
   },
-  {
-    value: 'select',
-    message: defineMessage({
-      defaultMessage: 'Valintalista',
-    }),
-  },
+  // Not available: https://github.com/rjsf-team/react-jsonschema-form/issues/2326
+  // {
+  //   value: 'select',
+  //   message: defineMessage({
+  //     defaultMessage: 'Valintalista',
+  //   }),
+  // },
   {
     value: 'radio',
     message: defineMessage({
