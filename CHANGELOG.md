@@ -1,3 +1,7 @@
+#0.4.25
+
+- Fix issues with configuration deprecation and conversion
+
 # 0.4.24
 
 - Add support for form segmentation
