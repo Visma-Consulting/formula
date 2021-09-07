@@ -1,9 +1,7 @@
-import { defineMessage, useIntl } from 'react-intl';
+import { Typography } from '@material-ui/core';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
-import deprecate from 'util-deprecate';
-import { Typography } from '@material-ui/core';
-import { setLegacyMode } from '../../legacyMode';
+import { defineMessage, useIntl } from 'react-intl';
 import { ensureValueIsAvailable } from '../../utils';
 
 const Switch = ({ onChange, options, schema, value }) => (
@@ -50,37 +48,10 @@ const SwitchWithEmptyOption = ({ onChange, options, value, ...other }) => {
     />
   );
 };
-
-const booleanDefault = deprecate(({ booleanDefault, ...other }) => {
-  setLegacyMode();
-
-  return { default: booleanDefault, ...other };
-}, 'config.booleanDefault is deprecated. Use config.default instead.');
-
-const booleanWidget = deprecate(({ booleanWidget, ...config }) => {
-  setLegacyMode();
-
-  return {
-    widget: {
-      0: 'radio',
-      1: 'select',
-      2: 'switch',
-      3: 'switchWithEmptyOption',
-    }[booleanWidget],
-    ...config,
-  };
-}, 'config.booleanWidget is deprecated. Use config.widget instead. Example: "widget": "radio"');
-
 export default ({ config }) => {
-  if (config.booleanDefault) {
-    config = booleanDefault(config);
-  }
-
-  if (config.booleanWidget !== undefined) {
-    config = booleanWidget(config);
-  }
-
   const { default: defaults, yes, no } = config;
+
+  const widget = ensureValueIsAvailable(config.widget, widgets);
 
   return {
     schema: {
@@ -93,7 +64,7 @@ export default ({ config }) => {
         {
           switch: Switch,
           switchWithEmptyOption: SwitchWithEmptyOption,
-        }[ensureValueIsAvailable(config.widget, widgets)] ?? config.widget,
+        }[widget] ?? widget,
     },
   };
 };
@@ -111,12 +82,13 @@ export const widgets = [
       defaultMessage: 'Valintaruutu',
     }),
   },
-  {
-    value: 'select',
-    message: defineMessage({
-      defaultMessage: 'Valintalista',
-    }),
-  },
+  // Not available: https://github.com/rjsf-team/react-jsonschema-form/issues/2326
+  // {
+  //   value: 'select',
+  //   message: defineMessage({
+  //     defaultMessage: 'Valintalista',
+  //   }),
+  // },
   {
     value: 'radio',
     message: defineMessage({

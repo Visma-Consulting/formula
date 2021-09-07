@@ -2,7 +2,7 @@ import { flow } from 'lodash';
 // import convertLegacyTranslationsToIntlProps from './convertLegacyTranslationsToIntlProps';
 import { useLocalizeConfig } from '../useLocalizeConfig';
 import { setDefaultType } from '../utils';
-import fieldTitleSupport from './fieldTitleSupport';
+import legacyConfigSupport from './legacyConfigSupport';
 import maybeSetElements from './maybeSetElements';
 import omitNullValues from './omitNullValues';
 import setElementDefaultKeys from './setElementDefaultKeys';
@@ -21,7 +21,7 @@ const useNormalizeConfig = ({
       // affective.
       omitNullValues,
       setDefaultType(type),
-      fieldTitleSupport,
+      legacyConfigSupport,
       // If applicable type and elements are not defined.
       maybeSetElements,
       // Use element index as default key.
