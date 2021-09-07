@@ -1,3 +1,7 @@
+# 0.4.24
+
+- Add support for form segmentation
+
 # 0.4.23
 
 - Upgrade to `@visma/rjsf-*@^3.1.0-1`

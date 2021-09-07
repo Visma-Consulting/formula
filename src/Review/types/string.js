@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { PageTitle } from '../../configToSchemas/types/pageTitle';
+import { StepTitle } from '../../configToSchemas/types/stepTitle';
 import Typography from '@material-ui/core/Typography';
 import prettyBytes from 'pretty-bytes';
 import { byteLength } from 'base64-js';
@@ -34,7 +34,7 @@ export default ({ formData, schema, uiSchema }) => {
     formData = `${formData} ${uiSchema['ui:options'].unit}`;
   }
 
-  if (uiSchema?.['ui:field'] === PageTitle) {
+  if (uiSchema?.['ui:field'] === StepTitle) {
     return (
       <Typography variant="h5" gutterBottom>
         {uiSchema['ui:title']}

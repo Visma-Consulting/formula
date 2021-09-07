@@ -14,19 +14,19 @@ const TitleVariantContext = createContext();
 export default function Field(props) {
   const classes = useStyles();
   const Type = types[props.schema.type];
+  const variant = useContext(TitleVariantContext) ?? 'h4';
+
   if (!Type) {
     console.error('Not implemented', props.schema.type, props);
     return null;
   }
-
-  const variant = useContext(TitleVariantContext) ?? 'h4';
 
   return (
     <TitleVariantContext.Provider
       value={
         {
           h4: 'h6',
-          // h5 is reserved for pageTitle
+          // h5 is reserved for stepTitle
           h6: 'subtitle1',
           subtitle1: 'subtitle2',
           subtitle2: 'subtitle2',
