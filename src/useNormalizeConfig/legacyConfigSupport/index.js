@@ -5,13 +5,18 @@ import multiselectWidget from './multiselectWidget';
 import nameAsTitle from './nameAsTitle';
 import selectWidget from './selectWidget';
 import textDefault from './textDefault';
+import { map, update } from 'lodash/fp';
 
-export default (config) =>
-  config
-  |> booleanDefault
-  |> booleanWidget
-  |> formgroupType
-  |> multiselectWidget
-  |> nameAsTitle
-  |> selectWidget
-  |> textDefault;
+export default function legacyConfigSupport(config) {
+  return (
+    config
+    |> booleanDefault
+    |> booleanWidget
+    |> formgroupType
+    |> multiselectWidget
+    |> nameAsTitle
+    |> selectWidget
+    |> textDefault
+    |> update('elements', map(legacyConfigSupport))
+  );
+}
