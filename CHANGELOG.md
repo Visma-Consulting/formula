@@ -1,4 +1,4 @@
-#0.4.25
+# 0.4.26
 
 - Fix issues with configuration deprecation and conversion
 
