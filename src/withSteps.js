@@ -43,6 +43,7 @@ export default function withSteps(Form) {
 
     const { elements } = Object.entries(otherProps.uiSchema)
       .filter(([key]) => key in otherProps.schema.properties)
+      .filter(([, value]) => value)
       .reduce(
         ({ current, elements }, [key, { 'ui:field': uiField }]) => {
           if (uiField === StepTitle) {

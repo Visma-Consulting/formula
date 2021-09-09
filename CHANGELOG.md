@@ -1,10 +1,14 @@
+# x.y.z
+
+- Fix adding element to a form with steps
+
 # 0.4.26
 
 - Fix issues with configuration deprecation and conversion
 
 # 0.4.24
 
-- Add support for form segmentation
+- Add support for form steps
 
 # 0.4.23
 
