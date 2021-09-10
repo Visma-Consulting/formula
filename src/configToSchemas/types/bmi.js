@@ -35,7 +35,7 @@ function Bmi(props) {
 
   return (
     <>
-      <Typography variant="subtitle1" color="texSecondary">
+      <Typography variant="subtitle1" color="textSecondary">
         {props.label}
       </Typography>
       <FormattedMessage defaultMessage="Painoindeksikysymys toimii oikein, kun samasta kysymysryhmästä löytyy ensimmäisenä pituuskysymys ja toisena painokysymys. Mitään muuta ei saa olla samassa kysymysryhmässä." />
