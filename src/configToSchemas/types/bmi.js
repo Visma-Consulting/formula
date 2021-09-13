@@ -10,19 +10,19 @@ function Bmi(props) {
 
   useEffect(() => {
     const data = get(formData, path);
-    const height = data[props.options.heightFieldKey];
-    const weight = data[props.options.weightFieldKey];
+    const height = data ? data[props.options.heightFieldKey] : (formData ? formData[props.options.heightFieldKey] : null);
+    const weight = data ? data[props.options.weightFieldKey] : (formData ? formData[props.options.weightFieldKey] : null);
 
-    const bmi = weight / ((height * height) / 10000);
+    const bmi = !isNaN(height) && !isNaN(weight) ? weight / ((height * height) / 10000) : null;
     setTimeout(() => {
-      props.onChange(isNaN(bmi) ? '' : bmi.toFixed(2));
+      props.onChange(isNaN(bmi) ? undefined : bmi.toFixed(2));
     });
   }, [formData, path, props]);
 
-  if (!isNaN(props.value) || !props.value) {
+  if (!isNaN(props.value) && props.value) {
     return (
       <>
-        <Typography variant="subtitle1" color="texSecondary">
+        <Typography variant="subtitle1" color="textSecondary">
           {props.label}
         </Typography>
         <FormattedMessage
@@ -35,7 +35,7 @@ function Bmi(props) {
 
   return (
     <>
-      <Typography variant="subtitle1" color="texSecondary">
+      <Typography variant="subtitle1" color="textSecondary">
         {props.label}
       </Typography>
       <FormattedMessage defaultMessage="Painoindeksikysymys toimii oikein, kun samasta kysymysryhmästä löytyy ensimmäisenä pituuskysymys ja toisena painokysymys. Mitään muuta ei saa olla samassa kysymysryhmässä." />
