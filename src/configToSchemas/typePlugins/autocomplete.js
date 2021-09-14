@@ -2,7 +2,7 @@ import React from 'react';
 import { Autocomplete } from '@material-ui/lab';
 import { TextField, Chip } from '@material-ui/core';
 
-export const types = ['select', 'multiselect'];
+export const types = ['multiselect'];
 
 function AutocompleteField(props) {
   return (
