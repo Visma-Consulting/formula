@@ -27,7 +27,7 @@
     "defaultMessage": "Tillbaka"
   },
   "Lop88a": {
-    "defaultMessage": "Range"
+    "defaultMessage": "Skjutreglagare"
   },
   "RVljsI": {
     "defaultMessage": "Textfält med flera rader"
@@ -48,7 +48,7 @@
     "defaultMessage": "Knappar med tomt val"
   },
   "abt9v2": {
-    "defaultMessage": "BMI field works when there are fields for height and weight (in this order) in the same form group. Nothing else must be in this form group."
+    "defaultMessage": "BMI -fältet fungerar som det ska , om från samma uppsättning frågor, är en fråga om längd först och en fråga om vikt andra . Inget annat ska finnas i samma grupp av frågor."
   },
   "cG6IFs": {
     "defaultMessage": "Kryssruta"
