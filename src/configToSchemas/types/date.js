@@ -8,6 +8,7 @@ import { defineMessage, useIntl } from 'react-intl';
 import '!style-loader!css-loader!react-dates/lib/css/_datepicker.css';
 import 'moment/locale/fi';
 import 'moment/locale/sv';
+import { Typography } from '@material-ui/core';
 
 const parseToday = (date) => (date === 'today' ? moment() : moment(date));
 
@@ -24,22 +25,25 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
   }, [locale]);
 
   return (
-    <SingleDatePicker
-      date={value === undefined ? null : moment(value)}
-      onDateChange={(date) => date && onChange(date.format('YYYY-MM-DD'))}
-      focused={focused}
-      onFocusChange={handleFocusChange}
-      id={id}
-      disabled={schema.readOnly || options.readonly}
-      placeholder={intl.formatMessage({ defaultMessage: 'Päivämäärä' })}
-      hideKeyboardShortcutsPanel
-      isOutsideRange={(m) =>
-        (options.disableBefore &&
-          m.isBefore(parseToday(options.disableBefore), 'day')) ||
-        (options.disableAfter &&
-          m.isAfter(parseToday(options.disableAfter), 'day'))
-      }
-    />
+    <>
+      <Typography variant="subtitle1">{schema.title}</Typography>
+      <SingleDatePicker
+        date={value === undefined ? null : moment(value)}
+        onDateChange={(date) => date && onChange(date.format('YYYY-MM-DD'))}
+        focused={focused}
+        onFocusChange={handleFocusChange}
+        id={id}
+        disabled={schema.readOnly || options.readonly}
+        placeholder={intl.formatMessage({ defaultMessage: 'Päivämäärä' })}
+        hideKeyboardShortcutsPanel
+        isOutsideRange={(m) =>
+          (options.disableBefore &&
+            m.isBefore(parseToday(options.disableBefore), 'day')) ||
+          (options.disableAfter &&
+            m.isAfter(parseToday(options.disableAfter), 'day'))
+        }
+      />
+    </>
   );
 }
 
