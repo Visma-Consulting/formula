@@ -127,7 +127,7 @@ function TableField(props) {
 
   return (
     <div>
-      <Typography variant="h5">{schema.title}</Typography>
+      <Typography variant="h6" style={{fontWeight: 'normal'}}>{schema.title}</Typography>
       <TableContainer>
         <Table size="small">
           <TableHead>
