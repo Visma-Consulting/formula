@@ -6,11 +6,13 @@ import * as showCharacterCounter from './showCharacterCounter';
 // Order of plugins
 const typePlugins = [autocomplete, showCharacterCounter];
 
-export default ({ extraTypePlugins = [], config }) =>
+export default (props) => {
+  const { extraTypePlugins = [], config } = props;
   // Run plugins in the given order
-  flow(
+  return flow(
     [...typePlugins, ...extraTypePlugins]
       // Plugin type must match with the config type
       .filter(({ types }) => types.includes(config.type))
-      .map(({ converter }) => config |> converter |> produce)
+      .map(({ converter }) => props |> converter |> produce)
   );
+};
