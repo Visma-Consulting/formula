@@ -1,5 +1,6 @@
 # x.y.z
 
+- Add support for combining `formGroup` and `list`
 - Remove duplicate elements, when multiple dynamic elements use same key
 
 # 0.4.27

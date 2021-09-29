@@ -1,10 +1,11 @@
 import produce from 'immer';
 import { flow } from 'lodash';
 import * as autocomplete from './autocomplete';
+import * as formGroupList from './formGroupList';
 import * as showCharacterCounter from './showCharacterCounter';
 
 // Order of plugins
-const typePlugins = [autocomplete, showCharacterCounter];
+const typePlugins = [autocomplete, showCharacterCounter, formGroupList];
 
 export default (props) => {
   const { extraTypePlugins = [], config } = props;
