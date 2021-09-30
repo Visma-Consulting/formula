@@ -60,7 +60,7 @@ export const show = (formData, element) => {
   return test(rule);
 };
 
-function dynamicElements(config, formData = {}) {
+export function dynamicElements(config, formData = {}) {
   // config.list element is filtered in ArrayField component.
   if (config.list || !typesWithElements.includes(config.type)) {
     return config;

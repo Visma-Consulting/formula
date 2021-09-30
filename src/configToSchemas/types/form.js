@@ -1,3 +1,4 @@
+import { uniq } from 'lodash';
 import configToProps from '..';
 
 export default ({ config, ...otherProps }) => {
@@ -19,8 +20,8 @@ export default ({ config, ...otherProps }) => {
       ...Object.fromEntries(
         properties.map(([name, { uiSchema }]) => [name, uiSchema])
       ),
-      // Ensure order of the elements is remained.
-      'ui:order': properties.map(([key]) => key),
+      // Ensure the order of the elements is remained.
+      'ui:order': uniq(properties.map(([key]) => key)),
     },
   };
 };
