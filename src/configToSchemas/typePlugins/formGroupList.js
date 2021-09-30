@@ -7,6 +7,7 @@ export const types = ['formGroup'];
 //https://github.com/rjsf-team/react-jsonschema-form/issues/1206
 function FormGroupListField(props) {
   const schemas = configToSchemas({
+    extraTypes: props.uiSchema['ui:options'].formulaProps.extraTypes,
     extraTypePlugins:
       props.uiSchema['ui:options'].formulaProps.extraTypePlugins,
     config: dynamicElements(
