@@ -1,6 +1,5 @@
-import React from 'react';
+import { Chip, TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
-import { TextField, Chip } from '@material-ui/core';
 
 export const types = ['multiselect'];
 
@@ -28,18 +27,20 @@ function AutocompleteField(props) {
   );
 }
 
-export const converter = (config) => (props) => {
-  if (config.autocomplete) {
-    props.schema.items.enumNames ??= [];
-    // Allow values outside the choices
-    delete props.schema.items.enum;
+export const converter =
+  ({ config }) =>
+  (props) => {
+    if (config.autocomplete) {
+      props.schema.items.enumNames ??= [];
+      // Allow values outside the choices
+      delete props.schema.items.enum;
 
-    props.uiSchema ??= {};
-    props.uiSchema['ui:field'] = AutocompleteField;
+      props.uiSchema ??= {};
+      props.uiSchema['ui:field'] = AutocompleteField;
 
-    // To let AutocompleteField know if this is select or multiselect
-    // For now only multiselect is supported
-    // props.uiSchema['ui:options'] ??= {};
-    // props.uiSchema['ui:options'].type = config.type;
-  }
-};
+      // To let AutocompleteField know if this is select or multiselect
+      // For now only multiselect is supported
+      // props.uiSchema['ui:options'] ??= {};
+      // props.uiSchema['ui:options'].type = config.type;
+    }
+  };

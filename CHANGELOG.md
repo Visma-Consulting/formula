@@ -1,3 +1,8 @@
+# 0.4.30
+
+- Add support for combining `formGroup` and `list`
+- Remove duplicate elements, when multiple dynamic elements use same key
+
 # 0.4.27
 
 - Fix adding element to a form with steps
