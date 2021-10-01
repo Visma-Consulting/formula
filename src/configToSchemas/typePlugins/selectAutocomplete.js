@@ -37,7 +37,7 @@ export function AutocompleteSelectField(props) {
   );
 }
 
-export const converter = (config) => (props) => {
+export const converter = ( {config} ) => (props) => {
   if (config.autocomplete) {
     props.uiSchema ??= {};
     props.uiSchema['ui:field'] = AutocompleteSelectField;
