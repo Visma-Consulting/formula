@@ -1,3 +1,7 @@
+# 0.4.31
+
+- Fix CAPTCHA: Remove use of internal dependency
+
 # 0.4.30
 
 - Add support for combining `formGroup` and `list`

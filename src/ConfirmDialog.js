@@ -5,8 +5,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  useTheme,
 } from '@material-ui/core';
-import useDarkMode from '@super-template/lab/src/darkMode/useDarkMode';
 import produce from 'immer';
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
@@ -51,7 +51,7 @@ export default forwardRef(function ConfirmDialog(
     isCaptchaRequired(other.config)
   );
   const [captchaChallenge, setCaptchaChallenge] = useState();
-  const [darkMode] = useDarkMode();
+  const theme = useTheme().palette.type;
   const { recaptcha } = useConfig();
 
   function handleClose() {
@@ -94,7 +94,7 @@ export default forwardRef(function ConfirmDialog(
           <ReCAPTCHA
             sitekey={recaptcha.sitekey}
             onChange={setCaptchaChallenge}
-            theme={darkMode ? 'dark' : 'light'}
+            theme={theme}
           />
         </DialogContent>
       )}
