@@ -1,0 +1,107 @@
+{
+  "/FfZeC": {
+    "defaultMessage": "Cancel"
+  },
+  "1GAb3J": {
+    "defaultMessage": "Select list"
+  },
+  "4QvGOn": {
+    "defaultMessage": "Table"
+  },
+  "5cc+xW": {
+    "defaultMessage": "Rich textfield"
+  },
+  "5lAmdW": {
+    "defaultMessage": "File"
+  },
+  "6jFMKd": {
+    "defaultMessage": "Submit"
+  },
+  "BCgKet": {
+    "defaultMessage": "Email"
+  },
+  "CF9XQD": {
+    "defaultMessage": "Checkboxes"
+  },
+  "DeSNU6": {
+    "defaultMessage": "Back"
+  },
+  "Lop88a": {
+    "defaultMessage": "Range"
+  },
+  "RVljsI": {
+    "defaultMessage": "Multirow textfield"
+  },
+  "SR93RW": {
+    "defaultMessage": "Radio buttons"
+  },
+  "TuztIS": {
+    "defaultMessage": "Image"
+  },
+  "ZDhZ+1": {
+    "defaultMessage": "Next"
+  },
+  "ZFehpA": {
+    "defaultMessage": "Title"
+  },
+  "ZSBYCq": {
+    "defaultMessage": "Buttons with empty choice"
+  },
+  "abt9v2": {
+    "defaultMessage": "BMI field works when there are fields for height and weight (in this order) in the same form group. Nothing else must be in this form group."
+  },
+  "cG6IFs": {
+    "defaultMessage": "Checkbox"
+  },
+  "cnaFIw": {
+    "defaultMessage": "Question"
+  },
+  "eubY+W": {
+    "defaultMessage": "Buttons"
+  },
+  "hyjpRy": {
+    "defaultMessage": "Submit form?"
+  },
+  "ijpP3x": {
+    "defaultMessage": "Print"
+  },
+  "jZHTxP": {
+    "defaultMessage": "{bmi} kg/m²"
+  },
+  "kL1KfA": {
+    "defaultMessage": "Password"
+  },
+  "mrf29j": {
+    "defaultMessage": "Multiple choice list"
+  },
+  "nk8wjQ": {
+    "defaultMessage": "No choice"
+  },
+  "qKPvwv": {
+    "defaultMessage": "Textfield"
+  },
+  "r/LS4F": {
+    "defaultMessage": "Choice"
+  },
+  "sHVt9f": {
+    "defaultMessage": "Text"
+  },
+  "ueLb4T": {
+    "defaultMessage": "Integer"
+  },
+  "xLN8SB": {
+    "defaultMessage": "Date"
+  },
+  "xuWA1g": {
+    "defaultMessage": "Multiple choice"
+  },
+  "yoBGY/": {
+    "defaultMessage": "Truth value"
+  },
+  "yxfPIz": {
+    "defaultMessage": "Phase separator and title"
+  },
+  "zHNS3q": {
+    "defaultMessage": "Body mass index"
+  }
+}
