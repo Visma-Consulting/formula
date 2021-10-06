@@ -158,6 +158,7 @@ function TableField(props) {
 export default ({ config }) => {
   return {
     schema: {
+      format: 'table',
       type: 'object',
       properties: {
         table: {
