@@ -1,7 +1,7 @@
 import { Chip, TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 
-export const types = ['select', 'multiselect'];
+export const types = ['multiselect'];
 
 function AutocompleteField(props) {
   return (

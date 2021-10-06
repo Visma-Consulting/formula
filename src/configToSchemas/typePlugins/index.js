@@ -3,9 +3,10 @@ import { flow } from 'lodash';
 import * as autocomplete from './autocomplete';
 import * as formGroupList from './formGroupList';
 import * as showCharacterCounter from './showCharacterCounter';
+import * as selectAutocomplete from './selectAutocomplete';
 
 // Order of plugins
-const typePlugins = [autocomplete, showCharacterCounter, formGroupList];
+const typePlugins = [autocomplete, selectAutocomplete, showCharacterCounter, formGroupList];
 
 export default (props) => {
   const { extraTypePlugins = [], config } = props;

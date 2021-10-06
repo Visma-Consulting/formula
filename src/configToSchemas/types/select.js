@@ -8,9 +8,10 @@ export default ({ config }) => {
     placeholder,
     default: defaults,
     selectType = 'string',
+    autocomplete
   } = config;
   return {
-    schema: choices.length
+    schema: choices.length || autocomplete
       ? {
           default: defaults,
           enum: choices.map((v, i) => v?.enum || String(i)),
@@ -32,7 +33,7 @@ export default ({ config }) => {
         ? ensureValueIsAvailable(config.widget, widgets)
         : // If enums are not set, the widget may throw error.
           undefined,
-      //'ui:field': autocomplete ? Autocomplete : undefined,
+      // 'ui:field': autocomplete ? AutocompleteSelectField : undefined,
       'ui:enumDisabled': choicesDisabled,
     },
   };
