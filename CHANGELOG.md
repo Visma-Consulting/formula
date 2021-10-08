@@ -1,3 +1,8 @@
+# 0.4.32
+
+- English and Swedish translations
+- Fix issues with formatting and styles
+
 # 0.4.31
 
 - Fix CAPTCHA: Remove use of internal dependency
