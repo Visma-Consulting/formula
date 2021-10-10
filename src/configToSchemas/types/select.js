@@ -8,25 +8,26 @@ export default ({ config }) => {
     placeholder,
     default: defaults,
     selectType = 'string',
-    autocomplete
+    autocomplete,
   } = config;
   return {
-    schema: choices.length || autocomplete
-      ? {
-          default: defaults,
-          enum: choices.map((v, i) => v?.enum || String(i)),
-          enumNames: choices.map((v) =>
-            typeof v === 'object' ? v.enumNames : v
-          ),
-          type: selectType,
-        }
-      : // Empty list of choices (enums) matches incorrectly when used in
-        // dynamic list item, when oneOf has multiple fields with same key.
-        {
-          type: selectType,
-          default: '',
-          readOnly: true,
-        },
+    schema:
+      choices.length || autocomplete
+        ? {
+            default: defaults,
+            enum: choices.map((v, i) => v?.enum || String(i)),
+            enumNames: choices.map((v) =>
+              typeof v === 'object' ? v.enumNames : v
+            ),
+            type: selectType,
+          }
+        : // Empty list of choices (enums) matches incorrectly when used in
+          // dynamic list item, when oneOf has multiple fields with same key.
+          {
+            type: selectType,
+            default: '',
+            readOnly: true,
+          },
     uiSchema: {
       'ui:placeholder': placeholder,
       'ui:widget': choices.length

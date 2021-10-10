@@ -1,3 +1,9 @@
+# 0.4.33
+
+- Render multiple files field as list
+- Change filter syntax to use MongoDB queries
+- Fix setting default keys
+
 # 0.4.32
 
 - English and Swedish translations

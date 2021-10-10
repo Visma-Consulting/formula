@@ -1,6 +1,6 @@
 {
   "name": "@visma/formula",
-  "version": "0.4.32",
+  "version": "0.4.33",
   "homepage": "https://github.com/Visma-AS/formula#readme",
   "repository": {
     "type": "git",
@@ -52,6 +52,7 @@
     "react-dates": "^21.8.0",
     "react-google-recaptcha": "^2.1.0",
     "react-rte": "^0.16.3",
+    "sift": "^15.0.0",
     "tiny-invariant": "^1.1.0",
     "use-axios": "^0.3.7",
     "util-deprecate": "^1.0.2"

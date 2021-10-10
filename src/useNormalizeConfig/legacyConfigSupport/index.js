@@ -1,11 +1,12 @@
+import { map, update } from 'lodash/fp';
 import booleanDefault from './booleanDefault';
 import booleanWidget from './booleanWidget';
+import filter from './filter';
 import formgroupType from './formgroupType';
 import multiselectWidget from './multiselectWidget';
 import nameAsTitle from './nameAsTitle';
 import selectWidget from './selectWidget';
 import textDefault from './textDefault';
-import { map, update } from 'lodash/fp';
 
 export default function legacyConfigSupport(config) {
   return (
@@ -17,6 +18,7 @@ export default function legacyConfigSupport(config) {
     |> nameAsTitle
     |> selectWidget
     |> textDefault
+    |> filter
     |> update('elements', map(legacyConfigSupport))
   );
 }

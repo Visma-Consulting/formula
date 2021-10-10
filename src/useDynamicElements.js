@@ -1,63 +1,31 @@
-import {
-  intersection,
-  isEqual,
-  mapValues,
-  pickBy,
-  isPlainObject,
-} from 'lodash';
+import { pick } from 'lodash';
+import sift from 'sift';
 import { typesWithElements, useStatePreferInitial } from './utils';
 
-const pickDeepBy = (value, predicate) =>
-  (function pickDeep(value) {
-    return isPlainObject(value)
-      ? mapValues(pickBy(value, predicate), pickDeep)
-      : value;
-  })(value);
+// const show = (formData, element) => {
+//   const rule = element.filter?.show;
 
-export const show = (formData, element) => {
-  const rule = element.filter?.show;
+//   if (!rule) {
+//     return true;
+//   }
 
-  if (!rule) {
-    return true;
+//   return sift(element.filter.show.query)(formData);
+// };
+
+export const isArrayRule = (rule) => ['$or', '$and'].includes(rule);
+
+export const toTarget = (element) => {
+  const [{ query } = {}] = Object.values(element.filter) ?? [];
+  if (query) {
+    const { $and, $or, ...other } = query;
+
+    const [[key, value]] = Object.entries({ $and, $or, ...other }).filter(
+      ([rule, value]) =>
+        isArrayRule(rule) ? value?.length : value !== undefined
+    );
+
+    return isArrayRule(key) ? Object.keys(value[0])[0] : key;
   }
-
-  const value = formData[rule.target];
-
-  function test({
-    anyOf,
-    allOf,
-    exists,
-    equals,
-    unequals,
-    includesEvery,
-    includesSome,
-  }) {
-    return allOf
-      ? allOf.every(test)
-      : anyOf
-      ? anyOf.some(test)
-      : exists !== undefined
-      ? exists
-        ? value !== undefined
-        : value === undefined
-      : equals === undefined && unequals === undefined
-      ? includesEvery === undefined
-        ? includesSome === undefined
-          ? true
-          : intersection(value, includesSome).length
-        : intersection(value, includesEvery).length === includesEvery.length
-      : unequals === undefined
-      ? isEqual(
-          pickDeepBy(value, (value) => value !== undefined),
-          equals
-        )
-      : !isEqual(
-          pickDeepBy(value, (value) => value !== undefined),
-          unequals
-        );
-  }
-
-  return test(rule);
 };
 
 export function dynamicElements(config, formData = {}) {
@@ -66,36 +34,35 @@ export function dynamicElements(config, formData = {}) {
     return config;
   }
 
-  return {
-    ...config,
-    elements: config.elements
-      .filter(function test(element) {
-        const rule = element.filter?.show;
+  let elements = config.elements;
+  let checkChanges = true;
 
-        if (!rule) {
+  // eslint-disable-next-line @super-template/no-loops/no-loops
+  while (checkChanges) {
+    const { length } = elements;
+    const keys = elements.map((element) => element.key);
+    const filteredFormData = pick(formData, keys);
+    elements = elements
+      .filter(function test(element) {
+        const query = element.filter?.show?.query;
+
+        if (!query) {
           return true;
         }
 
-        const target = config.elements.find(
-          (element) => element.key === rule.target
-        );
-
-        return target && test(target) && show(formData, element);
+        return sift(query)(filteredFormData);
       })
-      .map((element) => dynamicElements(element, formData[element.key])),
+      .map((element) =>
+        dynamicElements(element, filteredFormData[element.key])
+      );
+    checkChanges = elements.length !== length;
+  }
+
+  return {
+    ...config,
+    elements,
   };
 }
-
-export const filterElements = (elements, formData = {}) =>
-  elements.filter((element) => {
-    const rule = element.filter?.show;
-
-    if (!rule) {
-      return true;
-    }
-
-    return show(formData, element);
-  });
 
 export default function useDynamicElements(props) {
   const [formData, setFormData] = useStatePreferInitial(props.formData);

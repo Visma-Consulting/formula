@@ -16,7 +16,7 @@ export default extendType(select, ({ config }) => (props) => {
         // dynamic list item, when oneOf has multiple fields with same key.
         {
           type: 'string',
-          default: [],
+          default: '',
           readOnly: true,
         };
   props.uiSchema = {
