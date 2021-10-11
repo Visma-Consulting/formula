@@ -1,3 +1,8 @@
+# x.y.z
+
+- Fix issue with large images
+- Don't stretch small images
+
 # 0.4.36
 
 - Fix losing focus
