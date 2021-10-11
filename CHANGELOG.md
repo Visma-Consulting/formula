@@ -1,8 +1,11 @@
+# x.y.z
+
+- Fix setting default keys
+
 # 0.4.34
 
 - Render multiple files field as list
 - Change filter syntax to use MongoDB queries
-- Fix setting default keys
 - Upgrade to `@visma/rjsf-*@^3.1.0-4`
 
 # 0.4.32

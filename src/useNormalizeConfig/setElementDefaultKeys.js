@@ -3,7 +3,7 @@ import { typesWithElements } from '../utils';
 
 const setDefaultKeys = (elements) => {
   let indexKey = Math.max(
-    0,
+    -1,
     ...elements
       .map((element) => element.key)
       .map(Number)
@@ -15,7 +15,7 @@ const setDefaultKeys = (elements) => {
       element.key === undefined
         ? {
             ...element,
-            key: String(indexKey++),
+            key: String(++indexKey),
           }
         : element
     )
