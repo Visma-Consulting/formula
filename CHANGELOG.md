@@ -1,5 +1,6 @@
 # x.y.z
 
+- Fix losing focus
 - Fix setting default keys
 
 # 0.4.34
