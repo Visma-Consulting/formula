@@ -7,9 +7,11 @@ export const types = ['select'];
 export function AutocompleteSelectField(props) {
   const options = props.schema.enum;
   const optionNames = props.schema.enumNames;
+  const initialValue = props.formData;
+  const initialIndex = options.indexOf(initialValue);
 
-  const [ choice, setChoice ] = useState(options[0]);
-  const [ choiceName, setChoiceName ] = useState(optionNames[0]);
+  const [ choice, setChoice ] = useState(initialValue ?? null);
+  const [ choiceName, setChoiceName ] = useState(initialIndex >= 0 ? optionNames[initialIndex] : null);
 
   const updateChoice = (value) => {
     setChoiceName(value);
