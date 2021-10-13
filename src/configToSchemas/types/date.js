@@ -26,7 +26,6 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
 
   return (
     <>
-      <Typography variant="subtitle1">{schema.title}</Typography>
       <SingleDatePicker
         date={value === undefined ? null : moment(value)}
         onDateChange={(date) => date && onChange(date.format('YYYY-MM-DD'))}
