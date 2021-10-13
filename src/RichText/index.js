@@ -1,6 +1,7 @@
-import { Component } from 'react';
-import RichTextEditor from 'react-rte/lib/RichTextEditor';
 import TextField from '@material-ui/core/TextField';
+import { useCallback, useEffect, useState } from 'react';
+import RichTextEditor from 'react-rte/lib/RichTextEditor';
+import './react-rte-popover-patch';
 import './styles.css';
 import { editor } from './styles.module.css';
 
@@ -14,54 +15,49 @@ const isMobile = do {
     );
 };
 
-export class RichText extends Component {
-  static defaultProps = {
-    options: {
-      format: 'markdown',
-    },
-  };
+const format = 'markdown';
 
-  state = {
-    value: RichTextEditor.createEmptyValue(),
-  };
+const RichText = isMobile
+  ? function RichText({ value, onChange }) {
+      return (
+        <TextField
+          multiline
+          rowsMax={4}
+          value={value ?? ''}
+          onChange={({ target: { value } }) => {
+            onChange(value);
+          }}
+        />
+      );
+    }
+  : function RichText({ value, onChange }) {
+      const [editorValue, setEditorValue] = useState(() =>
+        RichTextEditor.createValueFromString(value, format)
+      );
 
-  static getDerivedStateFromProps({ value, options: { format } }, state) {
-    const prevValue = state.value?.toString('markdown');
-    return value && value !== prevValue
-      ? {
-          value: RichTextEditor.createValueFromString(value, 'markdown'),
+      useEffect(() => {
+        const prevValue = editorValue?.toString(format);
+        if (value !== prevValue) {
+          setEditorValue(RichTextEditor.createValueFromString(value, format));
         }
-      : null;
-  }
+        // This is only to track external value changes
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [value]);
 
-  handleChange = (value) => {
-    this.setState({ value });
-    this.props.onChange(value.toString('markdown'));
-  };
-
-  hanleFormControlChange = ({ target: { value } }) => {
-    this.props.onChange(value);
-  };
-
-  render = isMobile
-    ? function render() {
-        return (
-          <TextField
-            multiline
-            rowsMax={4}
-            value={this.props.value || ''}
-            onChange={this.hanleFormControlChange}
+      return (
+        <div className={editor}>
+          <RichTextEditor
+            value={editorValue}
+            onChange={useCallback(
+              (editorValue) => {
+                setEditorValue(editorValue);
+                onChange(editorValue.toString(format));
+              },
+              [onChange]
+            )}
           />
-        );
-      }
-    : function render() {
-        return (
-          <div className={editor}>
-            <RichTextEditor
-              value={this.state.value || ''}
-              onChange={this.handleChange}
-            />
-          </div>
-        );
-      };
-}
+        </div>
+      );
+    };
+
+export { RichText };
