@@ -32,13 +32,15 @@ const RichText = isMobile
     }
   : function RichText({ value, onChange }) {
       const [editorValue, setEditorValue] = useState(() =>
-        RichTextEditor.createValueFromString(value, format)
+        RichTextEditor.createValueFromString(value ?? '', format)
       );
 
       useEffect(() => {
         const prevValue = editorValue?.toString(format);
         if (value !== prevValue) {
-          setEditorValue(RichTextEditor.createValueFromString(value, format));
+          setEditorValue(
+            RichTextEditor.createValueFromString(value ?? '', format)
+          );
         }
         // This is only to track external value changes
         // eslint-disable-next-line react-hooks/exhaustive-deps
