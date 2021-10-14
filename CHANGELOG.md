@@ -1,5 +1,6 @@
 # x.y.z
 
+- Upgrade to `@visma/rjsf-*@3.1.0-5`
 - Remove extra titles from date and table types
 - Fix issue with large images
 - Don't stretch small images
