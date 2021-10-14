@@ -1,5 +1,6 @@
 # x.y.z
 
+- Remove extra titles from date and table types
 - Fix issue with large images
 - Don't stretch small images
 

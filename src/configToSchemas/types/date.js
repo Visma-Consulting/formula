@@ -1,14 +1,13 @@
-import { useEffect, useState } from 'react';
-import { SingleDatePicker } from 'react-dates';
-import 'react-dates/initialize';
-import moment from 'moment';
-import { defineMessage, useIntl } from 'react-intl';
 /* eslint import/no-webpack-loader-syntax: "off" */
 /* eslint import/no-unresolved: "off" */
 import '!style-loader!css-loader!react-dates/lib/css/_datepicker.css';
+import moment from 'moment';
 import 'moment/locale/fi';
 import 'moment/locale/sv';
-import { Typography } from '@material-ui/core';
+import { useEffect, useState } from 'react';
+import { SingleDatePicker } from 'react-dates';
+import 'react-dates/initialize';
+import { defineMessage, useIntl } from 'react-intl';
 
 const parseToday = (date) => (date === 'today' ? moment() : moment(date));
 
@@ -26,7 +25,6 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
 
   return (
     <>
-      <Typography variant="subtitle1">{schema.title}</Typography>
       <SingleDatePicker
         date={value === undefined ? null : moment(value)}
         onDateChange={(date) => date && onChange(date.format('YYYY-MM-DD'))}
