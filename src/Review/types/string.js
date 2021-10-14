@@ -1,10 +1,11 @@
-import { format } from 'date-fns';
-import { StepTitle } from '../../configToSchemas/types/stepTitle';
 import Typography from '@material-ui/core/Typography';
-import prettyBytes from 'pretty-bytes';
 import { byteLength } from 'base64-js';
+import { format } from 'date-fns';
+import prettyBytes from 'pretty-bytes';
 import { useIntl } from 'react-intl';
+import { StepTitle } from '../../configToSchemas/types/stepTitle';
 import { useFormulaContext } from '../../Context';
+import Markdown from '../../Markdown';
 
 const dataUrlByteLength = (dataUrl) => byteLength(dataUrl.split(',')[1]);
 
@@ -28,6 +29,10 @@ export default ({ formData, schema, uiSchema }) => {
         {prettyBytes(dataUrlByteLength(formData), { locale })})
       </>
     );
+  }
+
+  if (schema.format === 'markdown') {
+    return <Markdown>{formData}</Markdown>;
   }
 
   if (uiSchema?.['ui:options']?.unit) {
