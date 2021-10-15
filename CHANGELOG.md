@@ -7,6 +7,8 @@
 - Fix rendering rich text editor when initial value changes
 - Fix rich text review format
 - Fix issue with large images
+- Fix crash when resolving element references if elements is undefined
+- Fix crash when localizing config
 - Don't stretch small images
 
 # 0.4.36

@@ -23,7 +23,7 @@ export default function useResolveElementReferences() {
   function resolveConfig({ elements, ...other }) {
     return {
       ...other,
-      elements: elements.map(resolveElement),
+      elements: elements?.map(resolveElement),
     };
   }
 
