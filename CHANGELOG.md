@@ -2,6 +2,9 @@
 
 - Upgrade to `@visma/rjsf-*@3.1.0-5`
 - Remove extra titles from date and table types
+- Fix rich text editor link and image menus
+- Fix rendering rich text editor when initial value changes
+- Fix rich text review format
 - Fix issue with large images
 - Don't stretch small images
 
