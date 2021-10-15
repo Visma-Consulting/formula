@@ -1,31 +1,16 @@
-import React, { useState, useEffect } from 'react';
 import { Autocomplete } from '@material-ui/lab';
 import { TextField } from '@material-ui/core';
 
 export const types = ['select'];
 
 export function AutocompleteSelectField(props) {
-  const options = props.schema.enum;
-  const optionNames = props.schema.enumNames;
-
-  const [ choice, setChoice ] = useState(options[0]);
-  const [ choiceName, setChoiceName ] = useState(optionNames[0]);
-
-  const updateChoice = (value) => {
-    setChoiceName(value);
-    setChoice(options[optionNames.indexOf(value)]);
-  }
-
-  useEffect(() => {
-    props.onChange(choice);
-  }, [choice])
-
   return (
     <Autocomplete
-      options={optionNames}
-      value={choiceName}
-      onChange={(event, value) => updateChoice(value)}
-      freeSolo
+      options={props.schema.enumNames}
+      value={props.schema.enumNames[props.schema.enum.indexOf(props.formData)]}
+      onChange={(event, value) =>
+        props.onChange(props.schema.enum[props.schema.enumNames.indexOf(value)])
+      }
       renderInput={(params) => (
         <TextField
           {...params}

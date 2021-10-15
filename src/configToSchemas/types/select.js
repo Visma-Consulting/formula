@@ -15,7 +15,7 @@ export default ({ config }) => {
       choices.length || autocomplete
         ? {
             default: defaults,
-            enum: choices.map((v, i) => v?.enum || String(i)),
+            enum: choices.map((v, i) => v?.enum ?? String(i)),
             enumNames: choices.map((v) =>
               typeof v === 'object' ? v.enumNames : v
             ),
