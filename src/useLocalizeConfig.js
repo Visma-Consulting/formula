@@ -38,7 +38,7 @@ export function useLocalizeConfig() {
     return {
       ...mapValues(translatedConfig, (value, key) =>
         translateArrayProperties.includes(key)
-          ? value.map((value) =>
+          ? value?.map((value) =>
               typeof value === 'object' ? localizeConfig(value) : value
             )
           : translateArray.includes(key)
