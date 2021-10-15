@@ -1,5 +1,5 @@
-import { Autocomplete } from '@material-ui/lab';
 import { TextField } from '@material-ui/core';
+import { Autocomplete } from '@material-ui/lab';
 
 export const types = ['select'];
 
@@ -22,10 +22,11 @@ export function AutocompleteSelectField(props) {
   );
 }
 
-export const converter = ( {config} ) => (props) => {
-  if (config.autocomplete) {
-    props.uiSchema ??= {};
-    props.uiSchema['ui:field'] = AutocompleteSelectField;
-  }
-};
-
+export const converter =
+  ({ config }) =>
+  (props) => {
+    if (config.autocomplete) {
+      props.uiSchema ??= {};
+      props.uiSchema['ui:field'] = AutocompleteSelectField;
+    }
+  };

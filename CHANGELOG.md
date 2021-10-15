@@ -9,6 +9,7 @@
 - Fix issue with large images
 - Fix crash when resolving element references if elements is undefined
 - Fix crash when localizing config
+- Autocomplete updates
 - Don't stretch small images
 
 # 0.4.36
