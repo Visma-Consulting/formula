@@ -1,5 +1,8 @@
 # x.y.z
 
+- Update external links in rich text:
+  - Show icon next to link
+  - Add `noopener noreferrer nofollow`
 - In review show password as \*\*\*\*\*\*\*\*
 
 # 0.4.37
