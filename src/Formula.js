@@ -1,8 +1,9 @@
 import RJSFForm from '@visma/rjsf-material-ui';
 import configToSchemas from './configToSchemas';
 import { withFormulaProvider } from './Context';
-import useFields from './useFields';
+import omitExtraData from './omitExtraData';
 import useDynamicElements from './useDynamicElements';
+import useFields from './useFields';
 import { useNormalizeConfigProp } from './useNormalizeConfig';
 import useSubmit from './useSubmit';
 import { withPropsUpdater } from './utils';
@@ -14,6 +15,7 @@ import withSteps from './withSteps';
 
 export const Form =
   RJSFForm
+  |> withPropsUpdater(omitExtraData)
   |> withPropsUpdater(useFields)
   |> withPropsUpdater(useSubmit)
   |> withConfirmSubmit
