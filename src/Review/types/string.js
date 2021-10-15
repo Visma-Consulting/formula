@@ -20,6 +20,10 @@ export default ({ formData, schema, uiSchema }) => {
     formData = format(new Date(formData), 'P', { locale: dateFnsLocale });
   }
 
+  if (uiSchema?.['ui:widget'] === 'password') {
+    formData = '********';
+  }
+
   const { locale } = useIntl();
 
   if (schema.format === 'data-url') {

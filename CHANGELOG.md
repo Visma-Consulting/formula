@@ -1,3 +1,7 @@
+# x.y.z
+
+- In review show password as \*\*\*\*\*\*\*\*
+
 # 0.4.37
 
 - Upgrade to `@visma/rjsf-*@3.1.0-5`
