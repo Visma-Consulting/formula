@@ -6,7 +6,7 @@ import { defineMessage } from 'react-intl';
 export default extendType(text, ({ config }) => (props) => {
   props.uiSchema ??= {};
   props.uiSchema['ui:widget'] = RichText;
-  props.schema['format'] = 'richtext';
+  props.schema['format'] = 'markdown';
 });
 
 export const name = defineMessage({

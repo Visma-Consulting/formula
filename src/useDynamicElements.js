@@ -15,7 +15,8 @@ import { typesWithElements, useStatePreferInitial } from './utils';
 export const isArrayRule = (rule) => ['$or', '$and'].includes(rule);
 
 export const toTarget = (element) => {
-  const [{ query } = {}] = Object.values(element.filter) ?? [];
+  const [{ query } = {}] =
+    (element.filter && Object.values(element.filter)) ?? [];
   if (query) {
     const { $and, $or, ...other } = query;
 
