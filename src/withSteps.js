@@ -5,7 +5,7 @@ import StepContent from '@material-ui/core/StepContent';
 import Stepper from '@material-ui/core/Stepper';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { pickBy } from 'lodash';
+import { mapValues } from 'lodash';
 import { forwardRef, useRef, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { StepTitle } from './configToSchemas/types/stepTitle';
@@ -57,10 +57,6 @@ export default function withSteps(Form) {
         { current: -1, elements: [] }
       );
 
-    const properties = pickBy(otherProps.schema.properties, (value, key) =>
-      elements.includes(key)
-    );
-
     const createHandleJump = (step) =>
       function handleJump(event) {
         jumpRef.current = step;
@@ -103,9 +99,16 @@ export default function withSteps(Form) {
                         schema={{
                           ...otherProps.schema,
                           title: undefined,
-                          properties,
-                          required: otherProps.schema.required?.filter(
-                            (key) => key in properties
+                          required: otherProps.schema.required?.filter((key) =>
+                            elements.includes(key)
+                          ),
+                        }}
+                        uiSchema={{
+                          ...mapValues(otherProps.uiSchema, (value, key) =>
+                            key in otherProps.schema.properties &&
+                            !elements.includes(key)
+                              ? { 'ui:widget': 'hidden' }
+                              : value
                           ),
                         }}
                       >

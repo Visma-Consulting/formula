@@ -1,5 +1,6 @@
 # x.y.z
 
+- Fix submitting form with steps. Only data from the last step was submitted.
 - Update external links in rich text:
   - Show icon next to link
   - Add `noopener noreferrer nofollow`
@@ -13,7 +14,7 @@
 - Fix rich text editor link and image menus
 - Fix rendering rich text editor when initial value changes
 - Fix rich text review format
-- Fix issue with large images
+- Fix layout issue with large images
 - Fix crash when resolving element references if elements is undefined
 - Fix crash when localizing config
 - Autocomplete updates
