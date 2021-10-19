@@ -1,4 +1,4 @@
-# x.y.z
+# 0.4.38
 
 - Change number type default value from `0` to `undefined`
 - Fix submitting form with steps. Only data from the last step was submitted.
