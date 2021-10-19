@@ -39,7 +39,9 @@ export default ({ formData, schema, uiSchema }) => {
     }
   }
 
-  formData ??= empty;
+  if (!uiSchema?.['ui:options']?.dummy) {
+    formData ??= empty;
+  }
 
   if (schema.format === 'markdown') {
     return <Markdown>{formData}</Markdown>;

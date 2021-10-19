@@ -41,21 +41,24 @@ export default function withSteps(Form) {
 
     const isLastStep = activeStep === steps.length - 1;
 
-    const { elements } = Object.entries(otherProps.uiSchema)
-      .filter(([key]) => key in otherProps.schema.properties)
-      .filter(([, value]) => value)
-      .reduce(
-        ({ current, elements }, [key, { 'ui:field': uiField }]) => {
-          if (uiField === StepTitle) {
-            return { current: current + 1, elements };
-          }
-          if (current === -1 || current === activeStep) {
-            elements.push(key);
-          }
-          return { current, elements };
-        },
-        { current: -1, elements: [] }
-      );
+    const elements = otherProps.uiSchema['ui:order'];
+
+    const stepElements = [];
+    let current = -1;
+    for (const element of elements) {
+      const uiField = otherProps.uiSchema[element]['ui:field'];
+      if (uiField === StepTitle) {
+        current++;
+        if (current > activeStep) {
+          break;
+        } else {
+          continue;
+        }
+      }
+      if (current === -1 || current === activeStep) {
+        stepElements.push(element);
+      }
+    }
 
     const createHandleJump = (step) =>
       function handleJump(event) {
@@ -68,6 +71,8 @@ export default function withSteps(Form) {
           jumpRef.current = null;
         });
       };
+
+    console.log(stepElements);
 
     return (
       <>
@@ -100,13 +105,20 @@ export default function withSteps(Form) {
                           ...otherProps.schema,
                           title: undefined,
                           required: otherProps.schema.required?.filter((key) =>
-                            elements.includes(key)
+                            stepElements.includes(key)
                           ),
                         }}
                         uiSchema={{
+                          ...mapValues(
+                            otherProps.schema.properties,
+                            (value, key) =>
+                              stepElements.includes(key)
+                                ? otherProps.uiSchema[key]
+                                : { 'ui:widget': 'hidden' }
+                          ),
                           ...mapValues(otherProps.uiSchema, (value, key) =>
                             key in otherProps.schema.properties &&
-                            !elements.includes(key)
+                            !stepElements.includes(key)
                               ? { 'ui:widget': 'hidden' }
                               : value
                           ),

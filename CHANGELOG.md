@@ -1,3 +1,8 @@
+# 0.4.40
+
+- Stepped form fixes
+- Revert: Set empty schema for images etc. dummy elements
+
 # 0.4.39
 
 - Fix array type rendering when columns are undefined
