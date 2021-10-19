@@ -1,5 +1,6 @@
 # x.y.z
 
+- Change number type default value from `0` to `undefined`
 - Fix submitting form with steps. Only data from the last step was submitted.
 - Update external links in rich text:
   - Show icon next to link
