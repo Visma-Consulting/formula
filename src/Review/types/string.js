@@ -3,6 +3,7 @@ import { byteLength } from 'base64-js';
 import { format } from 'date-fns';
 import prettyBytes from 'pretty-bytes';
 import { useIntl } from 'react-intl';
+import { empty } from '..';
 import { StepTitle } from '../../configToSchemas/types/stepTitle';
 import { useFormulaContext } from '../../Context';
 import Markdown from '../../Markdown';
@@ -17,7 +18,8 @@ export default ({ formData, schema, uiSchema }) => {
   }
 
   if (schema.format === 'date') {
-    formData = format(new Date(formData), 'P', { locale: dateFnsLocale });
+    formData =
+      formData && format(new Date(formData), 'P', { locale: dateFnsLocale });
   }
 
   if (uiSchema?.['ui:widget'] === 'password') {
@@ -27,13 +29,17 @@ export default ({ formData, schema, uiSchema }) => {
   const { locale } = useIntl();
 
   if (schema.format === 'data-url') {
-    return (
-      <>
-        {decodeURIComponent(formData.match(/name=(?<name>.*);/).groups.name)} (
-        {prettyBytes(dataUrlByteLength(formData), { locale })})
-      </>
-    );
+    if (formData) {
+      return (
+        <>
+          {decodeURIComponent(formData.match(/name=(?<name>.*);/).groups.name)}{' '}
+          ({prettyBytes(dataUrlByteLength(formData), { locale })})
+        </>
+      );
+    }
   }
+
+  formData ??= empty;
 
   if (schema.format === 'markdown') {
     return <Markdown>{formData}</Markdown>;

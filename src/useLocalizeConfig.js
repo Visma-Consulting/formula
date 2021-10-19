@@ -42,7 +42,7 @@ export function useLocalizeConfig() {
               typeof value === 'object' ? localizeConfig(value) : value
             )
           : translateArray.includes(key)
-          ? value.map((value) =>
+          ? value?.map((value) =>
               typeof value === 'object' ? localize(value) : value
             )
           : value

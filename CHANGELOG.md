@@ -1,3 +1,10 @@
+# 0.4.39
+
+- Fix array type rendering when columns are undefined
+- Review improvements: render "–" in place of unset answers
+- Set empty schema for images etc. dummy elements
+- Upgrade to `@visma/rjsf-*@3.1.0-7`
+
 # 0.4.38
 
 - Change number type default value from `0` to `undefined`

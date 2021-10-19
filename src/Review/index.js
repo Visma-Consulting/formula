@@ -2,8 +2,8 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { Print } from '@material-ui/icons';
 import { FormattedMessage } from 'react-intl';
-import Field from './Field';
 import Markdown from '../Markdown';
+import Field from './Field';
 
 const useStyles = makeStyles((theme) => ({
   buttonContainer: {
@@ -33,3 +33,5 @@ export default function Review(props) {
     </>
   );
 }
+
+export const empty = '–';
