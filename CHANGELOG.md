@@ -1,3 +1,7 @@
+# 0.4.41
+
+- Fix form with steps
+
 # 0.4.40
 
 - Stepped form fixes

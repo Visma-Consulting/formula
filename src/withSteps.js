@@ -46,7 +46,7 @@ export default function withSteps(Form) {
     const stepElements = [];
     let current = -1;
     for (const element of elements) {
-      const uiField = otherProps.uiSchema[element]['ui:field'];
+      const uiField = otherProps.uiSchema[element]?.['ui:field'];
       if (uiField === StepTitle) {
         current++;
         if (current > activeStep) {
@@ -71,8 +71,6 @@ export default function withSteps(Form) {
           jumpRef.current = null;
         });
       };
-
-    console.log(stepElements);
 
     return (
       <>
