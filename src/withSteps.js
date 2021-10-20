@@ -5,7 +5,7 @@ import StepContent from '@material-ui/core/StepContent';
 import Stepper from '@material-ui/core/Stepper';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { mapValues } from 'lodash';
+import { mapValues, pick } from 'lodash';
 import { forwardRef, useRef, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { StepTitle } from './configToSchemas/types/stepTitle';
@@ -43,21 +43,23 @@ export default function withSteps(Form) {
 
     const elements = otherProps.uiSchema['ui:order'];
 
-    const stepElements = [];
+    const currentStepElements = [];
+    const beforeMaxJumpElements = [];
     let current = -1;
     for (const element of elements) {
       const uiField = otherProps.uiSchema[element]?.['ui:field'];
       if (uiField === StepTitle) {
         current++;
-        if (current > activeStep) {
+        if (current > maxJump) {
           break;
         } else {
           continue;
         }
       }
       if ((current === -1 && activeStep === 0) || current === activeStep) {
-        stepElements.push(element);
+        currentStepElements.push(element);
       }
+      beforeMaxJumpElements.push(element);
     }
 
     const createHandleJump = (step) =>
@@ -101,9 +103,13 @@ export default function withSteps(Form) {
                         ref={ref}
                         schema={{
                           ...otherProps.schema,
+                          properties: pick(
+                            otherProps.schema.properties,
+                            beforeMaxJumpElements
+                          ),
                           title: undefined,
                           required: otherProps.schema.required?.filter((key) =>
-                            stepElements.includes(key)
+                            currentStepElements.includes(key)
                           ),
                         }}
                         uiSchema={{
@@ -111,14 +117,14 @@ export default function withSteps(Form) {
                           ...mapValues(
                             otherProps.schema.properties,
                             (value, key) =>
-                              stepElements.includes(key)
+                              currentStepElements.includes(key)
                                 ? otherProps.uiSchema[key]
                                 : { 'ui:widget': 'hidden' }
                           ),
                           // Include additional schema options
                           ...mapValues(otherProps.uiSchema, (value, key) =>
                             elements.includes(key) &&
-                            !stepElements.includes(key)
+                            !currentStepElements.includes(key)
                               ? { 'ui:widget': 'hidden' }
                               : value
                           ),
