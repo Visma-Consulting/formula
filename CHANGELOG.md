@@ -1,5 +1,6 @@
-# 0.4.42
+# 0.4.43
 
+- Upgrade to `@visma/rjsf-*@3.1.0-8`
 - Fix form with steps
 
 # 0.4.40
