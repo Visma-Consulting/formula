@@ -55,7 +55,7 @@ export default function withSteps(Form) {
           continue;
         }
       }
-      if (current === -1 || current === activeStep) {
+      if ((current === -1 && activeStep === 0) || current === activeStep) {
         stepElements.push(element);
       }
     }
@@ -107,6 +107,7 @@ export default function withSteps(Form) {
                           ),
                         }}
                         uiSchema={{
+                          // Hide elements outside current step
                           ...mapValues(
                             otherProps.schema.properties,
                             (value, key) =>
@@ -114,8 +115,9 @@ export default function withSteps(Form) {
                                 ? otherProps.uiSchema[key]
                                 : { 'ui:widget': 'hidden' }
                           ),
+                          // Include additional schema options
                           ...mapValues(otherProps.uiSchema, (value, key) =>
-                            key in otherProps.schema.properties &&
+                            elements.includes(key) &&
                             !stepElements.includes(key)
                               ? { 'ui:widget': 'hidden' }
                               : value
