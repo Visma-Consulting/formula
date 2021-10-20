@@ -1,7 +1,7 @@
 import { isFinite } from 'lodash';
 import { typesWithElements } from '../utils';
 
-const setDefaultKeys = (elements) => {
+const setDefaultKeys = (elements = []) => {
   let indexKey = Math.max(
     -1,
     ...elements

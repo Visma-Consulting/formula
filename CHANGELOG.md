@@ -1,3 +1,7 @@
+# 0.4.44
+
+- Fix crash when setting default keys if elements is undefined
+
 # 0.4.43
 
 - Upgrade to `@visma/rjsf-*@3.1.0-8`
