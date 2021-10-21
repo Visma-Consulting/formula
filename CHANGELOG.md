@@ -1,3 +1,7 @@
+# x.y.z
+
+- Set list field to have one element by default
+
 # 0.4.45
 
 - Add missing `dateFnsLocale` to form context
