@@ -9,7 +9,7 @@ import useSubmit from './useSubmit';
 import { withPropsUpdater } from './utils';
 import withConfirmSubmit from './withConfirmSubmit';
 import withFormConfigLoader from './withFormConfigLoader';
-import withFormDataLoader from './withFormDataLoader';
+import withPrefill from './withPrefill';
 import withReview from './withReview';
 import withSteps from './withSteps';
 
@@ -23,8 +23,8 @@ export const Form =
   |> withReview
   |> withPropsUpdater(configToSchemas)
   |> withPropsUpdater(useDynamicElements)
+  |> withPrefill
   |> withPropsUpdater(useNormalizeConfigProp)
-  |> withFormConfigLoader
-  |> withFormDataLoader;
+  |> withFormConfigLoader;
 
 export const Formula = Form |> withFormulaProvider;
