@@ -1,3 +1,7 @@
+# x.y.z
+
+- Fix BMI type crash when height/weight is not available
+
 # 0.4.44
 
 - Fix crash when setting default keys if elements is undefined

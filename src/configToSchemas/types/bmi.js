@@ -10,10 +10,21 @@ function Bmi(props) {
 
   useEffect(() => {
     const data = get(formData, path);
-    const height = data ? data[props.options.heightFieldKey] : (formData ? formData[props.options.heightFieldKey] : null);
-    const weight = data ? data[props.options.weightFieldKey] : (formData ? formData[props.options.weightFieldKey] : null);
+    const height = data
+      ? data[props.options.heightFieldKey]
+      : formData
+      ? formData[props.options.heightFieldKey]
+      : null;
+    const weight = data
+      ? data[props.options.weightFieldKey]
+      : formData
+      ? formData[props.options.weightFieldKey]
+      : null;
 
-    const bmi = !isNaN(height) && !isNaN(weight) ? weight / ((height * height) / 10000) : null;
+    const bmi =
+      !isNaN(height) && !isNaN(weight)
+        ? weight / ((height * height) / 10000)
+        : NaN;
     setTimeout(() => {
       props.onChange(isNaN(bmi) ? undefined : bmi.toFixed(2));
     });
