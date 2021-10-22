@@ -423,11 +423,11 @@
         "parameters": [
           {
             "name": "ids",
-            "in": "path",
+            "in": "query",
             "required": true,
             "description": "The ids of the forms",
             "schema": {
-              "type": "array"
+              "type": "string"
             }
           }
         ],
