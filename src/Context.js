@@ -5,10 +5,7 @@ import { clientPromise } from './client';
 const Context = createContext();
 
 export function FormulaProvider({ axios, children, dateFnsLocale }) {
-  const contextRef = useRef();
-  if (!contextRef.current) {
-    contextRef.current = {};
-  }
+  const contextRef = useRef({});
 
   if (axios) {
     (async function () {
@@ -20,7 +17,7 @@ export function FormulaProvider({ axios, children, dateFnsLocale }) {
     <Context.Provider
       value={useMemo(
         () => ({ ...contextRef.current, dateFnsLocale }),
-        [contextRef.current, dateFnsLocale]
+        [dateFnsLocale]
       )}
     >
       {children}
@@ -29,8 +26,8 @@ export function FormulaProvider({ axios, children, dateFnsLocale }) {
 }
 
 export const withFormulaProvider = (Form) =>
-  forwardRef(({ axios, ...other }, ref) => (
-    <FormulaProvider axios={axios}>
+  forwardRef(({ axios, dateFnsLocale, ...other }, ref) => (
+    <FormulaProvider axios={axios} dateFnsLocale={dateFnsLocale}>
       <Form ref={ref} {...other} />
     </FormulaProvider>
   ));
