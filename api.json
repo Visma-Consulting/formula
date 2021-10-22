@@ -420,6 +420,17 @@
       "get": {
         "summary": "Export configs",
         "operationId": "getConfigs",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "path",
+            "required": true,
+            "description": "The ids of the forms",
+            "schema": {
+              "type": "array"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "A full export of everything",
@@ -526,7 +537,10 @@
       },
       "Port": {
         "type": "object",
-        "properties": {}
+        "properties": {},
+        "items": {
+          "$ref": "#/components/schemas/Port"
+        }
       },
       "Data": {
         "type": "object",
