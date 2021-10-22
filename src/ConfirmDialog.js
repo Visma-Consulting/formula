@@ -51,8 +51,6 @@ export default forwardRef(function ConfirmDialog(
     isCaptchaRequired(other.config)
   );
   const [captchaChallenge, setCaptchaChallenge] = useState();
-  const theme = useTheme().palette.type;
-  const { recaptcha } = useConfig();
 
   function handleClose() {
     setOpen(false);
@@ -90,13 +88,7 @@ export default forwardRef(function ConfirmDialog(
         </DialogContent>
       )}
       {showReCAPTCHA && (
-        <DialogContent>
-          <ReCAPTCHA
-            sitekey={recaptcha.sitekey}
-            onChange={setCaptchaChallenge}
-            theme={theme}
-          />
-        </DialogContent>
+        <DialogContentReCAPTCHA onChange={setCaptchaChallenge} />
       )}
       <DialogActions>
         <Button onClick={handleDismiss}>
@@ -115,3 +107,14 @@ export default forwardRef(function ConfirmDialog(
     </Dialog>
   );
 });
+
+function DialogContentReCAPTCHA(props) {
+  const theme = useTheme().palette.type;
+  const { recaptcha } = useConfig();
+
+  return (
+    <DialogContent>
+      <ReCAPTCHA sitekey={recaptcha.sitekey} theme={theme} {...props} />
+    </DialogContent>
+  );
+}

@@ -1,5 +1,6 @@
 # x.y.z
 
+- Fix stand-alone forms without CAPTCHA: Fetch config only if CAPTCHA is used
 - Fix BMI type crash when height/weight is not available
 
 # 0.4.44
