@@ -1,8 +1,9 @@
-# x.y.z
+# 0.4.45
 
 - Add missing `dateFnsLocale` to form context
 - Fix stand-alone forms without CAPTCHA: Fetch config only if CAPTCHA is used
 - Fix BMI type crash when height/weight is not available
+- Add export endpoint to api
 
 # 0.4.44
 
