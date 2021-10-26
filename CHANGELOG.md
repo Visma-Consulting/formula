@@ -1,3 +1,7 @@
+# x.y.z
+
+- Add support to prefill formData based on config
+
 # 0.4.45
 
 - Add missing `dateFnsLocale` to form context
