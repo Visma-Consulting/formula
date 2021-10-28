@@ -1,5 +1,6 @@
 # x.y.z
 
+- Allow function types in config
 - Fix order of step titles
 
 # 0.4.46
