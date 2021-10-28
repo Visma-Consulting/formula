@@ -1,3 +1,7 @@
+# x.y.z
+
+- Fix order of step titles
+
 # 0.4.46
 
 - Add support to prefill formData based on config
