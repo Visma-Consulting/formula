@@ -1,4 +1,4 @@
-# x.y.z
+# 0.4.47
 
 - Upgrade to `@visma/rjsf-*@3.1.0-9`
 - Allow function types in config
