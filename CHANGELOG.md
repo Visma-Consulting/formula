@@ -1,5 +1,6 @@
 # x.y.z
 
+- Upgrade to `@visma/rjsf-*@3.1.0-9`
 - Allow function types in config
 - Fix order of step titles
 
