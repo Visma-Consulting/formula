@@ -2,10 +2,10 @@
   "name": "@visma/formula",
   "version": "0.4.47",
   "description": "React component for configurable forms. Optionally connect to the backend to fetch external config and submit form data to.",
-  "homepage": "https://github.com/Visma-AS/formula#readme",
+  "homepage": "https://github.com/Visma-Consulting/formula#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Visma-AS/formula.git"
+    "url": "https://github.com/Visma-Consulting/formula.git"
   },
   "license": "ISC",
   "author": {
