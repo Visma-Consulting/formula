@@ -1,4 +1,4 @@
-# x.y.z
+# 0.4.48
 
 - Fix rendering form when `ui:order` is undefined
 - Transfer ownership
