@@ -1,8 +1,8 @@
 import { forwardRef } from 'react';
 import invariant from 'tiny-invariant';
-import { useFormData } from './api';
+import { useFormData } from '../api';
 
-export default function withFormDataLoader(Form) {
+export default function withLoader(Form) {
   const Loader = forwardRef(({ id, rev, dataId, ...other }, ref) => {
     invariant(
       !(dataId && other.formData),

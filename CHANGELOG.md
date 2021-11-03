@@ -2,6 +2,21 @@
 
 - Set list field to have one element by default
 
+# 0.4.48
+
+- Fix rendering form when `ui:order` is undefined
+- Transfer ownership
+
+# 0.4.47
+
+- Upgrade to `@visma/rjsf-*@3.1.0-9`
+- Allow function types in config
+- Fix order of step titles
+
+# 0.4.46
+
+- Add support to prefill formData based on config
+
 # 0.4.45
 
 - Add missing `dateFnsLocale` to form context

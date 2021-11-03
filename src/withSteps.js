@@ -161,7 +161,10 @@ export default function withSteps(Form) {
   });
 
   return forwardRef((props, ref) => {
-    const steps = Object.values(props.uiSchema)
+    const uiOrder = props.uiSchema['ui:order'] ?? [];
+    const steps = Object.entries(props.uiSchema)
+      .sort(([a], [b]) => uiOrder.indexOf(a) - uiOrder.indexOf(b))
+      .map(([, value]) => value)
       .filter(Boolean)
       .filter(({ 'ui:field': uiField }) => uiField === StepTitle);
     return steps.length ? (
