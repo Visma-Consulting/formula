@@ -1,7 +1,7 @@
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { Print } from '@material-ui/icons';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import Markdown from '../Markdown';
 import Field from './Field';
 
@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Review(props) {
   const classes = useStyles();
+  const intl = useIntl();
 
   return (
     <>
@@ -26,6 +27,9 @@ export default function Review(props) {
           variant="contained"
           startIcon={<Print />}
           onClick={global.print}
+          aria-label={intl.formatMessage({
+            defaultMessage: 'Tulosta. Avautuu PDF:nä uuteen ikkunaan.'
+          })}
         >
           <FormattedMessage defaultMessage="Tulosta" />
         </Button>
