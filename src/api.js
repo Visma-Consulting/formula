@@ -1,7 +1,7 @@
+import * as client from './client';
 import { handleLegacyConfig } from './legacyMode';
 import useNormalizeConfig from './useNormalizeConfig';
 import { setDefaultType } from './utils';
-import * as client from './client';
 
 export * from './client';
 
@@ -42,9 +42,9 @@ export function useMutations() {
   // loaded by the app, will be refetched.
   const refetch = (response) => Promise.all(response);
 
-  const refetchForms = (formId) =>
+  const refetchForms = (id) =>
     refetch([
-      client.refetchForm({ formId }),
+      client.refetchForm({ formId: String(id) }),
       client.refetchForms(),
       client.refetchDraftForms(),
       client.refetchPublishedForms(),
@@ -52,14 +52,17 @@ export function useMutations() {
       client.refetchFormTags(),
     ]);
 
-  const refetchFormGroups = (formGroupId) =>
+  const refetchFormGroups = (id) =>
     refetch([
-      client.refetchFormGroup({ formGroupId }),
+      client.refetchFormGroup({ formGroupId: String(id) }),
       client.refetchFormGroups(),
     ]);
 
-  const refetchFields = (fieldId) =>
-    refetch([client.refetchField({ fieldId }), client.refetchFields()]);
+  const refetchFields = (id) =>
+    refetch([
+      client.refetchField({ fieldId: String(id) }),
+      client.refetchFields(),
+    ]);
 
   return {
     async submit(data) {
