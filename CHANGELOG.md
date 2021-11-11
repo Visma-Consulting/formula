@@ -1,3 +1,11 @@
+# x.y.z
+
+- Fix refetching when revision changes
+
+# 0.4.49
+
+- Upgrade to `@visma/rjsf-*@3.1.0-9`
+
 # 0.4.48
 
 - Fix rendering form when `ui:order` is undefined
