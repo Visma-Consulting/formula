@@ -1,10 +1,13 @@
 # x.y.z
 
+- Optimize text types: propagate changes only on blur
+- Upgrade to `@visma/rjsf-*@3.1.0-11`
+  - Prevent submit on enter press in single line text field
 - Fix refetching when revision changes
 
 # 0.4.49
 
-- Upgrade to `@visma/rjsf-*@3.1.0-9`
+- Upgrade to `@visma/rjsf-*@3.1.0-10`
 
 # 0.4.48
 
