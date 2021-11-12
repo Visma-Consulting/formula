@@ -1,6 +1,17 @@
-# x.y.z
+# 0.4.51
 
 - Set list field to have one element by default
+
+# 0.4.50
+
+- Optimize text types: propagate changes only on blur
+- Upgrade to `@visma/rjsf-*@3.1.0-11`
+  - Prevent submit on enter press in single line text field
+- Fix refetching when revision changes
+
+# 0.4.49
+
+- Upgrade to `@visma/rjsf-*@3.1.0-10`
 
 # 0.4.48
 

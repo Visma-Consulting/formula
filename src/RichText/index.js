@@ -1,6 +1,7 @@
 import TextField from '@material-ui/core/TextField';
 import { useCallback, useEffect, useState } from 'react';
 import RichTextEditor from 'react-rte/lib/RichTextEditor';
+import { useStatePreferInitial } from '../utils';
 import './react-rte-popover-patch';
 import './styles.css';
 import { editor } from './styles.module.css';
@@ -18,15 +19,18 @@ const isMobile = do {
 const format = 'markdown';
 
 const RichText = isMobile
-  ? function RichText({ value, onChange }) {
+  ? function RichText(props) {
+      const [value, setValue] = useStatePreferInitial(props.value);
+
       return (
         <TextField
           multiline
           rowsMax={4}
           value={value ?? ''}
           onChange={({ target: { value } }) => {
-            onChange(value);
+            setValue(value);
           }}
+          onBlur={() => props.onChange(value)}
         />
       );
     }
@@ -50,12 +54,12 @@ const RichText = isMobile
         <div className={editor}>
           <RichTextEditor
             value={editorValue}
-            onChange={useCallback(
-              (editorValue) => {
-                setEditorValue(editorValue);
-                onChange(editorValue.toString(format));
-              },
-              [onChange]
+            onChange={useCallback((editorValue) => {
+              setEditorValue(editorValue);
+            }, [])}
+            onBlur={useCallback(
+              () => onChange(editorValue.toString(format)),
+              [editorValue, onChange]
             )}
           />
         </div>
