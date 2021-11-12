@@ -5,14 +5,14 @@ const setDefaultKeys = (elements = []) => {
   let indexKey = Math.max(
     -1,
     ...elements
-      .map((element) => element.key)
+      .map((element) => element?.key)
       .map(Number)
       .filter(isFinite)
   );
 
   return elements
     .map((element) =>
-      element.key === undefined
+      element?.key === undefined
         ? {
             ...element,
             key: String(++indexKey),
