@@ -1,4 +1,4 @@
-# x.y.z
+# 0.4.50
 
 - Optimize text types: propagate changes only on blur
 - Upgrade to `@visma/rjsf-*@3.1.0-11`
