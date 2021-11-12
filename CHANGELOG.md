@@ -1,3 +1,7 @@
+# 0.4.51
+
+- Set list field to have one element by default
+
 # 0.4.50
 
 - Optimize text types: propagate changes only on blur

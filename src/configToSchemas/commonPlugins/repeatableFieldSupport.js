@@ -1,6 +1,6 @@
 export default (config) => (props) => {
   if (config.list) {
-    const { title, ...itemsSchema } = props.schema;
+    const { title, default: defaults, ...itemsSchema } = props.schema;
 
     const {
       'ui:description': description,
@@ -13,7 +13,8 @@ export default (config) => (props) => {
       type: 'array',
       items: itemsSchema,
       maxItems: config.maxItems,
-      minItems: config.minItems
+      minItems: config.minItems,
+      default: [defaults],
     };
 
     props.uiSchema = {
