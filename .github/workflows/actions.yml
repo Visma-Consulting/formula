@@ -19,22 +19,23 @@ jobs:
         uses: EndBug/version-check@v1
         id: check
 
-      - name: Version update detected
-        if: steps.check.outputs.changed == 'true'
-        run: 'echo "Version change found! New version: ${{ steps.check.outputs.version }} (${{ steps.check.outputs.type }})"'
-
       - name: Set up Node.js
-        if: steps.check.outputs.changed == 'true'
         uses: actions/setup-node@v1
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org
 
+      - run: npm ci --legacy-peer-deps
+      - run: npm run build
+      - run: npm test
+
+      - uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: examples/app/build
+
       - name: Clean install dependencies, build and publish
         if: steps.check.outputs.changed == 'true'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        # ignore prepare script on npm ci, as package is prepared before publish
-        run: |
-          npm ci --legacy-peer-deps --ignore-scripts
-          npm publish
+        run: npm publish

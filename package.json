@@ -23,15 +23,18 @@
     "lib",
     "api.json"
   ],
+  "workspaces": [
+    "examples/*"
+  ],
   "scripts": {
-    "generate-client": "react-openapi-client-generator api.json src/client.js",
     "prebuild": "npm run messages:extract && npm run messages:compile && npm run generate-client",
-    "build": "library-scripts build",
-    "prepare": "npm run build",
+    "build": "library-scripts build && npm run build --workspaces",
     "prewatch": "npm run generate-client",
     "watch": "library-scripts watch",
     "messages:extract": "formatjs extract 'src/**/*.{js,jsx,ts,tsx}' --out-file lang/fi-FI.json --id-interpolation-pattern [sha512:contenthash:base64:6]",
-    "messages:compile": "formatjs compile-folder --ast lang lib/compiled-lang"
+    "messages:compile": "formatjs compile-folder --ast lang lib/compiled-lang",
+    "generate-client": "react-openapi-client-generator api.json src/client.js",
+    "test": "npm test --workspaces"
   },
   "eslintConfig": {
     "rules": {
