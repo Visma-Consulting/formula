@@ -1,3 +1,7 @@
+# 0.4.52
+
+- Upgrade to `@visma/rjsf-*@3.1.0-13`
+
 # 0.4.51
 
 - Set list field to have one element by default
