@@ -3,11 +3,13 @@ import Formula from '@visma/formula';
 import AppProvider from '@visma/react-app-super-template';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { homepage } from '../../package.json';
+import LocaleSwitcher from './LocaleSwitcher';
 
 export default function App() {
   return (
     <AppProvider fallback={null}>
       <Container maxWidth="md">
+        <LocaleSwitcher />
         <BrowserRouter
           basename={process.env.NODE_ENV === 'test' ? undefined : homepage}
         >
