@@ -1,3 +1,7 @@
+# 0.4.53
+
+- Upgrade to `@visma/rjsf-*@3.1.0-15`
+
 # 0.4.52
 
 - Upgrade to `@visma/rjsf-*@3.1.0-13`
