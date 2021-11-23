@@ -1,4 +1,5 @@
 import { flow } from 'lodash';
+import { useMemo } from 'react';
 // import convertLegacyTranslationsToIntlProps from './convertLegacyTranslationsToIntlProps';
 import { useLocalizeConfig } from '../useLocalizeConfig';
 import { setDefaultType } from '../utils';
@@ -15,21 +16,27 @@ const useNormalizeConfig = ({
 } = {}) => {
   const localizeConfig = useLocalizeConfig();
 
-  return flow(
-    [
-      // Remove possible null values, to make default function parameters to be
-      // affective.
-      omitNullValues,
-      setDefaultType(type),
-      legacyConfigSupport,
-      // If applicable type and elements are not defined.
-      maybeSetElements,
-      // Use element index as default key.
-      setElementDefaultKeys,
-      //convertLegacyTranslationsToIntlProps,
-      localize && localizeConfig,
-    ].filter(Boolean)
-  );
+  return function useNormalizeConfig(config) {
+    return useMemo(
+      () =>
+        flow(
+          [
+            // Remove possible null values, to make default function parameters
+            // to be affective.
+            omitNullValues,
+            setDefaultType(type),
+            legacyConfigSupport,
+            // If applicable type and elements are not defined.
+            maybeSetElements,
+            // Use element index as default key.
+            setElementDefaultKeys,
+            //convertLegacyTranslationsToIntlProps,
+            localize && localizeConfig,
+          ].filter(Boolean)
+        )(config),
+      [config]
+    );
+  };
 };
 
 export default useNormalizeConfig;
