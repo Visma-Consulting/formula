@@ -1,3 +1,7 @@
+# 0.4.54
+
+- Memoize config normalization
+
 # 0.4.53
 
 - Upgrade to `@visma/rjsf-*@3.1.0-15`
