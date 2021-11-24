@@ -145,11 +145,6 @@ function TableField(props) {
           <AddIcon />
         </IconButton>
       )}
-      {description ?? (
-        <Typography variant="caption" color="textSecondary">
-          {description}
-        </Typography>
-      )}
     </div>
   );
 }
