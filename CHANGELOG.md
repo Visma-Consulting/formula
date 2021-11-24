@@ -1,3 +1,7 @@
+# 0.4.55
+
+- Make required `multiselect` field require at least 1 selected item
+
 # 0.4.54
 
 - Memoize config normalization
