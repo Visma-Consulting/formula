@@ -114,7 +114,13 @@ function DialogContentReCAPTCHA(props) {
 
   return (
     <DialogContent>
-      <ReCAPTCHA sitekey={recaptcha.sitekey} theme={theme} {...props} />
+      <ReCAPTCHA
+        sitekey={recaptcha.sitekey}
+        render="explicit"
+        autofocus
+        tabindex={-1}
+        theme={theme}
+        {...props} />
     </DialogContent>
   );
 }
