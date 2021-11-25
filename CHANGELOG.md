@@ -1,10 +1,14 @@
+# 0.4.56
+
+- Revert: Memoize config normalization
+
 # 0.4.55
 
 - Make required `multiselect` field require at least 1 selected item
 
 # 0.4.54
 
-- Memoize config normalization
+- Memoize config normalization (Reverted in `0.4.56`)
 
 # 0.4.53
 
