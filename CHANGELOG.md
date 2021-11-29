@@ -1,3 +1,7 @@
+# 0.4.57
+
+- Memoize config normalization v2
+
 # 0.4.56
 
 - Revert: Memoize config normalization
