@@ -1,6 +1,6 @@
 import * as client from './client';
 import { handleLegacyConfig } from './legacyMode';
-import useNormalizeConfig from './useNormalizeConfig';
+import useNormalizeConfig, { useNormalizeConfigs } from './useNormalizeConfig';
 import { setDefaultType } from './utils';
 
 export * from './client';
@@ -14,24 +14,22 @@ export const useForms = ({ status, visibility } = {}, options) =>
     draft: client.useDraftForms,
     published: client.usePublishedForms,
     'published/public': client.usePublishedPublicForms,
-  }
-    [[status, visibility].filter(Boolean).join('/')]()
-    .map(useNormalizeConfig(options)));
+  }[[status, visibility].filter(Boolean).join('/')]()
+  |> useNormalizeConfigs(options));
 
 export const useFormGroup = (formGroupId, options) =>
   client.useFormGroup({ formGroupId })
   |> useNormalizeConfig(options |> setDefaultType('formGroup'));
 
 export const useFormGroups = (options) =>
-  client
-    .useFormGroups()
-    .map(useNormalizeConfig(options |> setDefaultType('formGroup')));
+  client.useFormGroups()
+  |> useNormalizeConfigs(options |> setDefaultType('formGroup'));
 
 export const useField = (fieldId, options) =>
   client.useField({ fieldId }) |> useNormalizeConfig(options);
 
 export const useFields = (options) =>
-  client.useFields().map(useNormalizeConfig(options));
+  client.useFields() |> useNormalizeConfigs(options);
 
 export const useFormData = (dataId) => client.useFormData({ dataId });
 

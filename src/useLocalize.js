@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 
 export function useLocalize() {
@@ -5,5 +6,8 @@ export function useLocalize() {
   const [lang] = locale.split('-');
   const [defaultLang] = defaultLocale.split('-');
 
-  return (messages = {}) => messages[lang] ?? messages[defaultLang] ?? '';
+  return useCallback(
+    (messages = {}) => messages[lang] ?? messages[defaultLang] ?? '',
+    [defaultLang, lang]
+  );
 }

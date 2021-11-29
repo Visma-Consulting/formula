@@ -1,4 +1,5 @@
 import { mapValues, omitBy, pickBy } from 'lodash';
+import { useCallback } from 'react';
 import { useLocalize } from './useLocalize';
 
 export const translateProperties = [
@@ -28,26 +29,29 @@ export const isLecacyTranslationObject = (value, key) =>
 export function useLocalizeConfig() {
   const localize = useLocalize();
 
-  return function localizeConfig(config) {
-    const translatedConfig = omitBy(config, isLecacyTranslationObject);
-    const translate = pickBy(config, isLecacyTranslationObject);
-    if (Object.keys(translate).length) {
-      translatedConfig.intl = translate;
-    }
+  return useCallback(
+    function localizeConfig(config) {
+      const translatedConfig = omitBy(config, isLecacyTranslationObject);
+      const translate = pickBy(config, isLecacyTranslationObject);
+      if (Object.keys(translate).length) {
+        translatedConfig.intl = translate;
+      }
 
-    return {
-      ...mapValues(translatedConfig, (value, key) =>
-        translateArrayProperties.includes(key)
-          ? value?.map((value) =>
-              typeof value === 'object' ? localizeConfig(value) : value
-            )
-          : translateArray.includes(key)
-          ? value?.map((value) =>
-              typeof value === 'object' ? localize(value) : value
-            )
-          : value
-      ),
-      ...mapValues(translate, localize),
-    };
-  };
+      return {
+        ...mapValues(translatedConfig, (value, key) =>
+          translateArrayProperties.includes(key)
+            ? value?.map((value) =>
+                typeof value === 'object' ? localizeConfig(value) : value
+              )
+            : translateArray.includes(key)
+            ? value?.map((value) =>
+                typeof value === 'object' ? localize(value) : value
+              )
+            : value
+        ),
+        ...mapValues(translate, localize),
+      };
+    },
+    [localize]
+  );
 }
