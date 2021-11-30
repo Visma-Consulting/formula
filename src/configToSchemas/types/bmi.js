@@ -32,15 +32,10 @@ function Bmi(props) {
 
   if (!isNaN(props.value) && props.value) {
     return (
-      <>
-        <Typography variant="subtitle1" color="textSecondary">
-          {props.label}
-        </Typography>
-        <FormattedMessage
-          defaultMessage="{bmi} kg/m²"
-          values={{ bmi: props.value }}
-        />
-      </>
+      <FormattedMessage
+        defaultMessage="{bmi} kg/m²"
+        values={{ bmi: props.value }}
+      />
     );
   }
 
