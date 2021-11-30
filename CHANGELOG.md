@@ -1,3 +1,8 @@
+# 0.4.58
+
+- Fix focusing RECAPTCHA
+- Upgrade to `@visma/rjsf-*@3.1.0-16`
+
 # 0.4.57
 
 - Memoize config normalization v2
