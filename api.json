@@ -118,6 +118,24 @@
         }
       }
     },
+    "/config/handlers": {
+      "get": {
+        "summary": "List form submission handlers",
+        "operationId": "getFormHandlers",
+        "responses": {
+          "200": {
+            "description": "An array of form submission handlers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Handlers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/form/{formId}": {
       "get": {
         "summary": "Get a form by id",
@@ -337,33 +355,18 @@
         }
       }
     },
-    "/formdata": {
-      "get": {
-        "summary": "List all form data",
-        "operationId": "getFormDatas",
-        "responses": {
-          "200": {
-            "description": "An array of form data",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Datas"
-                }
-              }
-            }
-          }
-        }
-      },
+    "/formdata/submit": {
       "post": {
         "summary": "Submit a form",
         "operationId": "postFormData",
         "responses": {
-          "201": {
-            "description": "A form data id",
+          "200": {
+            "description": "Structured object with handler id and attribute map",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string"
+                  "type": "object",
+                  "properties": {}
                 }
               }
             }
@@ -529,10 +532,19 @@
       "Tag": {
         "type": "string"
       },
+      "Handler": {
+        "type": "string"
+      },
       "Tags": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Tag"
+        }
+      },
+      "Handlers": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Handler"
         }
       },
       "Port": {
