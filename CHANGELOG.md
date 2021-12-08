@@ -1,3 +1,9 @@
+# 0.4.59
+
+- Add submission handler endpoint
+- Remove formdata listing endpoint
+- Change submission path
+
 # 0.4.58
 
 - Fix focusing RECAPTCHA
