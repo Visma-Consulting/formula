@@ -35,6 +35,8 @@ export const useFormData = (dataId) => client.useFormData({ dataId });
 
 export const useTags = () => client.useFormTags();
 
+export const useFormHandlers = () => client.useFormHandlers();
+
 export function useMutations() {
   // Trigger refetching paths on update. Only the paths that are currently
   // loaded by the app, will be refetched.
