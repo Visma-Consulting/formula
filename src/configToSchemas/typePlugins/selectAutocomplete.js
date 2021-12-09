@@ -14,8 +14,6 @@ export function AutocompleteSelectField(props) {
       renderInput={(params) => (
         <TextField
           {...params}
-          label={props.schema.title}
-          placeholder={props.schema.title}
         />
       )}
     />
