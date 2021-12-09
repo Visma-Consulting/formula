@@ -1,3 +1,8 @@
+# 0.4.60
+
+- Fix duplicate labels in autocomplete
+- Upgrade to `@visma/rjsf-*@3.1.0-17`
+
 # 0.4.59
 
 - Add submission handler endpoint
