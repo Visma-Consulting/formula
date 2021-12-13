@@ -1,4 +1,4 @@
-# 0.4.61
+# 0.4.62
 
 - Fix issue with number field default value
 - Add option to filter autocomplete select options by sibling elements in a `formGroup` list

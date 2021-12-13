@@ -20,7 +20,7 @@ export function AutocompleteSelectField(props) {
   );
 }
 
-const isSameType = (a) => (b) => a.type === b.type;
+const isSameType = (a) => (b) => a?.type === b.type;
 const isNotSameId = (a) => (b) => a.id !== b.id;
 
 function UniqueItemsInFormGroupList(props) {
