@@ -1,5 +1,6 @@
 # x.y.z
 
+- Fix issue with number field default value
 - Add option to filter autocomplete select options by sibling elements in a `formGroup` list
 
 # 0.4.60
