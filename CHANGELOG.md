@@ -2,6 +2,7 @@
 
 - Fix issue with number field default value
 - Add option to filter autocomplete select options by sibling elements in a `formGroup` list
+- Upgrade to `@visma/rjsf-*@3.1.0-18`
 
 # 0.4.60
 
