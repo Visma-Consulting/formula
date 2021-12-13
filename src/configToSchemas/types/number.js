@@ -4,7 +4,7 @@ export default ({
   config: { default: defaultValue, maximum, minimum, multipleOf },
 }) => ({
   schema: {
-    default: defaultValue ?? minimum ?? undefined,
+    default: defaultValue < minimum || defaultValue > maximum ? undefined : defaultValue ?? minimum ?? undefined,
     maximum,
     minimum,
     multipleOf,
