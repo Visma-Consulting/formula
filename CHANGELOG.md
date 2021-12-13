@@ -1,3 +1,7 @@
+# x.y.z
+
+- Add option to filter autocomplete select options by sibling elements in a `formGroup` list
+
 # 0.4.60
 
 - Fix duplicate labels in autocomplete
