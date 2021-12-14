@@ -35,16 +35,18 @@ const RichText = isMobile
       );
     }
   : function RichText({ value, onChange }) {
-      const [editorValue, setEditorValue] = useState(() =>
-        RichTextEditor.createValueFromString(value ?? '', format)
-      );
+      const setState = () =>
+        RichTextEditor.createValueFromString(
+          value?.replace(/\\/g, '\\\\') ?? '',
+          format
+        );
+
+      const [editorValue, setEditorValue] = useState(setState);
 
       useEffect(() => {
         const prevValue = editorValue?.toString(format);
         if (value !== prevValue) {
-          setEditorValue(
-            RichTextEditor.createValueFromString(value ?? '', format)
-          );
+          setEditorValue(setState);
         }
         // This is only to track external value changes
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -58,7 +60,7 @@ const RichText = isMobile
               setEditorValue(editorValue);
             }, [])}
             onBlur={useCallback(
-              () => onChange(editorValue.toString(format)),
+              () => onChange(editorValue.toString(format).replace(/\\_/g, '_')),
               [editorValue, onChange]
             )}
           />

@@ -34,5 +34,7 @@ export default (props) =>
         },
         props
       )}
-    />
+    >
+      {props.children.replace(/\\/g, '\\\\')}
+    </Markdown>
   ) : null;
