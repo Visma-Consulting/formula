@@ -1,3 +1,8 @@
+# x.y.z
+
+- Preserve `\` characters in `richtext`
+- Don't prefix `_` with extra `\` when rendering markdown
+
 # 0.4.62
 
 - Fix issue with number field default value
