@@ -1,7 +1,7 @@
 /* eslint-disable formatjs/no-id */
 /* eslint-disable formatjs/enforce-default-message */
 import { defineMessages } from '@formatjs/intl';
-import { get, identity, mapValues } from 'lodash';
+import { get, mapValues } from 'lodash';
 import { useIntl } from 'react-intl';
 
 const messages = defineMessages({
@@ -31,72 +31,74 @@ export default (props) => {
   return {
     ...props,
     transformErrors: (errors) => {
-      return (
-        errors.map((error) => {
-          const messageDescriptor = messages[error.name];
-          if (!messageDescriptor) {
-            return error;
-          }
+      const transformedErrors = errors.map((error) => {
+        const messageDescriptor = messages[error.name];
+        if (!messageDescriptor) {
+          return error;
+        }
 
-          const { schema, uiSchema } = props;
-          const errorProperty = error.property
-            // .properties[0].enum --> [0]
-            .replace(/^\.properties/, '')
-            .replace(/\.enum$/, '')
-            // Array item's array: ['0'][10] --> ['0']
-            .replace(/\[\d+\]$/, '');
-          const { fieldSchema, fieldUISchema } = errorProperty
-            .slice(1, -1)
-            .split('][')
-            .reduce(
-              function accumulator({ fieldSchema, fieldUISchema }, pathPart) {
-                if (fieldSchema.type === 'object') {
-                  return {
-                    fieldSchema: get(fieldSchema.properties, `[${pathPart}]`),
-                    fieldUISchema: get(fieldUISchema, `[${pathPart}]`),
-                  };
-                }
-                if (fieldSchema.type === 'array') {
-                  return accumulator(
-                    {
-                      fieldSchema: fieldSchema.items,
-                      fieldUISchema: fieldUISchema.items,
-                    },
-                    pathPart
-                  );
-                }
+        const { schema, uiSchema } = props;
+        const errorProperty = error.property
+          // .properties[0].enum --> [0]
+          .replace(/^\.properties/, '')
+          .replace(/\.enum$/, '')
+          // Array item's array: ['0'][10] --> ['0']
+          .replace(/\[\d+\]$/, '');
+        const { fieldSchema, fieldUISchema } = errorProperty
+          .slice(1, -1)
+          .split('][')
+          .reduce(
+            function accumulator({ fieldSchema, fieldUISchema }, pathPart) {
+              if (fieldSchema.type === 'object') {
                 return {
-                  fieldSchema,
-                  fieldUISchema: fieldUISchema,
+                  fieldSchema: get(fieldSchema.properties, `[${pathPart}]`),
+                  fieldUISchema: get(fieldUISchema, `[${pathPart}]`),
                 };
-              },
-              {
-                fieldSchema: schema,
-                fieldUISchema: uiSchema,
               }
-            );
-          const { title } = fieldSchema;
-          const { patternDescription } = fieldUISchema;
-          const message = intl.formatMessage(messageDescriptor, {
-            field: title,
-            description: { pattern: patternDescription }[error.name],
-            ...mapValues(
-              mapValues(error.params, stringDataUrlToFile(fieldSchema)),
-              (value, key) =>
-                key in params && value in params[key]
-                  ? intl.formatMessage(params[key][value])
-                  : value
-            ),
-          });
+              if (fieldSchema.type === 'array') {
+                return accumulator(
+                  {
+                    fieldSchema: fieldSchema.items,
+                    fieldUISchema: fieldUISchema.items,
+                  },
+                  pathPart
+                );
+              }
+              return {
+                fieldSchema,
+                fieldUISchema: fieldUISchema,
+              };
+            },
+            {
+              fieldSchema: schema,
+              fieldUISchema: uiSchema,
+            }
+          );
+        const { title } = fieldSchema;
+        const { patternDescription } = fieldUISchema;
+        const message = intl.formatMessage(messageDescriptor, {
+          field: title,
+          description: { pattern: patternDescription }[error.name],
+          ...mapValues(
+            mapValues(error.params, stringDataUrlToFile(fieldSchema)),
+            (value, key) =>
+              key in params && value in params[key]
+                ? intl.formatMessage(params[key][value])
+                : value
+          ),
+        });
 
-          return {
-            ...error,
-            params: { pattern: patternDescription },
-            message,
-            stack: message,
-          };
-        }) |> props.transformErrors ?? identity
-      );
+        return {
+          ...error,
+          params: { pattern: patternDescription },
+          message,
+          stack: message,
+        };
+      });
+
+      return props.transformErrors
+        ? props.transformErrors(transformedErrors)
+        : transformedErrors;
     },
   };
 };
