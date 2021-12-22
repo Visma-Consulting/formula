@@ -106,5 +106,29 @@
   },
   "zHNS3q": {
     "defaultMessage": "Body mass index"
+  },
+  "hmeyg+": {
+    "defaultMessage": "\"{field}\" should contain at least {limit} items"
+  },
+  "IVPaJf": {
+    "defaultMessage": "\"{field}\" {limit, plural, =1 {is mandatory field} other {should contain at least # chars}}"
+  },
+  "f5j8Od": {
+    "defaultMessage": "\"{field}\" value must be {description}"
+  },
+  "vDtuSs": {
+    "defaultMessage": "\"{field}\" is mandatory field"
+  },
+  "DM3D34": {
+    "defaultMessage": "\"{field}\" must be {type} type"
+  },
+  "VUMm5n": {
+    "defaultMessage": "selected"
+  },
+  "ry193p": {
+    "defaultMessage": "string value"
+  },
+  "OW2+mS": {
+    "defaultMessage": "boolean value"
   }
 }

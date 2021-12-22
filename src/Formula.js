@@ -4,6 +4,7 @@ import { withFormulaProvider } from './Context';
 import omitExtraData from './omitExtraData';
 import useDynamicElements from './useDynamicElements';
 import useFields from './useFields';
+import useLocalizeErrors from './useLocalizeErrors';
 import { useNormalizeConfigProp } from './useNormalizeConfig';
 import useSubmit from './useSubmit';
 import { withPropsUpdater } from './utils';
@@ -18,6 +19,7 @@ export const Form =
   |> withPropsUpdater(omitExtraData)
   |> withPropsUpdater(useFields)
   |> withPropsUpdater(useSubmit)
+  |> withPropsUpdater(useLocalizeErrors)
   |> withConfirmSubmit
   |> withSteps
   |> withReview

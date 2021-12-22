@@ -106,5 +106,29 @@
   },
   "zHNS3q": {
     "defaultMessage": "Kroppsmasseindex"
+  },
+  "hmeyg+": {
+    "defaultMessage": "\"{field}\" bör innehålla minst {limit} objekt"
+  },
+  "IVPaJf": {
+    "defaultMessage": "\"{field}\" {limit, plural, =1 {är obligatoriskt fält} other {bör innehålla minst # tecken}}"
+  },
+  "f5j8Od": {
+    "defaultMessage": "\"{field}\" värdet måste vara {description}"
+  },
+  "vDtuSs": {
+    "defaultMessage": "\"{field}\" är obligatoriskt fält"
+  },
+  "DM3D34": {
+    "defaultMessage": "\"{field}\" måste vara {type}"
+  },
+  "VUMm5n": {
+    "defaultMessage": "vald"
+  },
+  "ry193p": {
+    "defaultMessage": "strängvärde"
+  },
+  "OW2+mS": {
+    "defaultMessage": "booleanvärde"
   }
 }
