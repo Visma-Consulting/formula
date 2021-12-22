@@ -1,7 +1,9 @@
-# x.y.z
+# 0.4.63
 
+- Add localized error messages
 - Preserve `\` characters in `richtext`
 - Don't prefix `_` with extra `\` when rendering markdown
+- Upgrade to `@visma/rjsf-*@3.1.0-19`
 
 # 0.4.62
 
