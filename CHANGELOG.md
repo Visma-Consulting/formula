@@ -1,3 +1,7 @@
+# 0.4.64
+
+- Upgrade to `@visma/rjsf-*@3.1.0-20`
+
 # 0.4.63
 
 - Add localized error messages
