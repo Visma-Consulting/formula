@@ -34,7 +34,7 @@ const RichText = isMobile
         />
       );
     }
-  : function RichText({ value, onChange }) {
+  : function RichText({ value, onChange, label }) {
       const setState = () =>
         RichTextEditor.createValueFromString(
           value?.replace(/\\/g, '\\\\') ?? '',
@@ -53,7 +53,7 @@ const RichText = isMobile
       }, [value]);
 
       return (
-        <div className={editor}>
+        <div className={editor} aria-label={label}>
           <RichTextEditor
             value={editorValue}
             onChange={useCallback((editorValue) => {
