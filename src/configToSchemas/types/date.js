@@ -14,6 +14,7 @@ const parseToday = (date) => (date === 'today' ? moment() : moment(date));
 function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
   const intl = useIntl();
   const [focused, setFocused] = useState();
+  const {title, label, useLabel} = options.element;
 
   const handleFocusChange = ({ focused }) => setFocused(focused);
 
@@ -32,7 +33,7 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
         onFocusChange={handleFocusChange}
         id={id}
         disabled={schema.readOnly || options.readonly}
-        placeholder={intl.formatMessage({ defaultMessage: 'Päivämäärä' })}
+        placeholder={useLabel ? label : title}
         hideKeyboardShortcutsPanel
         isOutsideRange={(m) =>
           (options.disableBefore &&
