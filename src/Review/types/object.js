@@ -28,7 +28,7 @@ export default (props) => {
         <TableHead>
           <TableRow>
             {columns.map((item, index) => <TableCell key={'header-'+index}>
-              {item['fi']}
+              {item}
             </TableCell>)}
           </TableRow>
         </TableHead>
