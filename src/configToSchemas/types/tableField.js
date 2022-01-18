@@ -1,4 +1,4 @@
-import { defineMessage } from 'react-intl';
+import { defineMessage, useIntl } from 'react-intl';
 import { uniqueId } from 'lodash';
 import { useState } from 'react';
 import Table from '@material-ui/core/Table';
@@ -11,7 +11,6 @@ import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
-import { Typography } from '@material-ui/core';
 
 const defaultValue = '';
 const makeTable = (initValues, rows, cols) => {
@@ -60,6 +59,7 @@ function TableField(props) {
   const totalRows = getTotalRows(props);
   const totalCols = getTotalColumns(props);
 
+  const intl = useIntl();
   const [rev, setRev] = useState(uniqueId());
 
   const onPropertyChange = (tableData) => {
@@ -107,12 +107,13 @@ function TableField(props) {
             rowNum >= tableRowMinimum ? (
               <TableCell key={'remove'}>
                 <IconButton
+                  aria-label={intl.formatMessage({defaultMessage: 'Poista rivi'})}
                   onClick={(_) => {
                     onRemoveRow(rowNum);
                   }}
                   disabled={disabled || readonly}
                 >
-                  <DeleteIcon />
+                  <DeleteIcon alt={intl.formatMessage({defaultMessage: 'Poista rivi'})} />
                 </IconButton>
               </TableCell>
             ) : (
@@ -137,12 +138,13 @@ function TableField(props) {
       </TableContainer>
       {tableAddAllowed && totalRows < tableRowMaximum && (
         <IconButton
+          aria-label={intl.formatMessage({defaultMessage: 'Lisää rivi'})}
           onClick={onAddRow}
           disabled={disabled || readonly}
           edge="start"
           style={{ margin: '5px' }}
         >
-          <AddIcon />
+          <AddIcon alt={intl.formatMessage({defaultMessage: 'Lisää rivi'})} />
         </IconButton>
       )}
     </div>
