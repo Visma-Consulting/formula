@@ -35,7 +35,7 @@ import Formula from '@visma/formula';
       },
     ],
   }}
-  onSubmit={({ formData }) => console.log(formData)}
+  onSubmit={({ values }) => console.log(values)}
 />;
 ```
 

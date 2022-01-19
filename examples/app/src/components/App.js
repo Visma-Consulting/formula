@@ -36,7 +36,7 @@ export default function App() {
                       },
                     ],
                   }}
-                  onSubmit={({ formData }) => console.log(formData)}
+                  onSubmit={({ values }) => console.log(values)}
                 />
               )}
             />
