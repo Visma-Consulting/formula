@@ -29,3 +29,6 @@ yarn-error.log*
 
 # generated
 /src/api/client.js
+
+# copied
+/public/formula-frontend

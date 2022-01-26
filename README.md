@@ -114,3 +114,41 @@ function FormTitle({ id }) {
   return <h1>{form.title}</h1>;
 }
 ```
+
+## Load library dynamically
+
+1. Call `init` from `@visma/formula/lib/dll` before using the API:
+
+   ```js
+   import { init } from '@visma/formula/lib/dll';
+   import App from 'components/App';
+   import React from 'react';
+   import ReactDOM from 'react-dom';
+
+   async function main() {
+     await init('https://example.com/formula');
+
+     ReactDOM.render(
+       <React.StrictMode>
+         <App />
+       </React.StrictMode>,
+       document.getElementById('root')
+     );
+   }
+
+   main();
+   ```
+
+2. Import the API from `@visma/formula/lib/dll`. Note that all components and hooks are available only using the default export:
+
+   ```js
+   import DLL from '@visma/formula/lib/dll';
+
+   <DLL.Formula
+     axios={(axios) => {
+       axios.defaults.baseURL = 'https://example.com/formula/api';
+       axios.defaults.headers.common.Authorization = 'Bearer <token>';
+     }}
+     id="1"
+   />;
+   ```

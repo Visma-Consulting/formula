@@ -1,24 +1,12 @@
 [
   {
-    "keycloak": {
-      "clientId": "browser",
-      "realm": "super-template-dev",
-      "url": "https://idm.example.com/auth"
-    }
+    "frontend": "/formula/formula-frontend",
+    "api": { "baseURL": "https://visma.formula-demo.fi/api" }
   },
   [
-    "example.com",
+    "visma-consulting.github.io",
     {
-      "backend": { "baseURL": "https://api.example.com" },
-      "keycloak": {
-        "realm": "super-template"
-      }
-    }
-  ],
-  [
-    "test.example.com",
-    {
-      "backend": { "baseURL": "https://api.test.example.com" }
+      "frontend": "https://visma.formula-demo.fi"
     }
   ]
 ]

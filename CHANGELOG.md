@@ -1,5 +1,6 @@
 # x.y.z
 
+- Add dynamically loaded library
 - Accessibility fixes
 - Upgrade to `@visma/rjsf-*@3.1.0-22`
 

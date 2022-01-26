@@ -14,11 +14,12 @@
   },
   "type": "module",
   "exports": {
-    ".": "./lib/main.js"
+    ".": "./lib/index.js"
   },
-  "main": "./lib/main.cjs",
-  "module": "./lib/main.js",
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.js",
   "files": [
+    "dist",
     "lang",
     "lib",
     "api.json"
@@ -27,12 +28,13 @@
     "examples/*"
   ],
   "scripts": {
-    "prebuild": "npm run messages:extract && npm run messages:compile && npm run generate-client",
-    "build": "library-scripts build && npm run build --workspaces",
+    "prebuild": "npm run messages && npm run generate-client",
+    "build": "npm run build:lib && npm run build:dll",
+    "build:lib": "library-scripts build && npm run build --workspaces",
+    "build:dll": "webpack",
     "prewatch": "npm run generate-client",
     "watch": "library-scripts watch",
-    "messages:extract": "formatjs extract 'src/**/*.{js,jsx,ts,tsx}' --out-file lang/fi-FI.json --id-interpolation-pattern [sha512:contenthash:base64:6]",
-    "messages:compile": "formatjs compile-folder --ast lang lib/compiled-lang",
+    "messages": "formatjs-scripts",
     "generate-client": "react-openapi-client-generator api.json src/client.js",
     "test": "npm test --workspaces"
   },
@@ -64,7 +66,11 @@
   "devDependencies": {
     "@formatjs/cli": "^4.2.29",
     "@postinumero/library-scripts": "^0.1.4",
-    "babel-plugin-formatjs": "^10.2.15"
+    "@visma/babel-preset-formatjs": "^0.1.0",
+    "@visma/formatjs-scripts": "^0.2.0",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^4.9.2",
+    "webpack-manifest-plugin": "^4.1.1"
   },
   "peerDependencies": {
     "react": "^17.0.1",

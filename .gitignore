@@ -1,3 +1,4 @@
+/dist
 /node_modules
 /lib
 .DS_Store
@@ -5,6 +6,7 @@
 # Translations
 # Messages for the default language are in the source code. Update the code instead of this file.
 lang/fi-FI.json
+/.compiled-lang
 
 # Generated
 client.js
