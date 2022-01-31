@@ -6,8 +6,8 @@
     "compiled-lang.fi-FI.js.map": "/formula/static/js/compiled-lang.fi-FI.b0585e06.chunk.js.map",
     "compiled-lang.sv-SE.js": "/formula/static/js/compiled-lang.sv-SE.183a9b5e.chunk.js",
     "compiled-lang.sv-SE.js.map": "/formula/static/js/compiled-lang.sv-SE.183a9b5e.chunk.js.map",
-    "main.js": "/formula/static/js/main.e8673ce2.chunk.js",
-    "main.js.map": "/formula/static/js/main.e8673ce2.chunk.js.map",
+    "main.js": "/formula/static/js/main.adfef3a4.chunk.js",
+    "main.js.map": "/formula/static/js/main.adfef3a4.chunk.js.map",
     "runtime-main.js": "/formula/static/js/runtime-main.1286b8c5.js",
     "runtime-main.js.map": "/formula/static/js/runtime-main.1286b8c5.js.map",
     "static/css/5.0e5942e9.chunk.css": "/formula/static/css/5.0e5942e9.chunk.css",
@@ -21,6 +21,6 @@
     "static/js/runtime-main.1286b8c5.js",
     "static/css/5.0e5942e9.chunk.css",
     "static/js/5.6dc6488d.chunk.js",
-    "static/js/main.e8673ce2.chunk.js"
+    "static/js/main.adfef3a4.chunk.js"
   ]
 }
