@@ -99,6 +99,7 @@ export default function withSteps(Form) {
                     <StepContent>
                       <Form
                         {...otherProps}
+                        onSubmit={isLastStep ? onSubmit : undefined}
                         onPreSubmit={handleStepChange}
                         ref={ref}
                         schema={{
