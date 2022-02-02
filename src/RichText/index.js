@@ -34,7 +34,7 @@ const RichText = isMobile
         />
       );
     }
-  : function RichText({ value, onChange }) {
+  : function RichText({ value, onChange, options }) {
       const setState = () =>
         RichTextEditor.createValueFromString(
           value?.replace(/\\/g, '\\\\') ?? '',
@@ -52,8 +52,10 @@ const RichText = isMobile
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [value]);
 
+      const {useLabel, label, title} = options.element;
+
       return (
-        <div className={editor}>
+        <div className={editor} aria-label={useLabel ? label : title}>
           <RichTextEditor
             value={editorValue}
             onChange={useCallback((editorValue) => {
