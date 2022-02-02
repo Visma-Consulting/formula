@@ -11,6 +11,24 @@ import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  inputLabelRoot: {
+    clip: "rect(0 0 0 0)",
+    clipPath: "inset(50%)",
+    height: 1,
+    overflow: "hidden",
+    position: "absolute",
+    whiteSpace: "nowrap",
+    width: 1
+  },
+  inputFormControl: {
+    "label + &": {
+      marginTop: 0
+    }
+  }
+});
 
 const defaultValue = '';
 const makeTable = (initValues, rows, cols) => {
@@ -62,6 +80,8 @@ function TableField(props) {
   const intl = useIntl();
   const [rev, setRev] = useState(uniqueId());
 
+  const classes = useStyles();
+
   const onPropertyChange = (tableData) => {
     onChange({ table: tableData }, errorSchema);
     if (totalRows !== tableData.length) {
@@ -92,6 +112,7 @@ function TableField(props) {
               style={{ width: '100%' }}
               variant="outlined"
               size="small"
+              label={useLabel ? label : title}
               defaultValue={tableData[rowNum][colNum]}
               disabled={disabled}
               readOnly={readonly}
@@ -99,6 +120,8 @@ function TableField(props) {
                 tableData[rowNum][colNum] = event.target.value || defaultValue;
                 onPropertyChange(tableData);
               }}
+              InputProps={{classes: { formControl: classes.inputFormControl} }}
+              InputLabelProps={{shrink: false, className: classes.inputLabelRoot}}
             />
           </TableCell>
         ))

@@ -1,3 +1,11 @@
+# x.y.z
+
+- Upgrade to `@visma/rjsf-*@3.1.0-22`
+
+# 0.4.65
+
+- Fix `onSubmit` handler in stepped form
+
 # 0.4.64
 
 - Upgrade to `@visma/rjsf-*@3.1.0-20`
