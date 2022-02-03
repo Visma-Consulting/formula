@@ -1,6 +1,6 @@
 {
   "name": "@visma/formula",
-  "version": "0.4.65",
+  "version": "0.4.66",
   "description": "React component for configurable forms. Optionally connect to the backend to fetch external config and submit form data to.",
   "homepage": "https://github.com/Visma-Consulting/formula#readme",
   "repository": {
@@ -25,18 +25,20 @@
     "api.json"
   ],
   "workspaces": [
+    ".",
     "examples/*"
   ],
   "scripts": {
     "prebuild": "npm run messages && npm run generate-client",
-    "build": "npm run build:lib && npm run build:dll",
-    "build:lib": "library-scripts build && npm run build --workspaces",
+    "build": "npm run build:lib && npm run build:dll && npm run build:example-app",
+    "build:lib": "library-scripts build",
     "build:dll": "webpack",
+    "build:example-app": "npm run build --workspace=examples/app",
     "prewatch": "npm run generate-client",
     "watch": "library-scripts watch",
     "messages": "formatjs-scripts",
     "generate-client": "react-openapi-client-generator api.json src/client.js",
-    "test": "npm test --workspaces"
+    "test": "npm test --workspace=examples/app"
   },
   "eslintConfig": {
     "rules": {
@@ -67,7 +69,7 @@
     "@formatjs/cli": "^4.2.29",
     "@postinumero/library-scripts": "^0.1.4",
     "@visma/babel-preset-formatjs": "^0.1.0",
-    "@visma/formatjs-scripts": "^0.2.0",
+    "@visma/formatjs-scripts": "^0.2.1",
     "webpack": "^4.44.2",
     "webpack-cli": "^4.9.2",
     "webpack-manifest-plugin": "^4.1.1"
