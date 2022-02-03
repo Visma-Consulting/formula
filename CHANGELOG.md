@@ -1,5 +1,6 @@
 # x.y.z
 
+- Accessibility fixes
 - Upgrade to `@visma/rjsf-*@3.1.0-22`
 
 # 0.4.65
