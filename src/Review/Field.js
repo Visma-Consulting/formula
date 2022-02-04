@@ -21,6 +21,10 @@ export default function Field(props) {
     return null;
   }
 
+  if (props.uiSchema['ui:widget'] === 'hidden') {
+    return null;
+  }
+
   return (
     <TitleVariantContext.Provider
       value={
