@@ -1,5 +1,6 @@
 # 0.4.66
 
+- Disable HTML5 validation
 - Fix showing datepicker on top of rich text editor
 
 # 0.4.66
