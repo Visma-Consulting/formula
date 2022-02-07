@@ -31,6 +31,11 @@ export default function withSteps(Form) {
       if (nextStep < steps.length) {
         setMaxJump((prev) => Math.max(prev, nextStep));
         setActiveStep(nextStep);
+        document.getElementById(steps[nextStep]['ui:title']).focus();
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
         // Prevent submit
         return false;
       }
@@ -88,6 +93,7 @@ export default function withSteps(Form) {
               return (
                 <Step key={title}>
                   <StepButton
+                    id={title}
                     completed={index < activeStep}
                     disabled={current || !active}
                     active={active}

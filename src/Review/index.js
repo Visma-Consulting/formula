@@ -4,6 +4,7 @@ import { Print } from '@material-ui/icons';
 import { FormattedMessage, useIntl } from 'react-intl';
 import Markdown from '../Markdown';
 import Field from './Field';
+import { Alert } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
   buttonContainer: {
@@ -19,6 +20,9 @@ export default function Review(props) {
 
   return (
     <>
+      <Alert severity="success">
+        { intl.formatMessage({defaultMessage: 'Lomake lähetetty!'}) }
+      </Alert>
       <Field root {...props} />
       <Markdown>{props.config.successText}</Markdown>
       <div className={classes.buttonContainer}>
