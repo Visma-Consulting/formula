@@ -1,3 +1,7 @@
+# x.y.z
+
+- Fix showing datepicker on top of rich text editor
+
 # 0.4.66
 
 - Add dynamically loaded library

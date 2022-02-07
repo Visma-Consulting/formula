@@ -1,6 +1,7 @@
 /* eslint import/no-webpack-loader-syntax: "off" */
 /* eslint import/no-unresolved: "off" */
 import '!style-loader!css-loader!react-dates/lib/css/_datepicker.css';
+import '!style-loader!css-loader!./style.css';
 import moment from 'moment';
 import 'moment/locale/fi';
 import 'moment/locale/sv';
@@ -14,7 +15,7 @@ const parseToday = (date) => (date === 'today' ? moment() : moment(date));
 function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
   const intl = useIntl();
   const [focused, setFocused] = useState();
-  const {title, label, useLabel} = options.element;
+  const { title, label, useLabel } = options.element;
 
   const handleFocusChange = ({ focused }) => setFocused(focused);
 
