@@ -5,8 +5,15 @@ import { setDefaultType } from './utils';
 
 export * from './client';
 
-export const useForm = (formId, options) =>
-  client.useForm({ formId }) |> useNormalizeConfig(options);
+export const useForm = (formId, options) => {
+  return client.useForm({ formId }) |> useNormalizeConfig(options);
+}
+
+export const useFormSafe = (formId, options) => {
+  const normalize = useNormalizeConfig(options);
+  const [error, data] = client.useFormSafe({ formId });
+  return [error, data ? normalize(data) : data];
+};
 
 export const useForms = ({ status, visibility } = {}, options) =>
   ({
