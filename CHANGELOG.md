@@ -1,8 +1,10 @@
-# x.y.z
+# 0.4.67
 
-- Upgrade to `react-rte@0.16.5`
+- Scroll to top on form step change
 - Disable HTML5 validation
 - Fix showing datepicker on top of rich text editor
+- Upgrade to `@visma/rjsf-*@3.1.0-23`
+- Upgrade to `react-rte@0.16.5`
 
 # 0.4.66
 
