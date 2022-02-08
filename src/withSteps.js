@@ -23,6 +23,7 @@ export default function withSteps(Form) {
     const classes = useStyles();
     const formRef = useRef();
     ref ??= formRef;
+    const formWrapperRef = useRef();
     const jumpRef = useRef(null);
 
     function handleStepChange(...args) {
@@ -32,10 +33,7 @@ export default function withSteps(Form) {
         setMaxJump((prev) => Math.max(prev, nextStep));
         setActiveStep(nextStep);
         document.getElementById(steps[nextStep]['ui:title']).focus();
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
+        formWrapperRef.current.scrollIntoView({ behavior: "smooth" });
         // Prevent submit
         return false;
       }
@@ -80,7 +78,7 @@ export default function withSteps(Form) {
       };
 
     return (
-      <>
+      <div ref={formWrapperRef}>
         <Typography variant="h5" gutterBottom>
           {otherProps.schema.title}
         </Typography>
@@ -163,7 +161,7 @@ export default function withSteps(Form) {
               );
             })}
         </Stepper>
-      </>
+      </div>
     );
   });
 
