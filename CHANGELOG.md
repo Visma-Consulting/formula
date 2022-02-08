@@ -1,5 +1,6 @@
-# 0.4.66
+# x.y.z
 
+- Upgrade to `react-rte@0.16.5`
 - Disable HTML5 validation
 - Fix showing datepicker on top of rich text editor
 

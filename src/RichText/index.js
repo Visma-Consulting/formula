@@ -2,7 +2,6 @@ import TextField from '@material-ui/core/TextField';
 import { useCallback, useEffect, useState } from 'react';
 import RichTextEditor from 'react-rte';
 import { useStatePreferInitial } from '../utils';
-import './react-rte-popover-patch';
 import './styles.css';
 import { editor } from './styles.module.css';
 
@@ -52,7 +51,7 @@ const RichText = isMobile
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [value]);
 
-      const {useLabel, label, title} = options.element;
+      const { useLabel, label, title } = options.element;
 
       return (
         <div className={editor} aria-label={useLabel ? label : title}>
