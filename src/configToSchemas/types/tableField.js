@@ -109,6 +109,7 @@ function TableField(props) {
         .map((_, colNum) => (
           <TableCell key={`col-${colNum}`}>
             <TextField
+              id={`table-${useLabel ? label : title}-${colNum}-${rowNum}`}
               style={{ width: '100%' }}
               variant="outlined"
               size="small"
@@ -121,7 +122,11 @@ function TableField(props) {
                 onPropertyChange(tableData);
               }}
               InputProps={{classes: { formControl: classes.inputFormControl} }}
-              InputLabelProps={{shrink: false, className: classes.inputLabelRoot}}
+              InputLabelProps={{
+                htmlFor: `table-${useLabel ? label : title}-${colNum}-${rowNum}`,
+                shrink: false,
+                className: classes.inputLabelRoot
+              }}
             />
           </TableCell>
         ))
