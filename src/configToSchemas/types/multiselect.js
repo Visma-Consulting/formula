@@ -2,9 +2,42 @@ import { defineMessage } from 'react-intl';
 import { ensureValueIsAvailable } from '../../utils';
 import select from './select';
 import extendType from './_extendType';
+import sift from 'sift';
+
+function MultiSelect(props) {
+  const { widget, choices } = props.options.element;
+  const data = props.value ?? [];
+  const disabled = [];
+  const ensuredWidget = ensureValueIsAvailable(widget, widgets)
+
+  for (const choice of choices) {
+    if (choice.enumDisabled) {
+      if (sift(choice.enumDisabled.selected.query)(data)) {
+        disabled.push(choice.enum);
+        if (!data.includes(choice.enum)) {
+          props.value.push(choice.enum);
+        }
+      }
+      if (sift(choice.enumDisabled.notSelected.query)(data)) {
+        disabled.push(choice.enum);
+        if (data.includes(choice.enum)) {
+          props.value.splice(props.value.indexOf(choice.enum), 1);
+        }
+      }
+    }
+  }
+
+  const Widget = ensuredWidget === 'select' ? props.registry.widgets.SelectWidget
+    : ensuredWidget === 'checkboxes' ? props.registry.widgets.CheckboxesWidget
+    : undefined;
+
+  return (
+    <Widget {...props} options={{...props.options, enumDisabled: disabled}} />
+  );
+}
 
 export default extendType(select, ({ config }) => (props) => {
-  const { autocomplete, choices, minItems, required, widget } = config;
+  const { autocomplete, choices, minItems, required } = config;
 
   props.schema =
     choices?.length || autocomplete
@@ -23,10 +56,7 @@ export default extendType(select, ({ config }) => (props) => {
           readOnly: true,
         };
   props.uiSchema = {
-    'ui:widget': choices?.length
-      ? ensureValueIsAvailable(widget, widgets)
-      : // If enums are not set, the widget may throw error.
-        undefined,
+    'ui:widget': MultiSelect
   };
 });
 
