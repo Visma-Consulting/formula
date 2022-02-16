@@ -1,3 +1,7 @@
+# 0.4.68
+
+- Fix multiselect presentation on review page
+
 # 0.4.67
 
 - Scroll to top on form step change
