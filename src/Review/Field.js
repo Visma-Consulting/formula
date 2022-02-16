@@ -21,7 +21,7 @@ export default function Field(props) {
     return null;
   }
 
-  if (props.uiSchema['ui:widget'] === 'hidden') {
+  if (props.uiSchema && props.uiSchema['ui:widget'] === 'hidden') {
     return null;
   }
 
