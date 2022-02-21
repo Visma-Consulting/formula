@@ -29,7 +29,7 @@
     "examples/*"
   ],
   "scripts": {
-    "prebuild": "npm run messages && npm run generate-client",
+    "prebuild": "npm run generate-docs && npm run messages && npm run generate-client",
     "build": "npm run build:lib && npm run build:dll && npm run build:example-app",
     "build:lib": "library-scripts build",
     "build:dll": "webpack",
@@ -38,6 +38,7 @@
     "watch": "library-scripts watch",
     "messages": "formatjs-scripts",
     "generate-client": "react-openapi-client-generator api.json src/client.js",
+    "generate-docs": "typedoc",
     "test": "npm test --workspace=examples/app"
   },
   "eslintConfig": {
@@ -70,6 +71,7 @@
     "@postinumero/library-scripts": "^0.1.4",
     "@visma/babel-preset-formatjs": "^0.1.0",
     "@visma/formatjs-scripts": "^0.2.1",
+    "typedoc": "^0.22.11",
     "webpack": "^4.44.2",
     "webpack-cli": "^4.9.2",
     "webpack-manifest-plugin": "^4.1.1"

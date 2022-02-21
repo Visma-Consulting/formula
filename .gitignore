@@ -9,4 +9,5 @@ lang/fi-FI.json
 /.compiled-lang
 
 # Generated
+/docs
 client.js

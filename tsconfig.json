@@ -1,0 +1,8 @@
+{
+  "include": ["**/*.ts", "**/*.tsx"],
+  "compilerOptions": {},
+  "typedocOptions": {
+    "entryPoints": ["types/index.ts"],
+    "out": "docs"
+  }
+}
