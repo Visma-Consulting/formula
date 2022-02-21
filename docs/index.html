@@ -1,0 +1,143 @@
+<!DOCTYPE html><html class="default"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>@visma/formula</title><meta name="description" content="Documentation for @visma/formula"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem("tsd-theme") || "os")</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">@visma/formula</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>@visma/formula</h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography">
+<a href="#vismaformula-🏎" id="vismaformula-🏎" style="color: inherit; text-decoration: none;">
+  <h1>@visma/formula 🏎</h1>
+</a>
+<p>React component for configurable forms. Optionally connect to the backend to fetch external config and submit form data to.</p>
+
+<a href="#requirements" id="requirements" style="color: inherit; text-decoration: none;">
+  <h2>Requirements</h2>
+</a>
+<p>Material UI v4 and <code>react-intl</code> are required. Install and set up if necessary:</p>
+<pre><code class="language-sh"><span class="hl-0">npm i @visma/formula @material-ui/core @material-ui/icons @material-ui/lab react-intl --legacy-peer-deps</span>
+</code></pre>
+
+<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+  <h2>Examples</h2>
+</a>
+
+<a href="#login-form" id="login-form" style="color: inherit; text-decoration: none;">
+  <h3>Login form</h3>
+</a>
+<pre><code class="language-js"><span class="hl-1">import</span><span class="hl-0"> </span><span class="hl-2">Formula</span><span class="hl-0"> </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@visma/formula&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-4">&lt;</span><span class="hl-5">Formula</span><br/><span class="hl-0">  </span><span class="hl-6">config</span><span class="hl-0">=</span><span class="hl-7">{</span><span class="hl-8">{</span><br/><span class="hl-8">    </span><span class="hl-2">title:</span><span class="hl-8"> </span><span class="hl-3">&#39;Log In&#39;</span><span class="hl-8">,</span><br/><span class="hl-8">    </span><span class="hl-2">elements:</span><span class="hl-8"> [</span><br/><span class="hl-8">      {</span><br/><span class="hl-8">        </span><span class="hl-2">key:</span><span class="hl-8"> </span><span class="hl-3">&#39;email&#39;</span><span class="hl-8">,</span><br/><span class="hl-8">        </span><span class="hl-2">type:</span><span class="hl-8"> </span><span class="hl-3">&#39;email&#39;</span><span class="hl-8">,</span><br/><span class="hl-8">        </span><span class="hl-2">name:</span><span class="hl-8"> </span><span class="hl-3">&#39;Email Address&#39;</span><span class="hl-8">,</span><br/><span class="hl-8">        </span><span class="hl-2">required:</span><span class="hl-8"> </span><span class="hl-7">true</span><span class="hl-8">,</span><br/><span class="hl-8">      },</span><br/><span class="hl-8">      {</span><br/><span class="hl-8">        </span><span class="hl-2">key:</span><span class="hl-8"> </span><span class="hl-3">&#39;password&#39;</span><span class="hl-8">,</span><br/><span class="hl-8">        </span><span class="hl-2">type:</span><span class="hl-8"> </span><span class="hl-3">&#39;password&#39;</span><span class="hl-8">,</span><br/><span class="hl-8">        </span><span class="hl-2">name:</span><span class="hl-8"> </span><span class="hl-3">&#39;Password&#39;</span><span class="hl-8">,</span><br/><span class="hl-8">        </span><span class="hl-2">required:</span><span class="hl-8"> </span><span class="hl-7">true</span><span class="hl-8">,</span><br/><span class="hl-8">      },</span><br/><span class="hl-8">    ],</span><br/><span class="hl-8">  }</span><span class="hl-7">}</span><br/><span class="hl-0">  </span><span class="hl-6">onSubmit</span><span class="hl-0">=</span><span class="hl-7">{</span><span class="hl-8">({ </span><span class="hl-2">values</span><span class="hl-8"> }) </span><span class="hl-7">=&gt;</span><span class="hl-8"> </span><span class="hl-2">console</span><span class="hl-8">.</span><span class="hl-9">log</span><span class="hl-8">(</span><span class="hl-2">values</span><span class="hl-8">)</span><span class="hl-7">}</span><br/><span class="hl-4">/&gt;</span><span class="hl-0">;</span>
+</code></pre>
+
+<a href="#use-external-config" id="use-external-config" style="color: inherit; text-decoration: none;">
+  <h3>Use external config</h3>
+</a>
+<pre><code class="language-js"><span class="hl-1">import</span><span class="hl-0"> </span><span class="hl-2">Formula</span><span class="hl-0"> </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@visma/formula&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-4">&lt;</span><span class="hl-5">Formula</span><br/><span class="hl-0">  </span><span class="hl-6">axios</span><span class="hl-0">=</span><span class="hl-7">{</span><span class="hl-8">(</span><span class="hl-2">axios</span><span class="hl-8">) </span><span class="hl-7">=&gt;</span><span class="hl-8"> {</span><br/><span class="hl-8">    </span><span class="hl-2">axios</span><span class="hl-8">.</span><span class="hl-2">defaults</span><span class="hl-8">.</span><span class="hl-2">baseURL</span><span class="hl-8"> </span><span class="hl-0">=</span><span class="hl-8"> </span><span class="hl-3">&#39;https://example.com/formula/api&#39;</span><span class="hl-8">;</span><br/><span class="hl-8">    </span><span class="hl-2">axios</span><span class="hl-8">.</span><span class="hl-2">defaults</span><span class="hl-8">.</span><span class="hl-2">headers</span><span class="hl-8">.</span><span class="hl-2">common</span><span class="hl-8">.</span><span class="hl-2">Authorization</span><span class="hl-8"> </span><span class="hl-0">=</span><span class="hl-8"> </span><span class="hl-3">&#39;Bearer &lt;token&gt;&#39;</span><span class="hl-8">;</span><br/><span class="hl-8">  }</span><span class="hl-7">}</span><br/><span class="hl-0">  </span><span class="hl-6">id</span><span class="hl-0">=</span><span class="hl-3">&quot;1&quot;</span><br/><span class="hl-4">/&gt;</span><span class="hl-0">;</span>
+</code></pre>
+
+<a href="#components" id="components" style="color: inherit; text-decoration: none;">
+  <h2>Components</h2>
+</a>
+
+<a href="#ltformulagt" id="ltformulagt" style="color: inherit; text-decoration: none;">
+  <h3><code>&lt;Formula&gt;</code></h3>
+</a>
+
+<a href="#props" id="props" style="color: inherit; text-decoration: none;">
+  <h4>Props</h4>
+</a>
+<p>One of <code>config</code>, <code>id</code> or <code>dataId</code> is required. Rest are optional.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>config</code></td>
+<td>(TBD)</td>
+<td>Form config</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>External form config id</td>
+</tr>
+<tr>
+<td><code>dataId</code></td>
+<td><code>string</code></td>
+<td>Resume editing</td>
+</tr>
+<tr>
+<td><code>onSubmit</code></td>
+<td><code>({ values }) =&gt; void</code></td>
+<td>Override default submit handler</td>
+</tr>
+<tr>
+<td><code>onPostSubmit</code></td>
+<td><code>(dataId, { values }) =&gt; void</code></td>
+<td>Get <code>dataId</code> of submitted form</td>
+</tr>
+<tr>
+<td><code>confirm</code></td>
+<td><code>boolean | { title: ReactElement, description: ReactElement }</code></td>
+<td>Disable confirm dialog or use object for other messages. Default: <code>true</code></td>
+</tr>
+<tr>
+<td><code>axios</code></td>
+<td><code>axios =&gt; void</code></td>
+<td>Get access to API client&#39;s axios instance e.g. to set defaults</td>
+</tr>
+<tr>
+<td><code>dateFnsLocale</code></td>
+<td><code>Locale</code> from <code>date-fns</code></td>
+<td>Examples:<br /><code>import useDateFnsLocale from &#39;@visma/react-app-locale-utils/lib/useDateFnsLocale.js&#39;;</code><br /><code>import { fi } from &#39;date-fns/locale&#39;;</code></td>
+</tr>
+<tr>
+<td><code>children</code></td>
+<td><code>ReactElement</code></td>
+<td>Override default submit button. Set <code>&lt;&gt;&lt;/&gt;</code> (empty React Frament) to render nothing.</td>
+</tr>
+</tbody></table>
+
+<a href="#ltformulaprovidergt" id="ltformulaprovidergt" style="color: inherit; text-decoration: none;">
+  <h3><code>&lt;FormulaProvider&gt;</code></h3>
+</a>
+<p>Provide options for any <code>&lt;Form&gt;</code> component in children.</p>
+<p>Required to use API hooks.</p>
+
+<a href="#props-1" id="props-1" style="color: inherit; text-decoration: none;">
+  <h4>Props</h4>
+</a>
+<p>Same as for <code>&lt;Formula&gt;</code>, except:</p>
+<ul>
+<li>Without <code>config</code>, <code>id</code>, <code>dataId</code></li>
+<li><code>children: ReactElement</code>: App, wrapped forms</li>
+</ul>
+
+<a href="#ltformgt" id="ltformgt" style="color: inherit; text-decoration: none;">
+  <h3><code>&lt;Form&gt;</code></h3>
+</a>
+
+<a href="#props-2" id="props-2" style="color: inherit; text-decoration: none;">
+  <h4>Props</h4>
+</a>
+<p><code>config</code>, <code>id</code>, <code>dataId</code> and <code>children</code> from <code>&lt;Formula&gt;</code></p>
+
+<a href="#hooks" id="hooks" style="color: inherit; text-decoration: none;">
+  <h2>Hooks</h2>
+</a>
+<p>See <a href="src/api.js">src/api.js</a> for all API hooks.</p>
+<pre><code class="language-js"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">useForms</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@visma/formula&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-7">function</span><span class="hl-0"> </span><span class="hl-9">ListForms</span><span class="hl-0">() {</span><br/><span class="hl-0">  </span><span class="hl-7">const</span><span class="hl-0"> </span><span class="hl-10">forms</span><span class="hl-0"> = </span><span class="hl-9">useForms</span><span class="hl-0">({ </span><span class="hl-2">status:</span><span class="hl-0"> </span><span class="hl-3">&#39;published&#39;</span><span class="hl-0">, </span><span class="hl-2">visibility:</span><span class="hl-0"> </span><span class="hl-3">&#39;public&#39;</span><span class="hl-0"> });</span><br/><span class="hl-0">  </span><span class="hl-11">// ...</span><br/><span class="hl-0">}</span>
+</code></pre>
+<pre><code class="language-js"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">useForm</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@visma/formula&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-7">function</span><span class="hl-0"> </span><span class="hl-9">FormTitle</span><span class="hl-0">({ </span><span class="hl-2">id</span><span class="hl-0"> }) {</span><br/><span class="hl-0">  </span><span class="hl-7">const</span><span class="hl-0"> </span><span class="hl-10">form</span><span class="hl-0"> = </span><span class="hl-9">useForm</span><span class="hl-0">(</span><span class="hl-2">id</span><span class="hl-0">);</span><br/><br/><span class="hl-0">  </span><span class="hl-1">return</span><span class="hl-0"> </span><span class="hl-4">&lt;</span><span class="hl-12">h1</span><span class="hl-4">&gt;</span><span class="hl-7">{</span><span class="hl-2">form</span><span class="hl-8">.</span><span class="hl-2">title</span><span class="hl-7">}</span><span class="hl-4">&lt;/</span><span class="hl-12">h1</span><span class="hl-4">&gt;</span><span class="hl-0">;</span><br/><span class="hl-0">}</span>
+</code></pre>
+
+<a href="#load-library-dynamically" id="load-library-dynamically" style="color: inherit; text-decoration: none;">
+  <h2>Load library dynamically</h2>
+</a>
+<ol>
+<li><p>Call <code>init</code> from <code>@visma/formula/lib/dll</code> before using the API:</p>
+<pre><code class="language-js"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">init</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@visma/formula/lib/dll&#39;</span><span class="hl-0">;</span><br/><span class="hl-1">import</span><span class="hl-0"> </span><span class="hl-2">App</span><span class="hl-0"> </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;components/App&#39;</span><span class="hl-0">;</span><br/><span class="hl-1">import</span><span class="hl-0"> </span><span class="hl-2">React</span><span class="hl-0"> </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;react&#39;</span><span class="hl-0">;</span><br/><span class="hl-1">import</span><span class="hl-0"> </span><span class="hl-2">ReactDOM</span><span class="hl-0"> </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;react-dom&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-7">async</span><span class="hl-0"> </span><span class="hl-7">function</span><span class="hl-0"> </span><span class="hl-9">main</span><span class="hl-0">() {</span><br/><span class="hl-0">  </span><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-9">init</span><span class="hl-0">(</span><span class="hl-3">&#39;https://example.com/formula&#39;</span><span class="hl-0">);</span><br/><br/><span class="hl-0">  </span><span class="hl-2">ReactDOM</span><span class="hl-0">.</span><span class="hl-9">render</span><span class="hl-0">(</span><br/><span class="hl-0">    </span><span class="hl-4">&lt;</span><span class="hl-5">React.StrictMode</span><span class="hl-4">&gt;</span><br/><span class="hl-0">      </span><span class="hl-4">&lt;</span><span class="hl-5">App</span><span class="hl-0"> </span><span class="hl-4">/&gt;</span><br/><span class="hl-0">    </span><span class="hl-4">&lt;/</span><span class="hl-5">React.StrictMode</span><span class="hl-4">&gt;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-2">document</span><span class="hl-0">.</span><span class="hl-9">getElementById</span><span class="hl-0">(</span><span class="hl-3">&#39;root&#39;</span><span class="hl-0">)</span><br/><span class="hl-0">  );</span><br/><span class="hl-0">}</span><br/><br/><span class="hl-9">main</span><span class="hl-0">();</span>
+</code></pre>
+</li>
+<li><p>Import the API from <code>@visma/formula/lib/dll</code>. Note that all components and hooks are available only using the default export:</p>
+<pre><code class="language-js"><span class="hl-1">import</span><span class="hl-0"> </span><span class="hl-2">DLL</span><span class="hl-0"> </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@visma/formula/lib/dll&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-4">&lt;</span><span class="hl-5">DLL.Formula</span><br/><span class="hl-0">  </span><span class="hl-6">axios</span><span class="hl-0">=</span><span class="hl-7">{</span><span class="hl-8">(</span><span class="hl-2">axios</span><span class="hl-8">) </span><span class="hl-7">=&gt;</span><span class="hl-8"> {</span><br/><span class="hl-8">    </span><span class="hl-2">axios</span><span class="hl-8">.</span><span class="hl-2">defaults</span><span class="hl-8">.</span><span class="hl-2">baseURL</span><span class="hl-8"> </span><span class="hl-0">=</span><span class="hl-8"> </span><span class="hl-3">&#39;https://example.com/formula/api&#39;</span><span class="hl-8">;</span><br/><span class="hl-8">    </span><span class="hl-2">axios</span><span class="hl-8">.</span><span class="hl-2">defaults</span><span class="hl-8">.</span><span class="hl-2">headers</span><span class="hl-8">.</span><span class="hl-2">common</span><span class="hl-8">.</span><span class="hl-2">Authorization</span><span class="hl-8"> </span><span class="hl-0">=</span><span class="hl-8"> </span><span class="hl-3">&#39;Bearer &lt;token&gt;&#39;</span><span class="hl-8">;</span><br/><span class="hl-8">  }</span><span class="hl-7">}</span><br/><span class="hl-0">  </span><span class="hl-6">id</span><span class="hl-0">=</span><span class="hl-3">&quot;1&quot;</span><br/><span class="hl-4">/&gt;</span><span class="hl-0">;</span>
+</code></pre>
+</li>
+</ol>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-interface"><a href="interfaces/Body.html" class="tsd-kind-icon">Body</a></li><li class="tsd-kind-interface"><a href="interfaces/Boolean.html" class="tsd-kind-icon">Boolean</a></li><li class="tsd-kind-interface"><a href="interfaces/ElementBase.html" class="tsd-kind-icon">Element<wbr/>Base</a></li><li class="tsd-kind-interface"><a href="interfaces/ElementRef.html" class="tsd-kind-icon">Element<wbr/>Ref</a></li><li class="tsd-kind-interface"><a href="interfaces/FieldBase.html" class="tsd-kind-icon">Field<wbr/>Base</a></li><li class="tsd-kind-interface"><a href="interfaces/Form.html" class="tsd-kind-icon">Form</a></li><li class="tsd-kind-interface"><a href="interfaces/FormGroup.html" class="tsd-kind-icon">Form<wbr/>Group</a></li><li class="tsd-kind-interface"><a href="interfaces/Ref.html" class="tsd-kind-icon">Ref</a></li><li class="tsd-kind-interface"><a href="interfaces/StepTitle.html" class="tsd-kind-icon">Step<wbr/>Title</a></li><li class="tsd-kind-interface"><a href="interfaces/Title.html" class="tsd-kind-icon">Title</a></li><li class="tsd-kind-type-alias"><a href="modules.html#Element" class="tsd-kind-icon">Element</a></li><li class="tsd-kind-type-alias"><a href="modules.html#Field" class="tsd-kind-icon">Field</a></li><li class="tsd-kind-type-alias"><a href="modules.html#Message" class="tsd-kind-icon">Message</a></li><li class="tsd-kind-type-alias"><a href="modules.html#RemoteField" class="tsd-kind-icon">Remote<wbr/>Field</a></li><li class="tsd-kind-type-alias"><a href="modules.html#RemoteForm" class="tsd-kind-icon">Remote<wbr/>Form</a></li><li class="tsd-kind-type-alias"><a href="modules.html#RemoteFormGroup" class="tsd-kind-icon">Remote<wbr/>Form<wbr/>Group</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
