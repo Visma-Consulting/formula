@@ -1,8 +1,10 @@
 # x.y.z
 
+- Generate some type docs
 - Find any translation when localizing
 - Default labels for booleans
-- Generate some type docs
+- Image uses altText as alt
+- Buttons hidden from printed page
 
 # 0.4.68
 
