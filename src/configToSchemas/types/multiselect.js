@@ -5,20 +5,20 @@ import extendType from './_extendType';
 import sift from 'sift';
 
 function MultiSelect(props) {
-  const { widget, choices } = props.options.element;
+  const { widget, choices = [] } = props.options.element;
   const data = props.value ?? [];
   const disabled = [];
   const ensuredWidget = ensureValueIsAvailable(widget, widgets)
 
   for (const choice of choices) {
     if (choice.enumDisabled) {
-      if (sift(choice.enumDisabled.selected.query)(data)) {
+      if (sift(choice.enumDisabled.selected?.query)(data)) {
         disabled.push(choice.enum);
         if (!data.includes(choice.enum)) {
           props.value.push(choice.enum);
         }
       }
-      if (sift(choice.enumDisabled.notSelected.query)(data)) {
+      if (sift(choice.enumDisabled.notSelected?.query)(data)) {
         disabled.push(choice.enum);
         if (data.includes(choice.enum)) {
           props.value.splice(props.value.indexOf(choice.enum), 1);
@@ -29,10 +29,18 @@ function MultiSelect(props) {
 
   const Widget = ensuredWidget === 'select' ? props.registry.widgets.SelectWidget
     : ensuredWidget === 'checkboxes' ? props.registry.widgets.CheckboxesWidget
-    : undefined;
+      : null;
 
   return (
-    <Widget {...props} options={{...props.options, enumDisabled: disabled}} />
+    <>
+      { Widget ?
+        <Widget {...props}
+          options={{...props.options,
+            enumOptions: props.options.enumOptions ? props.options.enumOptions : [],
+            enumDisabled: disabled
+          }} />
+        : null }
+    </>
   );
 }
 
@@ -42,19 +50,19 @@ export default extendType(select, ({ config }) => (props) => {
   props.schema =
     choices?.length || autocomplete
       ? {
-          items: props.schema,
-          type: 'array',
-          uniqueItems: true,
-          default: [],
-          minItems: minItems ?? (required ? 1 : undefined),
-        }
+        items: props.schema,
+        type: 'array',
+        uniqueItems: true,
+        default: [],
+        minItems: minItems ?? (required ? 1 : undefined),
+      }
       : // Empty list of choices (enums) matches incorrectly when used in
         // dynamic list item, when oneOf has multiple fields with same key.
-        {
-          type: 'string',
-          default: '',
-          readOnly: true,
-        };
+      {
+        type: 'string',
+        default: [],
+        readOnly: true,
+      };
   props.uiSchema = {
     'ui:widget': MultiSelect
   };
