@@ -10,6 +10,9 @@ const useStyles = makeStyles((theme) => ({
   buttonContainer: {
     '& > *': {
       margin: theme.spacing(1),
+      '@media print' : {
+        display: 'none'
+      }
     },
   },
 }));
