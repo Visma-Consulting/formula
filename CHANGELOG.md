@@ -1,5 +1,7 @@
 # x.y.z
 
+- Find any translation when localizing
+- Default labels for booleans
 - Generate some type docs
 
 # 0.4.68
