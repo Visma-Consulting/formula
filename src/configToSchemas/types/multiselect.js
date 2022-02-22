@@ -10,18 +10,19 @@ function MultiSelect(props) {
   const disabled = [];
   const ensuredWidget = ensureValueIsAvailable(widget, widgets)
 
-  for (const choice of choices) {
+  for (const [i, choice] of choices.entries()) {
     if (choice.enumDisabled) {
+      const choiceEnum = choice.enum ? choice.enum : `${i}`;
       if (sift(choice.enumDisabled.selected?.query)(data)) {
-        disabled.push(choice.enum);
-        if (!data.includes(choice.enum)) {
-          props.value.push(choice.enum);
+        disabled.push(choiceEnum);
+        if (!data.includes(choiceEnum)) {
+          props.value.push(choiceEnum);
         }
       }
       if (sift(choice.enumDisabled.notSelected?.query)(data)) {
-        disabled.push(choice.enum);
-        if (data.includes(choice.enum)) {
-          props.value.splice(props.value.indexOf(choice.enum), 1);
+        disabled.push(choiceEnum);
+        if (data.includes(choiceEnum)) {
+          props.value.splice(props.value.indexOf(choiceEnum), 1);
         }
       }
     }
