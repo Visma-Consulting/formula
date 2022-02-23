@@ -1,3 +1,7 @@
+# 0.4.70
+
+- Quick-fix for localizing
+
 # 0.4.69
 
 - Generate some type docs
