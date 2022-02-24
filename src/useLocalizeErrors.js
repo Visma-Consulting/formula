@@ -8,9 +8,16 @@ const messages = defineMessages({
   minItems: {
     defaultMessage: '"{field}" tulee sisältää vähintään {limit} alkiota',
   },
+  maxItems: {
+    defaultMessage: '"{field}" tulee sisältää korkeintaan {limit} alkiota',
+  },
   minLength: {
     defaultMessage:
       '"{field}" {limit, plural, =1 {on pakollinen kenttä} other {tulee sisältää vähintään # merkkiä}}',
+  },
+  maxLength: {
+    defaultMessage:
+      '"{field}" {limit, plural, =1 {on pakollinen kenttä} other {tulee sisältää korkeintaan # merkkiä}}',
   },
   pattern: { defaultMessage: '"{field}" arvon on oltava {description}' },
   required: { defaultMessage: '"{field}" on pakollinen kenttä' },

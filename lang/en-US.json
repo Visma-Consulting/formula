@@ -139,5 +139,11 @@
   },
   "J+zUnM": {
     "defaultMessage": "Form has been sent!"
+  },
+  "W4OYt3": {
+    "defaultMessage": "\"{field}\" should contain at most {limit} items"
+  },
+  "G7a3as": {
+    "defaultMessage": "\"{field}\" {limit, plural, =1 {is mandatory field} other {should contain at most # chars}}"
   }
 }

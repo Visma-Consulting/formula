@@ -139,5 +139,11 @@
   },
   "J+zUnM": {
     "defaultMessage": "Blankett har skickats!"
+  },
+  "W4OYt3": {
+    "defaultMessage": "\"{field}\" bör innehålla högst {limit} objekt"
+  },
+  "G7a3as": {
+    "defaultMessage": "\"{field}\" {limit, plural, =1 {är obligatoriskt fält} other {bör innehålla högst # tecken}}"
   }
 }
