@@ -1,3 +1,7 @@
+# 0.4.71
+
+- Added missing error translations
+
 # 0.4.70
 
 - Quick-fix for localizing
