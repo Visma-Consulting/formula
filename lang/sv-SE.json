@@ -145,5 +145,8 @@
   },
   "G7a3as": {
     "defaultMessage": "\"{field}\" {limit, plural, =1 {är obligatoriskt fält} other {bör innehålla högst # tecken}}"
+  },
+  "Od6CNk": {
+    "defaultMessage": "{tableName} kolonn {columnName} rad {row}"
   }
 }

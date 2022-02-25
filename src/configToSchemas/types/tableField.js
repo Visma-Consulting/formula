@@ -30,6 +30,10 @@ const useStyles = makeStyles({
   }
 });
 
+const tableLabel = defineMessage({
+  defaultMessage: '{tableName} sarake {columnName} rivi {row}',
+});
+
 const defaultValue = '';
 const makeTable = (initValues, rows, cols) => {
   return [...Array(rows)].map((_, rowNum) =>
@@ -73,6 +77,7 @@ function TableField(props) {
     label,
     title,
     description,
+    id
   } = config;
   const totalRows = getTotalRows(props);
   const totalCols = getTotalColumns(props);
@@ -109,9 +114,17 @@ function TableField(props) {
         .map((_, colNum) => (
           <TableCell key={`col-${colNum}`}>
             <TextField
+              id={`${id}-${rowNum}-${colNum}`}
               style={{ width: '100%' }}
               variant="outlined"
               size="small"
+              aria-label={intl.formatMessage(tableLabel,
+                {
+                  tableName: useLabel ? label : title,
+                  columnName: tableColumns[colNum],
+                  row: rowNum + 1
+                })
+              }
               label={useLabel ? label : title}
               defaultValue={tableData[rowNum][colNum]}
               disabled={disabled}
@@ -120,7 +133,10 @@ function TableField(props) {
                 tableData[rowNum][colNum] = event.target.value || defaultValue;
                 onPropertyChange(tableData);
               }}
-              InputProps={{classes: { formControl: classes.inputFormControl} }}
+              InputProps={{ "aria-describedby": `${id}-${rowNum}-${colNum}-label`, classes: {
+                  formControl: classes.inputFormControl
+                }
+              }}
               InputLabelProps={{shrink: false, className: classes.inputLabelRoot}}
             />
           </TableCell>
