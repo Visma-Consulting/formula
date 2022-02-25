@@ -1,3 +1,8 @@
+# x.y.z
+
+- Upgrade to `@visma/rjsf-*@3.1.0-24`
+- Fix missing labels in richtext and tableField
+
 # 0.4.71
 
 - Added missing error translations
