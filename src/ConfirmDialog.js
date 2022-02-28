@@ -69,8 +69,10 @@ export default forwardRef(function ConfirmDialog(
   }
 
   function handleDismiss() {
-    handleClose();
-    confirmRef.current(false);
+    if (!loading) {
+      handleClose();
+      confirmRef.current(false);
+    }
   }
 
   function handleLoading() {
@@ -109,7 +111,7 @@ export default forwardRef(function ConfirmDialog(
         </DialogContent>
       )}
       <DialogActions>
-        <Button onClick={handleDismiss}>
+        <Button disabled={loading} onClick={handleDismiss}>
           <FormattedMessage defaultMessage="Peruuta" />
         </Button>
         <Button
