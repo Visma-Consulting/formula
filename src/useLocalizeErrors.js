@@ -27,7 +27,9 @@ const messages = defineMessages({
 const type = defineMessages({
   file: { defaultMessage: 'valittu' },
   string: { defaultMessage: 'tekstiarvo' },
+  number: { defaultMessage: 'numero'},
   boolean: { defaultMessage: 'booleanarvo' },
+  array: { defaultMessage: 'taulu' },
 });
 
 const params = { type };
