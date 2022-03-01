@@ -133,11 +133,12 @@ function TableField(props) {
                 tableData[rowNum][colNum] = event.target.value || defaultValue;
                 onPropertyChange(tableData);
               }}
-              InputProps={{ "aria-describedby": `${id}-${rowNum}-${colNum}-label`, classes: {
-                  formControl: classes.inputFormControl
-                }
+              InputProps={{classes: { formControl: classes.inputFormControl} }}
+              InputLabelProps={{
+                htmlFor: `${id}-${rowNum}-${colNum}`,
+                shrink: false,
+                className: classes.inputLabelRoot
               }}
-              InputLabelProps={{shrink: false, className: classes.inputLabelRoot}}
             />
           </TableCell>
         ))
