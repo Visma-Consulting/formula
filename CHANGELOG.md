@@ -1,3 +1,28 @@
+# x.y.z
+
+- Upgrade to `@visma/rjsf-*@3.1.0-24`
+- Fix missing labels in richtext and tableField
+
+# 0.4.71
+
+- Added missing error translations
+
+# 0.4.70
+
+- Quick-fix for localizing
+
+# 0.4.69
+
+- Generate some type docs
+- Find any translation when localizing
+- Default labels for booleans
+- Image uses altText as alt
+- Buttons hidden from printed page
+
+# 0.4.68
+
+- Fix multiselect presentation on review page
+
 # 0.4.67
 
 - Scroll to top on form step change

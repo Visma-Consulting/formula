@@ -54,7 +54,7 @@ const RichText = isMobile
       const { useLabel, label, title } = options.element;
 
       return (
-        <div className={editor} aria-label={useLabel ? label : title}>
+        <div className={editor} tabIndex={0} aria-label={useLabel ? label : title}>
           <RichTextEditor
             value={editorValue}
             onChange={useCallback((editorValue) => {

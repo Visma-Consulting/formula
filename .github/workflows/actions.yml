@@ -29,10 +29,14 @@ jobs:
       - run: npm run build
       - run: npm test
 
+      - run: mkdir -p public/docs
+      - run: mv examples/app/build/* public
+      - run: mv docs/* public/docs
+
       - uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages
-          folder: examples/app/build
+          folder: public
 
       - name: Clean install dependencies, build and publish
         if: steps.check.outputs.changed == 'true'

@@ -6,6 +6,7 @@ import {
   DialogContentText,
   DialogTitle,
   useTheme,
+  CircularProgress
 } from '@material-ui/core';
 import produce from 'immer';
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
@@ -42,17 +43,25 @@ export default forwardRef(function ConfirmDialog(
         setOpen(true);
       });
     },
+    loading() {
+      handleLoading();
+    },
+    close() {
+      handleClose();
+    }
   }));
 
   const confirmRef = useRef();
 
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [showReCAPTCHA, setShowReCAPTCHA] = useState(
     isCaptchaRequired(other.config)
   );
   const [captchaChallenge, setCaptchaChallenge] = useState();
 
   function handleClose() {
+    setLoading(false);
     setOpen(false);
     if (showReCAPTCHA && captchaChallenge) {
       setShowReCAPTCHA(false);
@@ -60,12 +69,18 @@ export default forwardRef(function ConfirmDialog(
   }
 
   function handleDismiss() {
-    handleClose();
-    confirmRef.current(false);
+    if (!loading) {
+      handleClose();
+      confirmRef.current(false);
+    }
+  }
+
+  function handleLoading() {
+    setLoading(true);
   }
 
   function handleConfirm() {
-    handleClose();
+    //handleClose();
     confirmRef.current(
       isCaptchaRequired(other.config) ? captchaChallenge : true
     );
@@ -90,12 +105,17 @@ export default forwardRef(function ConfirmDialog(
       {showReCAPTCHA && (
         <DialogContentReCAPTCHA onChange={setCaptchaChallenge} />
       )}
+      {loading && (
+        <DialogContent>
+          <CircularProgress />
+        </DialogContent>
+      )}
       <DialogActions>
-        <Button onClick={handleDismiss}>
+        <Button disabled={loading} onClick={handleDismiss}>
           <FormattedMessage defaultMessage="Peruuta" />
         </Button>
         <Button
-          disabled={showReCAPTCHA && !captchaChallenge}
+          disabled={(showReCAPTCHA && !captchaChallenge) || loading}
           onClick={handleConfirm}
           variant="contained"
           color="primary"

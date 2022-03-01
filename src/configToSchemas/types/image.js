@@ -11,16 +11,16 @@ const useStyles = makeStyles({
 });
 
 function Image(props) {
-  const { url, alt } = props.uiSchema['ui:options'].element;
+  const { url, altText } = props.uiSchema['ui:options'].element;
   const classes = useStyles();
 
-  return <img src={url} alt={alt} className={classes.root} />;
+  return <img src={url} alt={altText} className={classes.root} />;
 }
 
-export default extendType(_dummy, ({ config: { alt, url } }) => (props) => {
+export default extendType(_dummy, ({ config: { altText, url } }) => (props) => {
   props.uiSchema ??= {};
   props.uiSchema['ui:field'] = Image;
-  props.uiSchema['ui:should-update'] = `${url}-${alt}`;
+  props.uiSchema['ui:should-update'] = `${url}-${altText}`;
 });
 
 export const name = defineMessage({
