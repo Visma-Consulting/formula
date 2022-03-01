@@ -4,7 +4,7 @@ import ConfirmDialog, { isCaptchaRequired } from './ConfirmDialog';
 import { chain } from './utils';
 
 export default function withConfirmSubmit(Form) {
-  return forwardRef(({ confirm = true, onPreSubmit, ...other }, ref) => {
+  return forwardRef(({ confirm = true, onPreSubmit, onPostSubmit, ...other }, ref) => {
     const confirmDialogRef = useRef();
 
     const showConfirm = confirm || isCaptchaRequired(other.config);
@@ -25,6 +25,18 @@ export default function withConfirmSubmit(Form) {
             onPreSubmit,
             showConfirm &&
               ((...args) => confirmDialogRef.current.confirm(...args)),
+            showConfirm &&
+              ((...args) => {
+                confirmDialogRef.current.loading();
+                return args;
+              })
+          ])}
+          onPostSubmit={chain([
+            showConfirm && ((...args) => {
+              confirmDialogRef.current.close();
+              return args;
+            }),
+            onPostSubmit
           ])}
         />
       </>
