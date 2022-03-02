@@ -1,3 +1,7 @@
+# 0.4.73
+
+- Notify user when submitting form fails
+
 # 0.4.72
 
 - Upgrade to `@visma/rjsf-*@3.1.0-25`
