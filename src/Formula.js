@@ -7,7 +7,6 @@ import useDynamicElements from './useDynamicElements';
 import useFields from './useFields';
 import useLocalizeErrors from './useLocalizeErrors';
 import { useNormalizeConfigProp } from './useNormalizeConfig';
-import useSubmit from './useSubmit';
 import { withPropsUpdater } from './utils';
 import withConfirmSubmit from './withConfirmSubmit';
 import withFormConfigLoader from './withFormConfigLoader';
@@ -20,7 +19,6 @@ export const Form =
   |> withPropsUpdater(noHtml5Validate)
   |> withPropsUpdater(omitExtraData)
   |> withPropsUpdater(useFields)
-  |> withPropsUpdater(useSubmit)
   |> withPropsUpdater(useLocalizeErrors)
   |> withConfirmSubmit
   |> withSteps

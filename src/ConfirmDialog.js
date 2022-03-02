@@ -48,6 +48,9 @@ export default forwardRef(function ConfirmDialog(
     },
     close() {
       handleClose();
+    },
+    error() {
+      handleError();
     }
   }));
 
@@ -55,6 +58,7 @@ export default forwardRef(function ConfirmDialog(
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [showReCAPTCHA, setShowReCAPTCHA] = useState(
     isCaptchaRequired(other.config)
   );
@@ -62,14 +66,14 @@ export default forwardRef(function ConfirmDialog(
 
   function handleClose() {
     setLoading(false);
+    setError(false);
     setOpen(false);
-    if (showReCAPTCHA && captchaChallenge) {
-      setShowReCAPTCHA(false);
-    }
   }
 
   function handleDismiss() {
-    if (!loading) {
+    if (!loading || error) {
+      setLoading(false);
+      setError(false);
       handleClose();
       confirmRef.current(false);
     }
@@ -79,8 +83,12 @@ export default forwardRef(function ConfirmDialog(
     setLoading(true);
   }
 
+  function handleError() {
+    setError(true);
+    setLoading(false);
+  }
+
   function handleConfirm() {
-    //handleClose();
     confirmRef.current(
       isCaptchaRequired(other.config) ? captchaChallenge : true
     );
@@ -102,20 +110,25 @@ export default forwardRef(function ConfirmDialog(
           </DialogContentText>
         </DialogContent>
       )}
-      {showReCAPTCHA && (
+      { (showReCAPTCHA && !loading && !error) ? (
         <DialogContentReCAPTCHA onChange={setCaptchaChallenge} />
-      )}
+      ) : null}
       {loading && (
         <DialogContent>
           <CircularProgress />
         </DialogContent>
       )}
+      {error && (
+        <DialogContent>
+          <FormattedMessage defaultMessage="Lomakkeen lähetys ei onnistunut." />
+        </DialogContent>
+      )}
       <DialogActions>
-        <Button disabled={loading} onClick={handleDismiss}>
+        <Button disabled={loading && !error} onClick={handleDismiss}>
           <FormattedMessage defaultMessage="Peruuta" />
         </Button>
         <Button
-          disabled={(showReCAPTCHA && !captchaChallenge) || loading}
+          disabled={(showReCAPTCHA && !captchaChallenge) || loading || error}
           onClick={handleConfirm}
           variant="contained"
           color="primary"
