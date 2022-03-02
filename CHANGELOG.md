@@ -1,7 +1,10 @@
-# x.y.z
+# 0.4.72
 
-- Upgrade to `@visma/rjsf-*@3.1.0-24`
+- Upgrade to `@visma/rjsf-*@3.1.0-25`
 - Fix missing labels in richtext and tableField
+- Show spinner when sending forms
+- Added more error translations
+- Accessibility changes to table and richtext
 
 # 0.4.71
 
