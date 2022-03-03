@@ -185,6 +185,44 @@
         }
       }
     },
+    "/form/{formId}/{formRev}": {
+      "get": {
+        "summary": "Get a form by id",
+        "operationId": "getFormRev",
+        "parameters": [
+          {
+            "name": "formId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "formRev",
+            "in": "path",
+            "required": true,
+            "description": "The id of the form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A form",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Form"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/formgroup": {
       "get": {
         "summary": "List all form groups",

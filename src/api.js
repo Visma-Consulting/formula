@@ -9,6 +9,10 @@ export const useForm = (formId, options) => {
   return client.useForm({ formId }) |> useNormalizeConfig(options);
 }
 
+export const useFormRev = (formId, formRev) => {
+  return client.useFormRev({formId, formRev});
+}
+
 export const useFormSafe = (formId, options) => {
   const normalize = useNormalizeConfig(options);
   const [error, data] = client.useFormSafe({ formId });
