@@ -1,3 +1,7 @@
+# 0.4.74
+
+- Change logic when catching submit errors
+
 # 0.4.73
 
 - Notify user when submitting form fails
