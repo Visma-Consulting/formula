@@ -4,18 +4,18 @@ import { merge } from 'lodash';
 import Markdown from 'markdown-to-jsx';
 import Link from '@material-ui/core/Link';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme =>({
   root: {
     fontSize: '0.8em',
     marginLeft: '0.3em',
   },
   link: {
     '&:visited': {
-      color: '#FC69DC'
+      color: theme.palette.type === 'dark' ? '#FC69DC' : '#AB0386',
     },
-    color: '#1FA5FF'
+    color: theme.palette.type === 'dark' ? '#1FA5FF' : theme.palette.primary,
   }
-});
+}));
 
 const Anchor = (props) => {
   const classes = useStyles();
