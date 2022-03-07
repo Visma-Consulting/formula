@@ -2,6 +2,7 @@
 /* eslint import/no-unresolved: "off" */
 import '!style-loader!css-loader!react-dates/lib/css/_datepicker.css';
 import '!style-loader!css-loader!./style.css';
+import { sub, add } from 'date-fns';
 import moment from 'moment';
 import 'moment/locale/fi';
 import 'moment/locale/sv';
@@ -10,7 +11,13 @@ import { SingleDatePicker } from 'react-dates';
 import 'react-dates/initialize';
 import { defineMessage, useIntl } from 'react-intl';
 
-const parseToday = (date) => (date === 'today' ? moment() : moment(date));
+const beforeDay = (date) => {
+  return sub(new Date(), date);
+}
+
+const afterDay = (date) => {
+  return add(new Date(), date);
+}
 
 function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
   const intl = useIntl();
@@ -18,7 +25,6 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
   const { title, label, useLabel } = options.element;
 
   const handleFocusChange = ({ focused }) => setFocused(focused);
-
   const { locale } = intl;
 
   useEffect(() => {
@@ -38,9 +44,9 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
         hideKeyboardShortcutsPanel
         isOutsideRange={(m) =>
           (options.disableBefore &&
-            m.isBefore(parseToday(options.disableBefore), 'day')) ||
+            m.isBefore(beforeDay(options.disableBefore), 'day')) ||
           (options.disableAfter &&
-            m.isAfter(parseToday(options.disableAfter), 'day'))
+            m.isAfter(afterDay(options.disableAfter), 'day'))
         }
       />
     </>
@@ -55,8 +61,14 @@ export default ({ config: { disableBefore, disableAfter } }) => ({
   uiSchema: {
     'ui:widget': SingleDatePickerWidget,
     'ui:options': {
-      disableBefore,
-      disableAfter,
+      disableBefore: {
+        years: 0,
+        months: 1,
+        days: 5
+      },
+      disableAfter: {
+        days: 3
+      },
     },
   },
 });
