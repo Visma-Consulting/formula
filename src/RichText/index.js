@@ -36,7 +36,7 @@ const RichText = isMobile
   : function RichText({ value, onChange, options }) {
       const setState = () =>
         RichTextEditor.createValueFromString(
-          value?.replace(/\\/g, '\\\\') ?? '',
+          value?.replace(/\\/g, '\\\\').replace('\\*', '*') ?? '',
           format
         );
 

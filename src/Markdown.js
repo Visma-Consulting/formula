@@ -35,6 +35,6 @@ export default (props) =>
         props
       )}
     >
-      {props.children.replace(/\\/g, '\\\\')}
+      {props.children.replace(/\\/g, '\\\\').replace('\\*', '*')}
     </Markdown>
   ) : null;
