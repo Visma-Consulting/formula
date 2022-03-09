@@ -2,8 +2,14 @@ import * as client from './client';
 import { handleLegacyConfig } from './legacyMode';
 import useNormalizeConfig, { useNormalizeConfigs } from './useNormalizeConfig';
 import { setDefaultType } from './utils';
+import useQueryParamWithDefaultValue from '@postinumero/use-query-param-with-default-value';
+import { StringParam } from 'use-query-params';
 
 export * from './client';
+
+const useCredentials = () => {
+  return useQueryParamWithDefaultValue('', 'credentials', StringParam);
+}
 
 export const useForm = (formId, options) => {
   return client.useForm({ formId }) |> useNormalizeConfig(options);
@@ -11,6 +17,11 @@ export const useForm = (formId, options) => {
 
 export const useFormRev = (formId, formRev) => {
   return client.useFormRev({formId, formRev});
+}
+
+export const useSubmittedFormData = (formId, formRev, dataId) => {
+  const [credentials, ] = useCredentials();
+  return client.getFormAndFormDataByRevision({formId, formRev, dataId, credentials});
 }
 
 export const useFormSafe = (formId, options) => {
