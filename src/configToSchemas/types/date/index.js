@@ -12,18 +12,17 @@ import 'react-dates/initialize';
 import { defineMessage, useIntl } from 'react-intl';
 
 const beforeDay = (date) => {
-  return sub(new Date(), date);
+  return date.type !== 'date' ? sub(new Date(), { [date.type]: date.value }) : date.value;
 }
 
 const afterDay = (date) => {
-  return add(new Date(), date);
+  return date.type !== 'date' ? add(new Date(), { [date.type]: date.value }) : date.value;
 }
 
 function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
   const intl = useIntl();
   const [focused, setFocused] = useState();
   const { title, label, useLabel } = options.element;
-
   const handleFocusChange = ({ focused }) => setFocused(focused);
   const { locale } = intl;
 
@@ -44,9 +43,9 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
         hideKeyboardShortcutsPanel
         isOutsideRange={(m) =>
           (options.disableBefore &&
-            m.isBefore(beforeDay(options.disableBefore), 'day')) ||
+            m.isBefore(beforeDay(options.element.disableBefore), 'day')) ||
           (options.disableAfter &&
-            m.isAfter(afterDay(options.disableAfter), 'day'))
+            m.isAfter(afterDay(options.element.disableAfter), 'day'))
         }
       />
     </>
@@ -61,16 +60,10 @@ export default ({ config: { disableBefore, disableAfter } }) => ({
   uiSchema: {
     'ui:widget': SingleDatePickerWidget,
     'ui:options': {
-      disableBefore: {
-        years: 0,
-        months: 1,
-        days: 5
-      },
-      disableAfter: {
-        days: 3
-      },
-    },
-  },
+      disableBefore,
+      disableAfter,
+    }
+  }
 });
 
 export const name = defineMessage({
@@ -78,3 +71,30 @@ export const name = defineMessage({
 });
 
 export const elementType = 'field';
+
+export const widgets = [
+  {
+    value: 'days',
+    message: defineMessage({
+      defaultMessage: 'Päiviä',
+    }),
+  },
+  {
+    value: 'months',
+    message: defineMessage({
+      defaultMessage: 'Kuukausia',
+    }),
+  },
+  {
+    value: 'years',
+    message: defineMessage({
+      defaultMessage: 'Vuosia',
+    }),
+  },
+  {
+    value: 'date',
+    message: defineMessage({
+      defaultMessage: 'Päivämäärä',
+    }),
+  },
+];

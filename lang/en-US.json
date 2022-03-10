@@ -155,6 +155,15 @@
   "G7a3as": {
     "defaultMessage": "\"{field}\" {limit, plural, =1 {is mandatory field} other {should contain at most # chars}}"
   },
+  "7xLZD/": {
+    "defaultMessage": "Days"
+  },
+  "OH1wW1": {
+    "defaultMessage": "Months"
+  },
+  "IX37vK": {
+    "defaultMessage": "Years"
+  },
   "Od6CNk": {
     "defaultMessage": "{tableName} column {columnName} row {row}"
   }
