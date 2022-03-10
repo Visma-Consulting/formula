@@ -49,7 +49,7 @@
 </thead>
 <tbody><tr>
 <td><code>config</code></td>
-<td>(TBD)</td>
+<td><a href="https://visma-consulting.github.io/formula/docs/interfaces/Form.html">Form</a></td>
 <td>Form config</td>
 </tr>
 <tr>
@@ -70,12 +70,12 @@
 <tr>
 <td><code>onPostSubmit</code></td>
 <td><code>(dataId, { values }) =&gt; void</code></td>
-<td>Get <code>dataId</code> of submitted form</td>
+<td>Get <code>dataId</code> of submitted form data</td>
 </tr>
 <tr>
 <td><code>confirm</code></td>
 <td><code>boolean | { title: ReactElement, description: ReactElement }</code></td>
-<td>Disable confirm dialog or use object for other messages. Default: <code>true</code></td>
+<td>Show confirm dialog or use object for other messages. Default: <code>true</code></td>
 </tr>
 <tr>
 <td><code>axios</code></td>
@@ -91,6 +91,21 @@
 <td><code>children</code></td>
 <td><code>ReactElement</code></td>
 <td>Override default submit button. Set <code>&lt;&gt;&lt;/&gt;</code> (empty React Frament) to render nothing.</td>
+</tr>
+<tr>
+<td><code>review</code></td>
+<td><code>boolean</code></td>
+<td>Show review after the form has been submitted. Default: <code>true</code></td>
+</tr>
+<tr>
+<td><code>forceReview</code></td>
+<td><code>boolean</code></td>
+<td>Show review directly. Default: <code>false</code></td>
+</tr>
+<tr>
+<td><code>reviewProps</code></td>
+<td><code>{ actions: ReactNode }</code></td>
+<td>Additional action buttons</td>
 </tr>
 </tbody></table>
 
