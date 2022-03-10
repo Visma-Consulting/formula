@@ -1,10 +1,10 @@
-import { forwardRef } from 'react';
+import {forwardRef} from 'react';
 import invariant from 'tiny-invariant';
-import { useForm } from './api';
+import {useAtomicForm} from './api';
 import useResolveElementReferences from './useResolveElementReferences';
 
 export default function withFormConfigLoader(Form) {
-  const Resolver = forwardRef(({ config, ...other }, ref) => (
+  const Resolver = forwardRef(({config, ...other}, ref) => (
     <Form
       ref={ref}
       {...other}
@@ -12,13 +12,13 @@ export default function withFormConfigLoader(Form) {
     />
   ));
 
-  const Loader = forwardRef(({ id, ...other }, ref) => {
+  const Loader = forwardRef(({id, ...other}, ref) => {
     invariant(
       !(id && other.config),
       'You should not use prop `id` with `config`'
     );
 
-    return <Resolver ref={ref} {...other} config={useForm(id)} />;
+    return <Form ref={ref} {...other} config={useAtomicForm(id)}/>;
   });
 
   return forwardRef((props, ref) => {
@@ -28,8 +28,8 @@ export default function withFormConfigLoader(Form) {
         ? Loader
         : // Optionally resolve directly provided config
         props.resolve
-        ? Resolver
-        : Form;
+          ? Resolver
+          : Form;
     return <WithFormConfigLoader ref={ref} {...props} />;
   });
 }

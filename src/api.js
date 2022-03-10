@@ -7,11 +7,21 @@ export * from './client';
 
 export const useForm = (formId, options) => {
   return client.useForm({ formId }) |> useNormalizeConfig(options);
-}
+};
+
+export const useAtomicForm = (formId, options) => {
+  return client.useAtomicForm({ formId }) |> useNormalizeConfig(options);
+};
 
 export const useFormSafe = (formId, options) => {
   const normalize = useNormalizeConfig(options);
   const [error, data] = client.useFormSafe({ formId });
+  return [error, data ? normalize(data) : data];
+};
+
+export const useAtomicFormSafe = (formId, options) => {
+  const normalize = useNormalizeConfig(options);
+  const [error, data] = client.useAtomicFormSafe({ formId });
   return [error, data ? normalize(data) : data];
 };
 
