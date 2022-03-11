@@ -59,19 +59,20 @@ export default function withConfirmSubmit(Form) {
                   values: formData,
                   captchaChallenge,
                 };
-                try {
-                  const response = await onSubmit(data, ...args);
+                await onSubmit(data, ...args)
+                  .then((response) => {
+                    if (showConfirm) {
+                      confirmDialogRef.current.close();
+                    }
 
-                  if (showConfirm) {
-                    confirmDialogRef.current.close();
-                  }
-
-                  onPostSubmit?.(response, data, ...args);
-                } catch {
-                  if (showConfirm) {
-                    confirmDialogRef.current.error();
-                  }
-                }
+                    onPostSubmit?.(response, data, ...args);
+                  })
+                  .catch((e) => {
+                    console.error(e);
+                    if (showConfirm) {
+                      confirmDialogRef.current.error();
+                    }
+                  });
               },
             ])}
           />

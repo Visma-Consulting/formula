@@ -223,6 +223,35 @@
         }
       }
     },
+    "/form/collated/{formId}": {
+      "get": {
+        "summary": "Get a self contained representation of form by id",
+        "operationId": "getAtomicForm",
+        "parameters": [
+          {
+            "name": "formId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A form",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Form"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/formgroup": {
       "get": {
         "summary": "List all form groups",
