@@ -12,11 +12,19 @@ import 'react-dates/initialize';
 import { defineMessage, useIntl } from 'react-intl';
 
 const beforeDay = (date) => {
-  return date.type !== 'date' ? sub(new Date(), { [date.type]: date.value }) : date.value;
+  if(date.type !== undefined) {
+    return date.type !== 'date' ? sub(new Date(), { [date.type]: date.numberValue }) : date.dateValue;
+  } else {
+    return null;
+  }
 }
 
 const afterDay = (date) => {
-  return date.type !== 'date' ? add(new Date(), { [date.type]: date.value }) : date.value;
+  if(date.type !== undefined) {
+    return date.type !== 'date' ? add(new Date(), { [date.type]: date.numberValue }) : date.dateValue;
+  } else {
+    return null;
+  }
 }
 
 function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
