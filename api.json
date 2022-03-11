@@ -525,6 +525,44 @@
         }
       }
     },
+    "/formdata/submit/{dataId}": {
+      "post": {
+        "summary": "Resubmit a form",
+        "operationId": "postResubmitFormData",
+        "parameters": [
+          {
+            "name": "dataId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the data",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "credentials",
+            "in": "query",
+            "required": true,
+            "description": "The credentials of the user",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "A form data id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/formdata/{formId}/{formRev}/{dataId}": {
       "get": {
         "summary": "Get a form data and form by id and revision",

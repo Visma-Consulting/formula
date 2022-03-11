@@ -15,8 +15,13 @@ export const useForm = (formId, options) => {
   return client.useForm({ formId }) |> useNormalizeConfig(options);
 };
 
-export const useAtomicForm = (formId, options) => {
-  return client.useAtomicForm({ formId }) |> useNormalizeConfig(options);
+export const useAtomicForm = (formId, formRev, options) => {
+  const normalize = useNormalizeConfig(options);
+  if (formRev) {
+    return normalize(client.useFormRev({formId, formRev}));
+  } else {
+    return normalize(client.useAtomicForm({ formId }));
+  }
 };
 
 export const useFormRev = (formId, formRev) => {
@@ -99,7 +104,13 @@ export function useMutations() {
   return {
     async submit(data) {
       if (data._id) {
-        return client.putFormData({ dataId: data._id }, data);
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        return client.postResubmitFormData(
+          {dataId: data._id, credentials: urlParams.get('credentials')},
+          data
+        );
+        //return client.putFormData({ dataId: data._id }, data);
       } else {
         return client.postFormData(null, data);
       }

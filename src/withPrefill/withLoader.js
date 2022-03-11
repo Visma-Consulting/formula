@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import invariant from 'tiny-invariant';
-import { useFormData } from '../api';
+import { useSubmittedFormData } from '../api';
 
 export default function withLoader(Form) {
   const Loader = forwardRef(({ id, rev, dataId, ...other }, ref) => {
@@ -9,7 +9,7 @@ export default function withLoader(Form) {
       'You should not use prop `dataId` with `formData`'
     );
 
-    const { values: formData, form } = useFormData(dataId);
+    const { values: formData, form } = useSubmittedFormData(id, rev, dataId);
 
     const formId = String(form.id);
     const formRev = String(form.rev);
