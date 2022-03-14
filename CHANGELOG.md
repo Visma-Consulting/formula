@@ -1,3 +1,12 @@
+# 0.4.75
+
+- Make default array as long as minItems
+- Fix swedish translation
+- Allow decimal rename number field
+- Remove escape before asterisk
+- Rich text link color in darkmode fix
+
+
 # 0.4.74
 
 - Change logic when catching submit errors
