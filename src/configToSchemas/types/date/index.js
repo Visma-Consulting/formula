@@ -44,7 +44,6 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
         date={value === undefined ? null : moment(value)}
         onDateChange={(date) => date && onChange(date.format('YYYY-MM-DD'))}
         focused={focused}
-        onFocusChange={handleFocusChange}
         id={id}
         disabled={schema.readOnly || options.readonly}
         placeholder={useLabel ? label : title}
