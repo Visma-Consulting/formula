@@ -11,18 +11,12 @@ import 'react-dates/initialize';
 import { defineMessage, useIntl } from 'react-intl';
 
 const parseToday = (date) => (date === 'today' ? moment() : moment(date));
-/*
-function DateRangePickerField(props) {
-  console.log(props);
-  return 123;
-}
-*/
 
-function DateRangePickerField({ id, onChange, options, schema, formData, uiSchema }) {
+function DateRangePickerField(props) {
+  const { idSchema, onChange, schema, formData, uiSchema } = props;
   const intl = useIntl();
   const [focusedInput, setFocusedInput] = useState();
-  const { disableBefore, disableAfter } = uiSchema['ui:options'];
-  const { title, label, useLabel } = uiSchema['ui:options'].element;
+  const { disableBefore, disableAfter } = props.uiSchema['ui:options'];
   const handleFocusChange = (focusedInput) => setFocusedInput(focusedInput);
   const { locale } = intl;
 
@@ -32,16 +26,20 @@ function DateRangePickerField({ id, onChange, options, schema, formData, uiSchem
 
   return (
     <>
+      <props.registry.FieldTemplate
+        {...props}
+        schema={{...props.schema, type: 'string'}}
+        >
       <DateRangePicker
         onDatesChange={({ startDate, endDate }) => (startDate || endDate) && onChange({ start: startDate?.format('YYYY-MM-DD'), end: endDate?.format('YYYY-MM-DD')})}
         onFocusChange={handleFocusChange}
         focusedInput={focusedInput}
-        id={id}
         disabled={schema.readOnly || uiSchema.readonly}
-        placeholder={useLabel ? label : title}
         hideKeyboardShortcutsPanel
         startDate={formData?.start === undefined ? null : moment(formData?.start)}
+        startDateId={idSchema.start.$id}
         endDate={formData?.end === undefined ? null : moment(formData?.end)}
+        endDateId={idSchema.end.$id}
         isOutsideRange={(m) =>
           (disableBefore &&
             m.isBefore(parseToday(disableBefore), 'day')) ||
@@ -49,13 +47,14 @@ function DateRangePickerField({ id, onChange, options, schema, formData, uiSchem
             m.isAfter(parseToday(disableAfter), 'day'))
         }
       />
+      </props.registry.FieldTemplate>
     </>
   );
 }
 
 export default ({ config: { disableBefore, disableAfter } }) => ({
   schema: {
-    type: 'string',
+    type: 'object',
     properties: {
       start: {
         format: 'date',
