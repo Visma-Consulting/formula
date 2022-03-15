@@ -11,14 +11,19 @@ import 'react-dates/initialize';
 import { defineMessage, useIntl } from 'react-intl';
 
 const parseToday = (date) => (date === 'today' ? moment() : moment(date));
+/*
+function DateRangePickerField(props) {
+  console.log(props);
+  return 123;
+}
+*/
 
-function DateRangePickerWidget({ id, onChange, options, schema, value }) {
+function DateRangePickerField({ id, onChange, options, schema, formData, uiSchema }) {
   const intl = useIntl();
-  const [focused, setFocused] = useState();
-  const { title, label, useLabel } = options.element;
-
-  const handleFocusChange = ({ focused }) => setFocused(focused);
-
+  const [focusedInput, setFocusedInput] = useState();
+  const { disableBefore, disableAfter } = uiSchema['ui:options'];
+  const { title, label, useLabel } = uiSchema['ui:options'].element;
+  const handleFocusChange = (focusedInput) => setFocusedInput(focusedInput);
   const { locale } = intl;
 
   useEffect(() => {
@@ -28,27 +33,21 @@ function DateRangePickerWidget({ id, onChange, options, schema, value }) {
   return (
     <>
       <DateRangePicker
-
-        onDateChange={(date) => date && onChange(date.format('YYYY-MM-DD'))}
-        focused={focused}
+        onDatesChange={({ startDate, endDate }) => (startDate || endDate) && onChange({ start: startDate?.format('YYYY-MM-DD'), end: endDate?.format('YYYY-MM-DD')})}
         onFocusChange={handleFocusChange}
+        focusedInput={focusedInput}
         id={id}
-        disabled={schema.readOnly || options.readonly}
+        disabled={schema.readOnly || uiSchema.readonly}
         placeholder={useLabel ? label : title}
         hideKeyboardShortcutsPanel
+        startDate={formData?.start === undefined ? null : moment(formData?.start)}
+        endDate={formData?.end === undefined ? null : moment(formData?.end)}
         isOutsideRange={(m) =>
-          (options.disableBefore &&
-            m.isBefore(parseToday(options.disableBefore), 'day')) ||
-          (options.disableAfter &&
-            m.isAfter(parseToday(options.disableAfter), 'day'))
+          (disableBefore &&
+            m.isBefore(parseToday(disableBefore), 'day')) ||
+          (disableAfter &&
+            m.isAfter(parseToday(disableAfter), 'day'))
         }
-        startDate={value === undefined ? null : moment(value)}// momentPropTypes.momentObj or null,
-        startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
-        endDate={value === undefined ? null : moment(value)}// momentPropTypes.momentObj or null,
-        endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
-        onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
-        focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-
       />
     </>
   );
@@ -56,11 +55,20 @@ function DateRangePickerWidget({ id, onChange, options, schema, value }) {
 
 export default ({ config: { disableBefore, disableAfter } }) => ({
   schema: {
-    format: 'dateRange',
     type: 'string',
+    properties: {
+      start: {
+        format: 'date',
+        type: 'string',
+      },
+      end: {
+        format: 'date',
+        type: 'string',
+      }
+    }
   },
   uiSchema: {
-    'ui:widget': DateRangePicker,
+    'ui:field': DateRangePickerField,
     'ui:options': {
       disableBefore,
       disableAfter,
