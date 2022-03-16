@@ -9,7 +9,7 @@ export * from './client';
 
 const useCredentials = () => {
   return useQueryParamWithDefaultValue('', 'credentials', StringParam);
-}
+};
 
 export const useForm = (formId, options) => {
   return client.useForm({ formId }) |> useNormalizeConfig(options);
@@ -26,12 +26,12 @@ export const useAtomicForm = (formId, formRev, options) => {
 
 export const useFormRev = (formId, formRev) => {
   return client.useFormRev({formId, formRev});
-}
+};
 
 export const useSubmittedFormData = (formId, formRev, dataId) => {
-  const [credentials, ] = useCredentials();
-  return client.getFormAndFormDataByRevision({formId, formRev, dataId, credentials});
-}
+  const [credentials,] = useCredentials();
+  return client.useFormAndFormDataByRevision({formId, formRev, dataId, credentials});
+};
 
 export const useFormSafe = (formId, options) => {
   const normalize = useNormalizeConfig(options);

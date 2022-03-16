@@ -18,8 +18,6 @@ export default function withFormConfigLoader(Form) {
       'You should not use prop `id` with `config`'
     );
 
-    console.log('configloader');
-
     return <Form ref={ref} id={id} rev={rev} {...other} config={useAtomicForm(id, rev)}/>;
   });
 
