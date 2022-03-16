@@ -9,8 +9,7 @@ import { useEffect, useState } from 'react';
 import { DateRangePicker } from 'react-dates';
 import 'react-dates/initialize';
 import { defineMessage, useIntl } from 'react-intl';
-
-const parseToday = (date) => (date === 'today' ? moment() : moment(date));
+import { add, sub } from 'date-fns';
 
 function DateRangePickerField(props) {
   const { idSchema, onChange, schema, formData, uiSchema } = props;
@@ -23,6 +22,22 @@ function DateRangePickerField(props) {
   useEffect(() => {
     moment.locale(locale);
   }, [locale]);
+
+  const beforeDay = (date) => {
+    if(date.type !== undefined) {
+      return date.type !== 'date' ? sub(new Date(), { [date.type]: date.numberValue }) : date.dateValue;
+    } else {
+      return null;
+    }
+  }
+
+  const afterDay = (date) => {
+    if(date.type !== undefined) {
+      return date.type !== 'date' ? add(new Date(), { [date.type]: date.numberValue }) : date.dateValue;
+    } else {
+      return null;
+    }
+  }
 
   return (
     <>
@@ -41,10 +56,10 @@ function DateRangePickerField(props) {
         endDate={formData?.end === undefined ? null : moment(formData?.end)}
         endDateId={idSchema.end.$id}
         isOutsideRange={(m) =>
-          (disableBefore &&
-            m.isBefore(parseToday(disableBefore), 'day')) ||
-          (disableAfter &&
-            m.isAfter(parseToday(disableAfter), 'day'))
+          (disableBefore && disableBefore.type &&
+            m.isBefore(beforeDay(disableBefore), 'day')) ||
+          (disableAfter && disableAfter.type &&
+            m.isAfter(afterDay(disableAfter), 'day'))
         }
       />
       </props.registry.FieldTemplate>
@@ -80,3 +95,30 @@ export const name = defineMessage({
 });
 
 export const elementType = 'field';
+
+export const widgets = [
+  {
+    value: 'days',
+    message: defineMessage({
+      defaultMessage: 'Päiviä',
+    }),
+  },
+  {
+    value: 'months',
+    message: defineMessage({
+      defaultMessage: 'Kuukausia',
+    }),
+  },
+  {
+    value: 'years',
+    message: defineMessage({
+      defaultMessage: 'Vuosia',
+    }),
+  },
+  {
+    value: 'date',
+    message: defineMessage({
+      defaultMessage: 'Päivämäärä',
+    }),
+  },
+];
