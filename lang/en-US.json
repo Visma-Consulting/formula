@@ -166,5 +166,14 @@
   },
   "Od6CNk": {
     "defaultMessage": "{tableName} column {columnName} row {row}"
+  },
+  "yFga8M": {
+    "defaultMessage": "Start date"
+  },
+  "l26Isu": {
+    "defaultMessage": "End date"
+  },
+  "G3a8oG": {
+    "defaultMessage": "Date range"
   }
 }

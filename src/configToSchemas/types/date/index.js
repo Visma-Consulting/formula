@@ -80,29 +80,3 @@ export const name = defineMessage({
 
 export const elementType = 'field';
 
-export const widgets = [
-  {
-    value: 'days',
-    message: defineMessage({
-      defaultMessage: 'Päiviä',
-    }),
-  },
-  {
-    value: 'months',
-    message: defineMessage({
-      defaultMessage: 'Kuukausia',
-    }),
-  },
-  {
-    value: 'years',
-    message: defineMessage({
-      defaultMessage: 'Vuosia',
-    }),
-  },
-  {
-    value: 'date',
-    message: defineMessage({
-      defaultMessage: 'Päivämäärä',
-    }),
-  },
-];

@@ -24,11 +24,9 @@ function DateRangePickerField(props) {
   }, [locale]);
 
   const earliestEndDate = () => {
-    if(beforeDay(disableStart.disableBefore) > beforeDay(disableEnd.disableBefore)) {
-      console.log(beforeDay(disableStart.disableBefore));
+    if(beforeDay(disableEnd.disableBefore) === null || beforeDay(disableStart.disableBefore) > beforeDay(disableEnd.disableBefore)) {
       return beforeDay(disableStart.disableBefore);
     } else {
-      console.log(beforeDay(disableEnd.disableBefore));
       return beforeDay(disableEnd.disableBefore);
     }
   }
@@ -63,16 +61,22 @@ function DateRangePickerField(props) {
         hideKeyboardShortcutsPanel
         startDate={formData?.start === undefined ? null : moment(formData?.start)}
         startDateId={idSchema.start.$id}
+        startDatePlaceholderText={intl.formatMessage({
+        defaultMessage: 'Alkupäivä',
+        })}
         endDate={formData?.end === undefined ? null : moment(formData?.end)}
         endDateId={idSchema.end.$id}
+        endDatePlaceholderText={intl.formatMessage({
+          defaultMessage: 'Loppupäivä',
+        })}
         isOutsideRange={(m) => focusedInput === 'startDate' ?
-          (disableStart.disableBefore.type &&
+          (disableStart?.disableBefore.type &&
             m.isBefore(beforeDay(disableStart.disableBefore), 'day')) ||
-          (disableStart.disableAfter.type &&
+          (disableStart?.disableAfter.type &&
             m.isAfter(afterDay(disableStart.disableAfter), 'day')) :
-          (disableEnd.disableBefore.type &&
+          ((disableEnd?.disableBefore.type || disableStart?.disableBefore.type) &&
               m.isBefore(earliestEndDate(), 'day')) ||
-          (disableEnd.disableAfter.type &&
+          (disableEnd?.disableAfter.type &&
             m.isAfter(afterDay(disableEnd.disableAfter), 'day'))
         }
       />

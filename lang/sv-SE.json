@@ -163,5 +163,14 @@
   },
   "Od6CNk": {
     "defaultMessage": "{tableName} kolonn {columnName} rad {row}"
+  },
+  "yFga8M": {
+    "defaultMessage": "Start datum"
+  },
+  "l26Isu": {
+    "defaultMessage": "Slutdatum"
+  },
+  "G3a8oG": {
+    "defaultMessage": "Datumintervall"
   }
 }
