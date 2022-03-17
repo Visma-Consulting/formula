@@ -2,16 +2,46 @@ import * as client from './client';
 import { handleLegacyConfig } from './legacyMode';
 import useNormalizeConfig, { useNormalizeConfigs } from './useNormalizeConfig';
 import { setDefaultType } from './utils';
+import useQueryParamWithDefaultValue from '@postinumero/use-query-param-with-default-value';
+import { StringParam } from 'use-query-params';
 
 export * from './client';
 
+const useCredentials = () => {
+  return useQueryParamWithDefaultValue('', 'credentials', StringParam);
+};
+
 export const useForm = (formId, options) => {
   return client.useForm({ formId }) |> useNormalizeConfig(options);
-}
+};
+
+export const useAtomicForm = (formId, formRev, options) => {
+  const normalize = useNormalizeConfig(options);
+  if (formRev) {
+    return normalize(client.useFormRev({formId, formRev}));
+  } else {
+    return normalize(client.useAtomicForm({ formId }));
+  }
+};
+
+export const useFormRev = (formId, formRev) => {
+  return client.useFormRev({formId, formRev});
+};
+
+export const useSubmittedFormData = (formId, formRev, dataId) => {
+  const [credentials,] = useCredentials();
+  return client.useFormAndFormDataByRevision({formId, formRev, dataId, credentials});
+};
 
 export const useFormSafe = (formId, options) => {
   const normalize = useNormalizeConfig(options);
   const [error, data] = client.useFormSafe({ formId });
+  return [error, data ? normalize(data) : data];
+};
+
+export const useAtomicFormSafe = (formId, options) => {
+  const normalize = useNormalizeConfig(options);
+  const [error, data] = client.useAtomicFormSafe({ formId });
   return [error, data ? normalize(data) : data];
 };
 
@@ -74,7 +104,13 @@ export function useMutations() {
   return {
     async submit(data) {
       if (data._id) {
-        return client.putFormData({ dataId: data._id }, data);
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        return client.postResubmitFormData(
+          {dataId: data._id, credentials: urlParams.get('credentials')},
+          data
+        );
+        //return client.putFormData({ dataId: data._id }, data);
       } else {
         return client.postFormData(null, data);
       }

@@ -185,6 +185,73 @@
         }
       }
     },
+    "/form/{formId}/{formRev}": {
+      "get": {
+        "summary": "Get a form by id",
+        "operationId": "getFormRev",
+        "parameters": [
+          {
+            "name": "formId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "formRev",
+            "in": "path",
+            "required": true,
+            "description": "The id of the form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A form",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Form"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/form/collated/{formId}": {
+      "get": {
+        "summary": "Get a self contained representation of form by id",
+        "operationId": "getAtomicForm",
+        "parameters": [
+          {
+            "name": "formId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A form",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Form"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/formgroup": {
       "get": {
         "summary": "List all form groups",
@@ -374,6 +441,45 @@
         }
       }
     },
+    "/formdata/submit/{dataId}": {
+      "post": {
+        "summary": "Resubmit a form",
+        "operationId": "resubmitFormData",
+        "parameters": [
+          {
+            "name": "dataId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the data",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "credentials",
+            "in": "query",
+            "required": true,
+            "description": "Credentials of the user",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Structured object with handler id and attribute map",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/formdata/{dataId}": {
       "get": {
         "summary": "Get a form data by id",
@@ -412,6 +518,100 @@
               "application/json": {
                 "schema": {
                   "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/formdata/submit/{dataId}": {
+      "post": {
+        "summary": "Resubmit a form",
+        "operationId": "postResubmitFormData",
+        "parameters": [
+          {
+            "name": "dataId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the data",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "credentials",
+            "in": "query",
+            "required": true,
+            "description": "The credentials of the user",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "A form data id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/formdata/{formId}/{formRev}/{dataId}": {
+      "get": {
+        "summary": "Get a form data and form by id and revision",
+        "operationId": "getFormAndFormDataByRevision",
+        "parameters": [
+          {
+            "name": "formId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "formRev",
+            "in": "path",
+            "required": true,
+            "description": "The revision of the form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dataId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the data",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "credentials",
+            "in": "query",
+            "required": true,
+            "description": "Credentials of the user",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A form and form data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
                 }
               }
             }
