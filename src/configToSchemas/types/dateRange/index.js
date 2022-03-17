@@ -12,10 +12,10 @@ import { defineMessage, useIntl } from 'react-intl';
 import { add, sub } from 'date-fns';
 
 function DateRangePickerField(props) {
-  const { idSchema, onChange, schema, formData, uiSchema } = props;
+  const { idSchema, onChange, schema, formData, uiSchema, config } = props;
   const intl = useIntl();
   const [focusedInput, setFocusedInput] = useState();
-  const { disableBefore, disableAfter } = props.uiSchema['ui:options'];
+  const { disableEnd, disableStart } = props.uiSchema['ui:options'].element;
   const handleFocusChange = (focusedInput) => setFocusedInput(focusedInput);
   const { locale } = intl;
 
@@ -23,9 +23,19 @@ function DateRangePickerField(props) {
     moment.locale(locale);
   }, [locale]);
 
+  const earliestEndDate = () => {
+    if(beforeDay(disableStart.disableBefore) > beforeDay(disableEnd.disableBefore)) {
+      console.log(beforeDay(disableStart.disableBefore));
+      return beforeDay(disableStart.disableBefore);
+    } else {
+      console.log(beforeDay(disableEnd.disableBefore));
+      return beforeDay(disableEnd.disableBefore);
+    }
+  }
+
   const beforeDay = (date) => {
     if(date.type !== undefined) {
-      return date.type !== 'date' ? sub(new Date(), { [date.type]: date.numberValue }) : date.dateValue;
+      return date.type !== 'date' ? sub(new Date(), { [date.type]: date.numberValue }) : new Date(date.dateValue);
     } else {
       return null;
     }
@@ -33,7 +43,7 @@ function DateRangePickerField(props) {
 
   const afterDay = (date) => {
     if(date.type !== undefined) {
-      return date.type !== 'date' ? add(new Date(), { [date.type]: date.numberValue }) : date.dateValue;
+      return date.type !== 'date' ? add(new Date(), { [date.type]: date.numberValue }) : new Date(date.dateValue);
     } else {
       return null;
     }
@@ -55,11 +65,15 @@ function DateRangePickerField(props) {
         startDateId={idSchema.start.$id}
         endDate={formData?.end === undefined ? null : moment(formData?.end)}
         endDateId={idSchema.end.$id}
-        isOutsideRange={(m) =>
-          (disableBefore && disableBefore.type &&
-            m.isBefore(beforeDay(disableBefore), 'day')) ||
-          (disableAfter && disableAfter.type &&
-            m.isAfter(afterDay(disableAfter), 'day'))
+        isOutsideRange={(m) => focusedInput === 'startDate' ?
+          (disableStart.disableBefore.type &&
+            m.isBefore(beforeDay(disableStart.disableBefore), 'day')) ||
+          (disableStart.disableAfter.type &&
+            m.isAfter(afterDay(disableStart.disableAfter), 'day')) :
+          (disableEnd.disableBefore.type &&
+              m.isBefore(earliestEndDate(), 'day')) ||
+          (disableEnd.disableAfter.type &&
+            m.isAfter(afterDay(disableEnd.disableAfter), 'day'))
         }
       />
       </props.registry.FieldTemplate>
@@ -96,29 +110,3 @@ export const name = defineMessage({
 
 export const elementType = 'field';
 
-export const widgets = [
-  {
-    value: 'days',
-    message: defineMessage({
-      defaultMessage: 'Päiviä',
-    }),
-  },
-  {
-    value: 'months',
-    message: defineMessage({
-      defaultMessage: 'Kuukausia',
-    }),
-  },
-  {
-    value: 'years',
-    message: defineMessage({
-      defaultMessage: 'Vuosia',
-    }),
-  },
-  {
-    value: 'date',
-    message: defineMessage({
-      defaultMessage: 'Päivämäärä',
-    }),
-  },
-];
