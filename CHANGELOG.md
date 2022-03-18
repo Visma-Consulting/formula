@@ -1,3 +1,7 @@
+# 0.4.77
+
+- Add resubmission to api
+
 # 0.4.75
 
 - Make default array as long as minItems
