@@ -19,3 +19,4 @@ export * as tableField from './tableField';
 export * as text from './text';
 export * as textarea from './textarea';
 export * as title from './title';
+export * as agreement from './agreement';
