@@ -7,6 +7,7 @@ import multiselectWidget from './multiselectWidget';
 import nameAsTitle from './nameAsTitle';
 import selectWidget from './selectWidget';
 import textDefault from './textDefault';
+import numberMultipleOf from './numberMultipleOf';
 
 export default function legacyConfigSupport(config) {
   return (
@@ -18,6 +19,7 @@ export default function legacyConfigSupport(config) {
     |> nameAsTitle
     |> selectWidget
     |> textDefault
+    |> numberMultipleOf
     |> filter
     |> update('elements', map(legacyConfigSupport))
   );
