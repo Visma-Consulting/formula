@@ -1,6 +1,10 @@
+# 0.4.80
+
+- Revert "KEHFORM-527: (hopefully) fix focus of recaptcha challenge"
+
 # 0.4.78
 
-- Fix review submit button 
+- Fix review submit button
 - Fix no disables in filter dialog
 
 # 0.4.77
@@ -14,7 +18,6 @@
 - Allow decimal rename number field
 - Remove escape before asterisk
 - Rich text link color in darkmode fix
-
 
 # 0.4.74
 
