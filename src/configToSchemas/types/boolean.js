@@ -11,7 +11,7 @@ const Switch = ({ onChange, options, schema, value }) => (
       exclusive
       value={value}
       onChange={(event, value) => {
-        onChange(value);
+        value === null ? onChange(undefined) : onChange(value);
       }}
     >
       {options.enumOptions.map(({ label, value }, index) => (
