@@ -1,3 +1,8 @@
+# 0.4.78
+
+- Fix review submit button 
+- Fix no disables in filter dialog
+
 # 0.4.77
 
 - Add resubmission to api
