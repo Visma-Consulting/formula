@@ -1,11 +1,11 @@
-import { defineMessage, useIntl } from 'react-intl';
+import { defineMessage } from 'react-intl';
 
 export default (config) => ({
   schema: {
     type: 'boolean',
     enum: [true],
     default: false,
-    title: config.checkboxTitle,
+    title: config.consentTitle,
   }
 });
 

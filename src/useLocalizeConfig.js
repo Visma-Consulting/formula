@@ -17,6 +17,7 @@ export const translateProperties = [
   'successText',
   'enumNames',
   'textDefault',
+  'consentTitle',
 ];
 
 export const translateArrayProperties = ['choices', 'elements'];
