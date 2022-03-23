@@ -5,24 +5,26 @@ import extendType from './_extendType';
 import sift from 'sift';
 
 function MultiSelect(props) {
-  const { widget, choices = [] } = props.options.element;
+  const { widget, choices = [], filterDialog } = props.options.element;
   const data = props.value ?? [];
   const disabled = [];
   const ensuredWidget = ensureValueIsAvailable(widget, widgets)
 
-  for (const [i, choice] of choices.entries()) {
-    if (choice.enumDisabled) {
-      const choiceEnum = choice.enum ? choice.enum : `${i}`;
-      if (sift(choice.enumDisabled.selected?.query)(data)) {
-        disabled.push(choiceEnum);
-        if (!data.includes(choiceEnum)) {
-          props.value.push(choiceEnum);
+  if (!filterDialog) {
+    for (const [i, choice] of choices.entries()) {
+      if (choice.enumDisabled) {
+        const choiceEnum = choice.enum ? choice.enum : `${i}`;
+        if (sift(choice.enumDisabled.selected?.query)(data)) {
+          disabled.push(choiceEnum);
+          if (!data.includes(choiceEnum)) {
+            props.value.push(choiceEnum);
+          }
         }
-      }
-      if (sift(choice.enumDisabled.notSelected?.query)(data)) {
-        disabled.push(choiceEnum);
-        if (data.includes(choiceEnum)) {
-          props.value.splice(props.value.indexOf(choiceEnum), 1);
+        if (sift(choice.enumDisabled.notSelected?.query)(data)) {
+          disabled.push(choiceEnum);
+          if (data.includes(choiceEnum)) {
+            props.value.splice(props.value.indexOf(choiceEnum), 1);
+          }
         }
       }
     }
