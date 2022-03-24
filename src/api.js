@@ -5,6 +5,10 @@ import { setDefaultType } from './utils';
 
 export * from './client';
 
+const getUrlParams = () => {
+  return new URLSearchParams(window.location.search);
+}
+
 export const useForm = (formId, options) => {
   return client.useForm({ formId }) |> useNormalizeConfig(options);
 };
@@ -23,7 +27,8 @@ export const useFormRev = (formId, formRev) => {
 };
 
 export const useSubmittedFormData = (formId, formRev, dataId) => {
-  const credentials = new URLSearchParams(window.location.search).get('credentials');
+  const urlParams = getUrlParams();
+  const credentials = urlParams.get('credentials');
   return client.useFormAndFormDataByRevision({formId, formRev, dataId, credentials});
 };
 
@@ -97,16 +102,29 @@ export function useMutations() {
 
   return {
     async submit(data) {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const credentials = urlParams.get('credentials');
+      const actionId = urlParams.get('actionId');
       if (data._id) {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        return client.postResubmitFormData(
-          {dataId: data._id, credentials: urlParams.get('credentials')},
-          data
-        );
+        if (actionId) {
+          return client.postResubmitFormData(
+            {dataId: data._id, credentials: credentials, actionId: actionId},
+            data
+          );
+        } else {
+          return client.postResubmitFormData(
+            {dataId: data._id, credentials: credentials},
+            data
+          );
+        }
         //return client.putFormData({ dataId: data._id }, data);
       } else {
-        return client.postFormData(null, data);
+        if (actionId) {
+          return client.postFormData(actionId, data);
+        } else {
+          return client.postFormData(null, data);
+        }
       }
     },
 

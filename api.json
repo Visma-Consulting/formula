@@ -426,6 +426,17 @@
       "post": {
         "summary": "Submit a form",
         "operationId": "postFormData",
+        "parameters": [
+          {
+            "name": "actionId",
+            "in": "query",
+            "required": false,
+            "description": "Action for data submission",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Structured object with handler id and attribute map",
@@ -460,6 +471,15 @@
             "in": "query",
             "required": true,
             "description": "Credentials of the user",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "actionId",
+            "in": "query",
+            "required": false,
+            "description": "Action for data submission",
             "schema": {
               "type": "string"
             }
