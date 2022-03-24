@@ -55,7 +55,19 @@ export function dynamicElements(config, formData = {}) {
       })
       .map((element) =>
         dynamicElements(element, filteredFormData[element.key])
-      );
+      ).map((element) => {
+        const query = element.filter?.show?.query;
+
+        if (query) {
+          const source = Object.keys(element.filter.show.query)[0];
+          if (!elements.find(element => element.key === source)?.hidden) {
+            return {...element, indent: true}
+          }
+        }
+
+        return {...element, indent: false}
+      }
+    );
     checkChanges = elements.length !== length;
   }
 
