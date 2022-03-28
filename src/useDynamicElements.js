@@ -29,6 +29,23 @@ export const toTarget = (element) => {
   }
 };
 
+function pageTitleElementOf(elements, element) {
+  if (elements.findIndex(element => element.type === 'pageTitle') === -1) {
+    return undefined;
+  }
+
+  // eslint-disable-next-line @super-template/no-loops/no-loops
+  for (let i = elements.indexOf(element) - 1; i >= 0; i--) {
+    if (elements[i].type === 'pageTitle') {
+      return elements[i];
+      break;
+    }
+  }
+
+  // If page title was not found, return first page title
+  return elements.find(element => element.type === 'pageTitle');
+}
+
 export function dynamicElements(config, formData = {}) {
   // config.list element is filtered in ArrayField component.
   if (config.list || !typesWithElements.includes(config.type)) {
@@ -46,6 +63,11 @@ export function dynamicElements(config, formData = {}) {
     elements = elements
       .filter(function test(element) {
         const query = element.filter?.show?.query;
+
+        const pageTitle = pageTitleElementOf(config.elements, element);
+        if (element.type !== 'pageTitle' && pageTitle !== undefined && !elements.includes(pageTitle)) {
+          return false;
+        }
 
         if (!query) {
           return true;
