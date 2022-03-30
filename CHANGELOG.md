@@ -1,3 +1,7 @@
+# x.y.z
+
+- Set `liveValidate` `true` on error
+
 # 0.4.80
 
 - Revert "KEHFORM-527: (hopefully) fix focus of recaptcha challenge"
