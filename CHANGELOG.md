@@ -1,3 +1,10 @@
+# 0.4.81
+
+- Filtering for pageTitle
+- Indentation for filtered fields
+- Fix no selection boolean
+- Upgrade to `@visma/rjsf-*@3.1.0-27`
+
 # x.y.z
 
 - Set `liveValidate` `true` on error
