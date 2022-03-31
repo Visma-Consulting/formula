@@ -35,9 +35,10 @@ export function useLocalizeConfig() {
     function localizeConfig(config) {
       const translatedConfig = omitBy(config, isLecacyTranslationObject);
       const translate = pickBy(config, isLecacyTranslationObject);
-      if (Object.keys(translate).length) {
-        translatedConfig.intl = translate;
-      }
+      // Proposal for translated config values
+      // if (Object.keys(translate).length) {
+      //   translatedConfig.intl = translate;
+      // }
 
       return {
         ...mapValues(translatedConfig, (value, key) =>
