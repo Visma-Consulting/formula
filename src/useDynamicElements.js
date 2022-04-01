@@ -65,7 +65,7 @@ export function dynamicElements(config, formData = {}) {
         const query = element.filter?.show?.query;
 
         const pageTitle = pageTitleElementOf(config.elements, element);
-        if (element.type !== 'pageTitle' && pageTitle !== undefined && !elements.includes(pageTitle)) {
+        if (pageTitle !== undefined && element.type !== 'pageTitle' && !elements.includes(pageTitle)) {
           return false;
         }
 
@@ -78,6 +78,10 @@ export function dynamicElements(config, formData = {}) {
       .map((element) =>
         dynamicElements(element, filteredFormData[element.key])
       ).map((element) => {
+        if (element.type === 'pageTitle') {
+          return element;
+        }
+
         const query = element.filter?.show?.query;
 
         if (query) {
