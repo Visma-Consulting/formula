@@ -1,6 +1,8 @@
-# x.y.z
+# 0.4.82
 
 - Remove proposed `intl` property
+- Deactivate `liveValidate` `true` on error
+- Fix forms with steps losing all the elements
 
 # 0.4.81
 
