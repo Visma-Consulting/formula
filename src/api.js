@@ -22,9 +22,12 @@ export const useFormRev = (formId, formRev) => {
   return client.useFormRev({formId, formRev});
 };
 
-export const useSubmittedFormData = (formId, formRev, dataId) => {
-  const credentials = new URLSearchParams(window.location.search).get('credentials');
-  return client.useFormAndFormDataByRevision({formId, formRev, dataId, credentials});
+export const useSubmittedFormData = (formId, formRev, credentials, dataId) => {
+  if (formRev) {
+    return client.useFormAndFormDataByRevision({formId, formRev, dataId, credentials});
+  } else {
+    return client.useFormDataFromSubmissionHandler({formId, dataId, credentials});
+  }
 };
 
 export const useFormSafe = (formId, options) => {
@@ -96,17 +99,29 @@ export function useMutations() {
     ]);
 
   return {
-    async submit(data) {
+    async submit(data, credentials, formDataAction) {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const actionId = urlParams.get('actionId');
       if (data._id) {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        return client.postResubmitFormData(
-          {dataId: data._id, credentials: urlParams.get('credentials')},
-          data
-        );
+        if (formDataAction) {
+          return client.postResubmitFormData(
+            {dataId: data._id, credentials: credentials, actionId: formDataAction},
+            data
+          );
+        } else {
+          return client.postResubmitFormData(
+            {dataId: data._id, credentials: credentials},
+            data
+          );
+        }
         //return client.putFormData({ dataId: data._id }, data);
       } else {
-        return client.postFormData(null, data);
+        if (formDataAction) {
+          return client.postFormData(formDataAction, data);
+        } else {
+          return client.postFormData(null, data);
+        }
       }
     },
 
