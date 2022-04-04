@@ -13,6 +13,8 @@ export default function withConfirmSubmit(Form) {
         onPreSubmit,
         onSubmit,
         onPostSubmit,
+        formDataAction,
+        credentials,
         ...other
       },
       ref
@@ -21,6 +23,9 @@ export default function withConfirmSubmit(Form) {
       const confirmDialogRef = useRef();
 
       const { submit } = useMutations();
+
+      console.log(formDataAction);
+      console.log(credentials);
 
       onSubmit ??= submit;
 
@@ -61,7 +66,7 @@ export default function withConfirmSubmit(Form) {
                   _id: other.dataId,
                 };
                 try {
-                  const response = await onSubmit(data, ...args);
+                  const response = await onSubmit(data, credentials, formDataAction, ...args);
 
                   if (showConfirm) {
                     confirmDialogRef.current.close();

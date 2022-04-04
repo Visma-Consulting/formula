@@ -5,10 +5,6 @@ import { setDefaultType } from './utils';
 
 export * from './client';
 
-const getUrlParams = () => {
-  return new URLSearchParams(window.location.search);
-}
-
 export const useForm = (formId, options) => {
   return client.useForm({ formId }) |> useNormalizeConfig(options);
 };
@@ -26,9 +22,7 @@ export const useFormRev = (formId, formRev) => {
   return client.useFormRev({formId, formRev});
 };
 
-export const useSubmittedFormData = (formId, formRev, dataId) => {
-  const urlParams = getUrlParams();
-  const credentials = urlParams.get('credentials');
+export const useSubmittedFormData = (formId, formRev, credentials, dataId) => {
   return client.useFormAndFormDataByRevision({formId, formRev, dataId, credentials});
 };
 
@@ -101,15 +95,14 @@ export function useMutations() {
     ]);
 
   return {
-    async submit(data) {
+    async submit(data, credentials, formDataAction) {
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
-      const credentials = urlParams.get('credentials');
       const actionId = urlParams.get('actionId');
       if (data._id) {
-        if (actionId) {
+        if (formDataAction) {
           return client.postResubmitFormData(
-            {dataId: data._id, credentials: credentials, actionId: actionId},
+            {dataId: data._id, credentials: credentials, actionId: formDataAction},
             data
           );
         } else {
@@ -120,8 +113,8 @@ export function useMutations() {
         }
         //return client.putFormData({ dataId: data._id }, data);
       } else {
-        if (actionId) {
-          return client.postFormData(actionId, data);
+        if (formDataAction) {
+          return client.postFormData(formDataAction, data);
         } else {
           return client.postFormData(null, data);
         }
