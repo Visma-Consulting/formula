@@ -24,9 +24,6 @@ export default function withConfirmSubmit(Form) {
 
       const { submit } = useMutations();
 
-      console.log(formDataAction);
-      console.log(credentials);
-
       onSubmit ??= submit;
 
       const showConfirm = confirm || isCaptchaRequired(other.config);
