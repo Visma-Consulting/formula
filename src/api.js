@@ -23,7 +23,11 @@ export const useFormRev = (formId, formRev) => {
 };
 
 export const useSubmittedFormData = (formId, formRev, credentials, dataId) => {
-  return client.useFormAndFormDataByRevision({formId, formRev, dataId, credentials});
+  if (formRev) {
+    return client.useFormAndFormDataByRevision({formId, formRev, dataId, credentials});
+  } else {
+    return client.useFormDataFromSubmissionHandler({formId, dataId, credentials});
+  }
 };
 
 export const useFormSafe = (formId, options) => {
