@@ -1,3 +1,10 @@
+# 0.4.83
+
+- Consent question type
+- Add actionId for submit and resubmit when available
+- Use parameters instead of search parameters
+- Upgrade to `@visma/rjsf-*@3.1.0-28`
+
 # 0.4.82
 
 - Remove proposed `intl` property
