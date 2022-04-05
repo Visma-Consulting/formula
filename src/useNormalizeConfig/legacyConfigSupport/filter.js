@@ -1,3 +1,14 @@
+const handleSingleRule = (query) =>
+  ['$or', '$and'].includes(Object.keys(query))
+    // Oletetaan, että query on tallennettu jo uudessa monen säännön muodossa.
+    // Todellisuudessa näin ei ole, koska multiselect-tyyppisistä kysymyksistä riippuvat säännöt käyttävät jo nyt array-tyyppistä sääntöä. Näitä lomakkeita ei kuitenkaan ole tuotannossa, joten se toiminnallisuus voidaan muuttaa.
+    ? query
+    // *) Tehdään vaikkapa OR-tyyppisen säännön mukainen sääntölista
+    : { $or: [query] };
+
+
+// handleLegacyFilter:in tulos annetaan yllä määritetylle uudelle funktiolle
+
 const handleLegacyFilter = ({
   anyOf,
   allOf,
@@ -45,7 +56,7 @@ export default function filter(config) {
     for (const type of ['show', 'enable']) {
       if (config.filter[type]?.target) {
         config.filter[type] = {
-          query: handleLegacyFilter(config.filter[type]),
+          query: handleSingleRule(handleLegacyFilter(config.filter[type])),
         };
       }
     }
