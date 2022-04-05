@@ -3,7 +3,7 @@ import { Typography, Checkbox, FormControlLabel } from '@material-ui/core';
 
 
 function CheckboxWidget({ options, onChange }) {
-  const consentMessage = options.element.consentMessage;
+  const consentMessage = options.element.yes;
   return (
     <>
       <Typography variant="subtitle1" >{consentMessage}</Typography>
@@ -15,7 +15,7 @@ function CheckboxWidget({ options, onChange }) {
             }}
           />
         }
-        label={options.element.consentTitle}/>
+        label={options.element.label ? options.element.label : options.element.title}/>
     </>
   );
 }
