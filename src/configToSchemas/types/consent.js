@@ -6,6 +6,8 @@ function CheckboxWidget({ options, onChange }) {
   const consentMessage = options.element.yes;
   return (
     <>
+      <Typography variant="subtitle1"> {options.element.useLabel ? options.element.label : options.element.title}</Typography>
+      <br></br>
       <Typography variant="subtitle1" >{consentMessage}</Typography>
       <FormControlLabel
         control={
