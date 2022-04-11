@@ -14,7 +14,7 @@ export default (config) => (props) => {
       items: itemsSchema,
       maxItems: config.maxItems,
       minItems: config.minItems,
-      default: [defaults],
+      default: config.minItems > 1 ? Array(config.minItems).fill(defaults) : [defaults],
     };
 
     props.uiSchema = {

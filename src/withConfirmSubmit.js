@@ -13,6 +13,8 @@ export default function withConfirmSubmit(Form) {
         onPreSubmit,
         onSubmit,
         onPostSubmit,
+        formDataAction,
+        credentials,
         ...other
       },
       ref
@@ -58,21 +60,22 @@ export default function withConfirmSubmit(Form) {
                   ...formMetaData,
                   values: formData,
                   captchaChallenge,
+                  _id: other.dataId,
                 };
-                await onSubmit(data, ...args)
-                  .then((response) => {
-                    if (showConfirm) {
-                      confirmDialogRef.current.close();
-                    }
+                try {
+                  const response = await onSubmit(data, credentials, formDataAction, ...args);
 
-                    onPostSubmit?.(response, data, ...args);
-                  })
-                  .catch((e) => {
-                    console.error(e);
-                    if (showConfirm) {
-                      confirmDialogRef.current.error();
-                    }
-                  });
+                  if (showConfirm) {
+                    confirmDialogRef.current.close();
+                  }
+
+                  onPostSubmit?.(response, data, ...args);
+                } catch (e) {
+                  console.error(e);
+                  if (showConfirm) {
+                    confirmDialogRef.current.error();
+                  }
+                }
               },
             ])}
           />

@@ -7,11 +7,38 @@ export * from './client';
 
 export const useForm = (formId, options) => {
   return client.useForm({ formId }) |> useNormalizeConfig(options);
-}
+};
+
+export const useAtomicForm = (formId, formRev, options) => {
+  const normalize = useNormalizeConfig(options);
+  if (formRev) {
+    return normalize(client.useFormRev({formId, formRev}));
+  } else {
+    return normalize(client.useAtomicForm({ formId }));
+  }
+};
+
+export const useFormRev = (formId, formRev) => {
+  return client.useFormRev({formId, formRev});
+};
+
+export const useSubmittedFormData = (formId, formRev, credentials, dataId) => {
+  if (formRev) {
+    return client.useFormAndFormDataByRevision({formId, formRev, dataId, credentials});
+  } else {
+    return client.useFormDataFromSubmissionHandler({formId, dataId, credentials});
+  }
+};
 
 export const useFormSafe = (formId, options) => {
   const normalize = useNormalizeConfig(options);
   const [error, data] = client.useFormSafe({ formId });
+  return [error, data ? normalize(data) : data];
+};
+
+export const useAtomicFormSafe = (formId, options) => {
+  const normalize = useNormalizeConfig(options);
+  const [error, data] = client.useAtomicFormSafe({ formId });
   return [error, data ? normalize(data) : data];
 };
 
@@ -72,11 +99,29 @@ export function useMutations() {
     ]);
 
   return {
-    async submit(data) {
+    async submit(data, credentials, formDataAction) {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const actionId = urlParams.get('actionId');
       if (data._id) {
-        return client.putFormData({ dataId: data._id }, data);
+        if (formDataAction) {
+          return client.postResubmitFormData(
+            {dataId: data._id, credentials: credentials, actionId: formDataAction},
+            data
+          );
+        } else {
+          return client.postResubmitFormData(
+            {dataId: data._id, credentials: credentials},
+            data
+          );
+        }
+        //return client.putFormData({ dataId: data._id }, data);
       } else {
-        return client.postFormData(null, data);
+        if (formDataAction) {
+          return client.postFormData(formDataAction, data);
+        } else {
+          return client.postFormData(null, data);
+        }
       }
     },
 

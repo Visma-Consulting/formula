@@ -44,7 +44,7 @@ export default ({ formData, schema, uiSchema }) => {
   }
 
   if (schema.format === 'markdown') {
-    return <Markdown>{formData}</Markdown>;
+    return <Markdown>{formData.replace('\\*', '*')}</Markdown>;
   }
 
   if (uiSchema?.['ui:options']?.unit) {

@@ -1,3 +1,45 @@
+# 0.4.83
+
+- Consent question type
+- Add actionId for submit and resubmit when available
+- Use parameters instead of search parameters
+- Upgrade to `@visma/rjsf-*@3.1.0-28`
+
+# 0.4.82
+
+- Remove proposed `intl` property
+- Deactivate `liveValidate` `true` on error
+- Fix forms with steps losing all the elements
+
+# 0.4.81
+
+- Filtering for pageTitle
+- Indentation for filtered fields
+- Fix no selection boolean
+- Upgrade to `@visma/rjsf-*@3.1.0-27`
+- Set `liveValidate` `true` on error
+
+# 0.4.80
+
+- Revert "KEHFORM-527: (hopefully) fix focus of recaptcha challenge"
+
+# 0.4.78
+
+- Fix review submit button
+- Fix no disables in filter dialog
+
+# 0.4.77
+
+- Add resubmission to api
+
+# 0.4.75
+
+- Make default array as long as minItems
+- Fix swedish translation
+- Allow decimal rename number field
+- Remove escape before asterisk
+- Rich text link color in darkmode fix
+
 # 0.4.74
 
 - Change logic when catching submit errors
