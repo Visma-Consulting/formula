@@ -12,3 +12,24 @@ export const name = defineMessage({
 });
 
 export const elementType = 'field';
+
+export const scaleTypes = [
+  {
+    value: 'noScale',
+    message: defineMessage({
+      defaultMessage: 'Ei asteikkoa',
+    })
+  },
+  {
+    value: 'automaticScale',
+    message: defineMessage({
+      defaultMessage: 'Automaattinen asteikko',
+    })
+  },
+  {
+    value: 'customScale',
+    message: defineMessage({
+      defaultMessage: 'Määrittele oma asteikko',
+    })
+  }
+];

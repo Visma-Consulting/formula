@@ -21,7 +21,7 @@ export const translateProperties = [
   'consentMessage',
 ];
 
-export const translateArrayProperties = ['choices', 'elements'];
+export const translateArrayProperties = ['choices', 'elements', 'scaleMarks'];
 
 export const translateArray = ['tableColumns'];
 
