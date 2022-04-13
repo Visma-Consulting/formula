@@ -17,7 +17,7 @@ function CheckboxWidget({ options, onChange }) {
             }}
           />
         }
-        label={options.element.label ? options.element.label : options.element.title}/>
+        label={consentMessage}/>
     </>
   );
 }
