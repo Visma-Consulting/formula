@@ -8,7 +8,7 @@ function CheckboxWidget({ options, onChange }) {
     <>
       <Typography variant="subtitle1"> {options.element.useLabel ? options.element.label : options.element.title}</Typography>
       <br></br>
-      <Typography variant="subtitle1" >{consentMessage}</Typography>
+      <Typography variant="subtitle1" >{options.element.label}</Typography>
       <FormControlLabel
         control={
           <Checkbox
