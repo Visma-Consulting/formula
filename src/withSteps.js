@@ -32,7 +32,8 @@ export default function withSteps(Form) {
       if (nextStep < steps.length) {
         setMaxJump((prev) => Math.max(prev, nextStep));
         setActiveStep(nextStep);
-        document.getElementById(steps[nextStep]['ui:title']).focus();
+        const stepId = 'formula-step-' + steps[nextStep]['ui:options']?.element?.key;
+        document.getElementById(stepId).focus();
         formWrapperRef.current.scrollIntoView({ behavior: "smooth" });
         // Prevent submit
         return false;
@@ -84,14 +85,14 @@ export default function withSteps(Form) {
         </Typography>
         <Stepper activeStep={activeStep} orientation="vertical" nonLinear>
           {steps
-            .map(({ 'ui:title': title }) => title)
-            .map((title, index) => {
+            .map(({ 'ui:title': title, 'ui:options': options }) => {return {title, options}})
+            .map(({title, options}, index) => {
               const active = index <= maxJump;
               const current = index === activeStep;
               return (
                 <Step key={title}>
                   <StepButton
-                    id={title}
+                    id={`formula-step-${options?.element?.key}`}
                     completed={index < activeStep}
                     disabled={current || !active}
                     active={active}
