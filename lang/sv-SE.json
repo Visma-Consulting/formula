@@ -17,6 +17,9 @@
   "5lAmdW": {
     "defaultMessage": "Fil"
   },
+  "+r5C/M": {
+    "defaultMessage": "\"{field}\" behöver samtycke"
+  },
   "6jFMKd": {
     "defaultMessage": "Skicka"
   },
@@ -163,5 +166,17 @@
   },
   "F0dHQ0": {
     "defaultMessage": "Jag samtycke"
+  },
+  "RTxVAk": {
+    "defaultMessage": "Kryssrutor i rad"
+  },
+  "gQteSY": {
+    "defaultMessage": "Kryssrutorna under varandra"
+  },
+  "4SG/Av": {
+    "defaultMessage": "Radioknappar i rad"
+  },
+  "jxSL/l": {
+    "defaultMessage": "Radioknappar under varandra"
   }
 }

@@ -11,7 +11,7 @@ const Switch = ({ onChange, options, schema, value }) => (
       exclusive
       value={value}
       onChange={(event, value) => {
-        onChange(value);
+        value === null ? onChange(undefined) : onChange(value);
       }}
     >
       {options.enumOptions.map(({ label, value }, index) => (
@@ -51,7 +51,12 @@ const SwitchWithEmptyOption = ({ onChange, options, value, ...other }) => {
 export default ({ config }) => {
   const { default: defaults, yes, no } = config;
 
-  const widget = ensureValueIsAvailable(config.widget, widgets);
+  const widget = config.widget
+    ? ensureValueIsAvailable(
+      config.widget.endsWith('Row')
+        ? config.widget.slice(0,-3)
+        : config.widget, widgets)
+    : undefined;
 
   return {
     schema: {
@@ -65,6 +70,9 @@ export default ({ config }) => {
           switch: Switch,
           switchWithEmptyOption: SwitchWithEmptyOption,
         }[widget] ?? widget,
+      'ui:options': {
+        inline: config.widget && config.widget.endsWith('Row')
+      }
     },
   };
 };
@@ -92,7 +100,13 @@ export const widgets = [
   {
     value: 'radio',
     message: defineMessage({
-      defaultMessage: 'Radiopainikkeet',
+      defaultMessage: 'Radiopainikkeet allekkain',
+    }),
+  },
+  {
+    value: 'radioRow',
+    message: defineMessage({
+      defaultMessage: 'Radiopainikkeet rivissä',
     }),
   },
   {

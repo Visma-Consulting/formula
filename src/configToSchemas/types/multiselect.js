@@ -31,7 +31,7 @@ function MultiSelect(props) {
   }
 
   const Widget = ensuredWidget === 'select' ? props.registry.widgets.SelectWidget
-    : ensuredWidget === 'checkboxes' ? props.registry.widgets.CheckboxesWidget
+    : ensuredWidget && ensuredWidget.startsWith('checkboxes') ? props.registry.widgets.CheckboxesWidget
       : null;
 
   return (
@@ -48,7 +48,7 @@ function MultiSelect(props) {
 }
 
 export default extendType(select, ({ config }) => (props) => {
-  const { autocomplete, choices, minItems, required } = config;
+  const { autocomplete, choices, minItems, required, widget } = config;
 
   props.schema =
     choices?.length || autocomplete
@@ -67,7 +67,10 @@ export default extendType(select, ({ config }) => (props) => {
         readOnly: true,
       };
   props.uiSchema = {
-    'ui:widget': MultiSelect
+    'ui:widget': MultiSelect,
+    'ui:options': {
+      inline: widget && widget.endsWith('Row')
+    }
   };
 });
 
@@ -87,7 +90,13 @@ export const widgets = [
   {
     value: 'checkboxes',
     message: defineMessage({
-      defaultMessage: 'Valintaruudut',
+      defaultMessage: 'Valintaruudut allekkain',
+    }),
+  },
+  {
+    value: 'checkboxesRow',
+    message: defineMessage({
+      defaultMessage: 'Valintaruudut rivissä',
     }),
   },
 ];

@@ -426,6 +426,17 @@
       "post": {
         "summary": "Submit a form",
         "operationId": "postFormData",
+        "parameters": [
+          {
+            "name": "actionId",
+            "in": "query",
+            "required": false,
+            "description": "Action for data submission",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Structured object with handler id and attribute map",
@@ -460,6 +471,15 @@
             "in": "query",
             "required": true,
             "description": "Credentials of the user",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "actionId",
+            "in": "query",
+            "required": false,
+            "description": "Action for data submission",
             "schema": {
               "type": "string"
             }
@@ -565,7 +585,7 @@
     },
     "/formdata/{formId}/{formRev}/{dataId}": {
       "get": {
-        "summary": "Get a form data and form by id and revision",
+        "summary": "Get a form data by dataId, formId and form revision",
         "operationId": "getFormAndFormDataByRevision",
         "parameters": [
           {
@@ -607,7 +627,54 @@
         ],
         "responses": {
           "200": {
-            "description": "A form and form data",
+            "description": "form data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/formdata/{formId}/{dataId}": {
+      "get": {
+        "summary": "Get a form data by dataId, formId and form revision",
+        "operationId": "getFormDataFromSubmissionHandler",
+        "parameters": [
+          {
+            "name": "formId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dataId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the data",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "credentials",
+            "in": "query",
+            "required": true,
+            "description": "Credentials of the user",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "form data",
             "content": {
               "application/json": {
                 "schema": {

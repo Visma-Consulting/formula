@@ -7,6 +7,7 @@ import { empty } from '..';
 import { StepTitle } from '../../configToSchemas/types/stepTitle';
 import { useFormulaContext } from '../../Context';
 import Markdown from '../../Markdown';
+import { sortBy } from 'lodash';
 
 const dataUrlByteLength = (dataUrl) => byteLength(dataUrl.split(',')[1]);
 
@@ -24,6 +25,17 @@ export default ({ formData, schema, uiSchema }) => {
 
   if (uiSchema?.['ui:widget'] === 'password') {
     formData = '********';
+  }
+
+  if (uiSchema?.['ui:widget'] === 'range' && uiSchema['ui:options'].element?.widget === 'customScale') {
+    return (<>
+      <Typography variant="caption">{
+        sortBy(uiSchema['ui:options'].element.scaleMarks, 'value')
+          .map(({value, label}) => value + ' = ' + label)
+          .join(', ')
+      }</Typography>
+      <div style={{ whiteSpace: 'pre-line' }}>{formData}</div>
+    </>)
   }
 
   const { locale } = useIntl();
