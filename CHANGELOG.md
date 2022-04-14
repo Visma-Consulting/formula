@@ -1,5 +1,6 @@
-# x.y.z
+# 0.4.85
 
+- Consent question type label fix
 - Fix recaptcha on error while submitting
 
 # 0.4.84
