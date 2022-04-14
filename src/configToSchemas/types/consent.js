@@ -8,7 +8,8 @@ function CheckboxWidget({ options, onChange }) {
     <>
       <Typography variant="subtitle1"> {options.element.useLabel ? options.element.label : options.element.title}</Typography>
       <br/>
-      {options.element.useLabel === false && (
+      {/* eslint-disable-next-line no-mixed-operators */}
+      {options.element.useLabel === false || options.element.useLabel === undefined && (
         <Typography variant="subtitle1" >{options.element.label}</Typography>
       )}
 
