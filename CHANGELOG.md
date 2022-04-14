@@ -1,3 +1,7 @@
+# x.y.z
+
+- Fix recaptcha on error while submitting
+
 # 0.4.84
 
 - Consent question type adjusting
