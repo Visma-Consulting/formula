@@ -1,3 +1,7 @@
+# 0.4.85
+
+- Consent question type label fix
+
 # 0.4.84
 
 - Consent question type adjusting
