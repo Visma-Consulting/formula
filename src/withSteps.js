@@ -20,6 +20,7 @@ export default function withSteps(Form) {
   const WithSteps = forwardRef(({ onSubmit, steps, ...otherProps }, ref) => {
     const [activeStep, setActiveStep] = useState(0);
     const [maxJump, setMaxJump] = useState(activeStep);
+    const [noValidate, setNoValidate] = useState(false);
     const classes = useStyles();
     const formRef = useRef();
     ref ??= formRef;
@@ -32,6 +33,7 @@ export default function withSteps(Form) {
       if (nextStep < steps.length) {
         setMaxJump((prev) => Math.max(prev, nextStep));
         setActiveStep(nextStep);
+        handleNoValidate();
         const stepId = 'formula-step-' + steps[nextStep]['ui:options']?.element?.key;
         document.getElementById(stepId).focus();
         formWrapperRef.current.scrollIntoView({ behavior: "smooth" });
@@ -41,6 +43,22 @@ export default function withSteps(Form) {
 
       // Submit
       return true;
+    }
+
+    const handleSubmit = () => {
+      setNoValidate(false);
+    }
+
+    const handleNoValidate = () => {
+      if (isLastStep) {
+        setNoValidate(false);
+      }
+      if (activeStep > maxJump || activeStep === maxJump) {
+        setNoValidate(false);
+
+      } else {
+        setNoValidate(true);
+      }
     }
 
     const isLastStep = activeStep === steps.length - 1;
@@ -66,17 +84,24 @@ export default function withSteps(Form) {
       beforeMaxJumpElements.push(element);
     }
 
-    const createHandleJump = (step) =>
-      function handleJump(event) {
-        jumpRef.current = step;
-        ref.current.submit(event);
-        // Wait for the submit event to trigger.
-        setTimeout(() => {
-          // If form has validation errors, jump does not happen and we must clean
-          // current value.
-          jumpRef.current = null;
-        });
-      };
+      const createHandleJump = (step) =>
+        function handleJump(event) {
+          // If backward button pressed
+          if (step < activeStep) {
+            setActiveStep(step);
+            handleNoValidate();
+            jumpRef.current = step;
+          } else {
+            activeStep < maxJump && !isLastStep ? setNoValidate(true) : setNoValidate(false);
+          }
+          ref.current.submit(event);
+          // Wait for the submit event to trigger.
+          setTimeout(() => {
+            // If form has validation errors, jump does not happen and we must clean
+            // current value.
+            jumpRef.current = null;
+          });
+        };
 
     return (
       <div ref={formWrapperRef}>
@@ -107,6 +132,7 @@ export default function withSteps(Form) {
                         onSubmit={isLastStep ? onSubmit : undefined}
                         onPreSubmit={handleStepChange}
                         ref={ref}
+                        noValidate={noValidate}
                         schema={{
                           ...otherProps.schema,
                           properties: pick(
@@ -144,17 +170,24 @@ export default function withSteps(Form) {
                             <FormattedMessage defaultMessage="Takaisin" />
                           </Button>
                         )}
-                        <Button
-                          type="submit"
-                          variant="contained"
-                          color="primary"
-                        >
+
                           {isLastStep ? (
+                            <Button
+                              type="submit"
+                              onClick={handleSubmit}
+                              variant="contained"
+                              color="primary"
+                            >
                             <FormattedMessage defaultMessage="Lähetä" />
-                          ) : (
-                            <FormattedMessage defaultMessage="Seuraava" />
+                            </Button>) : (
+                              <Button
+                              onClick={createHandleJump(activeStep + 1)}
+                              variant="contained"
+                              color="primary"
+                            >
+                              <FormattedMessage defaultMessage="Eteenpäin" />
+                            </Button>
                           )}
-                        </Button>
                       </Form>
                     </StepContent>
                   )}
