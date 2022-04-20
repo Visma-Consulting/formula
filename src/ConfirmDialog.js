@@ -68,6 +68,7 @@ export default forwardRef(function ConfirmDialog(
     setLoading(false);
     setError(false);
     setOpen(false);
+    setShowReCAPTCHA(isCaptchaRequired(other.config));
   }
 
   function handleDismiss() {
