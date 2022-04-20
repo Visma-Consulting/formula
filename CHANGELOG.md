@@ -1,3 +1,9 @@
+# 0.4.87
+
+- Form backward no validation fix
+- Open captcha after error fix
+- Upgrade to `@visma/rjsf-*@3.1.0-30`
+
 # 0.4.85
 
 - Consent question type label fix
