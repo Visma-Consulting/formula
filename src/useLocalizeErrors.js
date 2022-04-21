@@ -57,11 +57,12 @@ export default (props) => {
           .replace(/\.enum$/, '')
           // Array item's array: ['0'][10] --> ['0']
           .replace(/\[\d+\]$/, '');
-        const { fieldSchema, fieldUISchema } = errorProperty
+        const errorPropertyArray = errorProperty
           .slice(1, -1)
           .split('][')
+        const { fieldSchema, fieldUISchema } = errorPropertyArray
           .reduce(
-            function accumulator({ fieldSchema, fieldUISchema }, pathPart) {
+            function accumulator({ fieldSchema, fieldUISchema }, pathPart, index) {
               if (fieldSchema.type === 'object') {
                 return {
                   fieldSchema: get(fieldSchema.properties, `[${pathPart}]`),
@@ -74,7 +75,7 @@ export default (props) => {
                     fieldSchema: fieldSchema.items,
                     fieldUISchema: fieldUISchema.items,
                   },
-                  pathPart
+                  errorPropertyArray[index + 1]
                 );
               }
               return {
