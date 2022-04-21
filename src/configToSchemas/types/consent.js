@@ -6,7 +6,13 @@ function CheckboxWidget({ options, onChange }) {
   const consentMessage = options.element.yes;
   return (
     <>
-      <Typography variant="subtitle1" >{consentMessage}</Typography>
+      <Typography variant="subtitle1"> {options.element.useLabel ? options.element.label : options.element.title}</Typography>
+      <br/>
+      {/* eslint-disable-next-line no-mixed-operators */}
+      {options.element.useLabel === false || options.element.useLabel === undefined && (
+        <Typography variant="subtitle1" >{options.element.label}</Typography>
+      )}
+
       <FormControlLabel
         control={
           <Checkbox
@@ -15,7 +21,7 @@ function CheckboxWidget({ options, onChange }) {
             }}
           />
         }
-        label={options.element.label ? options.element.label : options.element.title}/>
+        label={consentMessage}/>
     </>
   );
 }

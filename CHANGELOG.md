@@ -1,3 +1,22 @@
+# 0.4.87
+
+- Form backward no validation fix
+- Open captcha after error fix
+- Upgrade to `@visma/rjsf-*@3.1.0-30`
+
+# 0.4.85
+
+- Consent question type label fix
+- Fix recaptcha on error while submitting
+
+# 0.4.84
+
+- Consent question type adjusting
+- Row possibility for checkboxes and radio buttons
+- Stepped form scroll fixes
+- Labels for range
+- Upgrade to `@visma/rjsf-*@3.1.0-29`
+
 # 0.4.83
 
 - Consent question type

@@ -9,6 +9,7 @@ export default ({ config }) => {
     default: defaults,
     selectType = 'string',
     autocomplete,
+    widget
   } = config;
   return {
     schema:
@@ -30,12 +31,15 @@ export default ({ config }) => {
           },
     uiSchema: {
       'ui:placeholder': placeholder,
-      'ui:widget': choices.length
-        ? ensureValueIsAvailable(config.widget, widgets)
+      'ui:widget': choices.length && widget
+        ? ensureValueIsAvailable(widget.endsWith('Row') ? widget.slice(0,-3) : widget, widgets)
         : // If enums are not set, the widget may throw error.
           undefined,
       // 'ui:field': autocomplete ? AutocompleteSelectField : undefined,
       'ui:enumDisabled': choicesDisabled,
+      'ui:options': {
+        inline: widget && widget.endsWith('Row')
+      }
     },
   };
 };
@@ -56,7 +60,13 @@ export const widgets = [
   {
     value: 'radio',
     message: defineMessage({
-      defaultMessage: 'Radiopainikkeet',
+      defaultMessage: 'Radiopainikkeet allekkain',
+    }),
+  },
+  {
+    value: 'radioRow',
+    message: defineMessage({
+      defaultMessage: 'Radiopainikkeet rivissä',
     }),
   },
 ];
