@@ -178,5 +178,11 @@
   },
   "jxSL/l": {
     "defaultMessage": "Radio buttons one below another"
+  },
+  "Dvb90q": {
+    "defaultMessage": "\"{field}\" must be larger than {limit}"
+  },
+  "EMQOEP": {
+    "defaultMessage": "\"{field}\" must be smaller than {limit}"
   }
 }

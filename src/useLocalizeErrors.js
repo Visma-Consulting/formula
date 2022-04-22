@@ -22,6 +22,12 @@ const messages = defineMessages({
   enum: {
     defaultMessage: '"{field}" vaatii hyväksynnän',
   },
+  minimum: {
+    defaultMessage: '"{field}" täytyy olla suurempi kuin {limit}',
+  },
+  maximum: {
+    defaultMessage: '"{field}" täytyy olla pienempi kuin {limit}',
+  },
 
   pattern: { defaultMessage: '"{field}" arvon on oltava {description}' },
   required: { defaultMessage: '"{field}" on pakollinen kenttä' },
