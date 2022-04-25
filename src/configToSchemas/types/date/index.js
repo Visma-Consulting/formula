@@ -27,13 +27,14 @@ const afterDay = (date) => {
   }
 }
 
-function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
+function SingleDatePickerWidget({ id, onChange, options, schema, value, uiSchema }) {
   const intl = useIntl();
   const [focused, setFocused] = useState();
   const { title, label, useLabel } = options.element;
+  const disableBefore = uiSchema['ui:options'].element?.dateRestrictions?.disableBefore;
+  const disableAfter = uiSchema['ui:options'].element?.dateRestrictions?.disableAfter;
   const handleFocusChange = ({ focused }) => setFocused(focused);
   const { locale } = intl;
-
   useEffect(() => {
     moment.locale(locale);
   }, [locale]);
@@ -50,10 +51,10 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
         placeholder={useLabel ? label : title}
         hideKeyboardShortcutsPanel
         isOutsideRange={(m) =>
-          (options.disableBefore && options.element.disableBefore.type &&
-            m.isBefore(beforeDay(options.element.disableBefore), 'day')) ||
-          (options.disableAfter && options.element.disableAfter.type &&
-            m.isAfter(afterDay(options.element.disableAfter), 'day'))
+          (disableBefore && disableBefore.type &&
+            m.isBefore(beforeDay(disableBefore), 'day')) ||
+          (disableAfter && disableAfter.type &&
+            m.isAfter(afterDay(disableAfter), 'day'))
         }
       />
     </>
