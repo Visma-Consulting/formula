@@ -9,15 +9,31 @@ export default ({ config }) => {
     default: defaults,
     selectType = 'string',
     autocomplete,
+    autoSort = false,
     widget
   } = config;
+  const choicesSorted = [...choices];
+
+  if (autoSort) {
+    choicesSorted.sort((el1, el2) => {
+      const el1Name = el1.enumNames ? el1.enumNames : el1.enum;
+      const el2Name = el2.enumNames ? el2.enumNames : el2.enum;
+      if (el1Name > el2Name) {
+        return 1
+      }  else if (el1Name < el2Name) {
+        return -1
+      }
+      return 0;
+    })
+  }
+
   return {
     schema:
-      choices.length || autocomplete
+      choicesSorted.length || autocomplete
         ? {
             default: defaults,
-            enum: choices.map((v, i) => v?.enum ?? String(i)),
-            enumNames: choices.map((v) =>
+            enum: choicesSorted.map((v, i) => v?.enum ?? String(i)),
+            enumNames: choicesSorted.map((v) =>
               typeof v === 'object' ? v.enumNames : v
             ),
             type: selectType,
