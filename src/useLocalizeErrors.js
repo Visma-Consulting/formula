@@ -22,6 +22,9 @@ const messages = defineMessages({
   enum: {
     defaultMessage: '"{field}" vaatii hyväksynnän',
   },
+  isStepped: {
+    defaultMessage: 'Tarkista pakolliset kysymykset kaikilta sivuilta'
+  },
 
   pattern: { defaultMessage: '"{field}" arvon on oltava {description}' },
   required: { defaultMessage: '"{field}" on pakollinen kenttä' },
@@ -49,7 +52,6 @@ export default (props) => {
         if (!messageDescriptor) {
           return error;
         }
-
         const { schema, uiSchema } = props;
         const errorProperty = error.property
           // .properties[0].enum --> [0]
@@ -100,7 +102,6 @@ export default (props) => {
                 : value
           ),
         });
-
         return {
           ...error,
           params: { pattern: patternDescription },
@@ -108,10 +109,17 @@ export default (props) => {
           stack: message,
         };
       });
-
-      return props.transformErrors
+      const errorsToReturn = props.transformErrors
         ? props.transformErrors(transformedErrors)
         : transformedErrors;
+
+      if(props.isStepped && errorsToReturn.length > 0 && props.isLastStep) {
+        const steppedFormError = {
+          stack: intl.formatMessage(messages.isStepped),
+        }
+        errorsToReturn.push(steppedFormError);
+      }
+      return errorsToReturn;
     },
   };
 };
