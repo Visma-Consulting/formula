@@ -1,6 +1,10 @@
-# x.y.z
+# 0.4.88
 
 - Add missing error messages
+- Add autosort for select and multiselect
+- Add default value for number and range
+- Fix consent functionality
+- Upgrade to `@visma/rjsf-*@3.1.0-31`
 
 # 0.4.87
 
