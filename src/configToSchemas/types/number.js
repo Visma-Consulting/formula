@@ -1,7 +1,7 @@
 import { defineMessage } from 'react-intl';
 
 export default ({
-  config: { default: defaultValue, maximum, minimum, multipleOf },
+  config: { numberDefault: defaultValue, maximum, minimum, multipleOf },
 }) => ({
   schema: {
     default: defaultValue < minimum || defaultValue > maximum ? undefined : defaultValue ?? minimum ?? undefined,
