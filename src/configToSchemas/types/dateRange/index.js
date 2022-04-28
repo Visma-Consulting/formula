@@ -12,11 +12,10 @@ import { defineMessage, useIntl } from 'react-intl';
 import { add, sub } from 'date-fns';
 
 function DateRangePickerField(props) {
-  const { idSchema, onChange, schema, formData, uiSchema, config } = props;
+  const { idSchema, onChange, schema, formData, uiSchema } = props;
   const intl = useIntl();
   const [focusedInput, setFocusedInput] = useState();
-  const disableStart = props.uiSchema['ui:options']?.element?.dateRangeRestrictions?.disableStart;
-  const disableEnd = props.uiSchema['ui:options']?.element?.dateRangeRestrictions?.disableEnd;
+  const { disableEnd, disableStart } = props.uiSchema['ui:options'].element;
   const handleFocusChange = (focusedInput) => setFocusedInput(focusedInput);
   const { locale } = intl;
 
