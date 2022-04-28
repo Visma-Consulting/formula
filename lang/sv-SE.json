@@ -185,6 +185,12 @@
   "jxSL/l": {
     "defaultMessage": "Radioknappar under varandra"
   },
+  "Dvb90q": {
+    "defaultMessage": "\"{field}\" måste vara större än {limit}"
+  },
+  "EMQOEP": {
+    "defaultMessage": "\"{field}\" måste vara mindre än {limit}"
+  },
   "yFga8M": {
     "defaultMessage": "Start datum"
   },

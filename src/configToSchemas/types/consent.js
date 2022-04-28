@@ -2,7 +2,7 @@ import { defineMessage } from 'react-intl';
 import { Typography, Checkbox, FormControlLabel } from '@material-ui/core';
 
 
-function CheckboxWidget({ options, onChange }) {
+function CheckboxWidget({ options, onChange, value }) {
   const consentMessage = options.element.yes;
   return (
     <>
@@ -17,8 +17,9 @@ function CheckboxWidget({ options, onChange }) {
         control={
           <Checkbox
             onChange={(event, value) => {
-              onChange(value);
+              value === null ? onChange(undefined) : onChange(value);
             }}
+            checked={value}
           />
         }
         label={consentMessage}/>
