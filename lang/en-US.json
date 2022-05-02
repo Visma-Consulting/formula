@@ -179,6 +179,9 @@
   "jxSL/l": {
     "defaultMessage": "Radio buttons one below another"
   },
+  "w8nTyg": {
+    "defaultMessage": "Check required questions on every page"
+  },
   "Dvb90q": {
     "defaultMessage": "\"{field}\" must be larger than {limit}"
   },

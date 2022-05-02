@@ -179,6 +179,9 @@
   "jxSL/l": {
     "defaultMessage": "Radioknappar under varandra"
   },
+  "w8nTyg": {
+    "defaultMessage": "Kontrollera de obligatoriska frågorna på alla sidor"
+  },
   "Dvb90q": {
     "defaultMessage": "\"{field}\" måste vara större än {limit}"
   },
