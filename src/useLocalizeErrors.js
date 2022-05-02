@@ -60,6 +60,8 @@ export default (props) => {
         const errorProperty = error.property
           // .properties[0].enum --> [0]
           .replace(/^\.properties/, '')
+          .replace(/\.end$/, '')
+          .replace(/\.start$/, '')
           .replace(/\.enum$/, '')
           // Array item's array: ['0'][10] --> ['0']
           .replace(/\[\d+\]$/, '');

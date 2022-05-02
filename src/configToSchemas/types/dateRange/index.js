@@ -97,7 +97,19 @@ export default ({ config: { disableBefore, disableAfter } }) => ({
         format: 'date',
         type: 'string',
       }
-    }
+    },
+    oneOf: [
+      {
+        required: [
+          "start"
+        ]
+      },
+      {
+        required: [
+          "end"
+        ]
+      },
+    ],
   },
   uiSchema: {
     'ui:field': DateRangePickerField,
