@@ -46,6 +46,26 @@ function pageTitleElementOf(elements, element) {
   return elements.find(element => element.type === 'pageTitle');
 }
 
+function resetDisabledToDefaultValues(formData, initialFormData, config) {
+  if (!formData || typeof formData !== 'object') {return formData}
+  let resetFormData = Array.isArray(formData) ? [...formData] : {...formData};
+
+  for (const key in formData) {
+    const element = config.elements.find(element => element.key === key);
+    if (element?.filter?.enable && !sift(element.filter.enable.query)(formData)) {
+      if (initialFormData[key]) {
+        resetFormData[key] = initialFormData[key];
+      } else if (element.default) {
+        resetFormData[key] = element.default;
+      } else {
+        delete resetFormData[key];
+      }
+    }
+  }
+
+  return resetFormData;
+}
+
 export function dynamicElements(config, formData = {}) {
   // config.list element is filtered in ArrayField component.
   if (config.list || !typesWithElements.includes(config.type)) {
@@ -93,6 +113,15 @@ export function dynamicElements(config, formData = {}) {
 
         return {...element, indent: false}
       }
+    ).map(element => {
+        const query = element.filter?.enable?.query;
+
+        if (!query) {
+          return element;
+        } else {
+          return { ...element, disabled: !sift(query)(filteredFormData) }
+        }
+      }
     );
     checkChanges = elements.length !== length;
   }
@@ -105,15 +134,17 @@ export function dynamicElements(config, formData = {}) {
 
 export default function useDynamicElements(props) {
   const [formData, setFormData] = useStatePreferInitial(props.formData);
+  const [initialFormData] = useStatePreferInitial(props.formData);
 
   return {
     ...props,
     formData,
     config: dynamicElements(props.config, formData),
     onChange(...args) {
-      const [{ formData }] = args;
+      const [{ formData}] = args;
+      const resetFormData = resetDisabledToDefaultValues(formData, initialFormData, props.config);
       props.onChange?.(...args);
-      setFormData(formData);
+      setFormData(resetFormData);
     },
   };
 }
