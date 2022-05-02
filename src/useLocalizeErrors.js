@@ -25,6 +25,12 @@ const messages = defineMessages({
   isStepped: {
     defaultMessage: 'Tarkista pakolliset kysymykset kaikilta sivuilta'
   },
+  minimum: {
+    defaultMessage: '"{field}" täytyy olla suurempi kuin {limit}',
+  },
+  maximum: {
+    defaultMessage: '"{field}" täytyy olla pienempi kuin {limit}',
+  },
 
   pattern: { defaultMessage: '"{field}" arvon on oltava {description}' },
   required: { defaultMessage: '"{field}" on pakollinen kenttä' },
@@ -52,6 +58,7 @@ export default (props) => {
         if (!messageDescriptor) {
           return error;
         }
+
         const { schema, uiSchema } = props;
         const errorProperty = error.property
           // .properties[0].enum --> [0]
@@ -59,11 +66,12 @@ export default (props) => {
           .replace(/\.enum$/, '')
           // Array item's array: ['0'][10] --> ['0']
           .replace(/\[\d+\]$/, '');
-        const { fieldSchema, fieldUISchema } = errorProperty
+        const errorPropertyArray = errorProperty
           .slice(1, -1)
           .split('][')
+        const { fieldSchema, fieldUISchema } = errorPropertyArray
           .reduce(
-            function accumulator({ fieldSchema, fieldUISchema }, pathPart) {
+            function accumulator({ fieldSchema, fieldUISchema }, pathPart, index) {
               if (fieldSchema.type === 'object') {
                 return {
                   fieldSchema: get(fieldSchema.properties, `[${pathPart}]`),
@@ -76,7 +84,7 @@ export default (props) => {
                     fieldSchema: fieldSchema.items,
                     fieldUISchema: fieldUISchema.items,
                   },
-                  pathPart
+                  errorPropertyArray[index + 1]
                 );
               }
               return {

@@ -2,14 +2,13 @@ import { defineMessage } from 'react-intl';
 import { Typography, Checkbox, FormControlLabel } from '@material-ui/core';
 
 
-function CheckboxWidget({ options, onChange }) {
+function CheckboxWidget({ options, onChange, value }) {
   const consentMessage = options.element.yes;
   return (
     <>
       <Typography variant="subtitle1"> {options.element.useLabel ? options.element.label : options.element.title}</Typography>
       <br/>
-      {/* eslint-disable-next-line no-mixed-operators */}
-      {options.element.useLabel === false || options.element.useLabel === undefined && (
+      {(options.element.useLabel === false || options.element.useLabel === undefined)&& (
         <Typography variant="subtitle1" >{options.element.label}</Typography>
       )}
 
@@ -17,8 +16,9 @@ function CheckboxWidget({ options, onChange }) {
         control={
           <Checkbox
             onChange={(event, value) => {
-              onChange(value);
+              value === null ? onChange(undefined) : onChange(value);
             }}
+            checked={value}
           />
         }
         label={consentMessage}/>

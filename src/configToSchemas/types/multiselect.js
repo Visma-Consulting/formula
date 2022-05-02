@@ -48,10 +48,31 @@ function MultiSelect(props) {
 }
 
 export default extendType(select, ({ config }) => (props) => {
-  const { autocomplete, choices, minItems, required, widget } = config;
+  const {
+    autocomplete,
+    choices = [],
+    minItems,
+    required,
+    widget,
+    autoSort = false
+  } = config;
+  const choicesSorted = [...choices];
+
+  if (autoSort) {
+    choicesSorted.sort((el1, el2) => {
+      const el1Name = el1.enumNames ? el1.enumNames : el1.enum;
+      const el2Name = el2.enumNames ? el2.enumNames : el2.enum;
+      if (el1Name > el2Name) {
+        return 1
+      }  else if (el1Name < el2Name) {
+        return -1
+      }
+      return 0;
+    })
+  }
 
   props.schema =
-    choices?.length || autocomplete
+    choicesSorted.length || autocomplete
       ? {
         items: props.schema,
         type: 'array',

@@ -1,6 +1,21 @@
+# 0.4.88
+
+- Add missing error messages
+- Add autosort for select and multiselect
+- Add default value for number and range
+- Fix consent functionality
+- Upgrade to `@visma/rjsf-*@3.1.0-31`
+
+# 0.4.87
+
+- Form backward no validation fix
+- Open captcha after error fix
+- Upgrade to `@visma/rjsf-*@3.1.0-30`
+
 # 0.4.85
 
 - Consent question type label fix
+- Fix recaptcha on error while submitting
 
 # 0.4.84
 

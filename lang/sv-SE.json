@@ -181,5 +181,11 @@
   },
   "w8nTyg": {
     "defaultMessage": "Kontrollera de obligatoriska frågorna på alla sidor"
+  },
+  "Dvb90q": {
+    "defaultMessage": "\"{field}\" måste vara större än {limit}"
+  },
+  "EMQOEP": {
+    "defaultMessage": "\"{field}\" måste vara mindre än {limit}"
   }
 }
