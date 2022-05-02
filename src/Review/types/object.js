@@ -16,14 +16,14 @@ export default (props) => {
 
   // formGroups
   if (uiSchema['ui:options']?.element.type === 'dateRange') {
-    const start = format(new Date(formData.start), 'P', { locale: dateFnsLocale });
-    const end = format(new Date(formData.end), 'P', { locale: dateFnsLocale });
+    const start = formData.start ? format(new Date(formData.start), 'P', { locale: dateFnsLocale }) : "";
+    const end = formData.end ? format(new Date(formData.end), 'P', { locale: dateFnsLocale }) : "";
     const dateValue = `${start} - ${end}`;
     return (
       <Field
         key={ui.id}
         formData={dateValue}
-        schema={{ ...schema, type: 'string' }}
+        schema={{schema, type: 'string' }}
         uiSchema={uiSchema}
       />);
   } else {
