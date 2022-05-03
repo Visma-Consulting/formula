@@ -46,17 +46,23 @@ function pageTitleElementOf(elements, element) {
   return elements.find(element => element.type === 'pageTitle');
 }
 
-function resetDisabledToDefaultValues(formData, initialFormData, config) {
+function resetDisabledToDefaultValues(formData, initialFormData, config, allDisabled) {
   if (!formData || typeof formData !== 'object') {return formData}
   let resetFormData = Array.isArray(formData) ? [...formData] : {...formData};
 
   for (const key in formData) {
     const element = config.elements.find(element => element.key === key);
-    if (element?.filter?.enable && !sift(element.filter.enable.query)(formData)) {
-      if (initialFormData[key]) {
+    if (allDisabled || (element?.filter?.enable && !sift(element.filter.enable.query)(formData))) {
+      if (initialFormData && initialFormData[key]) {
         resetFormData[key] = initialFormData[key];
+      } else if (element.elements && element.elements.length > 0) {
+        resetFormData[key] = resetDisabledToDefaultValues(formData[key] ?? undefined, initialFormData ? initialFormData[key] : undefined, element, true)
       } else if (element.default) {
-        resetFormData[key] = element.default;
+        if (element.list) {
+          Array(element.minItems ?? 1).fill(element.default)
+        } else {
+          resetFormData[key] = element.default;
+        }
       } else {
         delete resetFormData[key];
       }
@@ -142,7 +148,7 @@ export default function useDynamicElements(props) {
     config: dynamicElements(props.config, formData),
     onChange(...args) {
       const [{ formData}] = args;
-      const resetFormData = resetDisabledToDefaultValues(formData, initialFormData, props.config);
+      const resetFormData = resetDisabledToDefaultValues(formData, initialFormData, props.config, false);
       props.onChange?.(...args);
       setFormData(resetFormData);
     },
