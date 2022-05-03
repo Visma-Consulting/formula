@@ -48,8 +48,8 @@ function pageTitleElementOf(elements, element) {
 
 function resetDisabledToDefaultValues(formData, initialFormData, config, allDisabled) {
   if (!formData || typeof formData !== 'object') {return formData}
-  console.log(formData);
   let resetFormData = Array.isArray(formData) ? [...formData] : {...formData};
+  console.log(formData);
 
   for (const key in formData) {
     const element = config.elements.find(element => element.key === key);
@@ -57,7 +57,12 @@ function resetDisabledToDefaultValues(formData, initialFormData, config, allDisa
       if (initialFormData && initialFormData[key]) {
         resetFormData[key] = initialFormData[key];
       } else if (element.elements && element.elements.length > 0) {
-        resetFormData[key] = resetDisabledToDefaultValues(formData[key] ?? undefined, initialFormData ? initialFormData[key] : undefined, element, true)
+        const resetSubValues = resetDisabledToDefaultValues(formData[key] ?? undefined, initialFormData ? initialFormData[key] : undefined, element, true);
+        if (!resetSubValues) {
+          delete resetFormData[key];
+        } else {
+          resetFormData[key] = element.list ? [resetSubValues] : resetSubValues;
+        }
       } else if (element.default) {
         if (element.list) {
           resetFormData[key] = Array(element.minItems > 1 ? element.minItems : 1).fill(element.default);
