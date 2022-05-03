@@ -49,7 +49,6 @@ function pageTitleElementOf(elements, element) {
 function resetDisabledToDefaultValues(formData, initialFormData, config, allDisabled) {
   if (!formData || typeof formData !== 'object') {return formData}
   let resetFormData = Array.isArray(formData) ? [...formData] : {...formData};
-  console.log(formData);
 
   for (const key in formData) {
     const element = config.elements.find(element => element.key === key);
