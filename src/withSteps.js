@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function withSteps(Form) {
-  const WithSteps = forwardRef(({ onSubmit, steps, ...otherProps }, ref) => {
+  const WithSteps = forwardRef(({ onSubmit, onChange, formData, steps, ...otherProps }, ref) => {
     const [activeStep, setActiveStep] = useState(0);
     const [maxJump, setMaxJump] = useState(activeStep);
     const [noValidate, setNoValidate] = useState(false);
@@ -32,7 +32,6 @@ export default function withSteps(Form) {
       if (nextStep < steps.length) {
         setMaxJump((prev) => Math.max(prev, nextStep));
         setActiveStep(nextStep);
-        handleNoValidate();
         const stepId = 'formula-step-' + steps[nextStep]['ui:options']?.element?.key;
         document.getElementById(stepId).focus();
         formWrapperRef.current.scrollIntoView({ behavior: "smooth" });
@@ -47,19 +46,6 @@ export default function withSteps(Form) {
     const handleSubmit = () => {
       setNoValidate(false);
     }
-
-    const handleNoValidate = () => {
-      if (isLastStep) {
-        setNoValidate(false);
-      }
-      if (activeStep > maxJump || activeStep === maxJump) {
-        setNoValidate(false);
-
-      } else {
-        setNoValidate(true);
-      }
-    }
-
     const isLastStep = activeStep === steps.length - 1;
 
     const elements = otherProps.uiSchema['ui:order'];
@@ -86,13 +72,8 @@ export default function withSteps(Form) {
       const createHandleJump = (step) =>
         function handleJump(event) {
           // If backward button pressed
-          if (step < activeStep) {
-            setActiveStep(step);
-            handleNoValidate();
-            jumpRef.current = step;
-          } else {
-            activeStep < maxJump && !isLastStep ? setNoValidate(true) : setNoValidate(false);
-          }
+          step < activeStep ? setNoValidate(true) : setNoValidate(false);
+          jumpRef.current = step;
           ref.current.submit(event);
           // Wait for the submit event to trigger.
           setTimeout(() => {
@@ -128,17 +109,20 @@ export default function withSteps(Form) {
                     <StepContent>
                       <Form
                         {...otherProps}
-                        isStepped={true}
-                        isLastStep={isLastStep}
                         onSubmit={isLastStep ? onSubmit : undefined}
                         onPreSubmit={handleStepChange}
                         ref={ref}
+                        formData={formData}
+                        onChange={(...args) => {
+                          onChange?.(...args);
+                          setMaxJump(activeStep);
+                        }}
                         noValidate={noValidate}
                         schema={{
                           ...otherProps.schema,
                           properties: pick(
                             otherProps.schema.properties,
-                            beforeMaxJumpElements
+                            currentStepElements
                           ),
                           title: undefined,
                           required: otherProps.schema.required?.filter((key) =>

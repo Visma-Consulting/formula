@@ -61,7 +61,10 @@ const RichText = isMobile
               setEditorValue(editorValue);
             }, [])}
             onBlur={useCallback(
-              () => onChange(editorValue.toString(format).replace(/\\_/g, '_')),
+              () => {
+                const value = editorValue.toString(format).replace(/\\_/g, '_');
+                onChange((value.includes('\n') && value.length <= 2)  ? '' : value)
+              },
               [editorValue, onChange]
             )}
           />
