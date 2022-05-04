@@ -104,7 +104,7 @@ export default function withSteps(Form) {
 
     return (
       <div ref={formWrapperRef}>
-        <Typography variant="h5" gutterBottom>
+        <Typography component="h2" variant="h5" gutterBottom>
           {otherProps.schema.title}
         </Typography>
         <Stepper activeStep={activeStep} orientation="vertical" nonLinear>
