@@ -183,9 +183,9 @@
     "defaultMessage": "Kontrollera de obligatoriska frågorna på alla sidor"
   },
   "Dvb90q": {
-    "defaultMessage": "\"{field}\" måste vara större än {limit}"
+    "defaultMessage": "\"{field}\" måste vara större än eller lika med {limit}"
   },
-  "EMQOEP": {
-    "defaultMessage": "\"{field}\" måste vara mindre än {limit}"
+  "tcHDm5": {
+    "defaultMessage": "\"{field}\" måste vara mindre än eller lika med {limit}"
   }
 }

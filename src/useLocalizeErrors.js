@@ -26,10 +26,10 @@ const messages = defineMessages({
     defaultMessage: 'Tarkista pakolliset kysymykset kaikilta sivuilta'
   },
   minimum: {
-    defaultMessage: '"{field}" täytyy olla suurempi kuin {limit}',
+    defaultMessage: '"{field}" täytyy olla suurempi tai yhtä suuri kuin kuin {limit}',
   },
   maximum: {
-    defaultMessage: '"{field}" täytyy olla pienempi kuin {limit}',
+    defaultMessage: '"{field}" täytyy olla pienempi tai yhtä suuri kuin {limit}',
   },
 
   pattern: { defaultMessage: '"{field}" arvon on oltava {description}' },

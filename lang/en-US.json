@@ -182,10 +182,10 @@
   "w8nTyg": {
     "defaultMessage": "Check required questions on every page"
   },
-  "Dvb90q": {
-    "defaultMessage": "\"{field}\" must be larger than {limit}"
+  "oAZ7Ri": {
+    "defaultMessage": "\"{field}\" must be larger than or equal to {limit}"
   },
   "EMQOEP": {
-    "defaultMessage": "\"{field}\" must be smaller than {limit}"
+    "defaultMessage": "\"{field}\" must be smaller than or equal to {limit}"
   }
 }
