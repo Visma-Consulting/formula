@@ -140,6 +140,9 @@
   "ry193p": {
     "defaultMessage": "strängvärde"
   },
+  "OW2+mS": {
+    "defaultMessage": "booleanvärde"
+  },
   "7xLZD/": {
     "defaultMessage": "Dag"
   },
@@ -185,8 +188,11 @@
   "jxSL/l": {
     "defaultMessage": "Radioknappar under varandra"
   },
+  "w8nTyg": {
+    "defaultMessage": "Kontrollera de obligatoriska frågorna på alla sidor"
+  },
   "Dvb90q": {
-    "defaultMessage": "\"{field}\" måste vara större än {limit}"
+    "defaultMessage": "\"{field}\" måste vara större än eller lika med {limit}"
   },
   "EMQOEP": {
     "defaultMessage": "\"{field}\" måste vara mindre än {limit}"

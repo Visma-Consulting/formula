@@ -26,7 +26,6 @@ export default function withSteps(Form) {
     ref ??= formRef;
     const formWrapperRef = useRef();
     const jumpRef = useRef(null);
-
     function handleStepChange(...args) {
       const nextStep = jumpRef.current ?? activeStep + 1;
 
@@ -129,6 +128,8 @@ export default function withSteps(Form) {
                     <StepContent>
                       <Form
                         {...otherProps}
+                        isStepped={true}
+                        isLastStep={isLastStep}
                         onSubmit={isLastStep ? onSubmit : undefined}
                         onPreSubmit={handleStepChange}
                         ref={ref}
