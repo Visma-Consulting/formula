@@ -1,3 +1,13 @@
+# 0.4.90
+
+- Feature time restictions for date and date range
+- Feature date range question type
+- Feature disable elements
+- Fix consent formgroup error
+- Fix form validation errors
+- Fix accessibility headers
+- Upgrade to `@visma/rjsf-*@3.1.0-33`
+- 
 # 0.4.88
 
 - Added general form validation error message
