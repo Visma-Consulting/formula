@@ -52,6 +52,7 @@ function DateRangePickerField(props) {
       <props.registry.FieldTemplate
         {...props}
         schema={{...props.schema, type: 'string'}}
+        id={idSchema.$id}
         >
       <DateRangePicker
         onDatesChange={({ startDate, endDate }) => (startDate || endDate) && onChange({ start: startDate?.format('YYYY-MM-DD'), end: endDate?.format('YYYY-MM-DD')})}
@@ -98,18 +99,6 @@ export default ({ config: { disableBefore, disableAfter } }) => ({
         type: 'string',
       }
     },
-    oneOf: [
-      {
-        required: [
-          "start"
-        ]
-      },
-      {
-        required: [
-          "end"
-        ]
-      },
-    ],
   },
   uiSchema: {
     'ui:field': DateRangePickerField,
