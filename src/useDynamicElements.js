@@ -46,6 +46,37 @@ function pageTitleElementOf(elements, element) {
   return elements.find(element => element.type === 'pageTitle');
 }
 
+function resetDisabledToDefaultValues(formData, initialFormData, config, allDisabled) {
+  if (!formData || typeof formData !== 'object') {return formData}
+  let resetFormData = Array.isArray(formData) ? [...formData] : {...formData};
+
+  for (const key in formData) {
+    const element = config.elements.find(element => element.key === key);
+    if (allDisabled || (element?.filter?.enable && !sift(element.filter.enable.query)(formData))) {
+      if (initialFormData && initialFormData[key]) {
+        resetFormData[key] = initialFormData[key];
+      } else if (element.elements && element.elements.length > 0) {
+        const resetSubValues = resetDisabledToDefaultValues(formData[key] ?? undefined, initialFormData ? initialFormData[key] : undefined, element, true);
+        if (!resetSubValues) {
+          delete resetFormData[key];
+        } else {
+          resetFormData[key] = element.list ? [resetSubValues] : resetSubValues;
+        }
+      } else if (element.default) {
+        if (element.list) {
+          resetFormData[key] = Array(element.minItems > 1 ? element.minItems : 1).fill(element.default);
+        } else {
+          resetFormData[key] = element.default;
+        }
+      } else {
+        delete resetFormData[key];
+      }
+    }
+  }
+
+  return resetFormData;
+}
+
 export function dynamicElements(config, formData = {}) {
   // config.list element is filtered in ArrayField component.
   if (config.list || !typesWithElements.includes(config.type)) {
@@ -93,6 +124,15 @@ export function dynamicElements(config, formData = {}) {
 
         return {...element, indent: false}
       }
+    ).map(element => {
+        const query = element.filter?.enable?.query;
+
+        if (!query) {
+          return element;
+        } else {
+          return { ...element, disabled: !sift(query)(filteredFormData) }
+        }
+      }
     );
     checkChanges = elements.length !== length;
   }
@@ -105,15 +145,17 @@ export function dynamicElements(config, formData = {}) {
 
 export default function useDynamicElements(props) {
   const [formData, setFormData] = useStatePreferInitial(props.formData);
+  const [initialFormData] = useStatePreferInitial(props.formData);
 
   return {
     ...props,
     formData,
     config: dynamicElements(props.config, formData),
     onChange(...args) {
-      const [{ formData }] = args;
+      const [{ formData}] = args;
+      const resetFormData = resetDisabledToDefaultValues(formData, initialFormData, props.config, false);
       props.onChange?.(...args);
-      setFormData(formData);
+      setFormData(resetFormData);
     },
   };
 }
