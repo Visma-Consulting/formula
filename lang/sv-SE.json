@@ -143,6 +143,15 @@
   "OW2+mS": {
     "defaultMessage": "booleanvärde"
   },
+  "7xLZD/": {
+    "defaultMessage": "Dag"
+  },
+  "OH1wW1": {
+    "defaultMessage": "Månad"
+  },
+  "IX37vK": {
+    "defaultMessage": "År"
+  },
   "06GmPX": {
     "defaultMessage": "Lägg till rad"
   },
@@ -185,7 +194,16 @@
   "Dvb90q": {
     "defaultMessage": "\"{field}\" måste vara större än eller lika med {limit}"
   },
-  "tcHDm5": {
-    "defaultMessage": "\"{field}\" måste vara mindre än eller lika med {limit}"
+  "EMQOEP": {
+    "defaultMessage": "\"{field}\" måste vara mindre än {limit}"
+  },
+  "yFga8M": {
+    "defaultMessage": "Start datum"
+  },
+  "l26Isu": {
+    "defaultMessage": "Slutdatum"
+  },
+  "G3a8oG": {
+    "defaultMessage": "Datumintervall"
   }
 }
