@@ -122,7 +122,7 @@ export default function withSteps(Form) {
                           ...otherProps.schema,
                           properties: pick(
                             otherProps.schema.properties,
-                            currentStepElements
+                            isLastStep ? beforeMaxJumpElements : currentStepElements
                           ),
                           title: undefined,
                           required: otherProps.schema.required?.filter((key) =>
