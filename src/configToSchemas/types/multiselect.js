@@ -1,5 +1,5 @@
 import { defineMessage } from 'react-intl';
-import { ensureValueIsAvailable } from '../../utils';
+import { ensureValueIsAvailable, sortChoices } from '../../utils';
 import select from './select';
 import extendType from './_extendType';
 import sift from 'sift';
@@ -56,20 +56,7 @@ export default extendType(select, ({ config }) => (props) => {
     widget,
     autoSort = false
   } = config;
-  const choicesSorted = [...choices];
-
-  if (autoSort) {
-    choicesSorted.sort((el1, el2) => {
-      const el1Name = el1.enumNames ? el1.enumNames : el1.enum;
-      const el2Name = el2.enumNames ? el2.enumNames : el2.enum;
-      if (el1Name > el2Name) {
-        return 1
-      }  else if (el1Name < el2Name) {
-        return -1
-      }
-      return 0;
-    })
-  }
+  const choicesSorted = sortChoices(choices, autoSort);
 
   props.schema =
     choicesSorted.length || autocomplete
