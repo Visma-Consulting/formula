@@ -1,3 +1,9 @@
+# 0.4.91
+
+- Fix autosort issues
+- Fix stepped forms issues
+- Upgrade to `@visma/rjsf-*@3.1.0-34`
+
 # 0.4.90
 
 - Feature time restictions for date and date range
