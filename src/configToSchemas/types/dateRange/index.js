@@ -24,7 +24,13 @@ function DateRangePickerField(props) {
   }, [locale]);
 
   const earliestEndDate = () => {
-    if(beforeDay(disableEnd.disableBefore) === null || beforeDay(disableStart.disableBefore) > beforeDay(disableEnd.disableBefore)) {
+    if(disableEnd?.disableBefore.type === 'noValue' && disableStart?.disableBefore.type !== 'noValue') {
+      return beforeDay(disableStart.disableBefore);
+    }
+    else if(disableEnd?.disableBefore.type !== 'noValue' && disableStart?.disableBefore.type === 'noValue') {
+      return beforeDay(disableEnd.disableBefore);
+    }
+    else if(beforeDay(disableStart.disableBefore) > beforeDay(disableEnd.disableBefore)) {
       return beforeDay(disableStart.disableBefore);
     } else {
       return beforeDay(disableEnd.disableBefore);
@@ -71,13 +77,13 @@ function DateRangePickerField(props) {
           defaultMessage: 'Loppupäivä',
         })}
         isOutsideRange={(m) => focusedInput === 'startDate' ?
-          (disableStart?.disableBefore.type &&
+          (disableStart?.disableBefore.type !== 'noValue' &&
             m.isBefore(beforeDay(disableStart.disableBefore), 'day')) ||
-          (disableStart?.disableAfter.type &&
+          (disableStart?.disableAfter.type !== 'noValue' &&
             m.isAfter(afterDay(disableStart.disableAfter), 'day')) :
-          ((disableEnd?.disableBefore.type || disableStart?.disableBefore.type) &&
-              m.isBefore(earliestEndDate(), 'day')) ||
-          (disableEnd?.disableAfter.type &&
+          ((disableEnd?.disableBefore.type !== 'noValue' || disableStart?.disableBefore.type !== 'noValue')  &&
+            m.isBefore(earliestEndDate(), 'day')) ||
+          (disableEnd?.disableAfter.type !== 'noValue' &&
             m.isAfter(afterDay(disableEnd.disableAfter), 'day'))
         }
       />
