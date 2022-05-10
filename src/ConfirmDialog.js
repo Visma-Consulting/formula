@@ -1,30 +1,37 @@
 import {
   Button,
+  Checkbox,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
+  FormControlLabel,
   useTheme,
-  CircularProgress
 } from '@material-ui/core';
 import produce from 'immer';
-import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
+import {
+  forwardRef,
+  Fragment,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useConfig } from './api';
-
-const preventDefault = (event) => {
-  event.preventDefault();
-};
-
-export const isCaptchaRequired = (config) =>
-  config.publicForm &&
-  // Form may not have `requireCaptcha` defined.
-  (config.requireCaptcha || config.requireCaptcha === undefined);
+import { hasCaptcha, hasConsent } from './customize';
 
 export default forwardRef(function ConfirmDialog(
-  { title, description, children, onConfirm, ...other },
+  {
+    title,
+    description,
+    children,
+    onConfirm,
+    confirmComponent: Customizer = Fragment,
+    ...otherProps
+  },
   ref
 ) {
   useImperativeHandle(ref, () => ({
@@ -32,7 +39,7 @@ export default forwardRef(function ConfirmDialog(
       return new Promise((resolve) => {
         confirmRef.current = function (confirm) {
           resolve(
-            isCaptchaRequired(other.config)
+            hasCaptcha(otherProps)
               ? confirm &&
                   produce(args, ([data]) => {
                     data.captchaChallenge = confirm;
@@ -51,24 +58,25 @@ export default forwardRef(function ConfirmDialog(
     },
     error() {
       handleError();
-    }
+    },
   }));
 
   const confirmRef = useRef();
+  const hasCaptchaValue = hasCaptcha(otherProps);
+  const hasConsentValue = hasConsent(otherProps);
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [showReCAPTCHA, setShowReCAPTCHA] = useState(
-    isCaptchaRequired(other.config)
-  );
+  const [showReCAPTCHA, setShowReCAPTCHA] = useState(hasCaptchaValue);
   const [captchaChallenge, setCaptchaChallenge] = useState();
+  const [consent, setConsent] = useState(false);
 
   function handleClose() {
     setLoading(false);
     setError(false);
     setOpen(false);
-    setShowReCAPTCHA(isCaptchaRequired(other.config));
+    setShowReCAPTCHA(hasCaptchaValue);
   }
 
   function handleDismiss() {
@@ -90,55 +98,80 @@ export default forwardRef(function ConfirmDialog(
   }
 
   function handleConfirm() {
-    confirmRef.current(
-      isCaptchaRequired(other.config) ? captchaChallenge : true
-    );
+    confirmRef.current(hasCaptchaValue ? captchaChallenge : true);
   }
 
+  const intl = useIntl();
+
   return (
-    <Dialog
-      open={open}
-      onClose={handleDismiss}
-      onClick={preventDefault}
-      aria-labelledby="confirm-dialog-title"
-      aria-describedby="confirm-dialog-description"
-    >
-      <DialogTitle id="confirm-dialog-title">{title}</DialogTitle>
-      {description && (
-        <DialogContent>
-          <DialogContentText id="confirm-dialog-description">
-            {description}
-          </DialogContentText>
-        </DialogContent>
-      )}
-      { (showReCAPTCHA && !loading && !error) ? (
-        <DialogContentReCAPTCHA onChange={setCaptchaChallenge} />
-      ) : null}
-      {loading && (
-        <DialogContent>
-          <CircularProgress />
-        </DialogContent>
-      )}
-      {error && (
-        <DialogContent>
-          <FormattedMessage defaultMessage="Lomakkeen lähetys ei onnistunut." />
-        </DialogContent>
-      )}
-      <DialogActions>
-        <Button disabled={loading && !error} onClick={handleDismiss}>
-          <FormattedMessage defaultMessage="Peruuta" />
-        </Button>
-        <Button
-          disabled={(showReCAPTCHA && !captchaChallenge) || loading || error}
-          onClick={handleConfirm}
-          variant="contained"
-          color="primary"
-          autoFocus
-        >
-          <FormattedMessage defaultMessage="Lähetä" />
-        </Button>
-      </DialogActions>
-    </Dialog>
+    <Customizer {...otherProps}>
+      <Dialog
+        open={open}
+        onClose={handleDismiss}
+        aria-labelledby="confirm-dialog-title"
+        aria-describedby="confirm-dialog-description"
+      >
+        <DialogTitle id="confirm-dialog-title">{title}</DialogTitle>
+        {description && (
+          <DialogContent>
+            <DialogContentText id="confirm-dialog-description">
+              {description}
+            </DialogContentText>
+          </DialogContent>
+        )}
+        {hasConsentValue && (
+          <DialogContent key="consent">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={consent}
+                  onChange={(event) => {
+                    setConsent(event.target.checked);
+                  }}
+                  name="consent"
+                  color="secondary"
+                />
+              }
+              label={intl.formatMessage({
+                defaultMessage: 'Vahvistan ilmoitetut tiedot oikeiksi',
+              })}
+            />
+          </DialogContent>
+        )}
+        {showReCAPTCHA && !loading && !error ? (
+          <DialogContentReCAPTCHA onChange={setCaptchaChallenge} />
+        ) : null}
+        {loading && (
+          <DialogContent>
+            <CircularProgress />
+          </DialogContent>
+        )}
+        {error && (
+          <DialogContent>
+            <FormattedMessage defaultMessage="Lomakkeen lähetys ei onnistunut." />
+          </DialogContent>
+        )}
+        <DialogActions>
+          <Button disabled={loading && !error} onClick={handleDismiss}>
+            <FormattedMessage defaultMessage="Peruuta" />
+          </Button>
+          <Button
+            disabled={
+              (hasConsentValue && !consent) ||
+              (showReCAPTCHA && !captchaChallenge) ||
+              loading ||
+              error
+            }
+            onClick={handleConfirm}
+            variant="contained"
+            color="primary"
+            autoFocus
+          >
+            <FormattedMessage defaultMessage="Lähetä" />
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Customizer>
   );
 });
 

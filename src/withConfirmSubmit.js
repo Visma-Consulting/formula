@@ -1,54 +1,50 @@
 import { forwardRef, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useMutations } from './api';
-import ConfirmDialog, { isCaptchaRequired } from './ConfirmDialog';
+import ConfirmDialog from './ConfirmDialog';
+import { hasConfirm } from './customize';
 import { chain } from './utils';
 
 export default function withConfirmSubmit(Form) {
   return forwardRef(
     (
       {
-        confirm = true,
         formMetaData,
         onPreSubmit,
-        onSubmit,
         onPostSubmit,
         formDataAction,
         credentials,
-        ...other
+        ...otherProps
       },
       ref
     ) => {
-      const { config } = other;
+      const { submit } = useMutations();
+      const { config, onSubmit = submit } = otherProps;
       const confirmDialogRef = useRef();
 
-      const { submit } = useMutations();
-
-      onSubmit ??= submit;
-
-      const showConfirm = confirm || isCaptchaRequired(other.config);
+      const hasConfirmValue = hasConfirm(otherProps);
 
       return (
         <>
-          {showConfirm && (
+          {hasConfirmValue && (
             <ConfirmDialog
               title={<FormattedMessage defaultMessage="Lähetetäänkö lomake?" />}
               ref={confirmDialogRef}
-              {...other}
+              {...otherProps}
             ></ConfirmDialog>
           )}
           <Form
             ref={ref}
-            {...other}
+            {...otherProps}
             onSubmit={chain([
               onPreSubmit,
-              showConfirm &&
-              ((...args) => confirmDialogRef.current.confirm(...args)),
-              showConfirm &&
-              ((...args) => {
-                confirmDialogRef.current.loading();
-                return args;
-              }),
+              hasConfirmValue &&
+                ((...args) => confirmDialogRef.current.confirm(...args)),
+              hasConfirmValue &&
+                ((...args) => {
+                  confirmDialogRef.current.loading();
+                  return args;
+                }),
               async (...args) => {
                 const [{ captchaChallenge, formData }] = args;
                 const data = {
@@ -60,19 +56,24 @@ export default function withConfirmSubmit(Form) {
                   ...formMetaData,
                   values: formData,
                   captchaChallenge,
-                  _id: other.dataId,
+                  _id: otherProps.dataId,
                 };
                 try {
-                  const response = await onSubmit(data, credentials, formDataAction, ...args);
+                  const response = await onSubmit(
+                    data,
+                    credentials,
+                    formDataAction,
+                    ...args
+                  );
 
-                  if (showConfirm) {
+                  if (hasConfirmValue) {
                     confirmDialogRef.current.close();
                   }
 
                   onPostSubmit?.(response, data, ...args);
                 } catch (e) {
                   console.error(e);
-                  if (showConfirm) {
+                  if (hasConfirmValue) {
                     confirmDialogRef.current.error();
                   }
                 }

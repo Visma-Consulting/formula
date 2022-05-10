@@ -1,3 +1,7 @@
+# x.y.z
+
+- Add prop `confirmComponent` for custom confirm dialog
+
 # 0.4.93
 
 - Fix DLL: Add missing `dll.js` to published files
