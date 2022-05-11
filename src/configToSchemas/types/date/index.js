@@ -42,8 +42,6 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
   const handleFocusChange = ({ focused }) => setFocused(focused);
   const { locale } = intl;
   const classes = useStyles();
-  console.log(value);
-  console.log(list);
   useEffect(() => {
     moment.locale(locale);
   }, [locale]);
