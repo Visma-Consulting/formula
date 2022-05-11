@@ -1,3 +1,7 @@
+# 0.4.92
+
+- Date and DateRange restrictions empty choice
+
 # 0.4.91
 
 - Fix autosort issues

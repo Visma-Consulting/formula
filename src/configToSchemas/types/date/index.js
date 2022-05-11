@@ -61,9 +61,9 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
         hideKeyboardShortcutsPanel
         isOutsideRange={(m) =>
           (options.disableBefore && options.element.disableBefore.type &&
-            m.isBefore(beforeDay(options.element.disableBefore), 'day')) ||
+            m.isBefore(beforeDay(options.element.disableBefore), 'day') && options.element.disableBefore.type !== 'noValue') ||
           (options.disableAfter && options.element.disableAfter.type &&
-            m.isAfter(afterDay(options.element.disableAfter), 'day'))
+            m.isAfter(afterDay(options.element.disableAfter), 'day') && options.element.disableAfter.type !== 'noValue')
         }
       />
       <Button
