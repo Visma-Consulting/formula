@@ -43,7 +43,15 @@ function Compose(props) {
               } else {
                 return field.no && field.no !== '' ? field.no : intl.formatMessage({defaultMessage: 'Ei'});
               }
-            case 'text': case 'textarea': case 'email': case 'number': case 'password': case 'range': case 'date': case 'dateRange':
+            case 'consent':
+              if (data.value) {
+                return field.yes && field.yes !== '' ? field.yes : intl.formatMessage({defaultMessage: 'Hyväksyn'});
+              } else {
+                return undefined;
+              }
+            case 'text': case 'textarea': case 'richtext': case 'email':
+              case 'number':case 'password': case 'range': case 'bmi':
+                case 'date': case 'dateRange':
               return data.value;
             default:
               return undefined;
