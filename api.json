@@ -641,6 +641,15 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "dataIsDraft",
+            "in": "query",
+            "required": false,
+            "description": "Identifies whether fetching draft or not",
+            "schema": {
+              "type": "boolean"
+            }
           }
         ],
         "responses": {
@@ -687,6 +696,15 @@
             "description": "Credentials of the user",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "dataIsDraft",
+            "in": "query",
+            "required": false,
+            "description": "Identifies whether fetching draft or not",
+            "schema": {
+              "type": "boolean"
             }
           }
         ],

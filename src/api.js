@@ -22,11 +22,11 @@ export const useFormRev = (formId, formRev) => {
   return client.useFormRev({formId, formRev});
 };
 
-export const useSubmittedFormData = (formId, formRev, credentials, dataId) => {
+export const useSubmittedFormData = (formId, formRev, credentials, dataId, dataIsDraft) => {
   if (formRev) {
-    return client.useFormAndFormDataByRevision({formId, formRev, dataId, credentials});
+    return client.useFormAndFormDataByRevision({formId, formRev, dataId, credentials, dataIsDraft});
   } else {
-    return client.useFormDataFromSubmissionHandler({formId, dataId, credentials});
+    return client.useFormDataFromSubmissionHandler({formId, dataId, credentials, dataIsDraft});
   }
 };
 
