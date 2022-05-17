@@ -22,7 +22,8 @@
     "dist",
     "lang",
     "lib",
-    "api.json"
+    "api.json",
+    "dll.js"
   ],
   "workspaces": [
     ".",

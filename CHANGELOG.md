@@ -1,5 +1,6 @@
 # 0.4.93
 
+- Fix DLL: Add missing `dll.js` to published files
 - Export `resolveElementReferences` from `useResolveElementReferences`
 
 # 0.4.92
