@@ -13,6 +13,9 @@ const TitleVariantContext = createContext();
 
 export default function Field(props) {
   const classes = useStyles();
+  if (props.__withStepped_original_props__) {
+    props = props.__withStepped_original_props__;
+  }
   const Type = types[props.schema.type];
   const variant = useContext(TitleVariantContext) ?? 'h4';
 

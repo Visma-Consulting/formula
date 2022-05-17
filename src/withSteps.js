@@ -199,10 +199,18 @@ export default function withSteps(Form) {
       .map(([, value]) => value)
       .filter(Boolean)
       .filter(({ 'ui:field': uiField }) => uiField === StepTitle);
+
+    const steppedProps = {
+      ...props,
+      // In form step schema & uiSchema is incomplete.
+      // This is to access the original/full schema & uiSchema.
+      __withStepped_original_props__: props,
+    };
+
     return steps.length ? (
-      <WithSteps ref={ref} {...props} steps={steps} />
+      <WithSteps ref={ref} {...steppedProps} steps={steps} />
     ) : (
-      <Form ref={ref} {...props} />
+      <Form ref={ref} {...steppedProps} />
     );
   });
 }
