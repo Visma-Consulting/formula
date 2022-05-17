@@ -17,10 +17,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function withSteps(Form) {
-  const WithSteps = forwardRef(({ onSubmit, onChange, formData, steps, ...otherProps }, ref) => {
+  const WithSteps = forwardRef(({ onSubmit, onChange, onError, formData, steps, ...otherProps }, ref) => {
     const [activeStep, setActiveStep] = useState(0);
     const [maxJump, setMaxJump] = useState(activeStep);
     const [noValidate, setNoValidate] = useState(false);
+    const [liveValidate, setLiveValidate] = useState(false);
     const classes = useStyles();
     const formRef = useRef();
     ref ??= formRef;
@@ -69,19 +70,20 @@ export default function withSteps(Form) {
       beforeMaxJumpElements.push(element);
     }
 
-      const createHandleJump = (step) =>
-        function handleJump(event) {
-          // If backward button pressed
-          step < activeStep ? setNoValidate(true) : setNoValidate(false);
-          jumpRef.current = step;
-          ref.current.submit(event);
-          // Wait for the submit event to trigger.
-          setTimeout(() => {
-            // If form has validation errors, jump does not happen and we must clean
-            // current value.
-            jumpRef.current = null;
-          });
-        };
+    const createHandleJump = (step) =>
+      function handleJump(event) {
+        // If backward button pressed
+        step < activeStep ? setNoValidate(true) : setNoValidate(false);
+        setLiveValidate(false);
+        jumpRef.current = step;
+        ref.current.submit(event);
+        // Wait for the submit event to trigger.
+        setTimeout(() => {
+          // If form has validation errors, jump does not happen and we must clean
+          // current value.
+          jumpRef.current = null;
+        });
+      };
 
     return (
       <div ref={formWrapperRef}>
@@ -117,6 +119,11 @@ export default function withSteps(Form) {
                           onChange?.(...args);
                           setMaxJump(activeStep);
                         }}
+                        onError={(...args) => {
+                          setLiveValidate(true);
+                          onError?.(...args)
+                        }}
+                        liveValidate={liveValidate}
                         noValidate={noValidate}
                         schema={{
                           ...otherProps.schema,
