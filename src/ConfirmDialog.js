@@ -22,7 +22,7 @@ import {
 import ReCAPTCHA from 'react-google-recaptcha';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useConfig } from './api';
-import { hasCaptcha, hasConsent, hasVerify } from './customize';
+import { hasCaptcha, hasConsent, hasPreview } from './customize';
 import { PrintButton } from './PrintButton';
 import Field from './Review/Field';
 
@@ -124,7 +124,7 @@ export default forwardRef(function ConfirmDialog(
               {description}
             </DialogContentText>
           )}
-          {hasVerify(otherProps) && (
+          {hasPreview(otherProps) && (
             <>
               <Typography variant="subtitle1" component="h3">
                 <FormattedMessage defaultMessage="Lähettävien tietojen esikatselu" />
@@ -168,7 +168,7 @@ export default forwardRef(function ConfirmDialog(
           <Button disabled={loading && !error} onClick={handleDismiss}>
             <FormattedMessage defaultMessage="Peruuta" />
           </Button>
-          {hasVerify(otherProps) && <PrintButton />}
+          {hasPreview(otherProps) && <PrintButton />}
           <Button
             disabled={
               (hasConsentValue && !consent) ||

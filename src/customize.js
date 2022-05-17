@@ -8,7 +8,7 @@ export const hasConfirm = (props) =>
   // Derived/computed value?
   (hasCaptcha(props) ||
     hasConsent(props) ||
-    hasVerify(props) ||
+    hasPreview(props) ||
     // Form config?
     (props.config.meta?.confirm ??
       // Default
@@ -21,9 +21,9 @@ export const hasConsent = (props) =>
   // Default
   hasConsentDefault;
 
-export const hasVerifyDefault = !false;
-export const hasVerify = (props) =>
+export const hasPreviewDefault = !false;
+export const hasPreview = (props) =>
   // Form config?
-  props.config.meta?.verify ??
+  props.config.meta?.preview ??
   // Default
-  hasVerifyDefault;
+  hasPreviewDefault;
