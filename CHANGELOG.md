@@ -1,3 +1,7 @@
+# 0.4.93
+
+- Export `resolveElementReferences` from `useResolveElementReferences`
+
 # 0.4.92
 
 - Date and DateRange restrictions empty choice
@@ -17,7 +21,7 @@
 - Fix form validation errors
 - Fix accessibility headers
 - Upgrade to `@visma/rjsf-*@3.1.0-33`
-- 
+
 # 0.4.88
 
 - Added general form validation error message
