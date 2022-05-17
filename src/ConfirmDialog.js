@@ -8,6 +8,7 @@ import {
   DialogContentText,
   DialogTitle,
   FormControlLabel,
+  Typography,
   useTheme,
 } from '@material-ui/core';
 import produce from 'immer';
@@ -21,7 +22,9 @@ import {
 import ReCAPTCHA from 'react-google-recaptcha';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useConfig } from './api';
-import { hasCaptcha, hasConsent } from './customize';
+import { hasCaptcha, hasConsent, hasVerify } from './customize';
+import { PrintButton } from './PrintButton';
+import Field from './Review/Field';
 
 export default forwardRef(function ConfirmDialog(
   {
@@ -60,6 +63,8 @@ export default forwardRef(function ConfirmDialog(
       handleError();
     },
   }));
+
+  // const dialogContentFlexNoneClasses = useStylesDialogContentFlexNone();
 
   const confirmRef = useRef();
   const hasCaptchaValue = hasCaptcha(otherProps);
@@ -106,22 +111,30 @@ export default forwardRef(function ConfirmDialog(
   return (
     <Customizer {...otherProps}>
       <Dialog
+        scroll="body"
         open={open}
         onClose={handleDismiss}
         aria-labelledby="confirm-dialog-title"
         aria-describedby="confirm-dialog-description"
       >
         <DialogTitle id="confirm-dialog-title">{title}</DialogTitle>
-        {description && (
-          <DialogContent>
+        <DialogContent>
+          {description && (
             <DialogContentText id="confirm-dialog-description">
               {description}
             </DialogContentText>
-          </DialogContent>
-        )}
-        {hasConsentValue && (
-          <DialogContent key="consent">
+          )}
+          {hasVerify(otherProps) && (
+            <>
+              <Typography variant="subtitle1" component="h3">
+                <FormattedMessage defaultMessage="Lähettävien tietojen esikatselu" />
+              </Typography>
+              <Field root {...otherProps} />
+            </>
+          )}
+          {hasConsentValue && (
             <FormControlLabel
+              key="consent"
               control={
                 <Checkbox
                   checked={consent}
@@ -136,25 +149,26 @@ export default forwardRef(function ConfirmDialog(
                 defaultMessage: 'Vahvistan ilmoitetut tiedot oikeiksi',
               })}
             />
-          </DialogContent>
-        )}
-        {showReCAPTCHA && !loading && !error ? (
-          <DialogContentReCAPTCHA onChange={setCaptchaChallenge} />
-        ) : null}
-        {loading && (
-          <DialogContent>
-            <CircularProgress />
-          </DialogContent>
-        )}
-        {error && (
-          <DialogContent>
-            <FormattedMessage defaultMessage="Lomakkeen lähetys ei onnistunut." />
-          </DialogContent>
-        )}
+          )}
+          {showReCAPTCHA && !loading && !error ? (
+            <DialogContentReCAPTCHA onChange={setCaptchaChallenge} />
+          ) : null}
+          {loading && (
+            <div>
+              <CircularProgress />
+            </div>
+          )}
+          {error && (
+            <DialogContentText>
+              <FormattedMessage defaultMessage="Lomakkeen lähetys ei onnistunut." />
+            </DialogContentText>
+          )}
+        </DialogContent>
         <DialogActions>
           <Button disabled={loading && !error} onClick={handleDismiss}>
             <FormattedMessage defaultMessage="Peruuta" />
           </Button>
+          {hasVerify(otherProps) && <PrintButton />}
           <Button
             disabled={
               (hasConsentValue && !consent) ||

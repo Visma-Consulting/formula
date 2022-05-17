@@ -139,20 +139,22 @@ export function CustomConfirm({ config, formData, children }) {
 
   // children, the original dialog, is readonly – use produce from immer to make deep immutable changes.
   return produce(children, (children) => {
-    if (config.meta?.showScoreOnPreview) {
-      children.props.children.splice(
+    const dialogContentElement = children.props.children.find(
+      (element) => element && original(element)?.type === DialogContent
+    );
+
+    if (config.meta?.showScoreOnPreview && dialogContentElement) {
+      dialogContentElement.props.children.splice(
         2,
         0,
-        <DialogContent>
-          <DialogContentText>
-            <FormattedMessage
-              defaultMessage="Vastauksesi antavat sinulle {score} pistettä."
-              values={{
-                score: Math.ceil(Math.random() * config.meta.maxScore),
-              }}
-            />
-          </DialogContentText>
-        </DialogContent>
+        <DialogContentText>
+          <FormattedMessage
+            defaultMessage="Vastauksesi antavat sinulle {score} pistettä."
+            values={{
+              score: Math.ceil(Math.random() * config.meta.maxScore),
+            }}
+          />
+        </DialogContentText>
       );
     }
 
@@ -165,11 +167,11 @@ export function CustomConfirm({ config, formData, children }) {
       ?.props.children.reverse();
 
     // If set, override consent message
-    const consentElement = children.props.children.find(
+    const consentElement = dialogContentElement?.props.children.find(
       (element) => element?.key === 'consent'
     );
     if (consentElement) {
-      consentElement.props.children.props.label = intl.formatMessage({
+      consentElement.props.label = intl.formatMessage({
         defaultMessage:
           'Kyllä, haluan lähettää tiedot ja osallistua palkinnon arvontaan 🏆',
       });
