@@ -10,9 +10,9 @@ const useStyles = makeStyles((theme) => ({
   buttonContainer: {
     '& > *': {
       margin: theme.spacing(1),
-      '@media print' : {
-        display: 'none'
-      }
+      '@media print': {
+        display: 'none',
+      },
     },
   },
 }));
@@ -24,7 +24,7 @@ export default function Review(props) {
   return (
     <>
       <Alert severity="success">
-        { intl.formatMessage({defaultMessage: 'Lomake lähetetty!'}) }
+        {intl.formatMessage({ defaultMessage: 'Lomake lähetetty!' })}
       </Alert>
       <Field root {...props} />
       <Markdown>{props.config.successText}</Markdown>
@@ -35,7 +35,7 @@ export default function Review(props) {
           startIcon={<Print />}
           onClick={global.print}
           aria-label={intl.formatMessage({
-            defaultMessage: 'Tulosta. Avautuu PDF:nä uuteen ikkunaan.'
+            defaultMessage: 'Tulosta. Avautuu PDF:nä uuteen ikkunaan.',
           })}
         >
           <FormattedMessage defaultMessage="Tulosta" />
