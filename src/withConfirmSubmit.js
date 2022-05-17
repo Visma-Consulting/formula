@@ -15,6 +15,7 @@ export default function withConfirmSubmit(Form) {
         onPostSubmit,
         formDataAction,
         credentials,
+        dataIsDraft,
         ...other
       },
       ref
@@ -40,6 +41,9 @@ export default function withConfirmSubmit(Form) {
           <Form
             ref={ref}
             {...other}
+            credentials={credentials}
+            formDataAction={formDataAction}
+            dataIsDraft={dataIsDraft}
             onSubmit={chain([
               onPreSubmit,
               showConfirm &&
@@ -63,7 +67,7 @@ export default function withConfirmSubmit(Form) {
                   _id: other.dataId,
                 };
                 try {
-                  const response = await onSubmit(data, credentials, formDataAction, ...args);
+                  const response = await onSubmit(data, credentials, formDataAction, dataIsDraft, ...args);
 
                   if (showConfirm) {
                     confirmDialogRef.current.close();

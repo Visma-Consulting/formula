@@ -14,6 +14,7 @@ import withFormConfigLoader from './withFormConfigLoader';
 import withPrefill from './withPrefill';
 import withReview from './withReview';
 import withSteps from './withSteps';
+import withDraftSave from './withDraftSave';
 
 export const Form =
   RJSFForm
@@ -24,6 +25,7 @@ export const Form =
   |> withConfirmSubmit
   |> withSteps
   |> withReview
+  |> withDraftSave
   |> withPropsUpdater(configToSchemas)
   |> withPropsUpdater(useDynamicElements)
   |> withPrefill

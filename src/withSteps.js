@@ -162,6 +162,7 @@ export default function withSteps(Form) {
                           ),
                         }}
                       >
+                        {otherProps.children && otherProps.children}
                         {activeStep !== 0 && (
                           <Button
                             className={classes.button}

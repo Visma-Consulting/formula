@@ -435,6 +435,15 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "draftReference",
+            "in": "query",
+            "required": false,
+            "description": "Reference to formdata the submission is based on",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -566,6 +575,15 @@
             "description": "The credentials of the user",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "isDraft",
+            "in": "query",
+            "required": false,
+            "description": "Identifies whether or not updating a draft",
+            "schema": {
+              "type": "boolean"
             }
           }
         ],

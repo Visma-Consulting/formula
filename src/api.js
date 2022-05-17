@@ -99,28 +99,17 @@ export function useMutations() {
     ]);
 
   return {
-    async submit(data, credentials, formDataAction) {
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      const actionId = urlParams.get('actionId');
-      if (data._id) {
-        if (formDataAction) {
-          return client.postResubmitFormData(
-            {dataId: data._id, credentials: credentials, actionId: formDataAction},
-            data
-          );
-        } else {
-          return client.postResubmitFormData(
-            {dataId: data._id, credentials: credentials},
-            data
-          );
-        }
-        //return client.putFormData({ dataId: data._id }, data);
+    async submit(data, credentials, formDataAction, isDraft) {
+      if (data._id && ((isDraft && data.status === "DRAFT") || (!isDraft && data.status === "SUBMITTED"))) {
+        return client.postResubmitFormData(
+          {dataId: data._id, credentials: credentials, actionId: formDataAction, isDraft: isDraft},
+          data
+        );
       } else {
-        if (formDataAction) {
-          return client.postFormData(formDataAction, data);
+        if (isDraft && data.status === "SUBMITTED") {
+          return client.postFormData({ actionId: formDataAction, draftReference: data._id }, data);
         } else {
-          return client.postFormData(null, data);
+          return client.postFormData({ actionId: formDataAction }, data);
         }
       }
     },
