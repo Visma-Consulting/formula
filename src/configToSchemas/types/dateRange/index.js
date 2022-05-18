@@ -97,6 +97,7 @@ function DateRangePickerField(props) {
             m.isAfter(afterDay(disableEnd.disableAfter), 'day'))
         }
       />
+          {(formData?.start || formData?.end) ?
         <Button
           variant="contained"
           color="secondary"
@@ -105,6 +106,7 @@ function DateRangePickerField(props) {
         >
           <FormattedMessage defaultMessage="Tyhjennä" />
         </Button>
+          : <></>}
         </div>
       </props.registry.FieldTemplate>
 

@@ -45,7 +45,7 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
   useEffect(() => {
     moment.locale(locale);
   }, [locale]);
-
+console.log(value);
   return (
     <div>
       <SingleDatePicker
@@ -64,6 +64,7 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
             m.isAfter(afterDay(options.element.disableAfter), 'day') && options.element.disableAfter.type !== 'noValue')
         }
       />
+      {value !== undefined ?
       <Button
         variant="contained"
         color="secondary"
@@ -72,6 +73,7 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
       >
         <FormattedMessage defaultMessage="Tyhjennä" />
       </Button>
+      : <></>}
     </div>
   );
 }
