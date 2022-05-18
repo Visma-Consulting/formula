@@ -1,6 +1,7 @@
 # x.y.z
 
 - Add prop `confirmComponent` for custom confirm dialog
+- Remove unnecessary aria label from print button
 
 # 0.4.93
 

@@ -10,9 +10,6 @@ export function PrintButton() {
       variant="contained"
       startIcon={<Print />}
       onClick={() => setTimeout(() => global.print(), 0)}
-      aria-label={intl.formatMessage({
-        defaultMessage: 'Tulosta. Avautuu PDF:nä uuteen ikkunaan.',
-      })}
     >
       <FormattedMessage defaultMessage="Tulosta" />
     </Button>
