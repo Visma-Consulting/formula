@@ -45,7 +45,7 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
   useEffect(() => {
     moment.locale(locale);
   }, [locale]);
-console.log(value);
+
   return (
     <div>
       <SingleDatePicker
