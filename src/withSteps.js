@@ -46,29 +46,29 @@ export default function withSteps(Form) {
 
     const handleSubmit = () => {
       setNoValidate(false);
-    }
+    };
     const isLastStep = activeStep === steps.length - 1;
 
     const elements = otherProps.uiSchema['ui:order'];
 
-    const currentStepElements = [];
-    const beforeMaxJumpElements = [];
-    let current = -1;
-    for (const element of elements) {
-      const uiField = otherProps.uiSchema[element]?.['ui:field'];
-      if (uiField === StepTitle) {
-        current++;
-        if (current > maxJump) {
-          break;
-        } else {
-          continue;
+      const currentStepElements = [];
+      const beforeMaxJumpElements = [];
+      let current = -1;
+      for (const element of elements) {
+        const uiField = otherProps.uiSchema[element]?.['ui:field'];
+        if (uiField === StepTitle) {
+          current++;
+          if (current > maxJump) {
+            break;
+          } else {
+            continue;
+          }
         }
+        if ((current === -1 && activeStep === 0) || current === activeStep) {
+          currentStepElements.push(element);
+        }
+        beforeMaxJumpElements.push(element);
       }
-      if ((current === -1 && activeStep === 0) || current === activeStep) {
-        currentStepElements.push(element);
-      }
-      beforeMaxJumpElements.push(element);
-    }
 
     const createHandleJump = (step) =>
       function handleJump(event) {
@@ -170,9 +170,10 @@ export default function withSteps(Form) {
                               variant="contained"
                               color="primary"
                             >
-                            <FormattedMessage defaultMessage="Lähetä" />
-                            </Button>) : (
-                              <Button
+                              <FormattedMessage defaultMessage="Lähetä" />
+                            </Button>
+                          ) : (
+                            <Button
                               onClick={createHandleJump(activeStep + 1)}
                               variant="contained"
                               color="primary"
@@ -180,16 +181,17 @@ export default function withSteps(Form) {
                               <FormattedMessage defaultMessage="Eteenpäin" />
                             </Button>
                           )}
-                      </Form>
-                    </StepContent>
-                  )}
-                </Step>
-              );
-            })}
-        </Stepper>
-      </div>
-    );
-  });
+                        </Form>
+                      </StepContent>
+                    )}
+                  </Step>
+                );
+              })}
+          </Stepper>
+        </div>
+      );
+    }
+  );
 
   return forwardRef((props, ref) => {
     const uiOrder = props.uiSchema['ui:order'] ?? [];
@@ -198,10 +200,18 @@ export default function withSteps(Form) {
       .map(([, value]) => value)
       .filter(Boolean)
       .filter(({ 'ui:field': uiField }) => uiField === StepTitle);
+
+    const steppedProps = {
+      ...props,
+      // In form step schema & uiSchema is incomplete.
+      // This is to access the original/full schema & uiSchema.
+      __withStepped_original_props__: props,
+    };
+
     return steps.length ? (
-      <WithSteps ref={ref} {...props} steps={steps} />
+      <WithSteps ref={ref} {...steppedProps} steps={steps} />
     ) : (
-      <Form ref={ref} {...props} />
+      <Form ref={ref} {...steppedProps} />
     );
   });
 }

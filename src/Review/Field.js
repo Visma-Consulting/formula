@@ -1,7 +1,8 @@
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { createContext, useContext } from 'react';
+import { Customize } from '../utils';
 import * as types from './types';
-import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   typeContainer: {
@@ -11,8 +12,11 @@ const useStyles = makeStyles((theme) => ({
 
 const TitleVariantContext = createContext();
 
-export default function Field(props) {
+export default function Field({ __withStepped_original_props__, ...props }) {
   const classes = useStyles();
+  if (__withStepped_original_props__) {
+    props = { ...props, ...__withStepped_original_props__ };
+  }
   const Type = types[props.schema.type];
   const variant = useContext(TitleVariantContext) ?? 'h4';
 
@@ -21,7 +25,8 @@ export default function Field(props) {
     return null;
   }
 
-  if (props.uiSchema && props.uiSchema['ui:widget'] === 'hidden') {
+  if (props.uiSchema &&
+    (props.uiSchema['ui:widget'] === 'hidden' || props.uiSchema['ui:options']?.element?.type === 'compose')) {
     return null;
   }
 
@@ -37,7 +42,10 @@ export default function Field(props) {
         }[variant]
       }
     >
-      <>
+      <Customize
+        customizer={props[props.preview ? 'previewField' : 'reviewField']}
+        {...props}
+      >
         {props.schema.title && (
           <Typography variant={variant} gutterBottom>
             {props.schema.title}
@@ -46,7 +54,7 @@ export default function Field(props) {
         <div className={classes.typeContainer}>
           <Type {...props} />
         </div>
-      </>
+      </Customize>
     </TitleVariantContext.Provider>
   );
 }

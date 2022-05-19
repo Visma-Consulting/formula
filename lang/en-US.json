@@ -208,5 +208,8 @@
   },
   "EMQOEP": {
     "defaultMessage": "\"{field}\" must be smaller than or equal to {limit}"
+  },
+  "nYaKFF": {
+    "defaultMessage": "Composed field"
   }
 }

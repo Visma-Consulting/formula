@@ -8,8 +8,17 @@ import 'moment/locale/sv';
 import { useEffect, useState } from 'react';
 import { DateRangePicker } from 'react-dates';
 import 'react-dates/initialize';
-import { defineMessage, useIntl } from 'react-intl';
+import { defineMessage, FormattedMessage, useIntl } from 'react-intl';
 import { add, sub } from 'date-fns';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    marginRight: theme.spacing(1),
+    marginLeft: theme.spacing(1),
+  },
+}));
 
 function DateRangePickerField(props) {
   const { idSchema, onChange, schema, formData, uiSchema } = props;
@@ -18,7 +27,7 @@ function DateRangePickerField(props) {
   const { disableEnd, disableStart } = props.uiSchema['ui:options'].element;
   const handleFocusChange = (focusedInput) => setFocusedInput(focusedInput);
   const { locale } = intl;
-
+  const classes = useStyles();
   useEffect(() => {
     moment.locale(locale);
   }, [locale]);
@@ -60,6 +69,7 @@ function DateRangePickerField(props) {
         schema={{...props.schema, type: 'string'}}
         id={idSchema.$id}
         >
+        <div>
       <DateRangePicker
         onDatesChange={({ startDate, endDate }) => (startDate || endDate) && onChange({ start: startDate?.format('YYYY-MM-DD'), end: endDate?.format('YYYY-MM-DD')})}
         onFocusChange={handleFocusChange}
@@ -87,7 +97,19 @@ function DateRangePickerField(props) {
             m.isAfter(afterDay(disableEnd.disableAfter), 'day'))
         }
       />
+          {(formData?.start || formData?.end) ?
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.button}
+          onClick={(value) => value && onChange({ start: undefined, end: undefined})}
+        >
+          <FormattedMessage defaultMessage="Tyhjennä" />
+        </Button>
+          : <></>}
+        </div>
       </props.registry.FieldTemplate>
+
     </>
   );
 }

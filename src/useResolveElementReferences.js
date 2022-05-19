@@ -2,11 +2,13 @@ import { useFields, useFormGroups } from './api';
 import { typesWithElements } from './utils';
 
 export default function useResolveElementReferences() {
-  const registry = {
+  return resolveElementReferences({
     formGroup: useFormGroups(),
     field: useFields(),
-  };
+  });
+}
 
+export function resolveElementReferences(registry) {
   function resolveElement(element) {
     const registryElements = registry[element.type];
 

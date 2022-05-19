@@ -1,6 +1,7 @@
 export default (config) => (props) => {
   if (config.list) {
     const { title, default: defaults, ...itemsSchema } = props.schema;
+    const { emptyDefault = false } = config;
 
     const {
       'ui:description': description,
@@ -14,7 +15,7 @@ export default (config) => (props) => {
       items: itemsSchema,
       maxItems: config.maxItems,
       minItems: config.minItems,
-      default: config.minItems > 1 ? Array(config.minItems).fill(defaults) : [defaults],
+      default: emptyDefault ? [] : config.minItems > 1 ? Array(config.minItems).fill(defaults) : [defaults],
     };
 
     props.uiSchema = {
