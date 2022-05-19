@@ -10,7 +10,7 @@ import { useNormalizeConfigProp } from './useNormalizeConfig';
 import { withPropsUpdater } from './utils';
 import withConfirmSubmit from './withConfirmSubmit';
 import withFormConfigLoader from './withFormConfigLoader';
-//import withLiveValidateOnError from './withLiveValidateOnError';
+import withLiveValidateOnError from './withLiveValidateOnError';
 import withPrefill from './withPrefill';
 import withReview from './withReview';
 import withSteps from './withSteps';
@@ -27,7 +27,7 @@ export const Form =
   |> withPropsUpdater(configToSchemas)
   |> withPropsUpdater(useDynamicElements)
   |> withPrefill
-//  |> withLiveValidateOnError
+  |> withLiveValidateOnError
   |> withPropsUpdater(useNormalizeConfigProp)
   |> withFormConfigLoader;
 
