@@ -9,10 +9,8 @@ import { useFormulaContext } from '../../Context';
 import Field from '../Field';
 
 export default (props) => {
-  // eslint-disable-next-line prefer-const
-  let { formData, schema, uiSchema } = props;
+  const { formData, schema, uiSchema, ...otherProps } = props;
   const { dateFnsLocale } = useFormulaContext();
-  const ui = props.uiSchema['ui:options'].element
 
   // formGroups
   if (uiSchema['ui:options']?.element.type === 'dateRange') {
@@ -25,7 +23,7 @@ export default (props) => {
     const dateValue = `${start} - ${end}`;
     return (
       <Field
-        key={ui.id}
+        {...otherProps}
         formData={dateValue}
         schema={{ schema, type: 'string' }}
         uiSchema={uiSchema}
@@ -35,6 +33,7 @@ export default (props) => {
     if (uiSchema['ui:order']) {
       return uiSchema['ui:order'].map((name) => (
         <Field
+          {...otherProps}
           key={name}
           formData={formData?.[name]}
           schema={schema.properties[name]}

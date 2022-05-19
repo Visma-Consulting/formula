@@ -120,7 +120,11 @@ export default forwardRef(function ConfirmDialog(
               <Typography variant="subtitle1" component="h3">
                 <FormattedMessage defaultMessage="Lähettävien tietojen esikatselu" />
               </Typography>
-              <Field root {...otherProps} />
+              <Field
+                preview // For selecting optional preview / review customization
+                root
+                {...otherProps}
+              />
             </>
           )}
           {hasConsentValue && (
