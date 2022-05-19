@@ -72,3 +72,11 @@ export const chain =
     }
     return args;
   };
+
+export function Customize({ customizer: Customizer, children, ...otherProps }) {
+  return Customizer ? (
+    <Customizer {...otherProps}>{children}</Customizer>
+  ) : (
+    children
+  );
+}

@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Checkbox,
   CircularProgress,
@@ -9,32 +10,21 @@ import {
   DialogTitle,
   FormControlLabel,
   Typography,
+  useMediaQuery,
   useTheme,
 } from '@material-ui/core';
 import produce from 'immer';
-import {
-  forwardRef,
-  Fragment,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from 'react';
+import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useConfig } from './api';
 import { hasCaptcha, hasConsent, hasPreview } from './customizations';
 import { PrintButton } from './PrintButton';
 import Field from './Review/Field';
+import { Customize } from './utils';
 
 export default forwardRef(function ConfirmDialog(
-  {
-    title,
-    description,
-    children,
-    onConfirm,
-    confirmComponent: Customizer = Fragment,
-    ...otherProps
-  },
+  { title, description, children, onConfirm, confirmComponent, ...otherProps },
   ref
 ) {
   useImperativeHandle(ref, () => ({
@@ -109,13 +99,14 @@ export default forwardRef(function ConfirmDialog(
   const intl = useIntl();
 
   return (
-    <Customizer {...otherProps}>
+    <Customize customizer={confirmComponent} {...otherProps}>
       <Dialog
         scroll="body"
         open={open}
         onClose={handleDismiss}
         aria-labelledby="confirm-dialog-title"
         aria-describedby="confirm-dialog-description"
+        fullScreen={useMediaQuery('print')}
       >
         <DialogTitle id="confirm-dialog-title">{title}</DialogTitle>
         <DialogContent>
@@ -164,28 +155,30 @@ export default forwardRef(function ConfirmDialog(
             </DialogContentText>
           )}
         </DialogContent>
-        <DialogActions>
-          <Button disabled={loading && !error} onClick={handleDismiss}>
-            <FormattedMessage defaultMessage="Peruuta" />
-          </Button>
-          {hasPreview(otherProps) && <PrintButton />}
-          <Button
-            disabled={
-              (hasConsentValue && !consent) ||
-              (showReCAPTCHA && !captchaChallenge) ||
-              loading ||
-              error
-            }
-            onClick={handleConfirm}
-            variant="contained"
-            color="primary"
-            autoFocus
-          >
-            <FormattedMessage defaultMessage="Lähetä" />
-          </Button>
-        </DialogActions>
+        <Box displayPrint="none">
+          <DialogActions>
+            <Button disabled={loading && !error} onClick={handleDismiss}>
+              <FormattedMessage defaultMessage="Peruuta" />
+            </Button>
+            {hasPreview(otherProps) && <PrintButton />}
+            <Button
+              disabled={
+                (hasConsentValue && !consent) ||
+                (showReCAPTCHA && !captchaChallenge) ||
+                loading ||
+                error
+              }
+              onClick={handleConfirm}
+              variant="contained"
+              color="primary"
+              autoFocus
+            >
+              <FormattedMessage defaultMessage="Lähetä" />
+            </Button>
+          </DialogActions>
+        </Box>
       </Dialog>
-    </Customizer>
+    </Customize>
   );
 });
 
