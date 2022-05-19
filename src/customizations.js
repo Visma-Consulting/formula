@@ -21,7 +21,7 @@ export const hasConsent = (props) =>
   // Default
   hasConsentDefault;
 
-export const hasPreviewDefault = !false;
+export const hasPreviewDefault = false;
 export const hasPreview = (props) =>
   // Form config?
   props.config.meta?.preview ??

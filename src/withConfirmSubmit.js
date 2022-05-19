@@ -2,7 +2,7 @@ import { forwardRef, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useMutations } from './api';
 import ConfirmDialog from './ConfirmDialog';
-import { hasConfirm } from './customize';
+import { hasConfirm } from './customizations';
 import { chain } from './utils';
 
 export default function withConfirmSubmit(Form) {

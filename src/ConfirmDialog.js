@@ -22,7 +22,7 @@ import {
 import ReCAPTCHA from 'react-google-recaptcha';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useConfig } from './api';
-import { hasCaptcha, hasConsent, hasPreview } from './customize';
+import { hasCaptcha, hasConsent, hasPreview } from './customizations';
 import { PrintButton } from './PrintButton';
 import Field from './Review/Field';
 
