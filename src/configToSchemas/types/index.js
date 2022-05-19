@@ -21,3 +21,4 @@ export * as text from './text';
 export * as textarea from './textarea';
 export * as title from './title';
 export * as consent from './consent';
+export * as compose from './compose';

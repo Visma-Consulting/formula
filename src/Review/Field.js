@@ -25,7 +25,8 @@ export default function Field({ __withStepped_original_props__, ...props }) {
     return null;
   }
 
-  if (props.uiSchema && props.uiSchema['ui:widget'] === 'hidden') {
+  if (props.uiSchema &&
+    (props.uiSchema['ui:widget'] === 'hidden' || props.uiSchema['ui:options']?.element?.type === 'compose')) {
     return null;
   }
 
