@@ -37,23 +37,25 @@ export const withPropsUpdater = (updater) => (Component) =>
   forwardRef((props, ref) => <Component ref={ref} {...updater(props)} />);
 
 export const sortChoices = (choices = [], autoSort) => {
-  const choicesSorted = choices.map((choice, index) => choice.enum ? choice : {...choice, enum: `${index}`});
+  const choicesSorted = choices.map((choice, index) =>
+    choice.enum ? choice : { ...choice, enum: `${index}` }
+  );
 
   if (autoSort) {
     choicesSorted.sort((el1, el2) => {
       const el1Name = el1.enumNames ? el1.enumNames : el1.enum;
       const el2Name = el2.enumNames ? el2.enumNames : el2.enum;
       if (el1Name > el2Name) {
-        return 1
-      }  else if (el1Name < el2Name) {
-        return -1
+        return 1;
+      } else if (el1Name < el2Name) {
+        return -1;
       }
       return 0;
-    })
+    });
   }
 
   return choicesSorted;
-}
+};
 
 // Chain function calls until some returns falsy return value. Optionally update args.
 export const chain =
