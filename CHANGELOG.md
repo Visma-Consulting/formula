@@ -1,7 +1,11 @@
-# x.y.z
+# 0.4.94
 
 - Add customization props `confirmComponent`, `previewField` & `reviewField`
 - Remove unnecessary aria label from print button
+- Upgrade to `@visma/rjsf-*@3.1.0-35`
+- Add button to clear date and date range values
+- Enabled live validation
+- Add compose field
 
 # 0.4.93
 
