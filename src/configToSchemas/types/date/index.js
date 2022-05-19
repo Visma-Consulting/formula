@@ -9,8 +9,16 @@ import 'moment/locale/sv';
 import { useEffect, useState } from 'react';
 import { SingleDatePicker } from 'react-dates';
 import 'react-dates/initialize';
-import { defineMessage, useIntl } from 'react-intl';
+import { defineMessage, FormattedMessage, useIntl } from 'react-intl';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles((theme) => ({
+  button: {
+    marginRight: theme.spacing(1),
+    marginLeft: theme.spacing(1),
+  },
+}));
 const beforeDay = (date) => {
   if(date.type !== undefined) {
     return date.type !== 'date' ? sub(new Date(), { [date.type]: date.numberValue }) : date.dateValue;
@@ -30,15 +38,16 @@ const afterDay = (date) => {
 function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
   const intl = useIntl();
   const [focused, setFocused] = useState();
-  const { title, label, useLabel } = options.element;
+  const { title, label, useLabel, list } = options.element;
   const handleFocusChange = ({ focused }) => setFocused(focused);
   const { locale } = intl;
+  const classes = useStyles();
   useEffect(() => {
     moment.locale(locale);
   }, [locale]);
 
   return (
-    <>
+    <div>
       <SingleDatePicker
         date={value === undefined ? null : moment(value)}
         onDateChange={(date) => date && onChange(date.format('YYYY-MM-DD'))}
@@ -55,7 +64,17 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
             m.isAfter(afterDay(options.element.disableAfter), 'day') && options.element.disableAfter.type !== 'noValue')
         }
       />
-    </>
+      {value !== undefined ?
+      <Button
+        variant="contained"
+        color="secondary"
+        className={classes.button}
+        onClick={(value) => value && list ? onChange([undefined]) : value && onChange(undefined)}
+      >
+        <FormattedMessage defaultMessage="Tyhjennä" />
+      </Button>
+      : <></>}
+    </div>
   );
 }
 
