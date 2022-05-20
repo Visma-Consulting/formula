@@ -1,14 +1,26 @@
 import {forwardRef, useState} from 'react';
-import {FormattedMessage} from "react-intl";
+import {FormattedMessage, useIntl} from "react-intl";
 import Button from "@material-ui/core/Button";
 import {useMutations} from './api';
+import { useSnackbar } from 'notistack';
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    marginRight: theme.spacing(1),
+  },
+}));
 
 export default function withDraftSave(Form) {
 
   return forwardRef(
     (props, ref) => {
+      const classes = useStyles();
       const [draftId, setDraftId] = useState(props.dataId && props.dataIsDraft ? props.dataId : null);
       const [isDraft, setIsDraft] = useState(props.dataIsDraft);
+
+      const intl = useIntl();
+      const { enqueueSnackbar } = useSnackbar();
 
       const draftSave = async () => {
         const data = {
@@ -26,35 +38,40 @@ export default function withDraftSave(Form) {
         onSave ??= submit;
         const response = await onSave(data, props.credentials, props.formDataAction, isDraft);
 
-        setDraftId(response.attributes?.id);
-        setIsDraft(true);
+        if (response) {
+          enqueueSnackbar(
+            intl.formatMessage({
+              defaultMessage: 'Tallennettu',
+            }),
+            {
+              variant: 'success',
+            }
+          );
+
+          setDraftId(response.attributes?.id);
+          setIsDraft(true);
+        }
 
         return false;
       };
 
       const isSubmittedData = props?.dataId && !props?.dataIsDraft;
 
+      const draftButton = (<Button
+        onClick={() => draftSave()}
+        className={classes.button}
+      >
+        <FormattedMessage defaultMessage="Tallenna"/>
+      </Button>);
+
       return (props?.config?.draftSave && !isSubmittedData ?
           <Form ref={ref}
                 {...props}
                 dataIsDraft={isDraft}
                 dataId={draftId}
-          >
-            <Button
-              onClick={() => draftSave()}
-            >
-              <FormattedMessage defaultMessage="Tallenna"/>
-            </Button>
-            {/*{props.children ? props.children : (<Button*/}
-            {/*  type="submit"*/}
-            {/*  variant="contained"*/}
-            {/*  color="primary"*/}
-            {/*>*/}
-            {/*  <FormattedMessage defaultMessage="Lähetä" />*/}
-            {/*</Button>)}*/}
-          </Form> :
-          <Form ref={ref} {...props} />
-      );
+                draftButton={props.draftButton ? props.draftButton : draftButton}
+          /> :
+          <Form ref={ref} {...props} />);
     }
   );
 }

@@ -15,6 +15,7 @@ import withPrefill from './withPrefill';
 import withReview from './withReview';
 import withSteps from './withSteps';
 import withDraftSave from './withDraftSave';
+import withSnackbar from "./withSnackbar";
 
 export const Form =
   RJSFForm
@@ -31,6 +32,7 @@ export const Form =
   |> withPrefill
 //  |> withLiveValidateOnError
   |> withPropsUpdater(useNormalizeConfigProp)
-  |> withFormConfigLoader;
+  |> withFormConfigLoader
+  |> withSnackbar;
 
 export const Formula = Form |> withFormulaProvider;

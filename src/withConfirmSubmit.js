@@ -1,5 +1,6 @@
 import { forwardRef, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
+import Button from "@material-ui/core/Button";
 import { useMutations } from './api';
 import ConfirmDialog, { isCaptchaRequired } from './ConfirmDialog';
 import { chain } from './utils';
@@ -82,7 +83,19 @@ export default function withConfirmSubmit(Form) {
                 }
               },
             ])}
-          />
+          >
+            {other.children ? other.children :
+              <div>
+                {other.draftButton}
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                >
+                  <FormattedMessage defaultMessage="Lähetä" />
+                </Button>
+                </div>}
+          </Form>
         </>
       );
     }
