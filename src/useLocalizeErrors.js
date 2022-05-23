@@ -70,7 +70,7 @@ export default (props) => {
           .split('][')
         const { fieldSchema, fieldUISchema } = errorPropertyArray
           .reduce(
-            function accumulator({ fieldSchema, fieldUISchema }, pathPart, index) {
+            function accumulator({ fieldSchema = {}, fieldUISchema = {} }, pathPart, index) {
               if (fieldSchema.type === 'object') {
                 return {
                   fieldSchema: get(fieldSchema.properties, `[${pathPart}]`),
