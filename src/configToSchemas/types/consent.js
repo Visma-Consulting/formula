@@ -3,10 +3,10 @@ import { Typography, Checkbox, FormControlLabel } from '@material-ui/core';
 
 
 function CheckboxWidget({ options, onChange, value, id }) {
-  const required = options?.element?.required;
+  const required = options.element?.required;
   const useLabel = options.element?.useLabel;
-  const label = options.element.label;
-  const consentMessage = options.element.yes;
+  const label = options.element?.label;
+  const consentMessage = options.element?.yes;
   const headerNumber = id?.split('_').length + 1;
   const title = (useLabel ? label : options.element.title) + (required ? ' *' : '');
   return (
@@ -15,8 +15,8 @@ function CheckboxWidget({ options, onChange, value, id }) {
         {title}
       </Typography>
       <br/>
-      {(options.element.useLabel === false || options.element.useLabel === undefined)&& (
-        <Typography component="span" variant="subtitle1" >{options.element.label}</Typography>
+      {(useLabel === false || useLabel === undefined)&& (
+        <Typography component="span" variant="subtitle1" >{label}</Typography>
       )}
 
       <FormControlLabel
