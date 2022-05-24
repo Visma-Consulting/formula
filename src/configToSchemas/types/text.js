@@ -22,6 +22,17 @@ export default ({ config }) => {
   };
 };
 
+export const validators = {
+  hetu: {
+    name: defineMessage({
+      defaultMessage: 'Hetu'
+    }),
+    fn: (value, errors) => {
+      console.log(value);
+    }
+  }
+};
+
 export const name = defineMessage({
   defaultMessage: 'Tekstikenttä',
 });
