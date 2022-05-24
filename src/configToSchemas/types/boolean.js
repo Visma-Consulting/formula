@@ -4,28 +4,31 @@ import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import { defineMessage, useIntl } from 'react-intl';
 import { ensureValueIsAvailable } from '../../utils';
 
-const Switch = ({ onChange, options, schema, value }) => (
-  <>
-    <Typography variant="subtitle1">{schema.title}</Typography>
-    <ToggleButtonGroup
-      exclusive
-      value={value}
-      onChange={(event, value) => {
-        value === null ? onChange(undefined) : onChange(value);
-      }}
-    >
-      {options.enumOptions.map(({ label, value }, index) => (
-        <ToggleButton
-          key={index}
-          value={value}
-          disabled={schema.readOnly || options.readonly}
-        >
-          {label}
-        </ToggleButton>
-      ))}
-    </ToggleButtonGroup>
-  </>
-);
+const Switch = ({ onChange, options, schema, value }) => {
+  const title = options.element.required ? schema.title + ' *' : schema.title;
+  return(
+    <>
+      <Typography variant="subtitle1">{title}</Typography>
+      <ToggleButtonGroup
+        exclusive
+        value={value}
+        onChange={(event, value) => {
+          value === null ? onChange(undefined) : onChange(value);
+        }}
+      >
+        {options.enumOptions.map(({ label, value }, index) => (
+          <ToggleButton
+            key={index}
+            value={value}
+            disabled={schema.readOnly || options.readonly}
+          >
+            {label}
+          </ToggleButton>
+        ))}
+      </ToggleButtonGroup>
+    </>
+  );
+}
 
 const NOTHING = 'nothing';
 
