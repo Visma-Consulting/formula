@@ -1,3 +1,7 @@
+# x.y.z
+
+- Upgrade to `pretty-bytes@6.0.0`
+
 # 0.4.95
 
 - LiveValidateOnError bugfixes
