@@ -39,7 +39,7 @@ import Formula from '@visma/formula';
 />;
 ```
 
-### Use external config
+### Use external config, prefill some fields
 
 ```js
 import Formula from '@visma/formula';
@@ -50,6 +50,17 @@ import Formula from '@visma/formula';
     axios.defaults.headers.common.Authorization = 'Bearer <token>';
   }}
   id="1"
+  // Assuming form has at least a formGroup with key `customer`, containing
+  // fields with keys `firstName` & `lastName`.
+  formData={useMemo(
+    () => ({
+      customer: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+      },
+    }),
+    [user]
+  )}
 />;
 ```
 
@@ -64,6 +75,7 @@ One of `config`, `id` or `dataId` is required. Rest are optional.
 | Name                                              | Type                                                                         | Description                                                                                                                                         |
 | ------------------------------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `config`                                          | [Form](https://visma-consulting.github.io/formula/docs/interfaces/Form.html) | Form config                                                                                                                                         |
+| `formData`                                        | `any`                                                                        | Optional, prefilled form data. Ensure the reference does not change undesirably, e.g. using `useMemo`.                                              |
 | `id`                                              | `string`                                                                     | External form config id                                                                                                                             |
 | `dataId`                                          | `string`                                                                     | Resume editing                                                                                                                                      |
 | `onSubmit`                                        | `({ values }) => void`                                                       | Override default submit handler                                                                                                                     |
