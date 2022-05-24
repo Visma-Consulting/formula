@@ -1,5 +1,6 @@
-# x.y.z
+# 0.4.96
 
+- Upgrade to `@visma/rjsf-*@3.1.0-37`
 - Upgrade to `pretty-bytes@6.0.0`
 
 # 0.4.95
