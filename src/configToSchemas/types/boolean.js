@@ -9,7 +9,7 @@ const Switch = ({ onChange, options, schema, value }) => {
   return(
     <>
       <Typography variant="subtitle1">{title}</Typography>
-      <FormHelperText component="span" variant="contained" >{options?.element?.description}</FormHelperText>
+      {options?.element?.list ? <></> : <FormHelperText component="span" variant="contained" >{options?.element?.description}</FormHelperText> }
       <ToggleButtonGroup
         exclusive
         value={value}
