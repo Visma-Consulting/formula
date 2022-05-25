@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core';
+import { FormHelperText, Typography } from '@material-ui/core';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import { defineMessage, useIntl } from 'react-intl';
@@ -9,6 +9,7 @@ const Switch = ({ onChange, options, schema, value }) => {
   return(
     <>
       <Typography variant="subtitle1">{title}</Typography>
+      <FormHelperText component="span" variant="contained" >{options?.element?.description}</FormHelperText>
       <ToggleButtonGroup
         exclusive
         value={value}
