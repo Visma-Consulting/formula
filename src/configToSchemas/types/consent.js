@@ -34,7 +34,7 @@ function CheckboxWidget({ options, onChange, value, id }) {
   );
 }
 
-export default (config) => {
+export default () => {
   return {
     schema: {
       type: 'boolean',
@@ -43,7 +43,6 @@ export default (config) => {
     },
     uiSchema: {
       'ui:widget': CheckboxWidget,
-      'ui:description': config.description,
     }
   }
 };
