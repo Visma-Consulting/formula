@@ -27,8 +27,17 @@ export const validators = {
     name: defineMessage({
       defaultMessage: 'Hetu'
     }),
-    fn: (value, errors) => {
+    fn: (value, errors, key) => {
       console.log(value);
+      console.log(errors);
+      if (value === 'aaa') {
+        if (key) {
+          errors[key].addError('Tässä on kolme a:ta');
+        } else {
+          console.log('täällä')
+          errors.addError('Tässä on kolme a:ta');
+        }
+      }
     }
   }
 };

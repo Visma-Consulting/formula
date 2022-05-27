@@ -14,6 +14,7 @@ import withLiveValidateOnError from './withLiveValidateOnError';
 import withPrefill from './withPrefill';
 import withReview from './withReview';
 import withSteps from './withSteps';
+import withCustomValidation from './withCustomValidation';
 
 export const Form =
   RJSFForm
@@ -27,6 +28,7 @@ export const Form =
   |> withPropsUpdater(configToSchemas)
   |> withPropsUpdater(useDynamicElements)
   |> withPrefill
+  |> withCustomValidation
   |> withLiveValidateOnError
   |> withPropsUpdater(useNormalizeConfigProp)
   |> withFormConfigLoader;
