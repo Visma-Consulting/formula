@@ -31,6 +31,7 @@ export default (props) => {
     );
   } else {
     if (uiSchema['ui:order']) {
+      console.log(otherProps);
       return uiSchema['ui:order'].map((name) => (
         <Field
           {...otherProps}
@@ -57,7 +58,7 @@ export default (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {formData.table?.map((rowItem, rowIndex) => (
+            {formData?.table?.map((rowItem, rowIndex) => (
               <TableRow key={'row-' + rowIndex}>
                 {rowItem.map((item, itemIndex) => (
                   <TableCell key={'cell-' + rowIndex + '-' + itemIndex}>

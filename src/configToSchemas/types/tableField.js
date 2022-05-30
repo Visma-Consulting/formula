@@ -199,6 +199,7 @@ export default ({ config }) => {
       properties: {
         table: {
           type: 'array',
+          default: [],
           items: {
             type: 'array',
             items: {
