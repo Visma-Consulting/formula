@@ -1,3 +1,7 @@
+# 0.4.97
+
+- Add draft related functionality
+
 # 0.4.96
 
 - Upgrade to `@visma/rjsf-*@3.1.0-37`
