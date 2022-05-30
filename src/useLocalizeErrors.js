@@ -66,8 +66,10 @@ export default (props) => {
           // Array item's array: ['0'][10] --> ['0']
           .replace(/\[\d+\]$/, '');
         const errorPropertyArray = errorProperty
-          .slice(1, -1)
-          .split('][')
+          .slice(1)
+          .replace('[', '.')
+          .replace(']', '')
+          .split('.');
         const { fieldSchema, fieldUISchema } = errorPropertyArray
           .reduce(
             function accumulator({ fieldSchema = {}, fieldUISchema = {} }, pathPart, index) {
