@@ -17,6 +17,9 @@
   "5lAmdW": {
     "defaultMessage": "Fil"
   },
+  "KwX5/f": {
+    "defaultMessage": "Framåt"
+  },
   "+r5C/M": {
     "defaultMessage": "\"{field}\" behöver samtycke"
   },
@@ -143,6 +146,15 @@
   "OW2+mS": {
     "defaultMessage": "booleanvärde"
   },
+  "7xLZD/": {
+    "defaultMessage": "Dag"
+  },
+  "OH1wW1": {
+    "defaultMessage": "Månad"
+  },
+  "IX37vK": {
+    "defaultMessage": "År"
+  },
   "06GmPX": {
     "defaultMessage": "Lägg till rad"
   },
@@ -179,10 +191,25 @@
   "jxSL/l": {
     "defaultMessage": "Radioknappar under varandra"
   },
+  "w8nTyg": {
+    "defaultMessage": "Kontrollera de obligatoriska frågorna på alla sidor"
+  },
   "Dvb90q": {
-    "defaultMessage": "\"{field}\" måste vara större än {limit}"
+    "defaultMessage": "\"{field}\" måste vara större än eller lika med {limit}"
   },
   "EMQOEP": {
     "defaultMessage": "\"{field}\" måste vara mindre än {limit}"
+  },
+  "yFga8M": {
+    "defaultMessage": "Start datum"
+  },
+  "l26Isu": {
+    "defaultMessage": "Slutdatum"
+  },
+  "G3a8oG": {
+    "defaultMessage": "Datumintervall"
+  },
+  "nYaKFF": {
+    "defaultMessage": "Sammansatt fält"
   }
 }

@@ -2,15 +2,21 @@ import { defineMessage } from 'react-intl';
 import { Typography, Checkbox, FormControlLabel } from '@material-ui/core';
 
 
-function CheckboxWidget({ options, onChange, value }) {
-  const consentMessage = options.element.yes;
+function CheckboxWidget({ options, onChange, value, id }) {
+  const required = options.element?.required;
+  const useLabel = options.element?.useLabel;
+  const label = options.element?.label;
+  const consentMessage = options.element?.yes;
+  const headerNumber = id?.split('_').length + 1;
+  const title = (useLabel ? label : options.element.title) + (required ? ' *' : '');
   return (
     <>
-      <Typography variant="subtitle1"> {options.element.useLabel ? options.element.label : options.element.title}</Typography>
+      <Typography component={headerNumber < 5 ? `h${headerNumber}` : 'h6'} variant="subtitle1">
+        {title}
+      </Typography>
       <br/>
-      {/* eslint-disable-next-line no-mixed-operators */}
-      {options.element.useLabel === false || options.element.useLabel === undefined && (
-        <Typography variant="subtitle1" >{options.element.label}</Typography>
+      {(useLabel === false || useLabel === undefined)&& (
+        <Typography component="span" variant="subtitle1" >{label}</Typography>
       )}
 
       <FormControlLabel
@@ -26,6 +32,7 @@ function CheckboxWidget({ options, onChange, value }) {
     </>
   );
 }
+
 export default () => {
   return {
     schema: {

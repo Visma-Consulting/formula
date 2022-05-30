@@ -1,19 +1,21 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, forwardRef } from 'react';
 
-const withLiveValidateOnError =
-  (Form) =>
-  ({ onError, ...props }) => {
-    const [hasErrors, setHasErrors] = useState();
+function withLiveValidateOnError(Form) {
+  return forwardRef(
+    ({ onError, ...props }, ref) => {
+      const [hasErrors, setHasErrors] = useState();
 
-    const handleError = useCallback(
-      (errors) => {
-        setHasErrors(true);
-        onError?.(errors);
-      },
-      [onError]
-    );
+      const handleError = useCallback(
+        (errors) => {
+          setHasErrors(true);
+          onError?.(errors);
+        },
+        [onError]
+      );
 
-    return <Form liveValidate={hasErrors} {...props} onError={handleError} />;
-  };
+      return <Form ref={ref} liveValidate={hasErrors} {...props} onError={handleError} />;
+    }
+  )
+}
 
 export default withLiveValidateOnError;

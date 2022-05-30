@@ -56,6 +56,9 @@
   "ZFehpA": {
     "defaultMessage": "Title"
   },
+  "KwX5/f": {
+    "defaultMessage": "Forward"
+  },
   "ZSBYCq": {
     "defaultMessage": "Buttons with empty choice"
   },
@@ -158,6 +161,15 @@
   "G7a3as": {
     "defaultMessage": "\"{field}\" {limit, plural, =1 {is mandatory field} other {should contain at most # chars}}"
   },
+  "7xLZD/": {
+    "defaultMessage": "Days"
+  },
+  "OH1wW1": {
+    "defaultMessage": "Months"
+  },
+  "IX37vK": {
+    "defaultMessage": "Years"
+  },
   "Od6CNk": {
     "defaultMessage": "{tableName} column {columnName} row {row}"
   },
@@ -166,6 +178,15 @@
   },
   "F0dHQ0": {
     "defaultMessage": "I consent"
+  },
+  "yFga8M": {
+    "defaultMessage": "Start date"
+  },
+  "l26Isu": {
+    "defaultMessage": "End date"
+  },
+  "G3a8oG": {
+    "defaultMessage": "Date range"
   },
   "RTxVAk": {
     "defaultMessage": "Checkboxes in a row"
@@ -179,10 +200,16 @@
   "jxSL/l": {
     "defaultMessage": "Radio buttons one below another"
   },
-  "Dvb90q": {
-    "defaultMessage": "\"{field}\" must be larger than {limit}"
+  "w8nTyg": {
+    "defaultMessage": "Check required questions on every page"
+  },
+  "oAZ7Ri": {
+    "defaultMessage": "\"{field}\" must be larger than or equal to {limit}"
   },
   "EMQOEP": {
-    "defaultMessage": "\"{field}\" must be smaller than {limit}"
+    "defaultMessage": "\"{field}\" must be smaller than or equal to {limit}"
+  },
+  "nYaKFF": {
+    "defaultMessage": "Composed field"
   }
 }

@@ -1,3 +1,54 @@
+# 0.4.96
+
+- Upgrade to `@visma/rjsf-*@3.1.0-37`
+- Upgrade to `pretty-bytes@6.0.0`
+
+# 0.4.95
+
+- LiveValidateOnError bugfixes
+- Boolean, consent and compose bugfixes
+- Upgrade to `@visma/rjsf-*@3.1.0-36`
+
+# 0.4.94
+
+- Add customization props `confirmComponent`, `previewField` & `reviewField`
+- Remove unnecessary aria label from print button
+- Upgrade to `@visma/rjsf-*@3.1.0-35`
+- Add button to clear date and date range values
+- Enabled live validation
+- Add compose field
+
+# 0.4.93
+
+- Fix DLL: Add missing `dll.js` to published files
+- Export `resolveElementReferences` from `useResolveElementReferences`
+
+# 0.4.92
+
+- Date and DateRange restrictions empty choice
+
+# 0.4.91
+
+- Fix autosort issues
+- Fix stepped forms issues
+- Upgrade to `@visma/rjsf-*@3.1.0-34`
+
+# 0.4.90
+
+- Feature time restictions for date and date range
+- Feature date range question type
+- Feature disable elements
+- Fix consent formgroup error
+- Fix form validation errors
+- Fix accessibility headers
+- Upgrade to `@visma/rjsf-*@3.1.0-33`
+
+# 0.4.88
+
+- Added general form validation error message
+- Fix consent functionality
+- Upgrade to `@visma/rjsf-*@3.1.0-32`
+
 # 0.4.88
 
 - Add missing error messages

@@ -23,10 +23,10 @@ const messages = defineMessages({
     defaultMessage: '"{field}" vaatii hyväksynnän',
   },
   minimum: {
-    defaultMessage: '"{field}" täytyy olla suurempi kuin {limit}',
+    defaultMessage: '"{field}" täytyy olla suurempi tai yhtä suuri kuin kuin {limit}',
   },
   maximum: {
-    defaultMessage: '"{field}" täytyy olla pienempi kuin {limit}',
+    defaultMessage: '"{field}" täytyy olla pienempi tai yhtä suuri kuin {limit}',
   },
 
   pattern: { defaultMessage: '"{field}" arvon on oltava {description}' },
@@ -60,6 +60,8 @@ export default (props) => {
         const errorProperty = error.property
           // .properties[0].enum --> [0]
           .replace(/^\.properties/, '')
+          .replace(/\.end$/, '')
+          .replace(/\.start$/, '')
           .replace(/\.enum$/, '')
           // Array item's array: ['0'][10] --> ['0']
           .replace(/\[\d+\]$/, '');
@@ -68,7 +70,7 @@ export default (props) => {
           .split('][')
         const { fieldSchema, fieldUISchema } = errorPropertyArray
           .reduce(
-            function accumulator({ fieldSchema, fieldUISchema }, pathPart, index) {
+            function accumulator({ fieldSchema = {}, fieldUISchema = {} }, pathPart, index) {
               if (fieldSchema.type === 'object') {
                 return {
                   fieldSchema: get(fieldSchema.properties, `[${pathPart}]`),
@@ -107,7 +109,6 @@ export default (props) => {
                 : value
           ),
         });
-
         return {
           ...error,
           params: { pattern: patternDescription },
@@ -115,7 +116,6 @@ export default (props) => {
           stack: message,
         };
       });
-
       return props.transformErrors
         ? props.transformErrors(transformedErrors)
         : transformedErrors;

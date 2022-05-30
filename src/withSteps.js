@@ -17,23 +17,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function withSteps(Form) {
-  const WithSteps = forwardRef(({ onSubmit, steps, ...otherProps }, ref) => {
+  const WithSteps = forwardRef(({ onSubmit, onChange, onError, formData, steps, ...otherProps }, ref) => {
     const [activeStep, setActiveStep] = useState(0);
     const [maxJump, setMaxJump] = useState(activeStep);
     const [noValidate, setNoValidate] = useState(false);
+    const [liveValidate, setLiveValidate] = useState(false);
     const classes = useStyles();
     const formRef = useRef();
     ref ??= formRef;
     const formWrapperRef = useRef();
     const jumpRef = useRef(null);
-
     function handleStepChange(...args) {
       const nextStep = jumpRef.current ?? activeStep + 1;
 
       if (nextStep < steps.length) {
         setMaxJump((prev) => Math.max(prev, nextStep));
         setActiveStep(nextStep);
-        handleNoValidate();
         const stepId = 'formula-step-' + steps[nextStep]['ui:options']?.element?.key;
         document.getElementById(stepId).focus();
         formWrapperRef.current.scrollIntoView({ behavior: "smooth" });
@@ -47,65 +46,48 @@ export default function withSteps(Form) {
 
     const handleSubmit = () => {
       setNoValidate(false);
-    }
-
-    const handleNoValidate = () => {
-      if (isLastStep) {
-        setNoValidate(false);
-      }
-      if (activeStep > maxJump || activeStep === maxJump) {
-        setNoValidate(false);
-
-      } else {
-        setNoValidate(true);
-      }
-    }
-
+    };
     const isLastStep = activeStep === steps.length - 1;
 
     const elements = otherProps.uiSchema['ui:order'];
 
-    const currentStepElements = [];
-    const beforeMaxJumpElements = [];
-    let current = -1;
-    for (const element of elements) {
-      const uiField = otherProps.uiSchema[element]?.['ui:field'];
-      if (uiField === StepTitle) {
-        current++;
-        if (current > maxJump) {
-          break;
-        } else {
-          continue;
-        }
-      }
-      if ((current === -1 && activeStep === 0) || current === activeStep) {
-        currentStepElements.push(element);
-      }
-      beforeMaxJumpElements.push(element);
-    }
-
-      const createHandleJump = (step) =>
-        function handleJump(event) {
-          // If backward button pressed
-          if (step < activeStep) {
-            setActiveStep(step);
-            handleNoValidate();
-            jumpRef.current = step;
+      const currentStepElements = [];
+      const beforeMaxJumpElements = [];
+      let current = -1;
+      for (const element of elements) {
+        const uiField = otherProps.uiSchema[element]?.['ui:field'];
+        if (uiField === StepTitle) {
+          current++;
+          if (current > maxJump) {
+            break;
           } else {
-            activeStep < maxJump && !isLastStep ? setNoValidate(true) : setNoValidate(false);
+            continue;
           }
-          ref.current.submit(event);
-          // Wait for the submit event to trigger.
-          setTimeout(() => {
-            // If form has validation errors, jump does not happen and we must clean
-            // current value.
-            jumpRef.current = null;
-          });
-        };
+        }
+        if ((current === -1 && activeStep === 0) || current === activeStep) {
+          currentStepElements.push(element);
+        }
+        beforeMaxJumpElements.push(element);
+      }
+
+    const createHandleJump = (step) =>
+      function handleJump(event) {
+        // If backward button pressed
+        step < activeStep ? setNoValidate(true) : setNoValidate(false);
+        setLiveValidate(false);
+        jumpRef.current = step;
+        ref.current.submit(event);
+        // Wait for the submit event to trigger.
+        setTimeout(() => {
+          // If form has validation errors, jump does not happen and we must clean
+          // current value.
+          jumpRef.current = null;
+        });
+      };
 
     return (
       <div ref={formWrapperRef}>
-        <Typography variant="h5" gutterBottom>
+        <Typography component="h2" variant="h5" gutterBottom>
           {otherProps.schema.title}
         </Typography>
         <Stepper activeStep={activeStep} orientation="vertical" nonLinear>
@@ -132,12 +114,22 @@ export default function withSteps(Form) {
                         onSubmit={isLastStep ? onSubmit : undefined}
                         onPreSubmit={handleStepChange}
                         ref={ref}
+                        formData={formData}
+                        onChange={(...args) => {
+                          onChange?.(...args);
+                          setMaxJump(activeStep);
+                        }}
+                        onError={(...args) => {
+                          setLiveValidate(true);
+                          onError?.(...args)
+                        }}
+                        liveValidate={liveValidate}
                         noValidate={noValidate}
                         schema={{
                           ...otherProps.schema,
                           properties: pick(
                             otherProps.schema.properties,
-                            beforeMaxJumpElements
+                            isLastStep ? beforeMaxJumpElements : currentStepElements
                           ),
                           title: undefined,
                           required: otherProps.schema.required?.filter((key) =>
@@ -178,9 +170,10 @@ export default function withSteps(Form) {
                               variant="contained"
                               color="primary"
                             >
-                            <FormattedMessage defaultMessage="Lähetä" />
-                            </Button>) : (
-                              <Button
+                              <FormattedMessage defaultMessage="Lähetä" />
+                            </Button>
+                          ) : (
+                            <Button
                               onClick={createHandleJump(activeStep + 1)}
                               variant="contained"
                               color="primary"
@@ -188,16 +181,17 @@ export default function withSteps(Form) {
                               <FormattedMessage defaultMessage="Eteenpäin" />
                             </Button>
                           )}
-                      </Form>
-                    </StepContent>
-                  )}
-                </Step>
-              );
-            })}
-        </Stepper>
-      </div>
-    );
-  });
+                        </Form>
+                      </StepContent>
+                    )}
+                  </Step>
+                );
+              })}
+          </Stepper>
+        </div>
+      );
+    }
+  );
 
   return forwardRef((props, ref) => {
     const uiOrder = props.uiSchema['ui:order'] ?? [];
@@ -206,10 +200,18 @@ export default function withSteps(Form) {
       .map(([, value]) => value)
       .filter(Boolean)
       .filter(({ 'ui:field': uiField }) => uiField === StepTitle);
+
+    const steppedProps = {
+      ...props,
+      // In form step schema & uiSchema is incomplete.
+      // This is to access the original/full schema & uiSchema.
+      __withStepped_original_props__: props,
+    };
+
     return steps.length ? (
-      <WithSteps ref={ref} {...props} steps={steps} />
+      <WithSteps ref={ref} {...steppedProps} steps={steps} />
     ) : (
-      <Form ref={ref} {...props} />
+      <Form ref={ref} {...steppedProps} />
     );
   });
 }

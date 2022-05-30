@@ -1,4 +1,4 @@
-import { defineMessage } from 'react-intl';
+import { defineMessage, useIntl } from 'react-intl';
 
 export default ({ config }) => {
   const {
@@ -6,16 +6,16 @@ export default ({ config }) => {
     minLength,
     maxLength,
     pattern,
-    patternDescription,
     required,
   } = config;
-
+  const intl = useIntl();
+  const patternDescription = config.patternDescription ? config.patternDescription : intl.formatMessage({ defaultMessage: 'muu kuin tyhjä' });
   return {
     schema: {
       default: defaults,
       minLength: minLength ?? (required ? 1 : undefined),
       maxLength,
-      pattern,
+      pattern: pattern ?? (required ? '[^\\s]+' : undefined),
       type: 'string',
     },
     uiSchema: { patternDescription },
