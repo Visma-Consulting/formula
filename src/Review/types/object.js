@@ -31,7 +31,6 @@ export default (props) => {
     );
   } else {
     if (uiSchema['ui:order']) {
-      console.log(otherProps);
       return uiSchema['ui:order'].map((name) => (
         <Field
           {...otherProps}
