@@ -1,5 +1,6 @@
 import { forwardRef, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
+import Button from "@material-ui/core/Button";
 import { useMutations } from './api';
 import ConfirmDialog from './ConfirmDialog';
 import { hasConfirm } from './customizations';
@@ -14,6 +15,7 @@ export default function withConfirmSubmit(Form) {
         onPostSubmit,
         formDataAction,
         credentials,
+        dataIsDraft,
         ...otherProps
       },
       ref
@@ -35,6 +37,9 @@ export default function withConfirmSubmit(Form) {
           )}
           <Form
             ref={ref}
+            credentials={credentials}
+            formDataAction={formDataAction}
+            dataIsDraft={dataIsDraft}
             {...otherProps}
             onSubmit={chain([
               onPreSubmit,
@@ -63,6 +68,7 @@ export default function withConfirmSubmit(Form) {
                     data,
                     credentials,
                     formDataAction,
+                    dataIsDraft,
                     ...args
                   );
 
@@ -79,7 +85,19 @@ export default function withConfirmSubmit(Form) {
                 }
               },
             ])}
-          />
+          >
+            {other.children ? other.children :
+              <div>
+                {other.draftButton}
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                >
+                  <FormattedMessage defaultMessage="Lähetä" />
+                </Button>
+                </div>}
+          </Form>
         </>
       );
     }

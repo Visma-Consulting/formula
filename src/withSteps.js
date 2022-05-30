@@ -162,7 +162,7 @@ export default function withSteps(Form) {
                             <FormattedMessage defaultMessage="Takaisin" />
                           </Button>
                         )}
-
+                        {otherProps.draftButton}
                           {isLastStep ? (
                             <Button
                               type="submit"

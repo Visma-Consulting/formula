@@ -58,6 +58,7 @@
     "lodash": "^4.17.21",
     "markdown-to-jsx": "^7.1.2",
     "moment": "^2.29.1",
+    "notistack": "^1.0.9",
     "pretty-bytes": "^6.0.0",
     "react-dates": "^21.8.0",
     "react-google-recaptcha": "^2.1.0",
