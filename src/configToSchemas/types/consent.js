@@ -1,5 +1,5 @@
 import { defineMessage } from 'react-intl';
-import { Typography, Checkbox, FormControlLabel } from '@material-ui/core';
+import { Typography, Checkbox, FormControlLabel, FormHelperText } from '@material-ui/core';
 
 
 function CheckboxWidget({ options, onChange, value, id }) {
@@ -18,6 +18,7 @@ function CheckboxWidget({ options, onChange, value, id }) {
       {(useLabel === false || useLabel === undefined)&& (
         <Typography component="span" variant="subtitle1" >{label}</Typography>
       )}
+      <FormHelperText component="span" variant="contained" >{options?.element?.description}</FormHelperText>
 
       <FormControlLabel
         control={
