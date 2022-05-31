@@ -1,3 +1,7 @@
+# 0.4.98
+
+- Fix broken variable
+
 # 0.4.97
 
 - Add draft related functionality
