@@ -12,6 +12,8 @@ import 'react-dates/initialize';
 import { defineMessage, FormattedMessage, useIntl } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import { mapValues } from 'lodash';
+import { DateRangePickerPhrases } from '../../../../lib/configToSchemas/types/date/phrases';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -37,6 +39,7 @@ const afterDay = (date) => {
 
 function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
   const intl = useIntl();
+  const language = intl.locale.split('-')[0] !== 'en';
   const [focused, setFocused] = useState();
   const { title, label, useLabel, list } = options.element;
   const handleFocusChange = ({ focused }) => setFocused(focused);
@@ -52,6 +55,11 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
         date={value === undefined ? null : moment(value)}
         onDateChange={(date) => date && onChange(date.format('YYYY-MM-DD'))}
         focused={focused}
+        screenReaderInputMessage={
+          <FormattedMessage defaultMessage={'Päivämäärä'}/>
+        }
+        jumpToPrevMonth={<FormattedMessage defaultMessage={'Mene taakseppäin'}/>}
+        phrases={language ? mapValues(DateRangePickerPhrases, message => intl.formatMessage(message)) : ''}
         onFocusChange={handleFocusChange}
         id={id}
         disabled={schema.readOnly || options.readonly}
@@ -97,4 +105,3 @@ export const name = defineMessage({
 });
 
 export const elementType = 'field';
-
