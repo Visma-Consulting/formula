@@ -86,9 +86,9 @@ export default function withConfirmSubmit(Form) {
               },
             ])}
           >
-            {other.children ? other.children :
+            {otherProps.children ? otherProps.children :
               <div>
-                {other.draftButton}
+                {otherProps.draftButton}
                 <Button
                   type="submit"
                   variant="contained"
