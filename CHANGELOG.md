@@ -1,3 +1,7 @@
+# 0.4.99
+
+- Fix various stacktrace errors
+
 # 0.4.98
 
 - Fix broken variable
