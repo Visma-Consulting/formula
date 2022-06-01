@@ -1,3 +1,7 @@
+# x.y.z
+
+- Fix missing RJSF translations in DLL
+
 # 0.4.99
 
 - Fix various stacktrace errors
