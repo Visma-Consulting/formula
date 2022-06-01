@@ -149,6 +149,7 @@ export default function useDynamicElements(props) {
 
   return {
     ...props,
+    __useDynamicElements_original_props__: props,
     formData,
     config: dynamicElements(props.config, formData),
     onChange(...args) {

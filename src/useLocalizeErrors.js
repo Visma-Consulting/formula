@@ -56,7 +56,7 @@ export default (props) => {
           return error;
         }
 
-        const { schema, uiSchema } = props;
+        const { schema, uiSchema } = props.__useDynamicElements_original_props__;
         const errorProperty = error.property
           // .properties[0].enum --> [0]
           .replace(/^\.properties/, '')
