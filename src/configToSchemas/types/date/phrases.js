@@ -3,7 +3,6 @@ import { defineMessage } from 'react-intl';
 const calendarLabel = defineMessage({
   defaultMessage: 'Kalenteri',
 })
-
 const jumpToPrevMonth = defineMessage({
   defaultMessage: 'Edellinen kuukausi',
 })
