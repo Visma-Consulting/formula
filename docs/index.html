@@ -68,6 +68,11 @@
 <td>Resume editing</td>
 </tr>
 <tr>
+<td><code>onPreSubmit</code></td>
+<td><code>async (args: Args, event: SubmitEvent) =&gt; void | boolean | [Args, SubmitEvent]</code></td>
+<td>Run code before submit. Falsy return value prevents the submit. Return <code>true</code> or modified args to submit.</td>
+</tr>
+<tr>
 <td><code>onSubmit</code></td>
 <td><code>({ values }) =&gt; void</code></td>
 <td>Override default submit handler</td>
