@@ -100,8 +100,8 @@ export default (props) => {
               fieldUISchema: uiSchema,
             }
           );
-        const { title } = fieldSchema;
-        const { patternDescription } = fieldUISchema;
+        const { title } = fieldSchema ?? {};
+        const { patternDescription } = fieldUISchema ?? {};
         const message = intl.formatMessage(messageDescriptor, {
           field: title,
           description: { pattern: patternDescription }[error.name],
@@ -128,6 +128,6 @@ export default (props) => {
 };
 
 const stringDataUrlToFile = (fieldSchema) => (value) =>
-  [fieldSchema.format, fieldSchema.items?.format].includes('data-url')
+  [fieldSchema?.format, fieldSchema?.items?.format].includes('data-url')
     ? 'file'
     : value;
