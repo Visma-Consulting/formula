@@ -14,8 +14,19 @@ import withLiveValidateOnError from './withLiveValidateOnError';
 import withPrefill from './withPrefill';
 import withReview from './withReview';
 import withSteps from './withSteps';
+import withDraftSave from './withDraftSave';
+import withSnackbar from './withSnackbar';
 import withCustomValidation from './withCustomValidation';
 
+/**
+ * RJSFForm is extended with these higher-order components. Extensions are
+ * added from top to bottom. Props get modified in the reversed order: bottom
+ * to top.
+ *
+ *  - The topmost function is the most inner wrapper component of <RJSFForm>
+ *  - The last function is the outmost wrapper. It gets the unmodified props
+ *    from the user of <Form>.
+ */
 export const Form =
   RJSFForm
   |> withPropsUpdater(noHtml5Validate)
@@ -25,12 +36,14 @@ export const Form =
   |> withConfirmSubmit
   |> withSteps
   |> withReview
+  |> withDraftSave
   |> withPropsUpdater(configToSchemas)
   |> withPropsUpdater(useDynamicElements)
   |> withPrefill
   |> withCustomValidation
   |> withLiveValidateOnError
   |> withPropsUpdater(useNormalizeConfigProp)
-  |> withFormConfigLoader;
+  |> withFormConfigLoader
+  |> withSnackbar;
 
 export const Formula = Form |> withFormulaProvider;

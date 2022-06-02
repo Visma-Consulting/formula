@@ -39,7 +39,7 @@ import Formula from '@visma/formula';
 />;
 ```
 
-### Use external config
+### Use external config, prefill some fields
 
 ```js
 import Formula from '@visma/formula';
@@ -50,6 +50,17 @@ import Formula from '@visma/formula';
     axios.defaults.headers.common.Authorization = 'Bearer <token>';
   }}
   id="1"
+  // Assuming form has at least a formGroup with key `customer`, containing
+  // fields with keys `firstName` & `lastName`.
+  formData={useMemo(
+    () => ({
+      customer: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+      },
+    }),
+    [user]
+  )}
 />;
 ```
 
@@ -61,21 +72,23 @@ import Formula from '@visma/formula';
 
 One of `config`, `id` or `dataId` is required. Rest are optional.
 
-| Name                                              | Type                                                                         | Description                                                                                                                                         |
-| ------------------------------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `config`                                          | [Form](https://visma-consulting.github.io/formula/docs/interfaces/Form.html) | Form config                                                                                                                                         |
-| `id`                                              | `string`                                                                     | External form config id                                                                                                                             |
-| `dataId`                                          | `string`                                                                     | Resume editing                                                                                                                                      |
-| `onSubmit`                                        | `({ values }) => void`                                                       | Override default submit handler                                                                                                                     |
-| `onPostSubmit`                                    | `(dataId, { values }) => void`                                               | Get `dataId` of submitted form data                                                                                                                 |
-| `confirm`                                         | `boolean \| { title: ReactElement, description: ReactElement }`              | Show confirm dialog or use object for other messages. Default: `true`                                                                               |
-| `axios`                                           | `axios => void`                                                              | Get access to API client's axios instance e.g. to set defaults                                                                                      |
-| `dateFnsLocale`                                   | `Locale` from `date-fns`                                                     | Examples:<br />`import useDateFnsLocale from '@visma/react-app-locale-utils/lib/useDateFnsLocale.js';`<br />`import { fi } from 'date-fns/locale';` |
-| `children`                                        | `ReactElement`                                                               | Override default submit button. Set `<></>` (empty React Frament) to render nothing.                                                                |
-| `review`                                          | `boolean`                                                                    | Show review after the form has been submitted. Default: `true`                                                                                      |
-| `forceReview`                                     | `boolean`                                                                    | Show review directly. Default: `false`                                                                                                              |
-| `reviewProps`                                     | `{ actions: ReactNode }`                                                     | Additional action buttons                                                                                                                           |
-| `confirmComponent`, `previewField`, `reviewField` | `component`                                                                  | [Customize](#customize)                                                                                                                             |
+| Name                                              | Type                                                                               | Description                                                                                                                                         |
+| ------------------------------------------------- | ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `config`                                          | [Form](https://visma-consulting.github.io/formula/docs/interfaces/Form.html)       | Form config                                                                                                                                         |
+| `formData`                                        | `any`                                                                              | Optional, prefilled form data. Ensure the reference does not change undesirably, e.g. using `useMemo`.                                              |
+| `id`                                              | `string`                                                                           | External form config id                                                                                                                             |
+| `dataId`                                          | `string`                                                                           | Resume editing                                                                                                                                      |
+| `onPreSubmit`                                     | `async (args: Args, event: SubmitEvent) => void \| boolean \| [Args, SubmitEvent]` | Run code before submit. Falsy return value prevents the submit. Return `true` or modified args to submit.                                           |
+| `onSubmit`                                        | `({ values }) => void`                                                             | Override default submit handler                                                                                                                     |
+| `onPostSubmit`                                    | `(dataId, { values }) => void`                                                     | Get `dataId` of submitted form data                                                                                                                 |
+| `confirm`                                         | `boolean \| { title: ReactElement, description: ReactElement }`                    | Show confirm dialog or use object for other messages. Default: `true`                                                                               |
+| `axios`                                           | `axios => void`                                                                    | Get access to API client's axios instance e.g. to set defaults                                                                                      |
+| `dateFnsLocale`                                   | `Locale` from `date-fns`                                                           | Examples:<br />`import useDateFnsLocale from '@visma/react-app-locale-utils/lib/useDateFnsLocale.js';`<br />`import { fi } from 'date-fns/locale';` |
+| `children`                                        | `ReactElement`                                                                     | Override default submit button. Set `<></>` (empty React Frament) to render nothing.                                                                |
+| `review`                                          | `boolean`                                                                          | Show review after the form has been submitted. Default: `true`                                                                                      |
+| `forceReview`                                     | `boolean`                                                                          | Show review directly. Default: `false`                                                                                                              |
+| `reviewProps`                                     | `{ actions: ReactNode }`                                                           | Additional action buttons                                                                                                                           |
+| `confirmComponent`, `previewField`, `reviewField` | `component`                                                                        | [Customize](#customize)                                                                                                                             |
 
 ### `<FormulaProvider>`
 

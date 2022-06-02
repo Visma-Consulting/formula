@@ -49,9 +49,10 @@ function Compose(props) {
               } else {
                 return undefined;
               }
+            case 'dateRange':
+              return `${data.value.start ?? ''} - ${data.value.end ?? ''}`;
             case 'text': case 'textarea': case 'richtext': case 'email':
-              case 'number':case 'password': case 'range': case 'bmi':
-                case 'date': case 'dateRange':
+              case 'number':case 'password': case 'range': case 'bmi': case 'date':
               return data.value;
             default:
               return undefined;

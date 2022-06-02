@@ -56,7 +56,7 @@ export default (props) => {
           return error;
         }
 
-        const { schema, uiSchema } = props;
+        const { schema, uiSchema } = props.__useDynamicElements_original_props__;
         const errorProperty = error.property
           // .properties[0].enum --> [0]
           .replace(/^\.properties/, '')
@@ -66,8 +66,12 @@ export default (props) => {
           // Array item's array: ['0'][10] --> ['0']
           .replace(/\[\d+\]$/, '');
         const errorPropertyArray = errorProperty
-          .slice(1, -1)
-          .split('][')
+          // remove first character ['0'] --> '0'], .key --> key
+          .slice(1)
+          // replace ][ with . '0'][1].key -> '0'.1.key
+          .replace('[', '.')
+          .replace(']', '')
+          .split('.');
         const { fieldSchema, fieldUISchema } = errorPropertyArray
           .reduce(
             function accumulator({ fieldSchema = {}, fieldUISchema = {} }, pathPart, index) {
@@ -96,8 +100,8 @@ export default (props) => {
               fieldUISchema: uiSchema,
             }
           );
-        const { title } = fieldSchema;
-        const { patternDescription } = fieldUISchema;
+        const { title } = fieldSchema ?? {};
+        const { patternDescription } = fieldUISchema ?? {};
         const message = intl.formatMessage(messageDescriptor, {
           field: title,
           description: { pattern: patternDescription }[error.name],
@@ -124,6 +128,6 @@ export default (props) => {
 };
 
 const stringDataUrlToFile = (fieldSchema) => (value) =>
-  [fieldSchema.format, fieldSchema.items?.format].includes('data-url')
+  [fieldSchema?.format, fieldSchema?.items?.format].includes('data-url')
     ? 'file'
     : value;

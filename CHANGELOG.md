@@ -1,3 +1,30 @@
+# x.y.z
+
+- Fix missing RJSF translations in DLL
+
+# 0.4.99
+
+- Fix various stacktrace errors
+
+# 0.4.98
+
+- Fix broken variable
+
+# 0.4.97
+
+- Add draft related functionality
+
+# 0.4.96
+
+- Upgrade to `@visma/rjsf-*@3.1.0-37`
+- Upgrade to `pretty-bytes@6.0.0`
+
+# 0.4.95
+
+- LiveValidateOnError bugfixes
+- Boolean, consent and compose bugfixes
+- Upgrade to `@visma/rjsf-*@3.1.0-36`
+
 # 0.4.94
 
 - Add customization props `confirmComponent`, `previewField` & `reviewField`
