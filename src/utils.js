@@ -34,7 +34,19 @@ export function useStatePreferInitial(initialState) {
 }
 
 export const withPropsUpdater = (updater) => (Component) =>
-  forwardRef((props, ref) => <Component ref={ref} {...updater(props)} />);
+  forwardRef(({__useDynamicElements_original_props__, ...props}, ref) => {
+    return __useDynamicElements_original_props__ ?
+      <Component
+        ref={ref}
+        {...updater({...props, __useDynamicElements_original_props__})}
+        __useDynamicElements_original_props__={updater(__useDynamicElements_original_props__)}
+      />
+    :
+      <Component
+        ref={ref}
+        {...updater(props)}
+      /> ;
+  });
 
 export const sortChoices = (choices = [], autoSort) => {
   const choicesSorted = choices.map((choice, index) =>
