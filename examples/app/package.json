@@ -4,12 +4,13 @@
   "private": true,
   "homepage": "/formula",
   "scripts": {
-    "prebuild": "npm run generate && npx recursive-copy-cli ../../dist public/formula-frontend --overwrite",
+    "prebuild": "npm run generate",
     "build": "craco build",
     "eject": "react-scripts eject",
     "generate": "npm-run-all --parallel generate:*",
+    "generate:dll": "npx recursive-copy-cli ../../dist public/formula-frontend --overwrite",
     "generate:messages": "formatjs-scripts",
-    "prestart": "npm run generate && npx recursive-copy-cli ../../dist public/formula-frontend --overwrite",
+    "prestart": "npm run generate",
     "start": "craco start",
     "test": "craco test --passWithNoTests"
   },
