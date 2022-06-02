@@ -1,13 +1,13 @@
 import Typography from '@material-ui/core/Typography';
 import { byteLength } from 'base64-js';
 import { format } from 'date-fns';
+import { sortBy } from 'lodash';
 import prettyBytes from 'pretty-bytes';
 import { useIntl } from 'react-intl';
 import { empty } from '..';
 import { StepTitle } from '../../configToSchemas/types/stepTitle';
 import { useFormulaContext } from '../../Context';
 import Markdown from '../../Markdown';
-import { sortBy } from 'lodash';
 
 const dataUrlByteLength = (dataUrl) => byteLength(dataUrl.split(',')[1]);
 
@@ -27,15 +27,20 @@ export default ({ formData, schema, uiSchema }) => {
     formData = '********';
   }
 
-  if (uiSchema?.['ui:widget'] === 'range' && uiSchema['ui:options'].element?.widget === 'customScale') {
-    return (<>
-      <Typography variant="caption">{
-        sortBy(uiSchema['ui:options'].element.scaleMarks, 'value')
-          .map(({value, label}) => value + ' = ' + label)
-          .join(', ')
-      }</Typography>
-      <div style={{ whiteSpace: 'pre-line' }}>{formData}</div>
-    </>)
+  if (
+    uiSchema?.['ui:widget'] === 'range' &&
+    uiSchema['ui:options'].element?.widget === 'customScale'
+  ) {
+    return (
+      <>
+        <Typography variant="caption">
+          {sortBy(uiSchema['ui:options'].element.scaleMarks, 'value')
+            .map(({ value, label }) => value + ' = ' + label)
+            .join(', ')}
+        </Typography>
+        <Data>{formData}</Data>
+      </>
+    );
   }
 
   const { locale } = useIntl();
@@ -71,5 +76,13 @@ export default ({ formData, schema, uiSchema }) => {
     );
   }
 
-  return <div style={{ whiteSpace: 'pre-line' }}>{formData}</div>;
+  return <Data>{formData}</Data>;
 };
+
+function Data({ children }) {
+  return (
+    <div style={{ whiteSpace: 'pre-line', overflowWrap: 'break-word' }}>
+      {children}
+    </div>
+  );
+}

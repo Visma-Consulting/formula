@@ -1,6 +1,7 @@
 # x.y.z
 
 - Fix missing RJSF translations in DLL
+- Fix preview/review styles: force line break in a long word
 
 # 0.4.99
 
