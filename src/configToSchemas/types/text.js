@@ -25,7 +25,7 @@ export default ({ config }) => {
 
 const validationMessages = defineMessages({
   hetuError: {
-    defaultMessage: `"{title}" ei saa sisältää kolmea peräkkäistä a-kirjainta.`
+    defaultMessage: `"{title}" on virheellinen henkilötunnus.`
   }
 });
 
@@ -35,8 +35,33 @@ export const validators = {
       defaultMessage: 'Hetu'
     }),
     fn: (value, element) => {
-      if (value?.includes('aaa')) {
-        return validationMessages.hetuError;
+      /*
+      Henkilötunnus on muotoa PPKKVVSNNNT, jossa
+      PPKKVV on henkilön syntymäpäivä
+      S on vuosisataa esittävä merkki: +, - tai A
+      NNN on yksilönumero väliltä 002-899, parillinen nainen ja pariton mies
+      T on tarkiste, joka lasketaan jakamalla PPKKVVNNN syntyvä luku luvulla 31
+       */
+
+      if (value) {
+        if (value.includes('aaa')) {
+          return validationMessages.hetuError;
+        }
+
+        if (value.length !== 11) {
+          // Väärän pituinen
+          return validationMessages.hetuError;
+        }
+
+        if (false) {
+          // Päivämäärä ei ole validi
+          return validationMessages.hetuError;
+        }
+
+        if (!['+', '-', 'A'].includes(value[6])) {
+          // Väärä vuosisataa esittävä merkki
+          return validationMessages.hetuError;
+        }
       }
     }
   }
