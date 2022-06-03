@@ -1,5 +1,6 @@
 import { forwardRef } from 'react';
 import { validators as textValidators } from './configToSchemas/types/text';
+import { useIntl } from 'react-intl';
 
 const elementHasValidator = (element) => {
   return element.validator && element.validator !== 'none'
@@ -8,6 +9,7 @@ const elementHasValidator = (element) => {
 export default function withCustomValidation(Form) {
   return forwardRef(
     ({ config, ...props }, ref) => {
+      const intl = useIntl();
       const validateElements = (config.type === 'form' ? config.elements : [config])
         //.filter(element => element.validator && element.validator !== 'none');
         .map((element) => {
@@ -23,13 +25,39 @@ export default function withCustomValidation(Form) {
           text: textValidators
         }
 
+        const validateOne = (formData, errors, element, listIndex) => {
+          console.log(element);
+          console.log(listIndex);
+          const { key, type, validator } = element;
+          const errorMessage = validateFunctions[type]?.[validator]?.fn?.(formData, element);
+          if (errorMessage) {
+            if (key) {
+              if (listIndex !== null) {
+                errors[key][listIndex].addError(intl.formatMessage(errorMessage, {...element}));
+              } else {
+                errors[key].addError(intl.formatMessage(errorMessage, {...element}));
+              }
+            } else {
+              if (listIndex !== null) {
+                errors[listIndex].addError(intl.formatMessage(errorMessage, {...element}));
+              } else {
+                errors.addError(intl.formatMessage(errorMessage, {...element}));
+              }
+            }
+          }
+        }
+
         const validateAll = (formData, errors, elements) => {
           for (const element of elements) {
-            const { key, type, validator } = element;
-            if (type === 'formGroup') {
+            const { key, type, validator, list } = element;
+            if (list) {
+              for (const dataIndex in formData[key]) {
+                validateOne(formData[key][dataIndex], errors, element, dataIndex);
+              }
+            } else if (type === 'formGroup') {
               validateAll(formData[key], errors[key], element.elements);
             } else {
-              validateFunctions[type]?.[validator]?.fn?.(key ? formData[key] : formData, errors, key);
+              validateOne(formData[key], errors, element);
             }
           }
           return errors;

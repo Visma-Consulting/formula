@@ -1,4 +1,5 @@
 import { defineMessage, useIntl } from 'react-intl';
+import { defineMessages } from '@formatjs/intl';
 
 export default ({ config }) => {
   const {
@@ -22,21 +23,20 @@ export default ({ config }) => {
   };
 };
 
+const validationMessages = defineMessages({
+  hetuError: {
+    defaultMessage: `"{title}" ei saa sisältää kolmea peräkkäistä a-kirjainta.`
+  }
+});
+
 export const validators = {
   hetu: {
     name: defineMessage({
       defaultMessage: 'Hetu'
     }),
-    fn: (value, errors, key) => {
-      console.log(value);
-      console.log(errors);
-      if (value === 'aaa') {
-        if (key) {
-          errors[key].addError('Tässä on kolme a:ta');
-        } else {
-          console.log('täällä')
-          errors.addError('Tässä on kolme a:ta');
-        }
+    fn: (value, element) => {
+      if (value?.includes('aaa')) {
+        return validationMessages.hetuError;
       }
     }
   }
