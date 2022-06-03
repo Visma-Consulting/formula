@@ -1,7 +1,8 @@
-# x.y.z
+# 0.4.100
 
 - Fix missing RJSF translations in DLL
 - Fix preview/review styles: force line break in a long word
+- Fix stacktrace errors relating to validation
 
 # 0.4.99
 
