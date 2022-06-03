@@ -26,13 +26,11 @@ export default function withCustomValidation(Form) {
         }
 
         const validateOne = (formData, errors, element, listIndex) => {
-          console.log(element);
-          console.log(listIndex);
           const { key, type, validator } = element;
           const errorMessage = validateFunctions[type]?.[validator]?.fn?.(formData, element);
           if (errorMessage) {
             if (key) {
-              if (listIndex !== null) {
+              if (listIndex !== undefined) {
                 errors[key][listIndex].addError(intl.formatMessage(errorMessage, {...element}));
               } else {
                 errors[key].addError(intl.formatMessage(errorMessage, {...element}));
@@ -47,15 +45,47 @@ export default function withCustomValidation(Form) {
           }
         }
 
+        const validateFormGroup = (formData, errors, elements, listIndex) => {
+          if (listIndex !== undefined) {
+            for (const element of elements) {
+              const {key, list} = element;
+              if (list) {
+                for (const dataIndex in formData[key]) {
+                  validateOne(formData[listIndex][dataIndex], errors[listIndex], element, dataIndex);
+                }
+              } else {
+                validateOne(formData[key], errors[listIndex], element);
+              }
+            }
+          } else {
+            for (const element of elements) {
+              const {key, list} = element;
+              if (list) {
+                for (const dataIndex in formData[key]) {
+                  validateOne(formData[key][dataIndex], errors, element, dataIndex);
+                }
+              } else {
+                validateOne(formData[key], errors, element);
+              }
+            }
+          }
+        }
+
         const validateAll = (formData, errors, elements) => {
           for (const element of elements) {
-            const { key, type, validator, list } = element;
+            const { key, type, list } = element;
             if (list) {
-              for (const dataIndex in formData[key]) {
-                validateOne(formData[key][dataIndex], errors, element, dataIndex);
+              if (type === 'formGroup') {
+                for (const dataIndex in formData[key]) {
+                  validateFormGroup(formData[key][dataIndex], errors[key], element.elements, dataIndex);
+                }
+              } else {
+                for (const dataIndex in formData[key]) {
+                  validateOne(formData[key][dataIndex], errors, element, dataIndex);
+                }
               }
             } else if (type === 'formGroup') {
-              validateAll(formData[key], errors[key], element.elements);
+              validateFormGroup(formData[key], errors[key], element.elements);
             } else {
               validateOne(formData[key], errors, element);
             }
