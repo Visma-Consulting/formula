@@ -1,0 +1,5 @@
+@media print {
+  .MuiDialog-root .MuiDialog-paperScrollBody {
+    display: block;
+  }
+}

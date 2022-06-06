@@ -1,3 +1,7 @@
+# x.y.z
+
+- Fix dialog print: don't split a line of text in half between pages
+
 # 0.4.101
 
 - Screen reader phrases for date and daterange
