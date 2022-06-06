@@ -1,3 +1,7 @@
+# 0.4.101
+
+- Screen reader phrases for date and daterange
+
 # 0.4.100
 
 - Fix missing RJSF translations in DLL
