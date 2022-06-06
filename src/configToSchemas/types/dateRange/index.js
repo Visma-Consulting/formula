@@ -12,6 +12,8 @@ import { defineMessage, FormattedMessage, useIntl } from 'react-intl';
 import { add, sub } from 'date-fns';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import { mapValues } from 'lodash';
+import { DateRangePickerPhrases } from '../../../../lib/configToSchemas/types/date/phrases';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -27,6 +29,7 @@ function DateRangePickerField(props) {
   const { disableEnd, disableStart } = props.uiSchema['ui:options'].element;
   const handleFocusChange = (focusedInput) => setFocusedInput(focusedInput);
   const { locale } = intl;
+  const language = intl.locale.split('-')[0] !== 'en';
   const classes = useStyles();
   useEffect(() => {
     moment.locale(locale);
@@ -75,6 +78,8 @@ function DateRangePickerField(props) {
         onFocusChange={handleFocusChange}
         focusedInput={focusedInput}
         disabled={schema.readOnly || uiSchema.readonly}
+        {...language ? {phrases : mapValues(DateRangePickerPhrases, message => intl.formatMessage(message))} : {}}
+        screenReaderInputMessage={<FormattedMessage defaultMessage={'Päivämäärähaarukka'}/> }
         hideKeyboardShortcutsPanel
         startDate={formData?.start === undefined ? null : moment(formData?.start)}
         startDateId={idSchema.start.$id}
