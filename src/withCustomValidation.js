@@ -8,7 +8,7 @@ const elementHasValidator = (element) => {
 
 export default function withCustomValidation(Form) {
   return forwardRef(
-    ({ config, ...props }, ref) => {
+    ({ config, validate, ...props }, ref) => {
       const intl = useIntl();
       const validateElements = (config.type === 'form' ? config.elements : [config])
         //.filter(element => element.validator && element.validator !== 'none');
@@ -95,12 +95,15 @@ export default function withCustomValidation(Form) {
 
         return <Form
           config={config}
-          validate={(formData, errors) => validateAll(formData, errors, validateElements)}
+          validate={(formData, errors) => {
+            errors = validateAll(formData, errors, validateElements);
+            return validate?.(formData, errors) ?? errors;
+          }}
           ref={ref}
           {...props}
         />;
       } else {
-        return <Form config={config} ref={ref} {...props} />;
+        return <Form config={config} validate={validate} ref={ref} {...props} />;
       }
     }
   )
