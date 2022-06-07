@@ -32,7 +32,7 @@ const validationMessages = defineMessages({
 export const validators = {
   hetu: {
     name: defineMessage({
-      defaultMessage: 'Henkilöturvatunnus'
+      defaultMessage: 'Henkilötunnus'
     }),
     fn: (value, element) => {
       /*
