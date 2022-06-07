@@ -211,5 +211,11 @@
   },
   "nYaKFF": {
     "defaultMessage": "Composed field"
+  },
+  "qOkiH3": {
+    "defaultMessage": "Social security number"
+  },
+  "qGrlO8": {
+    "defaultMessage": "\"{title}\" is an invalid social security number."
   }
 }

@@ -25,14 +25,14 @@ export default ({ config }) => {
 
 const validationMessages = defineMessages({
   hetuError: {
-    defaultMessage: `"{title}" on virheellinen henkilötunnus.`
+    defaultMessage: `"{title}" on virheellinen henkilöturvatunnus.`
   }
 });
 
 export const validators = {
   hetu: {
     name: defineMessage({
-      defaultMessage: 'Hetu'
+      defaultMessage: 'Henkilöturvatunnus'
     }),
     fn: (value, element) => {
       /*
