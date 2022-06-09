@@ -31,6 +31,8 @@ const messages = defineMessages({
 
   pattern: { defaultMessage: '"{field}" arvon on oltava {description}' },
   required: { defaultMessage: '"{field}" on pakollinen kenttä' },
+  requiredStart: { defaultMessage: '"{field}" alkupäivä on pakollinen kenttä'},
+  requiredEnd: { defaultMessage: '"{field}" loppupäivä on pakollinen kenttä'},
   type: { defaultMessage: '"{field}" tulee olla {type}' },
 });
 
@@ -51,7 +53,8 @@ export default (props) => {
     ...props,
     transformErrors: (errors) => {
       const transformedErrors = errors.map((error) => {
-        const messageDescriptor = messages[error.name];
+        const errorName = error.property.includes('.end') ? 'requiredEnd' : error.property.includes('.start') ? 'requiredStart' : error.name;
+        const messageDescriptor = messages[errorName];
         if (!messageDescriptor) {
           return error;
         }
@@ -104,7 +107,7 @@ export default (props) => {
         const { patternDescription } = fieldUISchema ?? {};
         const message = intl.formatMessage(messageDescriptor, {
           field: title,
-          description: { pattern: patternDescription }[error.name],
+          description: { pattern: patternDescription }[errorName],
           ...mapValues(
             mapValues(error.params, stringDataUrlToFile(fieldSchema)),
             (value, key) =>
