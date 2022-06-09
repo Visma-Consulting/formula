@@ -1,4 +1,4 @@
-# x.y.z
+# 0.4.102
 
 - Fix dialog print: don't split a line of text in half between pages
 
