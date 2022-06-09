@@ -16,12 +16,18 @@ import {
 import produce from 'immer';
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage, useIntl, defineMessage } from 'react-intl';
 import { useConfig } from './api';
 import { hasCaptcha, hasConsent, hasPreview } from './customizations';
 import { PrintButton } from './PrintButton';
 import Field from './Review/Field';
 import { Customize } from './utils';
+
+const sendErrorMessages = {
+  10: defineMessage({defaultMessage: 'Lomakkeen lähetys ei onnistunut.'}),
+  40: defineMessage({defaultMessage: 'Lomakkeen lähetys ei onnistunut, koska liitetiedostojen virustarkistus epäonnistui.'}),
+  50: defineMessage({defaultMessage: 'Lomakkeen lähetys ei onnistunut, koska captchatarkistus epäonnistui.'})
+};
 
 export default forwardRef(function ConfirmDialog(
   { title, description, children, onConfirm, confirmComponent, ...otherProps },
@@ -49,8 +55,8 @@ export default forwardRef(function ConfirmDialog(
     close() {
       handleClose();
     },
-    error() {
-      handleError();
+    error(data) {
+      handleError(data);
     },
   }));
 
@@ -62,10 +68,11 @@ export default forwardRef(function ConfirmDialog(
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
   const [showReCAPTCHA, setShowReCAPTCHA] = useState(hasCaptchaValue);
   const [captchaChallenge, setCaptchaChallenge] = useState();
   const [consent, setConsent] = useState(false);
+  const intl = useIntl();
 
   function handleClose() {
     setLoading(false);
@@ -77,7 +84,7 @@ export default forwardRef(function ConfirmDialog(
   function handleDismiss() {
     if (!loading || error) {
       setLoading(false);
-      setError(false);
+      setError(null);
       handleClose();
       confirmRef.current(false);
     }
@@ -87,16 +94,16 @@ export default forwardRef(function ConfirmDialog(
     setLoading(true);
   }
 
-  function handleError() {
-    setError(true);
+  function handleError(data) {
+    setError(sendErrorMessages[data.errorCode]
+      ? intl.formatMessage(sendErrorMessages[data.errorCode])
+      : data.message);
     setLoading(false);
   }
 
   function handleConfirm() {
     confirmRef.current(hasCaptchaValue ? captchaChallenge : true);
   }
-
-  const intl = useIntl();
 
   return (
     <Customize customizer={confirmComponent} {...otherProps}>
@@ -155,7 +162,7 @@ export default forwardRef(function ConfirmDialog(
           )}
           {error && (
             <DialogContentText>
-              <FormattedMessage defaultMessage="Lomakkeen lähetys ei onnistunut." />
+              {error}
             </DialogContentText>
           )}
         </DialogContent>

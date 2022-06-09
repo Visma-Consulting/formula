@@ -80,7 +80,7 @@ export default function withConfirmSubmit(Form) {
                 } catch (e) {
                   console.error(e);
                   if (hasConfirmValue) {
-                    confirmDialogRef.current.error();
+                    confirmDialogRef.current.error(e.response?.data);
                   }
                 }
               },
