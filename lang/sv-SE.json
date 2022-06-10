@@ -215,6 +215,12 @@
   "l26Isu": {
     "defaultMessage": "Slutdatum"
   },
+  "ABKcKk": {
+    "defaultMessage": "\"{field}\" start datum är en obligatorisk fält"
+  },
+  "R2MYSW": {
+    "defaultMessage": "\"{field}\" slutdatum är en obligatorisk fält"
+  },
   "G3a8oG": {
     "defaultMessage": "Datumintervall"
   },
