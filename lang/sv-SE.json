@@ -226,5 +226,11 @@
   },
   "nYaKFF": {
     "defaultMessage": "Sammansatt fält"
+  },
+  "SxFULL": {
+    "defaultMessage": "Personbeteckning"
+  },
+  "qGrlO8": {
+    "defaultMessage": "\"{title}\" är ett ogiltigt personbeteckning."
   }
 }

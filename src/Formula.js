@@ -16,6 +16,7 @@ import withReview from './withReview';
 import withSteps from './withSteps';
 import withDraftSave from './withDraftSave';
 import withSnackbar from './withSnackbar';
+import withCustomValidation from './withCustomValidation';
 
 /**
  * RJSFForm is extended with these higher-order components. Extensions are
@@ -39,6 +40,7 @@ export const Form =
   |> withPropsUpdater(configToSchemas)
   |> withPropsUpdater(useDynamicElements)
   |> withPrefill
+  |> withCustomValidation
   |> withLiveValidateOnError
   |> withPropsUpdater(useNormalizeConfigProp)
   |> withFormConfigLoader
