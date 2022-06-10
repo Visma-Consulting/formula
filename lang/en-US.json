@@ -191,6 +191,12 @@
   "yFga8M": {
     "defaultMessage": "Start date"
   },
+  "ABKcKk": {
+    "defaultMessage": "\"{field}\" start date is required field"
+  },
+  "R2MYSW": {
+    "defaultMessage": "\"{field}\" end date is required field"
+  },
   "l26Isu": {
     "defaultMessage": "End date"
   },
