@@ -1,4 +1,4 @@
-# 0.4.102
+# 0.4.103
 
 - Fix dialog print: don't split a line of text in half between pages
 - Upgrade to `@visma/rjsf-*@3.1.0-38`
