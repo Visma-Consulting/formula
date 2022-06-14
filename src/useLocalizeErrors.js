@@ -72,8 +72,8 @@ export default (props) => {
           // remove first character ['0'] --> '0'], .key --> key
           .slice(1)
           // replace ][ with . '0'][1].key -> '0'.1.key
-          .replace('[', '.')
-          .replace(']', '')
+          .replaceAll('[', '.')
+          .replaceAll(']', '')
           .split('.');
         const { fieldSchema, fieldUISchema } = errorPropertyArray
           .reduce(
