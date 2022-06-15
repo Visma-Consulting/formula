@@ -13,6 +13,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import produce from 'immer';
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
@@ -162,7 +163,7 @@ export default forwardRef(function ConfirmDialog(
           )}
           {error && (
             <DialogContentText>
-              {error}
+              <Alert severity="warning">{error}</Alert>
             </DialogContentText>
           )}
         </DialogContent>
