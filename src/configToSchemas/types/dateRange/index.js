@@ -34,7 +34,6 @@ function DateRangePickerField(props) {
   useEffect(() => {
     moment.locale(locale);
   }, [locale]);
-
   const earliestEndDate = () => {
     if(disableEnd?.disableBefore.type === 'noValue' && disableStart?.disableBefore.type !== 'noValue') {
       return beforeDay(disableStart.disableBefore);
@@ -119,9 +118,11 @@ function DateRangePickerField(props) {
   );
 }
 
-export default ({ config: { disableBefore, disableAfter } }) => ({
+export default ({ config: { disableBefore, disableAfter, required, list } }) => ({
   schema: {
     type: 'object',
+    ...(required ? { required: ['start', 'end']} : undefined),
+    ...(list ? {default: {}} : undefined),
     properties: {
       start: {
         format: 'date',

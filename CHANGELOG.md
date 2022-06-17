@@ -1,4 +1,17 @@
-# x.y.z
+# 0.4.104
+
+- Upgrade to `@visma/rjsf-*@3.1.0-39`
+- Repeatable field validation fixes
+
+# 0.4.103
+
+- Fix dialog print: don't split a line of text in half between pages
+- Upgrade to `@visma/rjsf-*@3.1.0-38`
+- Validate functions
+- Screen reader fixes
+- Add required functionality to daterange question type
+
+# 0.4.102
 
 - Fix dialog print: don't split a line of text in half between pages
 

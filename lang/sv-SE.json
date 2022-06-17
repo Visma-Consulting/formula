@@ -215,6 +215,12 @@
   "l26Isu": {
     "defaultMessage": "Slutdatum"
   },
+  "ABKcKk": {
+    "defaultMessage": "\"{field}\" start datum är en obligatorisk fält"
+  },
+  "R2MYSW": {
+    "defaultMessage": "\"{field}\" slutdatum är en obligatorisk fält"
+  },
   "G3a8oG": {
     "defaultMessage": "Datumintervall"
   },
@@ -232,5 +238,11 @@
   },
   "w+6Lso": {
     "defaultMessage": "Försök igen senare."
+  },
+  "SxFULL": {
+    "defaultMessage": "Personbeteckning"
+  },
+  "qGrlO8": {
+    "defaultMessage": "\"{title}\" är ett ogiltigt personbeteckning."
   }
 }

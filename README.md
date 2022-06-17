@@ -113,6 +113,8 @@ Same as for `<Formula>`, except:
 
 See [src/api.js](src/api.js) for all API hooks.
 
+### List forms
+
 ```js
 import { useForms } from '@visma/formula';
 
@@ -122,6 +124,8 @@ function ListForms() {
 }
 ```
 
+### Form config details
+
 ```js
 import { useForm } from '@visma/formula';
 
@@ -130,6 +134,26 @@ function FormTitle({ id }) {
 
   return <h1>{form.title}</h1>;
 }
+```
+
+### Intercept built-in submit function
+
+```js
+import { Formula, useMutations } from '@visma/formula';
+// ...
+const { submit } = useMutations();
+
+<Formula
+  onSubmit={async (...args) => {
+    try {
+      return await submit(...args);
+    } catch (error) {
+      logger(error);
+      throw error;
+    }
+  }}
+  // ...
+/>;
 ```
 
 ## Customize
