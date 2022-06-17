@@ -227,6 +227,18 @@
   "nYaKFF": {
     "defaultMessage": "Composed field"
   },
+  "2T0Ypn": {
+    "defaultMessage": "Form couldn't be submitted, because captcha was invalid."
+  },
+  "ylKM8r": {
+    "defaultMessage": "Form couldn't be submitted, because virus check of the files failed."
+  },
+  "F7wDPl": {
+    "defaultMessage": "Oops! There was an unexpected error."
+  },
+  "w+6Lso": {
+    "defaultMessage": "Try again later."
+  },
   "SxFULL": {
     "defaultMessage": "Social security number"
   },

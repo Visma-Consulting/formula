@@ -227,6 +227,18 @@
   "nYaKFF": {
     "defaultMessage": "Sammansatt fält"
   },
+  "2T0Ypn": {
+    "defaultMessage": "Det gick inte att skicka in formuläret, eftersom captchate-kontrollen misslyckades."
+  },
+  "ylKM8r": {
+    "defaultMessage": "Det gick inte att skicka in formuläret, eftersom virussökningen av bilagorna misslyckades."
+  },
+  "F7wDPl": {
+    "defaultMessage": "Hoppsan! Ett oväntat fel uppstod."
+  },
+  "w+6Lso": {
+    "defaultMessage": "Försök igen senare."
+  },
   "SxFULL": {
     "defaultMessage": "Personbeteckning"
   },

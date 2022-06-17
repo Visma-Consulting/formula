@@ -16,6 +16,7 @@ import withReview from './withReview';
 import withSteps from './withSteps';
 import withDraftSave from './withDraftSave';
 import withSnackbar from './withSnackbar';
+import withFormulaErrorBoundary from './withFormulaErrorBoundary';
 import withCustomValidation from './withCustomValidation';
 
 /**
@@ -44,6 +45,7 @@ export const Form =
   |> withLiveValidateOnError
   |> withPropsUpdater(useNormalizeConfigProp)
   |> withFormConfigLoader
-  |> withSnackbar;
+  |> withSnackbar
+  |> withFormulaErrorBoundary;
 
 export const Formula = Form |> withFormulaProvider;
