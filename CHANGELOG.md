@@ -1,3 +1,9 @@
+# 0.4.106
+
+- Upgrade to `@visma/rjsf-*@3.1.0-41`
+- Repeatable form group validation fixes
+- Better error handling
+
 # 0.4.104
 
 - Upgrade to `@visma/rjsf-*@3.1.0-39`
