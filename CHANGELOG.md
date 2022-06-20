@@ -1,4 +1,4 @@
-# 0.4.108
+# x.y.z (0.4.108)
 
 - Remove confusing "Try again later" error message
 
