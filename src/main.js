@@ -8,30 +8,33 @@ import formula_fiFI from '../.compiled-lang/fi-FI.json';
 import formula_svSE from '../.compiled-lang/sv-SE.json';
 import { Form, Formula } from './Formula';
 
-const formula_messages = {
-  'en-US': formula_enUS,
-  'fi-FI': formula_fiFI,
-  'sv-SE': formula_svSE,
+const messages = {
+  'en-US': { ...formula_enUS, ...rjsf_enUS },
+  'fi-FI': { ...formula_fiFI, ...rjsf_fiFI },
+  'sv-SE': { ...formula_svSE, ...rjsf_svSE },
 };
 
-const rjsf_messages = {
-  'en-US': rjsf_enUS,
-  'fi-FI': rjsf_fiFI,
-  'sv-SE': rjsf_svSE,
-};
+const defaultLocale = 'fi-FI';
+
+const availableLocales = Object.fromEntries(
+  Object.keys(messages).flatMap((locale) => [
+    [locale, locale],
+    [locale.split('-')[0], locale],
+  ])
+);
 
 function withMessages(Form) {
   return forwardRef((props, ref) => {
     const intl = useIntl();
+    const locale = availableLocales[intl.locale] ?? defaultLocale;
 
     return (
       <IntlProvider
         {...intl}
+        locale={locale}
         messages={{
-          ...rjsf_messages[intl.defaultLocale],
-          ...rjsf_messages[intl.locale],
-          ...formula_messages[intl.defaultLocale],
-          ...formula_messages[intl.locale],
+          ...messages[defaultLocale],
+          ...messages[locale],
           ...intl.messages,
         }}
       >
