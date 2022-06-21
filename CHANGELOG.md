@@ -1,6 +1,7 @@
-# x.y.z (0.4.108)
+# 0.4.108
 
 - Remove confusing "Try again later" error message
+- Upgrade to `@visma/rjsf-*@3.1.0-42`
 
 # 0.4.106
 
