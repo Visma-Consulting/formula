@@ -3,6 +3,7 @@ import { Alert } from '@material-ui/lab';
 import { useIntl } from 'react-intl';
 import Markdown from '../Markdown';
 import { PrintButton } from '../PrintButton';
+import { Customize } from '../utils';
 import Field from './Field';
 
 const useStyles = makeStyles((theme) => ({
@@ -21,7 +22,10 @@ export default function Review(props) {
   const intl = useIntl();
 
   return (
-    <>
+    <Customize
+      customizer={props[props.preview ? 'previewForm' : 'reviewForm']}
+      {...props}
+    >
       <Alert severity="success">
         {intl.formatMessage({ defaultMessage: 'Lomake lähetetty!' })}
       </Alert>
@@ -31,7 +35,7 @@ export default function Review(props) {
         {props.reviewProps?.actions}
         <PrintButton />
       </div>
-    </>
+    </Customize>
   );
 }
 
