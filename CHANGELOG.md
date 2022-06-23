@@ -1,3 +1,8 @@
+# 0.4.109
+
+- Add scrolling to error list on validation error
+- Upgrade to `@visma/rjsf-*@3.1.0-43`
+
 # 0.4.108
 
 - Remove confusing "Try again later" error message
