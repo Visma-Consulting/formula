@@ -753,6 +753,16 @@
       "post": {
         "summary": "Import configs",
         "operationId": "postConfigs",
+        "parameters": [
+          {
+            "name": "usePortkeys",
+            "in": "query",
+            "required": false,
+            "description": "Determines whether or not to use portkeys on import",
+            "schema": {
+              "type": "boolean"
+            }
+          }],
         "responses": {
           "201": {
             "description": "Null response"
