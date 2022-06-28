@@ -153,8 +153,8 @@ export function useMutations() {
       await refetchFields(fieldId);
     },
 
-    async importData(data) {
-      await client.postConfigs(null, data);
+    async importData(data, usePortkeys) {
+      await client.postConfigs({usePortkeys: usePortkeys}, data);
     },
   };
 }
