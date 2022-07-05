@@ -13,7 +13,7 @@ export default ({
 });
 
 export const name = defineMessage({
-  defaultMessage: 'Kokonaisluku',
+  defaultMessage: 'Numero',
 });
 
 export const elementType = 'field';
