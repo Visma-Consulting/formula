@@ -7,7 +7,7 @@ export default extendType(text, ({ config }) => (props) => {
   props.uiSchema ??= {};
   props.uiSchema['ui:widget'] = RichText;
   props.schema['format'] = 'markdown';
-  props.schema['default'] = '';
+  props.schema['default'] = config.default ? config.default : '';
 });
 
 export const name = defineMessage({
