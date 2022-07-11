@@ -23,7 +23,7 @@ const messages = defineMessages({
     defaultMessage: '"{field}" vaatii hyväksynnän',
   },
   minimum: {
-    defaultMessage: '"{field}" täytyy olla suurempi tai yhtä suuri kuin kuin {limit}',
+    defaultMessage: '"{field}" täytyy olla suurempi tai yhtä suuri kuin {limit}',
   },
   maximum: {
     defaultMessage: '"{field}" täytyy olla pienempi tai yhtä suuri kuin {limit}',
