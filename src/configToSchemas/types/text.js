@@ -13,7 +13,7 @@ export default ({ config }) => {
   return {
     schema: {
       default: defaults,
-      minLength: (pattern === undefined || pattern === '') ? undefined : 1,
+      minLength: (pattern === undefined || pattern === '') ? undefined : required ? 1 : undefined,
       maxLength,
       pattern: (pattern === undefined || pattern === '' ? undefined : pattern) ?? (required ? '[^\\s]+' : undefined),
       type: 'string',
