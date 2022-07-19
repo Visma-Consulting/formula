@@ -1,5 +1,6 @@
 import { forwardRef } from 'react';
 import { validators as textValidators } from './configToSchemas/types/text';
+import { validators as tableFieldValidators } from './configToSchemas/types/tableField';
 import { useIntl } from 'react-intl';
 
 const elementHasValidator = (element) => {
@@ -22,7 +23,8 @@ export default function withCustomValidation(Form) {
         .filter(element => (element.type === 'formGroup' && element.elements?.length > 0) || elementHasValidator(element));
       if (validateElements.length > 0) {
         const validateFunctions = {
-          text: textValidators
+          text: textValidators,
+          tableField: tableFieldValidators
         }
 
         const validateOne = (formData, errors, element, listIndex) => {
