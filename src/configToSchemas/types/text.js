@@ -4,7 +4,6 @@ import { defineMessages } from '@formatjs/intl';
 export default ({ config }) => {
   const {
     default: defaults,
-    minLength,
     maxLength,
     pattern,
     required,
@@ -14,9 +13,9 @@ export default ({ config }) => {
   return {
     schema: {
       default: defaults,
-      minLength: minLength ?? (required ? 1 : undefined),
+      minLength: (pattern === undefined || pattern === '') ? undefined : required ? 1 : undefined,
       maxLength,
-      pattern: pattern ?? (required ? '[^\\s]+' : undefined),
+      pattern: (pattern === undefined || pattern === '' ? undefined : pattern) ?? (required ? '[^\\s]+' : undefined),
       type: 'string',
     },
     uiSchema: { patternDescription },
