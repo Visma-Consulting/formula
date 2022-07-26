@@ -79,9 +79,10 @@ export default (props) => {
           .reduce(
             function accumulator({ fieldSchema = {}, fieldUISchema = {} }, pathPart, index) {
               if (fieldSchema.type === 'object') {
+                const itemUiSchema = get(fieldUISchema, `[${pathPart}]`);
                 return {
                   fieldSchema: get(fieldSchema.properties, `[${pathPart}]`),
-                  fieldUISchema: get(fieldUISchema, `[${pathPart}]`),
+                  fieldUISchema: itemUiSchema?.items?.pattern ? itemUiSchema.items : itemUiSchema,
                 };
               }
               if (fieldSchema.type === 'array') {
