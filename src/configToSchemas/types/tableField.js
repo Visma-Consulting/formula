@@ -222,7 +222,7 @@ export const name = defineMessage({
 
 const validationMessages = defineMessages({
   emptyValue: {
-    defaultMessage: `"{title}" ei saa sisältää tyhjiä sarakkeita.`
+    defaultMessage: `"{title}" ei saa sisältää tyhjiä soluja.`
   }
 });
 
@@ -232,8 +232,7 @@ export const validators = {
       defaultMessage: 'Pakollinen taulukko'
     }),
     fn: (value, element) => {
-      if (value) {
-        return validationMessages.emptyValue;
+      if (value && value.table?.length > 0) {
         for (const row of value.table) {
           for (const item of row) {
             if (item === undefined || item === '') {
@@ -241,6 +240,8 @@ export const validators = {
             }
           }
         }
+      } else {
+        return validationMessages.emptyValue;
       }
     }
   }
