@@ -38,7 +38,7 @@ export default function withCustomValidation(Form) {
                 errors[key].addError(intl.formatMessage(errorMessage, {...element}));
               }
             } else {
-              if (listIndex !== null) {
+              if (listIndex !== null && listIndex !== undefined) {
                 errors[listIndex].addError(intl.formatMessage(errorMessage, {...element}));
               } else {
                 errors.addError(intl.formatMessage(errorMessage, {...element}));
