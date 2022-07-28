@@ -244,5 +244,8 @@
   },
   "qGrlO8": {
     "defaultMessage": "\"{title}\" är ett ogiltigt personbeteckning."
+  },
+  "WBQmgL": {
+    "defaultMessage": "\"{title}\" kan inte innehålla tomma celler."
   }
 }

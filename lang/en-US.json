@@ -244,5 +244,8 @@
   },
   "qGrlO8": {
     "defaultMessage": "\"{title}\" is an invalid social security number."
+  },
+  "WBQmgL": {
+    "defaultMessage": "\"{title}\" cannot contain empty cells."
   }
 }

@@ -12,6 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
+import { defineMessages } from '@formatjs/intl';
 
 const useStyles = makeStyles({
   inputLabelRoot: {
@@ -218,5 +219,32 @@ export default ({ config }) => {
 export const name = defineMessage({
   defaultMessage: 'Taulukko',
 });
+
+const validationMessages = defineMessages({
+  emptyValue: {
+    defaultMessage: `"{title}" ei saa sisältää tyhjiä soluja.`
+  }
+});
+
+export const validators = {
+   required: {
+    name: defineMessage({
+      defaultMessage: 'Pakollinen taulukko'
+    }),
+    fn: (value, element) => {
+      if (value && value.table?.length > 0) {
+        for (const row of value.table) {
+          for (const item of row) {
+            if (item === undefined || item === '') {
+              return validationMessages.emptyValue;
+            }
+          }
+        }
+      } else {
+        return validationMessages.emptyValue;
+      }
+    }
+  }
+};
 
 export const elementType = 'field';
