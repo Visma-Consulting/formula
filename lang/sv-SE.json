@@ -244,5 +244,8 @@
   },
   "qGrlO8": {
     "defaultMessage": "\"{title}\" är ett ogiltigt personbeteckning."
+  },
+  "pFHtzl": {
+    "defaultMessage": "\"{title}\" ei saa sisältää samaa tekstiavainta kahdesti."
   }
 }

@@ -244,5 +244,8 @@
   },
   "qGrlO8": {
     "defaultMessage": "\"{title}\" is an invalid social security number."
+  },
+  "pFHtzl": {
+    "defaultMessage": "\"{title}\" kan inte innehålla samma nyckel två gånger."
   }
 }

@@ -1,6 +1,7 @@
 import { freeze } from 'immer';
 import configToSchemas from '..';
 import { dynamicElements } from '../../useDynamicElements';
+import { defineMessages } from '@formatjs/intl';
 
 export const types = ['formGroup'];
 
@@ -33,3 +34,25 @@ export const converter = (formulaProps) => (props) => {
     props.uiSchema['ui:options'].formulaProps = freeze(formulaProps);
   }
 };
+
+const validationMessages = defineMessages({
+  duplicateKey: {
+    defaultMessage: `"{title}" ei saa sisältää samaa tekstiavainta kahdesti.`
+  }
+});
+
+export const validators = {
+  noDuplicateElementKeys: {
+    name: "Ei duplikaattiavaimia",
+    fn: (value, element) => {
+      const keys = [];
+      for (const field of value) {
+        if (keys.includes(field.key)) {
+          return validationMessages.duplicateKey;
+        } else {
+          keys.push(field.key);
+        }
+      }
+    }
+  }
+}
