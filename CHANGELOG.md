@@ -1,3 +1,14 @@
+# 0.4.111
+
+- Upgrade to `@visma/rjsf-*@3.1.0-44`
+- Fix combobox focus contrast
+- Fix tablefield required validator
+- Number question type name change
+- Fix duplicate key validation
+- Fix rich textfield default value
+- Fix removed text field double error text
+- Fix missing patterns in error messages
+
 # 0.4.110
 
 - Add api support for field portkey
