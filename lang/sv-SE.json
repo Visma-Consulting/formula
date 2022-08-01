@@ -246,6 +246,6 @@
     "defaultMessage": "\"{title}\" är ett ogiltigt personbeteckning."
   },
   "pFHtzl": {
-    "defaultMessage": "\"{title}\" ei saa sisältää samaa tekstiavainta kahdesti."
+    "defaultMessage": "\"{title}\" kan inte innehålla samma nyckel två gånger."
   }
 }
