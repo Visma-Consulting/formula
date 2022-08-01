@@ -245,6 +245,9 @@
   "qGrlO8": {
     "defaultMessage": "\"{title}\" is an invalid social security number."
   },
+  "WBQmgL": {
+    "defaultMessage": "\"{title}\" cannot contain empty cells."
+  },
   "pFHtzl": {
     "defaultMessage": "\"{title}\" can not contain the same key twice."
   }

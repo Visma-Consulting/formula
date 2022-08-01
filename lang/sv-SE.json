@@ -247,5 +247,8 @@
   },
   "pFHtzl": {
     "defaultMessage": "\"{title}\" kan inte innehålla samma nyckel två gånger."
+  },
+  "WBQmgL": {
+    "defaultMessage": "\"{title}\" kan inte innehålla tomma celler."
   }
 }
