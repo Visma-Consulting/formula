@@ -247,5 +247,8 @@
   },
   "WBQmgL": {
     "defaultMessage": "\"{title}\" cannot contain empty cells."
+  },
+  "pFHtzl": {
+    "defaultMessage": "\"{title}\" can not contain the same key twice."
   }
 }

@@ -245,6 +245,9 @@
   "qGrlO8": {
     "defaultMessage": "\"{title}\" är ett ogiltigt personbeteckning."
   },
+  "pFHtzl": {
+    "defaultMessage": "\"{title}\" kan inte innehålla samma nyckel två gånger."
+  },
   "WBQmgL": {
     "defaultMessage": "\"{title}\" kan inte innehålla tomma celler."
   }

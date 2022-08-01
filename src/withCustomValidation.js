@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 import { validators as textValidators } from './configToSchemas/types/text';
 import { validators as tableFieldValidators } from './configToSchemas/types/tableField';
+import { validators as formGroupValidators } from './configToSchemas/typePlugins/formGroupList';
 import { useIntl } from 'react-intl';
 
 const elementHasValidator = (element) => {
@@ -24,7 +25,8 @@ export default function withCustomValidation(Form) {
       if (validateElements.length > 0) {
         const validateFunctions = {
           text: textValidators,
-          tableField: tableFieldValidators
+          tableField: tableFieldValidators,
+          formGroup: formGroupValidators
         }
 
         const validateOne = (formData, errors, element, listIndex) => {
@@ -75,11 +77,15 @@ export default function withCustomValidation(Form) {
 
         const validateAll = (formData, errors, elements) => {
           for (const element of elements) {
-            const { key, type, list } = element;
+            const { key, type, list, validator } = element;
             if (list) {
               if (type === 'formGroup') {
-                for (const dataIndex in formData[key]) {
-                  validateFormGroup(formData[key][dataIndex], errors[key], element.elements, dataIndex);
+                if (validator) {
+                  validateOne(formData[key], errors, element);
+                } else {
+                  for (const dataIndex in formData[key]) {
+                    validateFormGroup(formData[key][dataIndex], errors[key], element.elements, dataIndex);
+                  }
                 }
               } else {
                 for (const dataIndex in formData[key]) {
