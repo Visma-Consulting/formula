@@ -40,7 +40,8 @@
     "messages": "formatjs-scripts",
     "generate-client": "react-openapi-client-generator api.json src/client.js",
     "generate-docs": "typedoc",
-    "test": "npm test --workspace=examples/app"
+    "test": "npm test --workspace=examples/app",
+    "messages:extract": "formatjs extract \"./src/**/*.{js,jsx,ts,tsx}\" --out-file lang/fi-FI.json --id-interpolation-pattern [sha512:contenthash:base64:6]"
   },
   "eslintConfig": {
     "rules": {
@@ -49,8 +50,8 @@
   },
   "dependencies": {
     "@visma/react-openapi-client-generator": "^0.1.3",
-    "@visma/rjsf-core": "^3.1.0-44",
-    "@visma/rjsf-material-ui": "^3.1.0-44",
+    "@visma/rjsf-core": "^4.2.0",
+    "@visma/rjsf-material-ui": "^4.2.0",
     "axios": "^0.21.0",
     "base64-js": "^1.5.1",
     "date-fns": "^2.22.1",
