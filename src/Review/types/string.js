@@ -15,7 +15,11 @@ export default ({ formData, schema, uiSchema }) => {
   const { dateFnsLocale } = useFormulaContext();
 
   if (schema.enumNames) {
-    formData = schema.enumNames[schema.enum.indexOf(formData)];
+    if (schema.inline) {
+      formData = formData.map((data) => schema.enumNames[data]).join(', ');
+    } else {
+      formData = schema.enumNames[schema.enum.indexOf(formData)];
+    }
   }
 
   if (schema.format === 'date') {
