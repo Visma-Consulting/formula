@@ -7,9 +7,11 @@ export default ({ config }) => {
     maxLength,
     pattern,
     required,
+    type
   } = config;
   const intl = useIntl();
-  const patternDescription = config.patternDescription ? config.patternDescription : intl.formatMessage({ defaultMessage: 'muu kuin tyhjä' });
+  const patternDescription = config.patternDescription ? config.patternDescription :
+    type === 'email' ? intl.formatMessage({ defaultMessage: 'kelvollinen sähköpostiosoite' }) : intl.formatMessage({ defaultMessage: 'muu kuin tyhjä' });
   return {
     schema: {
       default: defaults,
