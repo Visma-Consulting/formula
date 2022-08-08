@@ -250,5 +250,8 @@
   },
   "WBQmgL": {
     "defaultMessage": "\"{title}\" kan inte innehålla tomma celler."
+  },
+  "XOPDit": {
+    "defaultMessage": "en giltig e-postadress"
   }
 }
