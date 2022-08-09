@@ -250,5 +250,8 @@
   },
   "pFHtzl": {
     "defaultMessage": "\"{title}\" can not contain the same key twice."
+  },
+  "XOPDit": {
+    "defaultMessage": "a valid email address"
   }
 }

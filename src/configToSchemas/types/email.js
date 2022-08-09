@@ -3,6 +3,11 @@ import text from './text';
 import { defineMessage } from 'react-intl';
 
 export default extendType(text, ({ config }) => (props) => {
+  props.schema ??= {};
+  props.schema = {
+    ...props.schema,
+    pattern: '^$|^(.*@[a-zA-Z0-9]+[a-zA-Z0-9\\.-]*\\.[a-zA-Z0-9]{2,})$'
+  }
   props.uiSchema ??= {};
   props.uiSchema['ui:widget'] = 'email';
 });
