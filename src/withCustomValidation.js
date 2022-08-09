@@ -35,15 +35,15 @@ export default function withCustomValidation(Form) {
           if (errorMessage) {
             if (key) {
               if (listIndex !== undefined) {
-                errors[key][listIndex].addError(intl.formatMessage(errorMessage, {...element}));
+                errors?.[key]?.[listIndex]?.addError(intl.formatMessage(errorMessage, {...element}));
               } else {
-                errors[key].addError(intl.formatMessage(errorMessage, {...element}));
+                errors?.[key]?.addError(intl.formatMessage(errorMessage, {...element}));
               }
             } else {
               if (listIndex !== null && listIndex !== undefined) {
-                errors[listIndex].addError(intl.formatMessage(errorMessage, {...element}));
+                errors?.[listIndex]?.addError(intl.formatMessage(errorMessage, {...element}));
               } else {
-                errors.addError(intl.formatMessage(errorMessage, {...element}));
+                errors?.addError(intl.formatMessage(errorMessage, {...element}));
               }
             }
           }
