@@ -12,7 +12,7 @@ export default function withCustomValidation(Form) {
   return forwardRef(
     ({ config, validate, ...props }, ref) => {
       const intl = useIntl();
-      const validateElements = (config.type === 'form' ? config.elements : [config])
+      const validateElements = (config.type === 'form' || config.type === 'formGroup' ? config.elements : [config])
         //.filter(element => element.validator && element.validator !== 'none');
         .map((element) => {
           if (element.type === 'formGroup') {
