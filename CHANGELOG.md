@@ -1,3 +1,9 @@
+# 0.4.112
+
+- Email regex validation
+- Richtext fix
+- Inline review
+
 # 0.4.111
 
 - Upgrade to `@visma/rjsf-*@3.1.0-44`
