@@ -1,4 +1,4 @@
-import { TextField } from '@material-ui/core';
+import { TextField } from '@mui/material';
 import { Autocomplete } from '@material-ui/lab';
 import { utils } from '@visma/rjsf-core';
 import produce from 'immer';

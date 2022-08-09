@@ -1,5 +1,5 @@
-import Button from '@material-ui/core/Button';
-import { Print } from '@material-ui/icons';
+import Button from '@mui/material/Button';
+import { Print } from '@mui/icons-material';
 import { FormattedMessage } from 'react-intl';
 
 export function PrintButton() {

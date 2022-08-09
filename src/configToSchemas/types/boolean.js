@@ -1,4 +1,4 @@
-import { FormHelperText, Typography } from '@material-ui/core';
+import { FormHelperText, Typography } from '@mui/material';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import { defineMessage, useIntl } from 'react-intl';

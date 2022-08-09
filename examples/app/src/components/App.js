@@ -1,8 +1,8 @@
-import { ThemeProvider } from '@material-ui/core';
-import green from '@material-ui/core/colors/green';
-import purple from '@material-ui/core/colors/purple';
-import Container from '@material-ui/core/Container';
-import { createTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@mui/material';
+import green from '@mui/material/colors/green';
+import purple from '@mui/material/colors/purple';
+import Container from '@mui/material/Container';
+import { createTheme } from '@mui/material/styles';
 import DLL from '@visma/formula/lib/dll';
 import AppProvider from '@visma/react-app-super-template';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';

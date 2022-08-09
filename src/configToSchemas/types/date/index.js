@@ -10,8 +10,8 @@ import { useEffect, useState } from 'react';
 import { SingleDatePicker } from 'react-dates';
 import 'react-dates/initialize';
 import { defineMessage, FormattedMessage, useIntl } from 'react-intl';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
+import Button from '@mui/material/Button';
+import { makeStyles } from '@mui/material/styles';
 import { mapValues } from 'lodash';
 import { DateRangePickerPhrases } from '../../../../lib/configToSchemas/types/date/phrases';
 

@@ -1,4 +1,4 @@
-import { Chip, TextField } from '@material-ui/core';
+import { Chip, TextField } from '@mui/material';
 import { Autocomplete } from '@material-ui/lab';
 
 export const types = ['multiselect'];

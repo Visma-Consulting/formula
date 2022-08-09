@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/material/styles';
 import { Alert } from '@material-ui/lab';
 import { useIntl } from 'react-intl';
 import Markdown from '../Markdown';

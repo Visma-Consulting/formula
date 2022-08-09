@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import LaunchIcon from '@material-ui/icons/Launch';
+import LaunchIcon from '@mui/icons-material/Launch';
 import { merge } from 'lodash';
 import Markdown from 'markdown-to-jsx';
 import Link from '@material-ui/core/Link';

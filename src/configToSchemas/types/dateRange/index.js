@@ -10,8 +10,8 @@ import { DateRangePicker } from 'react-dates';
 import 'react-dates/initialize';
 import { defineMessage, FormattedMessage, useIntl } from 'react-intl';
 import { add, sub } from 'date-fns';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { makeStyles } from '@mui/material/styles';
+import Button from '@mui/material/Button';
 import { mapValues } from 'lodash';
 import { DateRangePickerPhrases } from '../../../../lib/configToSchemas/types/date/phrases';
 

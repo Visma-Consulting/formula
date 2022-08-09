@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import { utils } from '@visma/rjsf-core';
 import { get } from 'lodash';
 import { useContext, useEffect } from 'react';

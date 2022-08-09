@@ -1,4 +1,4 @@
-import * as materialUICore from '@material-ui/core';
+import * as materialUICore from '@mui/material';
 import * as materialUIStyles from '@material-ui/styles';
 import * as react from 'react';
 import * as reactDom from 'react-dom';
@@ -10,7 +10,7 @@ const DLL = {};
 export default DLL;
 
 const externals = {
-  '@material-ui/core': materialUICore,
+  '@mui/material': materialUICore,
   '@material-ui/styles': materialUIStyles,
   react,
   'react-dom': reactDom,

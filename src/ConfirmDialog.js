@@ -12,7 +12,7 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
-} from '@material-ui/core';
+} from '@mui/material';
 import { Alert } from '@material-ui/lab';
 import produce from 'immer';
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';

@@ -50,8 +50,8 @@
   },
   "dependencies": {
     "@visma/react-openapi-client-generator": "^0.1.3",
-    "@visma/rjsf-core": "^4.2.0",
-    "@visma/rjsf-material-ui": "^4.2.0",
+    "@visma/rjsf-core": "4.2.0",
+    "@visma/rjsf-material-ui": "4.2.0",
     "axios": "^0.21.0",
     "base64-js": "^1.5.1",
     "date-fns": "^2.22.1",

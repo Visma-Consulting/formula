@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/material/styles';
 import { defineMessage } from 'react-intl';
 import _dummy from './_dummy';
 import extendType from './_extendType';

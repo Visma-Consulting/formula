@@ -1,5 +1,5 @@
-import { makeStyles } from '@material-ui/core';
-import Link from '@material-ui/core/Link';
+import { makeStyles } from '@mui/material';
+import Link from '@mui/material/Link';
 import displayNames from '@visma/react-app-locale-utils/lib/displayNames';
 import useLocale from '@visma/react-app-locale-utils/lib/useLocale';
 

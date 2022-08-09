@@ -1,5 +1,5 @@
 import { defineMessage } from 'react-intl';
-import { Typography, Checkbox, FormControlLabel, FormHelperText } from '@material-ui/core';
+import { Typography, Checkbox, FormControlLabel, FormHelperText } from '@mui/material';
 
 
 function CheckboxWidget({ options, onChange, value, id }) {
