@@ -95,7 +95,7 @@ export default function withCustomValidation(Form) {
             } else if (type === 'formGroup') {
               validateFormGroup(formData[key], errors[key], element.elements);
             } else {
-              validateOne(formData[key], errors, element);
+              validateOne(formData[key] ?? formData, errors, element);
             }
           }
           return errors;
