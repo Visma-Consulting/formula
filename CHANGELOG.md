@@ -1,3 +1,9 @@
+# 0.4.113
+
+- Inline review fix
+- Custom validation fix, when config only has one question
+- Custom validation fix, when form has steps
+
 # 0.4.112
 
 - Email regex validation
