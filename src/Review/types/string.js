@@ -16,7 +16,7 @@ export default ({ formData, schema, uiSchema }) => {
 
   if (schema.enumNames) {
     if (schema.inline) {
-      formData = formData.map((data) => schema.enumNames[data]).join(', ');
+      formData = formData.map((data) => schema.enumNames[schema.enum.indexOf(data)]).join(', ');
     } else {
       formData = schema.enumNames[schema.enum.indexOf(formData)];
     }
