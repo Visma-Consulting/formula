@@ -33,6 +33,7 @@ const messages = defineMessages({
   required: { defaultMessage: '"{field}" on pakollinen kenttä' },
   requiredStart: { defaultMessage: '"{field}" alkupäivä on pakollinen kenttä'},
   requiredEnd: { defaultMessage: '"{field}" loppupäivä on pakollinen kenttä'},
+  choices: { defaultMessage: 'Valintalistassa tulee olla vähintään yksi vaihtoehto'},
   type: { defaultMessage: '"{field}" tulee olla {type}' },
 });
 
@@ -53,7 +54,7 @@ export default (props) => {
     ...props,
     transformErrors: (errors) => {
       const transformedErrors = errors.map((error) => {
-        const errorName = error.property.includes('.end') ? 'requiredEnd' : error.property.includes('.start') ? 'requiredStart' : error.name;
+        const errorName = error.property.includes('.end') ? 'requiredEnd' : error.property.includes('.start') ? 'requiredStart' : error.property.includes('choices') ? 'choices' : error.name;
         const messageDescriptor = messages[errorName];
         if (!messageDescriptor) {
           return error;
