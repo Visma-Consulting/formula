@@ -19,6 +19,7 @@ export const translateProperties = [
   'textDefault',
   'consentTitle',
   'consentMessage',
+  'labelError',
 ];
 
 export const translateArrayProperties = ['choices', 'elements', 'scaleMarks'];
