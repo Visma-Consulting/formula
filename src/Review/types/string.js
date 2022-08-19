@@ -64,6 +64,10 @@ export default ({ formData, schema, uiSchema }) => {
     formData ??= empty;
   }
 
+  if(uiSchema?.['ui:options']?.dummy) {
+    return <Typography variant={uiSchema?.['ui:options']?.element?.type === "title" ? "h6" : "body1"}>{uiSchema?.['ui:options']?.element?.content}</Typography>;
+  }
+
   if (schema.format === 'markdown') {
     return <Markdown>{formData.replace('\\*', '*')}</Markdown>;
   }
