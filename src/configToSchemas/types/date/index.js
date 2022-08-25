@@ -57,11 +57,12 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
         focused={focused}
         {...language ? {phrases : mapValues(DateRangePickerPhrases, message => intl.formatMessage(message))} : {}}
         ariaLabel={useLabel ? label : title}
-        screenReaderInputMessage={<FormattedMessage defaultMessage={'Päivämäärä'}/> }
         onFocusChange={handleFocusChange}
         id={id}
         disabled={schema.readOnly || options.readonly}
-        placeholder={useLabel ? label : title}
+        small={true}
+        placeholder={intl.formatMessage({defaultMessage: "Päivämäärä"})}
+        screenReaderInputMessage={useLabel ? label : title}
         hideKeyboardShortcutsPanel
         isOutsideRange={(m) =>
           (options.disableBefore && options.element.disableBefore.type &&
