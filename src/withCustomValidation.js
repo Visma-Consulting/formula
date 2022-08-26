@@ -12,7 +12,8 @@ export default function withCustomValidation(Form) {
   return forwardRef(
     ({ config, validate, ...props }, ref) => {
       const intl = useIntl();
-      const validateElements = (config.type === 'form' || config.type === 'formGroup' ? config.elements : [config])
+      const formType = config.type;
+      const validateElements = (formType === 'form' || formType === 'formGroup' ? config.elements : [config])
         //.filter(element => element.validator && element.validator !== 'none');
         .map((element) => {
           if (element.type === 'formGroup') {
@@ -75,7 +76,7 @@ export default function withCustomValidation(Form) {
           }
         }
 
-        const validateAll = (formData, errors, elements) => {
+        const validateForm = (formData, errors, elements) => {
           for (const element of elements) {
             const { key, type, list, validator } = element;
             if (list) {
@@ -95,10 +96,23 @@ export default function withCustomValidation(Form) {
             } else if (type === 'formGroup') {
               validateFormGroup(formData[key], errors[key], element.elements);
             } else {
-              validateOne(formData[key] ?? formData, errors, element);
+              validateOne(formData[key], errors, element);
             }
           }
           return errors;
+        }
+
+        const validateAll = (formData, errors, elements) => {
+          switch (formType) {
+            case 'form':
+              return validateForm(formData, errors, elements);
+            case 'formGroup':
+              return config.list ?
+                validateForm({0: formData}, {0: errors}, [{...config, key: 0, elements}]) :
+                validateForm(formData, errors, elements);
+            default:
+              return validateForm({0: formData}, errors, [{...elements[0], key: 0}]);
+          }
         }
 
         return <Form
