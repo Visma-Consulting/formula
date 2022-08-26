@@ -36,7 +36,7 @@ function Compose(props) {
           switch (field.type) {
             case 'select': case 'multiselect':
               const choice = field.choices.find(choice => choice.enum === data.value) ?? field.choices[data.value];
-              return choice.enumNames ?? data.value;
+              return choice?.enumNames ?? data.value;
             case 'boolean':
               if (data.value) {
                 return field.yes && field.yes !== '' ? field.yes : intl.formatMessage({defaultMessage: 'Kyllä'});
