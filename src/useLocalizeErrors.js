@@ -104,7 +104,7 @@ export default (props) => {
               fieldUISchema: uiSchema,
             }
           );
-        const { title } = fieldSchema ?? {};
+        const title = fieldSchema?.title !== '' ? fieldSchema?.title : (props.config?.labelError !== '' && props.config?.useLabel) ? props.config?.labelError : '';
         const { patternDescription } = fieldUISchema ?? {};
         const message = intl.formatMessage(messageDescriptor, {
           field: title,
