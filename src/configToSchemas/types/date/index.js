@@ -60,6 +60,7 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
         screenReaderInputMessage={<FormattedMessage defaultMessage={'Päivämäärä'}/> }
         onFocusChange={handleFocusChange}
         id={id}
+        readOnly={true}
         disabled={schema.readOnly || options.readonly}
         placeholder={useLabel ? label : title}
         hideKeyboardShortcutsPanel

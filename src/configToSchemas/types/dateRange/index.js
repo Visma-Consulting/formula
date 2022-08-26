@@ -80,6 +80,7 @@ function DateRangePickerField(props) {
         {...language ? {phrases : mapValues(DateRangePickerPhrases, message => intl.formatMessage(message))} : {}}
         screenReaderInputMessage={<FormattedMessage defaultMessage={'Päivämäärähaarukka'}/> }
         hideKeyboardShortcutsPanel
+        readOnly={true}
         startDate={formData?.start === undefined ? null : moment(formData?.start)}
         startDateId={idSchema.start.$id}
         startDatePlaceholderText={intl.formatMessage({
