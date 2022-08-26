@@ -1,3 +1,5 @@
+const nonListFields = ['boolean', 'consent', 'tableField'];
+
 const getDefaultByType = (type) => {
   switch (type) {
     case 'text': case 'textarea': case 'richtext': case 'email': case 'password':
@@ -10,7 +12,7 @@ const getDefaultByType = (type) => {
 }
 
 export default (config) => (props) => {
-  if (config.list) {
+  if (config.list && !nonListFields.includes(config.type)) {
     const { title, default: defaults, ...itemsSchema } = props.schema;
     const { emptyDefault = false } = config;
 
