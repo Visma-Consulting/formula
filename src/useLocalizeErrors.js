@@ -38,7 +38,7 @@ const messages = defineMessages({
 });
 
 const type = defineMessages({
-  file: { defaultMessage: 'valittu' },
+  file: { defaultMessage: 'tiedosto' },
   string: { defaultMessage: 'tekstiarvo' },
   number: { defaultMessage: 'numero'},
   boolean: { defaultMessage: 'booleanarvo' },
@@ -111,7 +111,7 @@ export default (props) => {
           field: title,
           description: { pattern: patternDescription }[errorName],
           ...mapValues(
-            mapValues(error.params, stringDataUrlToFile(fieldSchema)),
+            mapValues(error.params, stringDataUrlToFile(fieldSchema, error)),
             (value, key) =>
               key in params && value in params[key]
                 ? intl.formatMessage(params[key][value])
@@ -132,7 +132,7 @@ export default (props) => {
   };
 };
 
-const stringDataUrlToFile = (fieldSchema) => (value) =>
-  [fieldSchema?.format, fieldSchema?.items?.format].includes('data-url')
+const stringDataUrlToFile = (fieldSchema, error) => (value) =>
+  ([fieldSchema?.format, fieldSchema?.items?.format].includes('data-url') && error.name !== 'minItems')
     ? 'file'
     : value;
