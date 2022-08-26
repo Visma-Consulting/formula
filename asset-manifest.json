@@ -1,22 +1,22 @@
 {
   "files": {
-    "compiled-lang.en-US.js": "/formula/static/js/compiled-lang.en-US.2eeb1546.chunk.js",
-    "compiled-lang.en-US.js.map": "/formula/static/js/compiled-lang.en-US.2eeb1546.chunk.js.map",
-    "compiled-lang.fi-FI.js": "/formula/static/js/compiled-lang.fi-FI.a2108729.chunk.js",
-    "compiled-lang.fi-FI.js.map": "/formula/static/js/compiled-lang.fi-FI.a2108729.chunk.js.map",
-    "compiled-lang.sv-SE.js": "/formula/static/js/compiled-lang.sv-SE.45fe58e3.chunk.js",
-    "compiled-lang.sv-SE.js.map": "/formula/static/js/compiled-lang.sv-SE.45fe58e3.chunk.js.map",
+    "compiled-lang.en-US.js": "/formula/static/js/compiled-lang.en-US.5d73c5ea.chunk.js",
+    "compiled-lang.en-US.js.map": "/formula/static/js/compiled-lang.en-US.5d73c5ea.chunk.js.map",
+    "compiled-lang.fi-FI.js": "/formula/static/js/compiled-lang.fi-FI.ba11f3c5.chunk.js",
+    "compiled-lang.fi-FI.js.map": "/formula/static/js/compiled-lang.fi-FI.ba11f3c5.chunk.js.map",
+    "compiled-lang.sv-SE.js": "/formula/static/js/compiled-lang.sv-SE.ba5c4740.chunk.js",
+    "compiled-lang.sv-SE.js.map": "/formula/static/js/compiled-lang.sv-SE.ba5c4740.chunk.js.map",
     "main.js": "/formula/static/js/main.c0470fc3.chunk.js",
     "main.js.map": "/formula/static/js/main.c0470fc3.chunk.js.map",
-    "runtime-main.js": "/formula/static/js/runtime-main.3cdeb91b.js",
-    "runtime-main.js.map": "/formula/static/js/runtime-main.3cdeb91b.js.map",
+    "runtime-main.js": "/formula/static/js/runtime-main.e4d05973.js",
+    "runtime-main.js.map": "/formula/static/js/runtime-main.e4d05973.js.map",
     "static/js/5.d9f65e33.chunk.js": "/formula/static/js/5.d9f65e33.chunk.js",
     "static/js/5.d9f65e33.chunk.js.map": "/formula/static/js/5.d9f65e33.chunk.js.map",
     "index.html": "/formula/index.html",
     "static/js/5.d9f65e33.chunk.js.LICENSE.txt": "/formula/static/js/5.d9f65e33.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.3cdeb91b.js",
+    "static/js/runtime-main.e4d05973.js",
     "static/js/5.d9f65e33.chunk.js",
     "static/js/main.c0470fc3.chunk.js"
   ]
