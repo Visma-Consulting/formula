@@ -104,7 +104,6 @@ export default (props) => {
               fieldUISchema: uiSchema,
             }
           );
-        console.log(fieldUISchema);
         const title = fieldSchema?.title !== '' ? fieldSchema?.title : (fieldUISchema['ui:options']?.element?.labelError !== '' && fieldUISchema['ui:options']?.element?.useLabel) ? fieldUISchema['ui:options']?.element?.labelError : '';
         const { patternDescription } = fieldUISchema ?? {};
         const message = intl.formatMessage(messageDescriptor, {
