@@ -82,7 +82,7 @@ export default (props) => {
                 const itemUiSchema = get(fieldUISchema, `[${pathPart}]`);
                 return {
                   fieldSchema: get(fieldSchema.properties, `[${pathPart}]`),
-                  fieldUISchema: itemUiSchema?.items?.patternDescription ? itemUiSchema.items : itemUiSchema,
+                  fieldUISchema: (itemUiSchema?.items?.patternDescription || itemUiSchema?.items) ? itemUiSchema?.items : itemUiSchema,
                 };
               }
               if (fieldSchema.type === 'array') {
@@ -104,7 +104,8 @@ export default (props) => {
               fieldUISchema: uiSchema,
             }
           );
-        const title = fieldSchema?.title !== '' ? fieldSchema?.title : (props.config?.labelError !== '' && props.config?.useLabel) ? props.config?.labelError : '';
+        console.log(fieldUISchema);
+        const title = fieldSchema?.title !== '' ? fieldSchema?.title : (fieldUISchema['ui:options']?.element?.labelError !== '' && fieldUISchema['ui:options']?.element?.useLabel) ? fieldUISchema['ui:options']?.element?.labelError : '';
         const { patternDescription } = fieldUISchema ?? {};
         const message = intl.formatMessage(messageDescriptor, {
           field: title,
