@@ -80,9 +80,6 @@
   "ZSBYCq": {
     "defaultMessage": "Buttons with empty choice"
   },
-  "abt9v2": {
-    "defaultMessage": "BMI field works when there are fields for height and weight (in this order) in the same form group. Nothing else must be in this form group."
-  },
   "cG6IFs": {
     "defaultMessage": "Checkbox"
   },
@@ -259,5 +256,8 @@
   },
   "XOPDit": {
     "defaultMessage": "a valid email address"
+  },
+  "wu4pA8": {
+    "defaultMessage": "Formgroup or form needs to have height and weight fields."
   }
 }
