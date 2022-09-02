@@ -1,3 +1,8 @@
+# 0.4.115
+
+- Added missing description texts
+- Custom bmi keys
+
 # 0.4.113
 
 - Inline review fix
