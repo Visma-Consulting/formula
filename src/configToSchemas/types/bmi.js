@@ -1,4 +1,3 @@
-import { Typography } from '@material-ui/core';
 import { utils } from '@visma/rjsf-core';
 import { get } from 'lodash';
 import { useContext, useEffect } from 'react';
@@ -41,15 +40,14 @@ function Bmi(props) {
 
   return (
     <>
-      <FormattedMessage defaultMessage="Painoindeksikysymys toimii oikein, kun samasta kysymysryhmästä löytyy ensimmäisenä pituuskysymys ja toisena painokysymys. Mitään muuta ei saa olla samassa kysymysryhmässä." />
+      <FormattedMessage defaultMessage="Kysymysryhmässä tai lomakkeella pitää olla pituus- ja painokysymykset." />
     </>
   );
 }
 
 export default (props) => {
-  const {
-    config: { heightFieldKey = 0, weightFieldKey = 1 },
-  } = props;
+  const heightFieldKey = props.config?.bmiFieldKeys?.heightFieldKey ?? 0;
+  const weightFieldKey = props.config?.bmiFieldKeys?.weightFieldKey ?? 1;
   return {
     schema: {
       type: 'string',

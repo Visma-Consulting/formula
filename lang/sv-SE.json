@@ -71,9 +71,6 @@
   "ZSBYCq": {
     "defaultMessage": "Knappar med tomt val"
   },
-  "abt9v2": {
-    "defaultMessage": "BMI -fältet fungerar som det ska , om från samma uppsättning frågor, är en fråga om längd först och en fråga om vikt andra . Inget annat ska finnas i samma grupp av frågor."
-  },
   "cG6IFs": {
     "defaultMessage": "Kryssruta"
   },
@@ -259,5 +256,8 @@
   },
   "XOPDit": {
     "defaultMessage": "en giltig e-postadress"
+  },
+  "wu4pA8": {
+    "defaultMessage": "Formulärgrupp eller formulär måste ha höjd- och viktfält."
   }
 }
