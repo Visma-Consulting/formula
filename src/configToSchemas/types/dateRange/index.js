@@ -32,7 +32,6 @@ function DateRangePickerField(props) {
   const { locale } = intl;
   const language = intl.locale.split('-')[0] !== 'en';
   const classes = useStyles();
-  console.log(props);
   useEffect(() => {
     moment.locale(locale);
   }, [locale]);
@@ -73,9 +72,6 @@ function DateRangePickerField(props) {
         schema={{...props.schema, type: 'string'}}
         id={idSchema.$id}
         >
-        {props.uiSchema['ui:options']?.element?.list ? <></> : <FormHelperText component="span" variant="contained" error={false}>
-          {props.uiSchema['ui:options']?.element?.description}
-        </FormHelperText> }
         <div>
       <DateRangePicker
         onDatesChange={({ startDate, endDate }) => (startDate || endDate) && onChange({ start: startDate?.format('YYYY-MM-DD'), end: endDate?.format('YYYY-MM-DD')})}
