@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { mapValues } from 'lodash';
 import { DateRangePickerPhrases } from '../../../../lib/configToSchemas/types/date/phrases';
-import { FormHelperText } from '@material-ui/core';
+import { FormHelperText, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -66,12 +66,6 @@ function DateRangePickerField(props) {
   }
 
   return (
-    <>
-      <props.registry.FieldTemplate
-        {...props}
-        schema={{...props.schema, type: 'string'}}
-        id={idSchema.$id}
-        >
         <div>
       <DateRangePicker
         onDatesChange={({ startDate, endDate }) => (startDate || endDate) && onChange({ start: startDate?.format('YYYY-MM-DD'), end: endDate?.format('YYYY-MM-DD')})}
@@ -113,9 +107,6 @@ function DateRangePickerField(props) {
         </Button>
           : <></>}
         </div>
-      </props.registry.FieldTemplate>
-
-    </>
   );
 }
 
