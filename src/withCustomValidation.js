@@ -69,7 +69,7 @@ export default function withCustomValidation(Form) {
                 for (const dataIndex in formData[key]) {
                   validateOne(formData[key][dataIndex], errors, element, dataIndex);
                 }
-              } else {
+              } else if(formData){
                 validateOne(formData[key], errors, element);
               }
             }
