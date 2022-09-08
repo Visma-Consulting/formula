@@ -1,3 +1,7 @@
+# 0.4.118
+
+- Formgroup custom validation fix
+
 # 0.4.115
 
 - Added missing description texts
