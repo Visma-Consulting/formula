@@ -1,5 +1,9 @@
 # 0.4.118
 
+- Upgrade to `@visma/rjsf-*@3.1.0-48`
+
+# 0.4.118
+
 - Formgroup custom validation fix
 
 # 0.4.115
