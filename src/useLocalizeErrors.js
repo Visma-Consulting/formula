@@ -28,6 +28,9 @@ const messages = defineMessages({
   maximum: {
     defaultMessage: '"{field}" täytyy olla pienempi tai yhtä suuri kuin {limit}',
   },
+  anyOf: {
+    defaultMessage: 'Vähintään yhteen kysymysryhmän "{field}" kysymyksistä pitää vastata',
+  },
 
   pattern: { defaultMessage: '"{field}" arvon on oltava {description}' },
   required: { defaultMessage: '"{field}" on pakollinen kenttä' },
@@ -54,6 +57,7 @@ export default (props) => {
     ...props,
     transformErrors: (errors) => {
       const transformedErrors = errors.map((error) => {
+        console.log(error);
         const errorName = error.property.includes('.end') ? 'requiredEnd' : error.property.includes('.start') ? 'requiredStart' : error.property.includes('choices') ? 'choices' : error.name;
         const messageDescriptor = messages[errorName];
         if (!messageDescriptor) {
