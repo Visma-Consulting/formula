@@ -57,7 +57,6 @@ export default (props) => {
     ...props,
     transformErrors: (errors) => {
       const transformedErrors = errors.map((error) => {
-        console.log(error);
         const errorName = error.property.includes('.end') ? 'requiredEnd' : error.property.includes('.start') ? 'requiredStart' : error.property.includes('choices') ? 'choices' : error.name;
         const messageDescriptor = messages[errorName];
         if (!messageDescriptor) {
