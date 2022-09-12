@@ -1,3 +1,9 @@
+# 0.4.120
+
+- Upgrade to `@visma/rjsf-*@3.1.0-50`
+- Change document object references
+- Fix description texts
+
 # 0.4.119
 
 - Upgrade to `@visma/rjsf-*@3.1.0-48`
