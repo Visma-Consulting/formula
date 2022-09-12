@@ -13,6 +13,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
 import { defineMessages } from '@formatjs/intl';
+import { utils } from '@visma/rjsf-core';
+import { FormHelperText } from '@material-ui/core';
 
 const useStyles = makeStyles({
   inputLabelRoot: {
@@ -169,6 +171,7 @@ function TableField(props) {
 
   return (
     <div>
+      <FormHelperText component="span">{description}</FormHelperText>
       <TableContainer>
         <Table size="small">
           <TableHead>
