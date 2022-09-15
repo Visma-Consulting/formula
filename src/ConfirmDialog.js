@@ -31,7 +31,7 @@ const sendErrorMessages = {
 };
 
 export default forwardRef(function ConfirmDialog(
-  { title, description, children, onConfirm, confirmComponent, ...otherProps },
+  { container, title, description, children, onConfirm, confirmComponent, ...otherProps },
   ref
 ) {
   useImperativeHandle(ref, () => ({
@@ -115,6 +115,7 @@ export default forwardRef(function ConfirmDialog(
         aria-labelledby="confirm-dialog-title"
         aria-describedby="confirm-dialog-description"
         fullScreen={useMediaQuery('print')}
+        container={container}
       >
         <DialogTitle id="confirm-dialog-title">{title}</DialogTitle>
         <DialogContent>
