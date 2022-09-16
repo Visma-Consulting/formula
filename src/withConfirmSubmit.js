@@ -23,17 +23,22 @@ export default function withConfirmSubmit(Form) {
       const { submit } = useMutations();
       const { config, onSubmit = submit } = otherProps;
       const confirmDialogRef = useRef();
+      const containerRef = useRef();
 
       const hasConfirmValue = hasConfirm(otherProps);
 
       return (
         <>
           {hasConfirmValue && (
-            <ConfirmDialog
-              title={<FormattedMessage defaultMessage="Lähetetäänkö lomake?" />}
-              ref={confirmDialogRef}
-              {...otherProps}
-            ></ConfirmDialog>
+            <>
+              <div ref={containerRef} />
+              <ConfirmDialog
+                title={<FormattedMessage defaultMessage="Lähetetäänkö lomake?" />}
+                ref={confirmDialogRef}
+                container={containerRef.current}
+                {...otherProps}
+              />
+            </>
           )}
           <Form
             ref={ref}
