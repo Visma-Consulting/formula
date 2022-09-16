@@ -28,6 +28,9 @@ const messages = defineMessages({
   maximum: {
     defaultMessage: '"{field}" täytyy olla pienempi tai yhtä suuri kuin {limit}',
   },
+  anyOf: {
+    defaultMessage: 'Vähintään yhteen kysymysryhmän "{field}" kysymyksistä pitää vastata',
+  },
 
   pattern: { defaultMessage: '"{field}" arvon on oltava {description}' },
   required: { defaultMessage: '"{field}" on pakollinen kenttä' },
