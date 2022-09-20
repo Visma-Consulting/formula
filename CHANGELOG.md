@@ -1,3 +1,9 @@
+# 0.4.122
+
+- Upgrade to `@visma/rjsf-*@3.1.0-52`
+- css fixes
+- Localization fixes
+
 # 0.4.121
 
 - Upgrade to `@visma/rjsf-*@3.1.0-51`
