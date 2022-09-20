@@ -10,9 +10,6 @@ const useStyles = makeStyles(theme =>({
     marginLeft: '0.3em',
   },
   link: {
-    '&:visited': {
-      color: theme.palette.type === 'dark' ? '#FC69DC' : '#AB0386',
-    },
     color: theme.palette.type === 'dark' ? '#1FA5FF' : theme.palette.primary,
   }
 }));
