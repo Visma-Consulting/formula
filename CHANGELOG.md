@@ -1,3 +1,10 @@
+# 0.4.123
+
+- Upgrade to `@visma/rjsf-*@3.1.0-53`
+- Fix automatic scrolling
+- Fix body review not showing markdown
+- Change date range UI to be mobile friendly
+
 # 0.4.122
 
 - Upgrade to `@visma/rjsf-*@3.1.0-52`
