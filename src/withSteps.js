@@ -34,8 +34,8 @@ export default function withSteps(Form) {
         setMaxJump((prev) => Math.max(prev, nextStep));
         setActiveStep(nextStep);
         const stepId = 'formula-step-' + steps[nextStep]['ui:options']?.element?.key;
-        formWrapperRef.current?.querySelector('#' + stepId).focus();
-        formWrapperRef.current.scrollIntoView({ behavior: "smooth" });
+        formWrapperRef.current?.formElement?.querySelector('#' + stepId).focus();
+        formWrapperRef.current?.formElement?.scrollIntoView({ behavior: "smooth" });
         // Prevent submit
         return false;
       }
