@@ -59,6 +59,7 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
         ariaLabel={useLabel ? label : title}
         onFocusChange={handleFocusChange}
         id={id}
+        numberOfMonths={1}
         disabled={schema.readOnly || options.readonly}
         small={true}
         placeholder={intl.formatMessage({defaultMessage: "Päivämäärä"})}
@@ -75,6 +76,7 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
       <Button
         variant="contained"
         color="secondary"
+        size={"small"}
         className={classes.button}
         onClick={(value) => value && list ? onChange([undefined]) : value && onChange(undefined)}
       >
