@@ -71,6 +71,8 @@ function DateRangePickerField(props) {
         onDatesChange={({ startDate, endDate }) => (startDate || endDate) && onChange({ start: startDate?.format('YYYY-MM-DD'), end: endDate?.format('YYYY-MM-DD')})}
         onFocusChange={handleFocusChange}
         focusedInput={focusedInput}
+        small={true}
+        numberOfMonths={1}
         disabled={schema.readOnly || uiSchema.readonly}
         {...language ? {phrases : mapValues(DateRangePickerPhrases, message => intl.formatMessage(message))} : {}}
         screenReaderInputMessage={<FormattedMessage defaultMessage={'Päivämäärähaarukka'}/> }
@@ -100,6 +102,7 @@ function DateRangePickerField(props) {
         <Button
           variant="contained"
           color="secondary"
+          size={"small"}
           className={classes.button}
           onClick={(value) => value && onChange({ start: undefined, end: undefined})}
         >
