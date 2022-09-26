@@ -1,3 +1,7 @@
+# 0.4.124
+
+- Scroll to error hotfix
+
 # 0.4.123
 
 - Upgrade to `@visma/rjsf-*@3.1.0-53`
