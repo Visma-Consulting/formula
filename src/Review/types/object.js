@@ -7,12 +7,13 @@ import TableRow from '@material-ui/core/TableRow';
 import { format } from 'date-fns';
 import { useFormulaContext } from '../../Context';
 import Field from '../Field';
+import { dynamicElements } from '../../useDynamicElements';
 
 export default (props) => {
   const { formData, schema, uiSchema, ...otherProps } = props;
   const { dateFnsLocale } = useFormulaContext();
 
-  // formGroups
+  // dateRange
   if (uiSchema['ui:options']?.element.type === 'dateRange') {
     const start = formData.start
       ? format(new Date(formData.start), 'P', { locale: dateFnsLocale })
@@ -29,8 +30,31 @@ export default (props) => {
         uiSchema={uiSchema}
       />
     );
-  } else {
-    if (uiSchema['ui:order']) {
+  }
+
+  // forms and formGroups
+  if (uiSchema['ui:order']) {
+    if (uiSchema['ui:options']?.element?.type === 'formGroup') {
+      const elementKeys = dynamicElements(
+        {
+          ...uiSchema['ui:options'].element,
+          list: false,
+          title: undefined,
+        },
+        props.formData
+      ).elements.map(element => element.key);
+      return uiSchema['ui:order'].filter((name) => {
+        return elementKeys.includes(name);
+      }).map((name) => (
+        <Field
+          {...otherProps}
+          key={name}
+          formData={formData?.[name]}
+          schema={schema.properties[name]}
+          uiSchema={uiSchema?.[name]}
+        />
+      ));
+    } else {
       return uiSchema['ui:order'].map((name) => (
         <Field
           {...otherProps}
