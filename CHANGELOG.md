@@ -1,3 +1,9 @@
+# 0.4.125
+
+- Formgroup visibility restriction fix
+- Formgroup list fix
+- Date question css fix
+
 # 0.4.124
 
 - Scroll to error hotfix
