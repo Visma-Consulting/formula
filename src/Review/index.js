@@ -19,14 +19,17 @@ const useStyles = makeStyles((theme) => ({
 export default function Review(props) {
   const classes = useStyles();
   const intl = useIntl();
-
   return (
     <>
+      {props.reviewProps?.showSuccessText &&
       <Alert severity="success">
         {intl.formatMessage({ defaultMessage: 'Lomake lähetetty!' })}
       </Alert>
+      }
       <Field root {...props} />
+      {props.reviewProps?.showSuccessText &&
       <Markdown>{props.config.successText}</Markdown>
+      }
       <div className={classes.buttonContainer}>
         {props.reviewProps?.actions}
         <PrintButton />
