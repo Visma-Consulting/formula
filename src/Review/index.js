@@ -21,13 +21,13 @@ export default function Review(props) {
   const intl = useIntl();
   return (
     <>
-      {props.reviewProps?.showSuccessText &&
+      {props.reviewProps?.showSuccessText !== false &&
       <Alert severity="success">
         {intl.formatMessage({ defaultMessage: 'Lomake lähetetty!' })}
       </Alert>
       }
       <Field root {...props} />
-      {props.reviewProps?.showSuccessText &&
+      {props.reviewProps?.showSuccessText !== false &&
       <Markdown>{props.config.successText}</Markdown>
       }
       <div className={classes.buttonContainer}>
