@@ -1,3 +1,7 @@
+# 0.4.127
+
+- Move successText to the top of review by form prop
+
 # 0.4.125
 
 - Formgroup visibility restriction fix
