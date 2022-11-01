@@ -19,6 +19,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Review(props) {
   const classes = useStyles();
   const intl = useIntl();
+  const { config } = props;
+  const showSuccessText = props.reviewProps?.showSuccessText !== false;
   return (
     <>
       {props.reviewProps?.showSuccessText !== false &&
@@ -26,9 +28,14 @@ export default function Review(props) {
         {intl.formatMessage({ defaultMessage: 'Lomake lähetetty!' })}
       </Alert>
       }
+      {
+        showSuccessText && config?.showSuccessTextOnTop ?
+          <Markdown>{props.config.successText}</Markdown> : <></>
+      }
       <Field root {...props} />
-      {props.reviewProps?.showSuccessText !== false &&
-      <Markdown>{props.config.successText}</Markdown>
+      {
+        showSuccessText && !config?.showSuccessTextOnTop ?
+          <Markdown>{props.config.successText}</Markdown> : <></>
       }
       <div className={classes.buttonContainer}>
         {props.reviewProps?.actions}
