@@ -36,6 +36,16 @@ export default function withDraftSave(Form) {
         let onSave = props.onDraftSave;
         const { submit } = useMutations();
         onSave ??= submit;
+
+        let preResult = true;
+        if (props.preDraftSave) {
+          preResult = props.preDraftSave();
+        }
+
+        if (!preResult) {
+          return false;
+        }
+
         const response = await onSave(data, props.credentials, props.formDataAction, isDraft);
 
         if (response) {
@@ -50,6 +60,10 @@ export default function withDraftSave(Form) {
 
           setDraftId(response.attributes?.id);
           setIsDraft(true);
+
+          if (props.afterDraftSave) {
+            props.afterDraftSave(response);
+          }
         }
 
         return false;
