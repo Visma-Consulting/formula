@@ -41,7 +41,7 @@ export default function filter(config) {
   if (typeof config.filter?.enable?.target === 'number') {
     config.filter.enable.target = String(config.filter.enable.target);
   }
-  if (config.filter) {
+  if (config.filter && Object.keys(config.filter).length > 0) {
     for (const type of ['show', 'enable']) {
       if (config.filter[type]?.target) {
         config.filter[type] = {
@@ -50,5 +50,16 @@ export default function filter(config) {
       }
     }
   }
+
+  if (config.filter?.customQuery) {
+    for (const type of ['show', 'enable']) {
+      if (config.filter.customQuery[type]) {
+        config.filter[type] = {
+          query: config.filter.customQuery[type].query,
+        };
+      }
+    }
+  }
+
   return config;
 }
