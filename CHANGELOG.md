@@ -1,3 +1,7 @@
+# 0.4.129
+
+- Added custom query normalization
+
 # 0.4.128
 
 - Added draftsave callbacks
