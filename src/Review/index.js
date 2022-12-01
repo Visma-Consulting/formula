@@ -14,6 +14,22 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  successTextBox: {
+    marginBottom: '5px',
+    marginTop: '5px',
+    color: theme.palette.primary,
+    borderStyle: 'solid',
+    borderRadius: '3px',
+    borderSpacing: '15px'
+  },
+  successText: {
+  padding: '5px',
+  paddingLeft: '20px',
+  color: theme.palette.primary,
+  fontWeight: 'bold',
+  fontSize: '1.1em'
+},
+
 }));
 
 export default function Review(props) {
@@ -21,6 +37,14 @@ export default function Review(props) {
   const intl = useIntl();
   const { config } = props;
   const showSuccessText = props.reviewProps?.showSuccessText !== false;
+  const highlightSuccessText = props.reviewProps?.highlightSuccessText;
+
+  function checkSuccessHighlight() {
+    return highlightSuccessText === true ?
+        <div className={classes.successTextBox}>
+        <Markdown className={classes.successText}>{props.config.successText}</Markdown> </div> :
+        <Markdown>{props.config.successText}</Markdown>
+  }
   return (
     <>
       {props.reviewProps?.showSuccessText !== false &&
@@ -30,12 +54,12 @@ export default function Review(props) {
       }
       {
         showSuccessText && config?.showSuccessTextOnTop ?
-          <Markdown>{props.config.successText}</Markdown> : <></>
+          checkSuccessHighlight(): <></>
       }
       <Field root {...props} />
       {
         showSuccessText && !config?.showSuccessTextOnTop ?
-          <Markdown>{props.config.successText}</Markdown> : <></>
+          checkSuccessHighlight() : <></>
       }
       <div className={classes.buttonContainer}>
         {props.reviewProps?.actions}
