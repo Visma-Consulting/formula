@@ -208,7 +208,7 @@ export default function withSteps(Form) {
       __withStepped_original_props__: props,
     };
 
-    return steps.length ? (
+    return (!props?.fillProps?.disableSteps && steps.length) ? (
       <WithSteps ref={ref} {...steppedProps} steps={steps} />
     ) : (
       <Form ref={ref} {...steppedProps} />

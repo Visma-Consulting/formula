@@ -3,7 +3,7 @@ import extendType from './_extendType';
 import _dummy from './_dummy';
 import { Typography } from '@material-ui/core';
 
-const TitleField = ({ idSchema, uiSchema }) => {
+export const TitleField = ({ idSchema, uiSchema }) => {
   const content = uiSchema?.['ui:options']?.element?.content;
   const headerNumber = idSchema?.$id?.split('_').length + 1;
   return <Typography component={headerNumber < 5 ? `h${headerNumber}` : 'h6'} variant="h5">{content}</Typography>
