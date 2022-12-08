@@ -102,7 +102,7 @@ export default function withConfirmSubmit(Form) {
                   variant="contained"
                   color="primary"
                 >
-                  <FormattedMessage defaultMessage="Lähetä" />
+                  {customMessages?.submit ?? <FormattedMessage defaultMessage="Lähetä" />}
                 </Button>
                 </div>}
           </Form>
