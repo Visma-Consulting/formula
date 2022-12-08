@@ -127,7 +127,7 @@ export default forwardRef(function ConfirmDialog(
           {hasPreview(otherProps) && (
             <>
               <Typography variant="subtitle1" component="h3">
-                {customMessages?.conformDialogPreview ?? <FormattedMessage defaultMessage="Lähetettävien tietojen esikatselu" />}
+                {customMessages?.confirmDialogPreview ?? <FormattedMessage defaultMessage="Lähetettävien tietojen esikatselu" />}
               </Typography>
               <Field
                 preview // For selecting optional preview / review customization
