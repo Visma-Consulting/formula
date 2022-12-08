@@ -31,7 +31,7 @@ const sendErrorMessages = {
 };
 
 export default forwardRef(function ConfirmDialog(
-  { container, title, description, children, onConfirm, confirmComponent, ...otherProps },
+  { container, title, description, children, onConfirm, confirmComponent, customMessages, ...otherProps },
   ref
 ) {
   useImperativeHandle(ref, () => ({
@@ -127,7 +127,7 @@ export default forwardRef(function ConfirmDialog(
           {hasPreview(otherProps) && (
             <>
               <Typography variant="subtitle1" component="h3">
-                <FormattedMessage defaultMessage="Lähetettävien tietojen esikatselu" />
+                {customMessages?.conformDialogPreview ?? <FormattedMessage defaultMessage="Lähetettävien tietojen esikatselu" />}
               </Typography>
               <Field
                 preview // For selecting optional preview / review customization
@@ -149,7 +149,7 @@ export default forwardRef(function ConfirmDialog(
                   color="secondary"
                 />
               }
-              label={intl.formatMessage({
+              label={customMessages?.confirmDialogConsent ?? intl.formatMessage({
                 defaultMessage: 'Vahvistan ilmoitetut tiedot oikeiksi',
               })}
             />
@@ -171,7 +171,7 @@ export default forwardRef(function ConfirmDialog(
         <Box displayPrint="none">
           <DialogActions>
             <Button disabled={loading && !error} onClick={handleDismiss}>
-              <FormattedMessage defaultMessage="Peruuta" />
+              {customMessages?.confirmDialogCancelButton ?? <FormattedMessage defaultMessage="Peruuta" />}
             </Button>
             {hasPreview(otherProps) && <PrintButton />}
             <Button
@@ -186,7 +186,7 @@ export default forwardRef(function ConfirmDialog(
               color="primary"
               autoFocus
             >
-              <FormattedMessage defaultMessage="Lähetä" />
+              {customMessages?.confirmDialogSendButton ?? <FormattedMessage defaultMessage="Lähetä" />}
             </Button>
           </DialogActions>
         </Box>

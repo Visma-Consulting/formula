@@ -25,7 +25,7 @@ export default function Review(props) {
     <>
       {props.reviewProps?.showSuccessText !== false &&
       <Alert severity="success">
-        {intl.formatMessage({ defaultMessage: 'Lomake lähetetty!' })}
+        {props.customMessages?.submitConfirmation ?? intl.formatMessage({ defaultMessage: 'Lomake lähetetty!' })}
       </Alert>
       }
       {
