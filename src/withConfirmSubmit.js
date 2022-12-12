@@ -16,6 +16,7 @@ export default function withConfirmSubmit(Form) {
         formDataAction,
         credentials,
         dataIsDraft,
+        customMessages,
         ...otherProps
       },
       ref
@@ -33,8 +34,9 @@ export default function withConfirmSubmit(Form) {
             <>
               <div ref={containerRef} />
               <ConfirmDialog
-                title={<FormattedMessage defaultMessage="Lähetetäänkö lomake?" />}
+                title={customMessages?.confirmDialogTitle ?? <FormattedMessage defaultMessage="Lähetetäänkö lomake?" />}
                 ref={confirmDialogRef}
+                customMessages={customMessages}
                 container={containerRef.current}
                 {...otherProps}
               />
@@ -45,6 +47,7 @@ export default function withConfirmSubmit(Form) {
             credentials={credentials}
             formDataAction={formDataAction}
             dataIsDraft={dataIsDraft}
+            customMessages={customMessages}
             {...otherProps}
             onSubmit={chain([
               onPreSubmit,
@@ -99,7 +102,7 @@ export default function withConfirmSubmit(Form) {
                   variant="contained"
                   color="primary"
                 >
-                  <FormattedMessage defaultMessage="Lähetä" />
+                  {customMessages?.submit ?? <FormattedMessage defaultMessage="Lähetä" />}
                 </Button>
                 </div>}
           </Form>
