@@ -309,3 +309,63 @@ export function CustomPreviewField({ formData, uiSchema, children }) {
      id="1"
    />;
    ```
+<br>
+EXAMPLES
+<br>
+App wrapped with FormulaProvider
+
+   ```js
+    async function main() {
+     await init('https://example.com/formula');
+   
+   
+     ReactDOM.render(
+       <DLL.FormulaProvider
+       axios={(axios) => {
+         axios.defaults.baseURL = 'https://example.com/formula';
+       }}
+     >
+       <App />
+     </DLL.FormulaProvider>
+       , document.getElementById('root'));
+   }
+   main();
+   ```
+<br><br>
+After wrapping App with the Provider, Formula component can be used anywhere inside the App
+
+FormulaComponent
+   ```js
+      import {IntlProvider} from "react-intl";
+      import DLL from "@visma/formula/lib/dll";
+      import React from "react";
+      
+      const FormulaComponent = (props) => {
+        return (
+          <IntlProvider locale={'fi-FI'}>
+            <DLL.Form
+              id={props?.formId}
+              dataId={props?.formResponseId}
+              credentials={props?.credentials}
+              ...
+            >
+            </DLL.Form>
+          </IntlProvider>
+        );
+      }
+      
+      export default FormulaComponent;
+   ```
+<br>
+Using FormulaComponent inside App
+   
+   ```js 
+      ...
+      <FormulaComponent
+        formId={formId}
+        formResponseId={formResponseId}
+        credentials={formulaToken}
+        ...
+      />
+      ...
+   ```
