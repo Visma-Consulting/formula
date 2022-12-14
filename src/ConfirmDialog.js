@@ -116,6 +116,7 @@ export default forwardRef(function ConfirmDialog(
         aria-describedby="confirm-dialog-description"
         fullScreen={useMediaQuery('print')}
         container={container}
+        disableBackdropClick
       >
         <DialogTitle id="confirm-dialog-title">{title}</DialogTitle>
         <DialogContent>
