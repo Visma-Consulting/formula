@@ -1,7 +1,7 @@
 import { defineMessage } from 'react-intl';
 import { ensureValueIsAvailable, sortChoices } from '../../utils';
 
-export default ({ config }) => {
+export default ({ config, fillProps }) => {
   const {
     choices = [],
     choicesDisabled,
@@ -41,7 +41,8 @@ export default ({ config }) => {
       // 'ui:field': autocomplete ? AutocompleteSelectField : undefined,
       'ui:enumDisabled': choicesDisabled,
       'ui:options': {
-        inline: widget && widget.endsWith('Row')
+        inline: widget && widget.endsWith('Row'),
+        showScore: fillProps?.showScores
       }
     },
   };
