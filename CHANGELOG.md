@@ -1,3 +1,7 @@
+# 0.4.132
+
+- Upgrade to `@visma/rjsf-*@3.1.0-56`
+
 # 0.4.129
 
 - Added custom query normalization
