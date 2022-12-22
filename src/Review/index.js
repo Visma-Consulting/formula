@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl';
 import Markdown from '../Markdown';
 import { PrintButton } from '../PrintButton';
 import Field from './Field';
+import { useEffect, useRef } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   buttonContainer: {
@@ -38,6 +39,9 @@ export default function Review(props) {
   const { config } = props;
   const showSuccessText = props.reviewProps?.showSuccessText !== false;
   const highlightSuccessText = props.reviewProps?.highlightSuccessText;
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, []);
 
   function checkSuccessHighlight() {
     return highlightSuccessText === true ?
