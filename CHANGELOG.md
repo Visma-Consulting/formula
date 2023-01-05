@@ -1,3 +1,7 @@
+# 0.4.134
+
+- Review layout fixes
+
 # 0.4.132
 
 - Upgrade to `@visma/rjsf-*@3.1.0-56`
