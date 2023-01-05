@@ -42,7 +42,7 @@ export default function Review(props) {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, []);
-
+  const pageTitlesArray = props?.config?.elements.filter(x => (x.type === 'pageTitle' && x.content));
   function checkSuccessHighlight() {
     return highlightSuccessText === true ?
         <div className={classes.successTextBox}>
@@ -60,7 +60,7 @@ export default function Review(props) {
         showSuccessText && config?.showSuccessTextOnTop ?
           checkSuccessHighlight(): <></>
       }
-      <Field root {...props} />
+      <Field root {...props} pageTitles={pageTitlesArray} />
       {
         showSuccessText && !config?.showSuccessTextOnTop ?
           checkSuccessHighlight() : <></>
