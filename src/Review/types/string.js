@@ -12,14 +12,13 @@ import Markdown from '../../Markdown';
 const dataUrlByteLength = (dataUrl) => byteLength(dataUrl.split(',')[1]);
 
 function calculatePageTitleNumber(pageTitles, pageTitle) {
-  if(pageTitle['ui:title']) {
-    return pageTitles.findIndex(obj => (obj.content === pageTitle['ui:title'] && obj.key === pageTitle['ui:options']?.element?.key)) + 1 + '. ';
+  if(pageTitle['ui:title'] && pageTitles) {
+    return pageTitles?.findIndex(obj => (obj.content === pageTitle['ui:title'] && obj.key === pageTitle['ui:options']?.element?.key)) + 1 + '. ';
   }
 }
 
 export default ({ formData, schema, uiSchema, pageTitles}) => {
   const { dateFnsLocale } = useFormulaContext();
-
   if (schema.enumNames) {
     if (schema.inline) {
       formData = formData.map((data) => schema.enumNames[schema.enum.indexOf(data)]).join(', ');
