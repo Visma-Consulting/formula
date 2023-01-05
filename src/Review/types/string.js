@@ -11,15 +11,31 @@ import Markdown from '../../Markdown';
 
 const dataUrlByteLength = (dataUrl) => byteLength(dataUrl.split(',')[1]);
 
-export default ({ formData, schema, uiSchema }) => {
-  const { dateFnsLocale } = useFormulaContext();
+function calculatePageTitleNumber(pageTitles, pageTitle) {
+  if(pageTitle['ui:title'] && pageTitles) {
+    return pageTitles?.findIndex(obj => (obj.content === pageTitle['ui:title'] && obj.key === pageTitle['ui:options']?.element?.key)) + 1 + '. ';
+  }
+}
 
+export default ({ formData, schema, uiSchema, pageTitles}) => {
+  const { dateFnsLocale } = useFormulaContext();
   if (schema.enumNames) {
     if (schema.inline) {
       formData = formData.map((data) => schema.enumNames[schema.enum.indexOf(data)]).join(', ');
     } else {
       formData = schema.enumNames[schema.enum.indexOf(formData)];
     }
+  }
+
+  if (uiSchema?.['ui:field'] === StepTitle && uiSchema['ui:title']) {
+    return (
+      <Typography variant="h5"
+        style={{
+        paddingTop: "35px"
+      }}>
+        {calculatePageTitleNumber(pageTitles, uiSchema)}{uiSchema['ui:title']}
+      </Typography>
+    );
   }
 
   if (schema.format === 'date') {
@@ -79,14 +95,6 @@ export default ({ formData, schema, uiSchema }) => {
 
   if (uiSchema?.['ui:options']?.unit) {
     formData = `${formData} ${uiSchema['ui:options'].unit}`;
-  }
-
-  if (uiSchema?.['ui:field'] === StepTitle) {
-    return (
-      <Typography variant="h5" gutterBottom>
-        {uiSchema['ui:title']}
-      </Typography>
-    );
   }
 
   return <Data>{formData}</Data>;
