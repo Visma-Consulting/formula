@@ -36,7 +36,7 @@ export default function Field({ __withStepped_original_props__, ...props }) {
         {
           h4: 'h6',
           // h5 is reserved for stepTitle
-          h6: 'subtitle1',
+          h6: 'h6',
           subtitle1: 'subtitle2',
           subtitle2: 'subtitle2',
         }[variant]
