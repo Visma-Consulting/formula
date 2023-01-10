@@ -69,8 +69,8 @@
 </tr>
 <tr>
 <td><code>onPreSubmit</code></td>
-<td><code>async (args: Args, event: SubmitEvent) =&gt; void | boolean | [Args, SubmitEvent]</code></td>
-<td>Run code before submit. Falsy return value prevents the submit. Return <code>true</code> or modified args to submit.</td>
+<td>`async (args: Args, event: SubmitEvent) =&gt; void \</td>
+<td>boolean \</td>
 </tr>
 <tr>
 <td><code>onSubmit</code></td>
@@ -84,8 +84,8 @@
 </tr>
 <tr>
 <td><code>confirm</code></td>
-<td><code>boolean | { title: ReactElement, description: ReactElement }</code></td>
-<td>Show confirm dialog or use object for other messages. Default: <code>true</code></td>
+<td>`boolean \</td>
+<td>{ title: ReactElement, description: ReactElement }`</td>
 </tr>
 <tr>
 <td><code>axios</code></td>
@@ -114,13 +114,23 @@
 </tr>
 <tr>
 <td><code>reviewProps</code></td>
-<td><code>{ actions: ReactNode }</code></td>
-<td>Additional action buttons</td>
+<td><code>{ actions: ReactNode, showSuccessText: boolean }</code></td>
+<td>actions: Additional action buttons. showSuccessText: show success text and summary in review, default <code>true</code></td>
+</tr>
+<tr>
+<td><code>fillProps</code></td>
+<td><code>{ disableSteps: boolean }</code></td>
+<td>disableSteps: disables steps when filling the form, default <code>false</code></td>
 </tr>
 <tr>
 <td><code>confirmComponent</code>, <code>previewField</code>, <code>reviewField</code></td>
 <td><code>component</code></td>
 <td><a href="#customize">Customize</a></td>
+</tr>
+<tr>
+<td><code>customMessages</code></td>
+<td><code>{ submit: string, reviewSubmitConfirmation: string, confirmDialogTitle: string, confirmDialogConsent: string, confirmDialogPreview: string, confirmDialogSendButton: string, confirmDialogCancelButton: string }</code></td>
+<td>Overrides default texts in submit button, confirmation dialog and confirm message.</td>
 </tr>
 </tbody></table>
 
