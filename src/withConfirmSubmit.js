@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import Button from "@material-ui/core/Button";
 import { useMutations } from './api';
 import ConfirmDialog from './ConfirmDialog';
-import { hasConfirm } from './customizations';
+import { hasConfirm, hasPreview } from './customizations';
 import { chain } from './utils';
 import { makeStyles } from '@material-ui/core/styles';
 import { useMediaQuery } from '@material-ui/core';
@@ -55,7 +55,7 @@ export default function withConfirmSubmit(Form) {
               />
             </>
           )}
-          <div {...useMediaQuery('print') ? {className: classes.noPrint} : {}}>
+          <div {...useMediaQuery('print') && hasPreview(otherProps) ? {className: classes.noPrint} : {}}>
             <Form
               ref={ref}
               credentials={credentials}
