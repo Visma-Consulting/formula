@@ -5,6 +5,18 @@ import { useMutations } from './api';
 import ConfirmDialog from './ConfirmDialog';
 import { hasConfirm } from './customizations';
 import { chain } from './utils';
+import { makeStyles } from '@material-ui/core/styles';
+import { useMediaQuery } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  noPrint: {
+    '& > *': {
+      '@media print': {
+        display: 'none',
+      },
+    },
+  }
+}));
 
 export default function withConfirmSubmit(Form) {
   return forwardRef(
@@ -25,6 +37,7 @@ export default function withConfirmSubmit(Form) {
       const { config, onSubmit = submit } = otherProps;
       const confirmDialogRef = useRef();
       const containerRef = useRef();
+      const classes = useStyles();
 
       const hasConfirmValue = hasConfirm(otherProps);
 
@@ -42,70 +55,72 @@ export default function withConfirmSubmit(Form) {
               />
             </>
           )}
-          <Form
-            ref={ref}
-            credentials={credentials}
-            formDataAction={formDataAction}
-            dataIsDraft={dataIsDraft}
-            customMessages={customMessages}
-            {...otherProps}
-            onSubmit={chain([
-              onPreSubmit,
-              hasConfirmValue &&
-                ((...args) => confirmDialogRef.current.confirm(...args)),
-              hasConfirmValue &&
-                ((...args) => {
-                  confirmDialogRef.current.loading();
-                  return args;
-                }),
-              async (...args) => {
-                const [{ captchaChallenge, formData }] = args;
-                const data = {
-                  status: 'SUBMITTED',
-                  form: {
-                    id: config._id,
-                    rev: config._rev,
-                  },
-                  ...formMetaData,
-                  values: formData,
-                  captchaChallenge,
-                  _id: otherProps.dataId,
-                };
-                try {
-                  const response = await onSubmit(
-                    data,
-                    credentials,
-                    formDataAction,
-                    dataIsDraft,
-                    ...args
-                  );
+          <div {...useMediaQuery('print') ? {className: classes.noPrint} : {}}>
+            <Form
+              ref={ref}
+              credentials={credentials}
+              formDataAction={formDataAction}
+              dataIsDraft={dataIsDraft}
+              customMessages={customMessages}
+              {...otherProps}
+              onSubmit={chain([
+                onPreSubmit,
+                hasConfirmValue &&
+                  ((...args) => confirmDialogRef.current.confirm(...args)),
+                hasConfirmValue &&
+                  ((...args) => {
+                    confirmDialogRef.current.loading();
+                    return args;
+                  }),
+                async (...args) => {
+                  const [{ captchaChallenge, formData }] = args;
+                  const data = {
+                    status: 'SUBMITTED',
+                    form: {
+                      id: config._id,
+                      rev: config._rev,
+                    },
+                    ...formMetaData,
+                    values: formData,
+                    captchaChallenge,
+                    _id: otherProps.dataId,
+                  };
+                  try {
+                    const response = await onSubmit(
+                      data,
+                      credentials,
+                      formDataAction,
+                      dataIsDraft,
+                      ...args
+                    );
 
-                  if (hasConfirmValue) {
-                    confirmDialogRef.current.close();
-                  }
+                    if (hasConfirmValue) {
+                      confirmDialogRef.current.close();
+                    }
 
-                  onPostSubmit?.(response, data, ...args);
-                } catch (e) {
-                  console.error(e);
-                  if (hasConfirmValue) {
-                    confirmDialogRef.current.error(e.response?.data);
+                    onPostSubmit?.(response, data, ...args);
+                  } catch (e) {
+                    console.error(e);
+                    if (hasConfirmValue) {
+                      confirmDialogRef.current.error(e.response?.data);
+                    }
                   }
-                }
-              },
-            ])}
-          >
-            {otherProps.children ? otherProps.children :
-              <div>
-                {otherProps.draftButton}
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                >
-                  {customMessages?.submit ?? <FormattedMessage defaultMessage="Lähetä" />}
-                </Button>
-                </div>}
-          </Form>
+                },
+              ])}
+            >
+              {otherProps.children ? otherProps.children :
+                <div>
+                  {otherProps.draftButton}
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                  >
+                    {customMessages?.submit ?? <FormattedMessage defaultMessage="Lähetä" />}
+                  </Button>
+                  </div>}
+            </Form>
+          </div>
         </>
       );
     }
