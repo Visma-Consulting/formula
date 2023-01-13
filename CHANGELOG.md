@@ -1,3 +1,9 @@
+# 0.4.137
+
+- Upgrade to `@visma/rjsf-*@3.1.0-57`
+- Resume filling form logic
+- Print fixes
+
 # 0.4.136
 
 - Review style fixes
