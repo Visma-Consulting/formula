@@ -18,7 +18,51 @@ const useStyles = makeStyles((theme) => ({
 
 export default function withSteps(Form) {
   const WithSteps = forwardRef(({ onSubmit, onChange, onError, formData, steps, ...otherProps }, ref) => {
-    const [activeStep, setActiveStep] = useState(0);
+    const resolveResumePoint = () => {
+      let result = 0;
+
+      if (formData === undefined) {
+        return result;
+      }
+
+      if (Object.keys(formData).length < 1) {
+        return result;
+      }
+
+      const elements = otherProps.config.elements.slice();
+      const pages = [];
+      let tempSorter = [];
+      elements.forEach(el => {
+        if (el.type === "pageTitle") {
+          if (tempSorter.length > 0) {
+            pages.push(tempSorter);
+            tempSorter = [];
+          }
+        } else {
+          tempSorter.push(el);
+        }
+      })
+
+      pages.push(tempSorter);
+
+      for (let i = pages.length - 1; i >= 0; i--) {
+        let found = false;
+        pages[i].forEach(pageElement => {
+          if (formData[pageElement.key]) {
+              found = true;
+          }
+        });
+
+        if (found) {
+          result = i;
+          break;
+        }
+      }
+
+      return result;
+    };
+
+    const [activeStep, setActiveStep] = useState(otherProps.resumeBasedOnData ? resolveResumePoint() : 0);
     const [maxJump, setMaxJump] = useState(activeStep);
     const [noValidate, setNoValidate] = useState(false);
     const [liveValidate, setLiveValidate] = useState(false);
