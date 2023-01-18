@@ -1,3 +1,8 @@
+# 0.4.138
+
+- Upgrade to `@visma/rjsf-*@3.1.0-58`
+- Form logo feature
+
 # 0.4.137
 
 - Upgrade to `@visma/rjsf-*@3.1.0-57`
