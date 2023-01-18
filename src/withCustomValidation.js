@@ -31,20 +31,22 @@ export default function withCustomValidation(Form) {
         }
 
         const validateOne = (formData, errors, element, listIndex) => {
-          const { key, type, validator } = element;
+          const { key, type, validator, useLabel, label, labelError, title } = element;
           const errorMessage = validateFunctions[type]?.[validator]?.fn?.(formData, element);
           if (errorMessage) {
+            const elementTitle = useLabel ? (label === "" ? labelError : label) : title;
+            const formattedErrorMessage = intl.formatMessage(errorMessage, {...element, title: elementTitle});
             if (key) {
               if (listIndex !== undefined) {
-                errors?.[key]?.[listIndex]?.addError(intl.formatMessage(errorMessage, {...element}));
+                errors?.[key]?.[listIndex]?.addError(formattedErrorMessage);
               } else {
-                errors?.[key]?.addError(intl.formatMessage(errorMessage, {...element}));
+                errors?.[key]?.addError(formattedErrorMessage);
               }
             } else {
               if (listIndex !== null && listIndex !== undefined) {
-                errors?.[listIndex]?.addError(intl.formatMessage(errorMessage, {...element}));
+                errors?.[listIndex]?.addError(formattedErrorMessage);
               } else {
-                errors?.addError(intl.formatMessage(errorMessage, {...element}));
+                errors?.addError(formattedErrorMessage);
               }
             }
           }
