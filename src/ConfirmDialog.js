@@ -156,7 +156,7 @@ export default forwardRef(function ConfirmDialog(
             />
           )}
           {showReCAPTCHA && !loading && !error ? (
-            <DialogContentReCAPTCHA onChange={setCaptchaChallenge} />
+            <DialogContentReCAPTCHA hl={intl.locale?.split('-')[0]} onChange={setCaptchaChallenge} />
           ) : null}
           {loading && (
             <div>
