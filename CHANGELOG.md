@@ -1,3 +1,8 @@
+# 0.4.140
+
+- Remove using min as default in number field
+- Fix customValidation label bug
+
 # 0.4.138
 
 - Upgrade to `@visma/rjsf-*@3.1.0-58`
