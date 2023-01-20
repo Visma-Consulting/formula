@@ -6,7 +6,8 @@ export default (props) => {
   return {
     schema: {
       ...schema,
-      requireAtLeastOne: props?.config?.requireAtLeastOne
+      requireAtLeastOne: props?.config?.requireAtLeastOne,
+      handleFalseAsUndefined: props?.config?.handleFalseAsUndefined
     },
     uiSchema};
 };
