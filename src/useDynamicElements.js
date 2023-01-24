@@ -56,13 +56,18 @@ function resetDisabledToDefaultValues(formData, initialFormData, config, allDisa
       if (initialFormData && initialFormData[key]) {
         resetFormData[key] = initialFormData[key];
       } else if (element.elements && element.elements.length > 0) {
-        const resetSubValues = resetDisabledToDefaultValues(formData[key] ?? undefined, initialFormData ? initialFormData[key] : undefined, element, true);
+        const resetSubValues = resetDisabledToDefaultValues(
+          formData[key] ?? undefined,
+          initialFormData ? initialFormData[key] : undefined,
+          element,
+          true
+        );
         if (!resetSubValues) {
           delete resetFormData[key];
         } else {
           resetFormData[key] = element.list ? [resetSubValues] : resetSubValues;
         }
-      } else if (element.default) {
+      } else if (element.default !== undefined) {
         if (element.list) {
           resetFormData[key] = Array(element.minItems > 1 ? element.minItems : 1).fill(element.default);
         } else {
@@ -71,6 +76,14 @@ function resetDisabledToDefaultValues(formData, initialFormData, config, allDisa
       } else {
         delete resetFormData[key];
       }
+    } else if (element?.elements && element?.elements?.length > 0) {
+      const resetSubValues = resetDisabledToDefaultValues(
+        formData[key] ?? undefined,
+        initialFormData ? initialFormData[key] : undefined,
+        element,
+        false
+      );
+      resetFormData[key] = element.list ? [resetSubValues] : resetSubValues;
     }
   }
 
