@@ -185,7 +185,7 @@
         }
       }
     },
-    "/form/{formIds}": {
+    "/form/byIds/{formIds}": {
       "get": {
         "summary": "Get forms by ids",
         "operationId": "getFormsByIds",
