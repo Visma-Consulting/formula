@@ -185,6 +185,35 @@
         }
       }
     },
+    "/form/byIds/{formIds}": {
+      "get": {
+        "summary": "Get forms by ids",
+        "operationId": "getFormsByIds",
+        "parameters": [
+          {
+            "name": "formIds",
+            "in": "path",
+            "required": true,
+            "description": "List of form ids",
+            "schema": {
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of forms",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Form"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/form/{formId}/{formRev}": {
       "get": {
         "summary": "Get a form by id",
