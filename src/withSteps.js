@@ -80,7 +80,12 @@ export default function withSteps(Form) {
         const stepId = 'formula-step-' + steps[nextStep]['ui:options']?.element?.key;
         const selection = formWrapperRef.current?.querySelector('#' + stepId);
         selection.scrollIntoView(true);
-        selection.focus();
+        setTimeout(()=> {
+          const focusableElements = 'a:not([disabled]), button:not([disabled]), input:not([disabled]), [tabindex]:not([disabled]):not([tabindex="-1"])';
+          const allFocusableElements = formWrapperRef.current?.querySelectorAll(focusableElements)
+          const focusableFormElements = Array.prototype.slice.call(allFocusableElements).filter((element) => !element.id.startsWith('formula-step'));
+          focusableFormElements[0].focus();
+          }, 0 )
         // Prevent submit
         return false;
       }
