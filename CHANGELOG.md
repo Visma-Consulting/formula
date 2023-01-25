@@ -1,3 +1,9 @@
+# 0.4.143
+
+- Fix focus after changing step
+- Fix disabled fields in formgroups
+- Upgrade to `@visma/rjsf-*@3.1.0-59`
+
 # 0.4.142
 
 - Api update
