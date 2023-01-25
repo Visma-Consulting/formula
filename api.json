@@ -185,18 +185,19 @@
         }
       }
     },
-    "/form/byIds/{formIds}": {
+    "/form/byIds": {
       "get": {
         "summary": "Get forms by ids",
         "operationId": "getFormsByIds",
         "parameters": [
           {
-            "name": "formIds",
-            "in": "path",
+            "name": "ids",
+            "in": "query",
             "required": true,
             "description": "List of form ids",
             "schema": {
-              "type": "array"
+              "type": "array",
+              "items": { "type": "string" }
             }
           }
         ],
