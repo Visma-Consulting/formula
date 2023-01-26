@@ -3,6 +3,9 @@ import number from './number';
 import { defineMessage } from 'react-intl';
 
 export default extendType(number, ({ config }) => (props) => {
+  if (!config.numberDefault) {
+    props.schema.default = config.minimum ?? 0;
+  }
   props.uiSchema ??= {};
   props.uiSchema['ui:widget'] = 'range';
 });
