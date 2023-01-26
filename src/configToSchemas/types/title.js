@@ -9,7 +9,8 @@ export const TitleField = ({ idSchema, uiSchema }) => {
   return <Typography component={headerNumber < 5 ? `h${headerNumber}` : 'h6'} variant="h5">{content}</Typography>
 }
 
-export default extendType(_dummy, ({ config: { content, ...other } }) => (props) => {
+export default extendType(_dummy, ({ config: { content, type, ...other } }) => (props) => {
+  props.schema.additionalType = type;
   props.uiSchema ??= {};
   props.uiSchema['ui:field'] = TitleField;
   props.uiSchema['ui:should-update'] = content;

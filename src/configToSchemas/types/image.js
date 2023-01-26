@@ -17,7 +17,8 @@ function Image(props) {
   return <img src={url} alt={altText} className={classes.root} />;
 }
 
-export default extendType(_dummy, ({ config: { altText, url } }) => (props) => {
+export default extendType(_dummy, ({ config: { altText, url, type } }) => (props) => {
+  props.schema.additionalType = type;
   props.uiSchema ??= {};
   props.uiSchema['ui:field'] = Image;
   props.uiSchema['ui:should-update'] = `${url}-${altText}`;

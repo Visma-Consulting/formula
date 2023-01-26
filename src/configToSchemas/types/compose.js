@@ -72,11 +72,12 @@ function Compose(props) {
 
 export default (props) => {
   const {
-    config: { composeValues = [], composeSeparator = '' },
+    config: { composeValues = [], composeSeparator = '', type },
   } = props;
   return {
     schema: {
       type: 'string',
+      additionalType: type
     },
     uiSchema: {
       'ui:widget': Compose,
