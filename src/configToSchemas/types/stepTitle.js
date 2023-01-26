@@ -6,7 +6,8 @@ import { TitleField } from './title';
 // Used to identify step split points and display only the elements of the step.
 export const StepTitle = () => null;
 
-export default extendType(_dummy, ({ config: { content }, fillProps }) => (props) => {
+export default extendType(_dummy, ({ config: { content, type }, fillProps }) => (props) => {
+  props.schema.additionalType = type;
   props.uiSchema ??= {};
   props.uiSchema['ui:field'] = fillProps?.disableSteps ? TitleField : StepTitle;
   props.uiSchema['ui:title'] = content;
