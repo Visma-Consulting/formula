@@ -40,6 +40,7 @@ export default () => {
       type: 'boolean',
       enum: [true],
       default: false,
+      additionalType: 'consent'
     },
     uiSchema: {
       'ui:widget': CheckboxWidget,
