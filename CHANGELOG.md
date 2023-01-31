@@ -1,3 +1,10 @@
+# 0.4.144
+
+- Fix: useDynamicElements deletes formgroup formdata
+- Fix: Range not working when default is undefined
+- AdditionalType added to some fields to help validation in rjsf
+- Upgrade to `@visma/rjsf-*@3.1.0-60`
+
 # 0.4.143
 
 - Fix focus after changing step
