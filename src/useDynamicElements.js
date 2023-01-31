@@ -77,13 +77,25 @@ function resetDisabledToDefaultValues(formData, initialFormData, config, allDisa
         delete resetFormData[key];
       }
     } else if (element?.elements && element?.elements?.length > 0) {
-      const resetSubValues = resetDisabledToDefaultValues(
-        formData[key] ?? undefined,
-        initialFormData ? initialFormData[key] : undefined,
-        element,
-        false
-      );
-      resetFormData[key] = element.list ? [resetSubValues] : resetSubValues;
+      if (element.skipDisable) {
+        resetFormData[key] = formData[key];
+      } else if (element.list) {
+        resetFormData[key] = formData[key];
+        resetFormData[key] = formData[key].map((datum, i) => resetDisabledToDefaultValues(
+          datum ?? undefined,
+          initialFormData ? initialFormData[key][i] : undefined,
+          element,
+          false
+        ))
+      } else {
+        const resetSubValues = resetDisabledToDefaultValues(
+          formData[key] ?? undefined,
+          initialFormData ? initialFormData[key] : undefined,
+          element,
+          false
+        );
+        resetFormData[key] = resetSubValues;
+      }
     }
   }
 
