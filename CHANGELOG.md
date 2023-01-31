@@ -1,3 +1,7 @@
+# 0.4.145
+
+- Improved page title logic
+
 # 0.4.144
 
 - Fix: useDynamicElements deletes formgroup formdata
