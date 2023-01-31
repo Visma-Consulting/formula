@@ -6,6 +6,7 @@ import prettyBytes from 'pretty-bytes';
 import { useIntl } from 'react-intl';
 import { empty } from '..';
 import { StepTitle } from '../../configToSchemas/types/stepTitle';
+import { TitleField } from '../../configToSchemas/types/title';
 import { useFormulaContext } from '../../Context';
 import Markdown from '../../Markdown';
 
@@ -26,8 +27,7 @@ export default ({ formData, schema, uiSchema, pageTitles}) => {
       formData = schema.enumNames[schema.enum.indexOf(formData)];
     }
   }
-
-  if (uiSchema?.['ui:field'] === StepTitle && uiSchema['ui:title']) {
+  if ((uiSchema?.['ui:field'] === StepTitle || uiSchema?.['ui:field'] === TitleField) && uiSchema['ui:title']) {
     return (
       <Typography variant="h5"
         style={{
