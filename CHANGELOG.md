@@ -1,3 +1,7 @@
+# 0.4.146
+
+- Fix: range default outside of min and max
+
 # 0.4.145
 
 - Improved page title logic
