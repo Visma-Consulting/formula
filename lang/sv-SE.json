@@ -265,5 +265,8 @@
   },
   "56lFh0": {
     "defaultMessage": "Minst en fråga i formulärgruppen \"{field}\" måste besvaras"
+  },
+  "WTXEWy": {
+    "defaultMessage": "\"{field}\" ingår i formulärgruppen där minst en fråga ska besvaras."
   }
 }
