@@ -81,7 +81,7 @@ function resetDisabledToDefaultValues(formData, initialFormData, config, allDisa
         resetFormData[key] = formData[key];
       } else if (element.list) {
         resetFormData[key] = formData[key];
-        resetFormData[key] = formData[key].map((datum, i) => resetDisabledToDefaultValues(
+        resetFormData[key] = formData[key]?.map((datum, i) => resetDisabledToDefaultValues(
           datum ?? undefined,
           initialFormData ? initialFormData[key][i] : undefined,
           element,
