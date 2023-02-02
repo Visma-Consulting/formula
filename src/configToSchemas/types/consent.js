@@ -7,11 +7,10 @@ function CheckboxWidget({ options, onChange, value, id }) {
   const useLabel = options.element?.useLabel;
   const label = options.element?.label;
   const consentMessage = options.element?.yes;
-  const headerNumber = id?.split('_').length + 1;
   const title = (useLabel ? label : options.element.title) + (required ? ' *' : '');
   return (
     <>
-      <Typography component={headerNumber < 5 ? `h${headerNumber}` : 'h6'} variant="subtitle1">
+      <Typography component="label" variant="subtitle1">
         {title}
       </Typography>
       <br/>
