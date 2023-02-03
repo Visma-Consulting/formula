@@ -8,7 +8,7 @@ const Switch = ({ onChange, options, schema, value }) => {
   const title = options.element.required ? schema.title + ' *' : schema.title;
   return(
     <>
-      <Typography component="label" variant="subtitle1">{title}</Typography>
+      <Typography component="p" variant="subtitle1">{title}</Typography>
       {options?.element?.list ? <></> : <FormHelperText component="span" variant="contained" >{options?.element?.description}</FormHelperText> }
       <ToggleButtonGroup
         exclusive
