@@ -1,3 +1,7 @@
+# 0.4.148
+
+- Fix: Null check to dynamicElements
+
 # 0.4.147
 
 - Fix: Null check to dynamicElements
