@@ -7,7 +7,6 @@ import { useIntl } from 'react-intl';
 import { empty } from '..';
 import { StepTitle } from '../../configToSchemas/types/stepTitle';
 import { TitleField } from '../../configToSchemas/types/title';
-import { useFormulaContext } from '../../Context';
 import Markdown from '../../Markdown';
 
 const dataUrlByteLength = (dataUrl) => byteLength(dataUrl.split(',')[1]);
@@ -18,8 +17,7 @@ function calculatePageTitleNumber(pageTitles, pageTitle) {
   }
 }
 
-export default ({ formData, schema, uiSchema, pageTitles}) => {
-  const { dateFnsLocale } = useFormulaContext();
+export default ({ formData, schema, uiSchema, pageTitles, reviewProps}) => {
   if (schema.enumNames) {
     if (schema.inline) {
       formData = formData.map((data) => schema.enumNames[schema.enum.indexOf(data)]).join(', ');
@@ -39,8 +37,15 @@ export default ({ formData, schema, uiSchema, pageTitles}) => {
   }
 
   if (schema.format === 'date') {
-    formData =
-      formData && format(new Date(formData), 'P', { locale: dateFnsLocale });
+    try {
+      formData =
+        formData && format(new Date(formData), reviewProps?.dateFormat ?? 'd.M.yyyy');
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn(`${reviewProps?.dateFormat} is not a valid dateformat, using default format d.M.yyyy`)
+      formData =
+        formData && format(new Date(formData), 'd.M.yyyy');
+    }
   }
 
   if (uiSchema?.['ui:widget'] === 'password') {
