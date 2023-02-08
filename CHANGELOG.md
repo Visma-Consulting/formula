@@ -1,3 +1,7 @@
+# 0.4.149
+
+- Add dateformat prop and default format
+
 # 0.4.148
 
 - Fix: Null check to dynamicElements
