@@ -39,7 +39,6 @@ export default ({ formData, schema, uiSchema, pageTitles, reviewProps}) => {
   if (schema.format === 'date') {
     try {
       formData =
-        //formData && format(new Date(formData), 'P', { locale: dateFnsLocale });
         formData && format(new Date(formData), reviewProps?.dateFormat ?? 'd.M.yyyy');
     } catch (e) {
       // eslint-disable-next-line no-console

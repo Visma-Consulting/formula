@@ -5,23 +5,31 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { format } from 'date-fns';
-import { useFormulaContext } from '../../Context';
 import Field from '../Field';
 import { dynamicElements } from '../../useDynamicElements';
 
 export default (props) => {
   const { formData, schema, uiSchema, ...otherProps } = props;
-  const { dateFnsLocale } = useFormulaContext();
 
   // dateRange
   if (uiSchema['ui:options']?.element.type === 'dateRange') {
-    const start = formData.start
-      ? format(new Date(formData.start), 'P', { locale: dateFnsLocale })
-      : '';
-    const end = formData.end
-      ? format(new Date(formData.end), 'P', { locale: dateFnsLocale })
-      : '';
-    const dateValue = `${start} - ${end}`;
+    let start;
+    let end;
+    try {
+      start =
+        formData.start && format(new Date(formData.start), otherProps?.reviewProps?.dateFormat ?? 'd.M.yyyy');
+      end =
+        formData.end && format(new Date(formData.end), otherProps?.reviewProps?.dateFormat ?? 'd.M.yyyy');
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn(`${otherProps?.reviewProps?.dateFormat} is not a valid dateformat, using default format d.M.yyyy`)
+      start =
+        formData.start && format(new Date(formData.start), 'd.M.yyyy');
+      end =
+        formData.end && format(new Date(formData.end), 'd.M.yyyy');
+    }
+
+    const dateValue = `${start ?? ''} - ${end ?? ''}`;
     return (
       <Field
         {...otherProps}
