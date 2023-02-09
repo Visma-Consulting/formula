@@ -27,7 +27,7 @@ function DateRangePickerField(props) {
   const { idSchema, onChange, schema, formData, uiSchema } = props;
   const intl = useIntl();
   const [focusedInput, setFocusedInput] = useState();
-  const { disableEnd, disableStart } = props.uiSchema['ui:options'].element;
+  const { disableEnd, disableStart, dateFormat } = props.uiSchema['ui:options'].element;
   const handleFocusChange = (focusedInput) => setFocusedInput(focusedInput);
   const { locale } = intl;
   const language = intl.locale.split('-')[0] !== 'en';
@@ -73,6 +73,7 @@ function DateRangePickerField(props) {
         focusedInput={focusedInput}
         small={true}
         numberOfMonths={1}
+        displayFormat={dateFormat ?? 'D.M.yyyy'}
         disabled={schema.readOnly || uiSchema.readonly}
         {...language ? {phrases : mapValues(DateRangePickerPhrases, message => intl.formatMessage(message))} : {}}
         screenReaderInputMessage={<FormattedMessage defaultMessage={'Päivämäärähaarukka'}/> }
@@ -113,7 +114,7 @@ function DateRangePickerField(props) {
   );
 }
 
-export default ({ config: { disableBefore, disableAfter, required, list } }) => ({
+export default ({ config: { disableBefore, disableAfter, required, list }, reviewProps }) => ({
   schema: {
     type: 'object',
     ...(required ? { required: ['start', 'end']} : undefined),
@@ -126,7 +127,8 @@ export default ({ config: { disableBefore, disableAfter, required, list } }) => 
       end: {
         format: 'date',
         type: 'string',
-      }
+      },
+      dateFormat: reviewProps?.dateFormat?.replaceAll('d', 'D')
     },
   },
   uiSchema: {

@@ -37,7 +37,8 @@ const afterDay = (date) => {
   }
 }
 
-function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
+function SingleDatePickerWidget({ id, onChange, options, schema, value} ) {
+  console.log(options);
   const intl = useIntl();
   const language = intl.locale.split('-')[0] !== 'en';
   const [focused, setFocused] = useState();
@@ -59,6 +60,7 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
         ariaLabel={useLabel ? label : title}
         onFocusChange={handleFocusChange}
         id={id}
+        displayFormat={options.dateFormat ?? 'D.M.yyyy'}
         numberOfMonths={1}
         disabled={schema.readOnly || options.readonly}
         small={true}
@@ -87,19 +89,20 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
   );
 }
 
-export default ({ config: { disableBefore, disableAfter } }) => ({
-  schema: {
-    format: 'date',
-    type: 'string',
-  },
-  uiSchema: {
-    'ui:widget': SingleDatePickerWidget,
-    'ui:options': {
-      disableBefore,
-      disableAfter,
+export default ({ config: { disableBefore, disableAfter }, reviewProps }) => ({
+    schema: {
+      format: 'date',
+      type: 'string',
+    },
+    uiSchema: {
+      'ui:widget': SingleDatePickerWidget,
+      'ui:options': {
+        disableBefore,
+        disableAfter,
+        dateFormat: reviewProps?.dateFormat?.replaceAll('d', 'D')
+      }
     }
-  }
-});
+  })
 
 export const name = defineMessage({
   defaultMessage: 'Päivämäärä',
