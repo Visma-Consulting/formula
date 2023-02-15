@@ -35,18 +35,17 @@ function pageTitleElementOf(elements, element) {
   }
 
   const findElement = elements.find(el => el.id === element.id);
-  let pageTitleElement = undefined;
 
   // eslint-disable-next-line @super-template/no-loops/no-loops
   for (let i = elements.indexOf(findElement) - 1; i >= 0; i--) {
     if (elements[i].type === 'pageTitle') {
-      pageTitleElement = elements[i];
+      return elements[i];
       break;
     }
   }
 
   // If page title was not found, return first page title
-  return pageTitleElement !== undefined ? pageTitleElement : elements.find(element => element.type === 'pageTitle');
+  return elements.find(element => element.type === 'pageTitle');
 }
 
 function resetDisabledToDefaultValues(formData, initialFormData, config, allDisabled) {
