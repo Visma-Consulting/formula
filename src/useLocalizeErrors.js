@@ -31,6 +31,9 @@ const messages = defineMessages({
   anyOf: {
     defaultMessage: 'Vähintään yhteen kysymysryhmän "{field}" kysymyksistä pitää vastata',
   },
+  anyOfRequired: {
+    defaultMessage: '\"{field}\" sisältyy kysymysryhmään, jossa vähintään yhteen pitää vastata.'
+  },
 
   pattern: { defaultMessage: '"{field}" arvon on oltava {description}' },
   required: { defaultMessage: '"{field}" on pakollinen kenttä' },
