@@ -1,3 +1,8 @@
+# 0.4.150
+
+- Fix filtering stepTitles
+- Upgrade to `@visma/rjsf-*@3.1.0-61`
+
 # 0.4.149
 
 - Add dateformat prop and default format
