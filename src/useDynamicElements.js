@@ -34,8 +34,10 @@ function pageTitleElementOf(elements, element) {
     return undefined;
   }
 
+  const findElement = elements.find(el => el.id === element.id);
+
   // eslint-disable-next-line @super-template/no-loops/no-loops
-  for (let i = elements.indexOf(element) - 1; i >= 0; i--) {
+  for (let i = elements.indexOf(findElement) - 1; i >= 0; i--) {
     if (elements[i].type === 'pageTitle') {
       return elements[i];
       break;
