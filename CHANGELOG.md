@@ -1,3 +1,8 @@
+# 0.4.151
+
+- Fix hiding all elements while filtering stepTitles
+- Upgrade to `@visma/rjsf-*@3.1.0-62`
+
 # 0.4.150
 
 - Fix filtering stepTitles
