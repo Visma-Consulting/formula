@@ -14,6 +14,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { mapValues } from 'lodash';
 import { DateRangePickerPhrases } from '../../../../lib/configToSchemas/types/date/phrases';
+import { getAriaLabel } from '../../../utils.js';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -37,17 +38,24 @@ const afterDay = (date) => {
   }
 }
 
-function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
+function SingleDatePickerWidget({ id, onChange, options, schema, value, required }) {
   const intl = useIntl();
   const language = intl.locale.split('-')[0] !== 'en';
   const [focused, setFocused] = useState();
-  const { title, label, useLabel, list } = options.element;
+  const { label, list } = options.element;
   const handleFocusChange = ({ focused }) => setFocused(focused);
   const { locale } = intl;
   const classes = useStyles();
   useEffect(() => {
     moment.locale(locale);
   }, [locale]);
+
+  const ariaLabel = getAriaLabel(
+    label,
+    options,
+    required,
+    intl.formatMessage({defaultMessage: 'Pakollinen kenttä'})
+  );
 
   return (
     <div>
@@ -56,14 +64,14 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value }) {
         onDateChange={(date) => date && onChange(date.format('YYYY-MM-DD'))}
         focused={focused}
         {...language ? {phrases : mapValues(DateRangePickerPhrases, message => intl.formatMessage(message))} : {}}
-        ariaLabel={useLabel ? label : title}
+        ariaLabel={ariaLabel}
         onFocusChange={handleFocusChange}
         id={id}
         numberOfMonths={1}
         disabled={schema.readOnly || options.readonly}
         small={true}
         placeholder={intl.formatMessage({defaultMessage: "Päivämäärä"})}
-        screenReaderInputMessage={useLabel ? label : title}
+        screenReaderInputMessage={ariaLabel}
         hideKeyboardShortcutsPanel
         isOutsideRange={(m) =>
           (options.disableBefore && options.element.disableBefore.type &&

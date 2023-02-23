@@ -66,7 +66,7 @@ function DateRangePickerField(props) {
   }
 
   return (
-        <div>
+    <div>
       <DateRangePicker
         onDatesChange={({ startDate, endDate }) => (startDate || endDate) && onChange({ start: startDate?.format('YYYY-MM-DD'), end: endDate?.format('YYYY-MM-DD')})}
         onFocusChange={handleFocusChange}
@@ -109,7 +109,7 @@ function DateRangePickerField(props) {
           <FormattedMessage defaultMessage="Tyhjennä" />
         </Button>
           : <></>}
-        </div>
+    </div>
   );
 }
 
