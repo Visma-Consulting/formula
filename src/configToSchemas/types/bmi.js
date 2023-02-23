@@ -1,9 +1,10 @@
 import { utils } from '@visma/rjsf-core';
 import { get } from 'lodash';
 import { useContext, useEffect } from 'react';
-import { defineMessage, FormattedMessage } from 'react-intl';
+import { defineMessage, FormattedMessage, useIntl } from 'react-intl';
 
 function Bmi(props) {
+  const intl = useIntl();
   const { formData } = useContext(utils.Context);
   const path = props.id.split('_').slice(1, -1);
 
@@ -30,11 +31,12 @@ function Bmi(props) {
   }, [formData, path, props]);
 
   if (!isNaN(props.value) && props.value) {
+    const valueString = intl.formatMessage({defaultMessage: "{bmi} kg/m²"}, {bmi: props.value});
+
     return (
-      <FormattedMessage
-        defaultMessage="{bmi} kg/m²"
-        values={{ bmi: props.value }}
-      />
+      <span aria-label={`${intl.formatMessage({defaultMessage: 'Painoindeksi'})}: ${valueString}`}>
+        {valueString}
+      </span>
     );
   }
 
