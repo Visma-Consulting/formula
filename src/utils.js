@@ -92,3 +92,22 @@ export function Customize({ customizer: Customizer, children, ...otherProps }) {
     children
   );
 }
+
+export function getAriaLabel(label, options, required, requiredMessage) {
+  let ariaLabel = label;
+
+  if (!ariaLabel) {
+    const element = options.element;
+    ariaLabel = element.useLabel
+      ? element.label === "" || !element.label
+        ? element.labelError
+        : element.label
+      : element.title;
+  }
+
+  if (required) {
+    ariaLabel = `${requiredMessage}: ${ariaLabel}`;
+  }
+
+  return ariaLabel;
+}
