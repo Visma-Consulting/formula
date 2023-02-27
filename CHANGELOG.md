@@ -1,3 +1,8 @@
+# 0.4.152
+
+- Accessibility updates
+- Upgrade to `@visma/rjsf-*@3.1.0-63`
+
 # 0.4.151
 
 - Fix hiding all elements while filtering stepTitles
