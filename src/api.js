@@ -9,12 +9,12 @@ export const useForm = (formId, options) => {
   return client.useForm({ formId }) |> useNormalizeConfig(options);
 };
 
-export const useAtomicForm = (formId, formRev, options) => {
+export const useAtomicForm = (formId, formRev, layer, options) => {
   const normalize = useNormalizeConfig(options);
   if (formRev) {
-    return normalize(client.useFormRev({formId, formRev}));
+    return normalize(client.useFormRev({ formId, formRev, layer }));
   } else {
-    return normalize(client.useAtomicForm({ formId }));
+    return normalize(client.useAtomicForm({ formId, layer }));
   }
 };
 
