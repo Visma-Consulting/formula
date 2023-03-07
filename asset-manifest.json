@@ -6,8 +6,8 @@
     "compiled-lang.fi-FI.js.map": "/formula/static/js/compiled-lang.fi-FI.ba11f3c5.chunk.js.map",
     "compiled-lang.sv-SE.js": "/formula/static/js/compiled-lang.sv-SE.5f969156.chunk.js",
     "compiled-lang.sv-SE.js.map": "/formula/static/js/compiled-lang.sv-SE.5f969156.chunk.js.map",
-    "main.js": "/formula/static/js/main.0177d162.chunk.js",
-    "main.js.map": "/formula/static/js/main.0177d162.chunk.js.map",
+    "main.js": "/formula/static/js/main.3003c7ea.chunk.js",
+    "main.js.map": "/formula/static/js/main.3003c7ea.chunk.js.map",
     "runtime-main.js": "/formula/static/js/runtime-main.a013a009.js",
     "runtime-main.js.map": "/formula/static/js/runtime-main.a013a009.js.map",
     "static/js/5.9d8cc163.chunk.js": "/formula/static/js/5.9d8cc163.chunk.js",
@@ -18,6 +18,6 @@
   "entrypoints": [
     "static/js/runtime-main.a013a009.js",
     "static/js/5.9d8cc163.chunk.js",
-    "static/js/main.0177d162.chunk.js"
+    "static/js/main.3003c7ea.chunk.js"
   ]
 }
