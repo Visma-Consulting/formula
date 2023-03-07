@@ -1,4 +1,4 @@
-import {forwardRef, useState} from 'react';
+import { forwardRef, useRef, useState } from 'react';
 import {FormattedMessage, useIntl} from "react-intl";
 import Button from "@material-ui/core/Button";
 import {useMutations} from './api';
@@ -18,13 +18,29 @@ export default function withDraftSave(Form) {
       const classes = useStyles();
       const [draftId, setDraftId] = useState(props.dataId && props.dataIsDraft ? props.dataId : null);
       const [isDraft, setIsDraft] = useState(props.dataIsDraft);
+      const formRef = useRef();
+      ref ??=formRef;
+      const determineActiveStep = () => {
+        const newUiSchema = Object.entries(formRef?.current?.props?.uiSchema)
+          .filter(([key, value]) => value && value['ui:widget'] !== 'hidden');
+        const pageTitles = formRef.current.props.uiSchema['ui:options'].element.elements.filter(x => x.type === 'pageTitle');
+        const uiOptions = newUiSchema.pop()[1].element.elements;
+        const index = uiOptions.findIndex(x => x.key === newUiSchema[0][0].toString());
+        for (let i = index -1; i >= 0; i--) {
+          if(uiOptions[i].type === 'pageTitle') {
+            return pageTitles.findIndex(x => x.key === uiOptions[i].key);
+          }
+        }
+      };
 
       const intl = useIntl();
       const { enqueueSnackbar } = useSnackbar();
-
+      const multiPageForm = props?.config?.elements.find(element => element.type === 'pageTitle') ? true : false;
       const draftSave = async () => {
         const data = {
           status: 'DRAFT',
+        ...multiPageForm &&
+        { activeStep: determineActiveStep() },
           form: {
             id: props?.config?._id,
             rev: props?.config?._rev,
