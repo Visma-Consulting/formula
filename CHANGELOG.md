@@ -1,3 +1,7 @@
+# 0.4.154
+
+- Add draft page numbered reload
+
 # 0.4.153
 
 - Add layer to api requests
