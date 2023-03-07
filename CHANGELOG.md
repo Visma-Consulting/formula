@@ -1,3 +1,7 @@
+# 0.4.153
+
+- Add layer to api requests
+
 # 0.4.152
 
 - Accessibility updates
