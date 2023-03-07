@@ -237,6 +237,15 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "layer",
+            "in": "query",
+            "required": false,
+            "description": "The layer of the form",
+            "schema": {
+              "type": "number"
+            }
           }
         ],
         "responses": {
@@ -265,6 +274,15 @@
             "description": "The id of the form",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "layer",
+            "in": "query",
+            "required": false,
+            "description": "The layer of the form",
+            "schema": {
+              "type": "number"
             }
           }
         ],
