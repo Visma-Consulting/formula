@@ -9,8 +9,7 @@ export default function withLoader(Form) {
       'You should not use prop `dataId` with `formData`'
     );
 
-    const {values: formData, form, dataId: _id} = useSubmittedFormData(id, rev, credentials, dataId, dataIsDraft);
-
+    const {values: formData, form, dataId: _id, activeStep} = useSubmittedFormData(id, rev, credentials, dataId, dataIsDraft);
     const formId = String(form.id);
     const formRev = String(form.rev);
 
@@ -41,6 +40,7 @@ export default function withLoader(Form) {
         dataId={dataId}
         credentials={credentials}
         dataIsDraft={dataIsDraft}
+        activeStep={activeStep}
       />
     );
   });

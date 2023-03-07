@@ -28,7 +28,7 @@ export default function withDraftSave(Form) {
         const index = uiOptions.findIndex(x => x.key === newUiSchema[0][0].toString());
         for (let i = index -1; i >= 0; i--) {
           if(uiOptions[i].type === 'pageTitle') {
-            return pageTitles.findIndex(x => x.key === uiOptions[i].key) +1;
+            return pageTitles.findIndex(x => x.key === uiOptions[i].key);
           }
         }
       };
