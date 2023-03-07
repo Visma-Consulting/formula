@@ -153,7 +153,7 @@ export function dynamicElements(config, formData = {}) {
           return element;
         }
 
-        return {...element, indent: getIndentNumber(element, elements)}
+        return {...element, indent: getIndentNumber(element, elements), listItem: element.list}
       }
     ).map(element => {
         const query = element.filter?.enable?.query;
