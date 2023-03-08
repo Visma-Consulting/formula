@@ -148,9 +148,14 @@ export function dynamicElements(config, formData = {}) {
       })
       .map((element) =>
         dynamicElements(element, filteredFormData[element.key])
-      ).map((element) => {
+      ).map(function getIndentation(element) {
         if (element.type === 'pageTitle') {
           return element;
+        }
+
+        if (element.list && element.type === 'formGroup') {
+          const formGroupElements = element.elements.map(getIndentation);
+          return {...element, elements: formGroupElements, indent: getIndentNumber(element, elements), listItem: element.list}
         }
 
         return {...element, indent: getIndentNumber(element, elements), listItem: element.list}
