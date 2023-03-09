@@ -16,7 +16,6 @@ function ButtonWidget(props) {
   const buttonText = options?.element?.useLabel ? options?.element?.label : options?.element?.title
 
   const onClickAction = props.schema?.buttonActions && props.schema?.buttonActions[options.element?.meta?.buttonOnClickAction];
-  console.log(props);
   return (
     <div>
       <Button
