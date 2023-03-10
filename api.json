@@ -492,6 +492,15 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "layer",
+            "in": "query",
+            "required": false,
+            "description": "The layer of the form",
+            "schema": {
+              "type": "number"
+            }
           }
         ],
         "responses": {
@@ -539,6 +548,15 @@
             "description": "Action for data submission",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "layer",
+            "in": "query",
+            "required": false,
+            "description": "The layer of the form",
+            "schema": {
+              "type": "number"
             }
           }
         ],
@@ -632,6 +650,15 @@
             "description": "Identifies whether or not updating a draft",
             "schema": {
               "type": "boolean"
+            }
+          },
+          {
+            "name": "layer",
+            "in": "query",
+            "required": false,
+            "description": "The layer of the form",
+            "schema": {
+              "type": "number"
             }
           }
         ],
