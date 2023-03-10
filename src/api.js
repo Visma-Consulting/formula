@@ -22,11 +22,11 @@ export const useFormRev = (formId, formRev) => {
   return client.useFormRev({formId, formRev});
 };
 
-export const useSubmittedFormData = (formId, formRev, credentials, dataId, dataIsDraft) => {
+export const useSubmittedFormData = (formId, formRev, credentials, dataId, dataIsDraft, layer) => {
   if (formRev) {
-    return client.useFormAndFormDataByRevision({formId, formRev, dataId, credentials, dataIsDraft});
+    return client.useFormAndFormDataByRevision({formId, formRev, dataId, credentials, dataIsDraft, layer});
   } else {
-    return client.useFormDataFromSubmissionHandler({formId, dataId, credentials, dataIsDraft});
+    return client.useFormDataFromSubmissionHandler({formId, dataId, credentials, dataIsDraft, layer});
   }
 };
 
@@ -99,17 +99,17 @@ export function useMutations() {
     ]);
 
   return {
-    async submit(data, credentials, formDataAction, isDraft) {
+    async submit(data, credentials, formDataAction, isDraft, layer) {
       if (data._id && ((isDraft && data.status === "DRAFT") || (!isDraft && data.status === "SUBMITTED"))) {
         return client.postResubmitFormData(
-          {dataId: data._id, credentials: credentials, actionId: formDataAction, isDraft: isDraft},
+          {dataId: data._id, credentials: credentials, actionId: formDataAction, isDraft: isDraft, layer: layer},
           data
         );
       } else {
         if (isDraft && data.status === "SUBMITTED") {
-          return client.postFormData({ actionId: formDataAction, draftReference: data._id }, data);
+          return client.postFormData({ actionId: formDataAction, draftReference: data._id, layer: layer }, data);
         } else {
-          return client.postFormData({ actionId: formDataAction }, data);
+          return client.postFormData({ actionId: formDataAction, layer: layer }, data);
         }
       }
     },
