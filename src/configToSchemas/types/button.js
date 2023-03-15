@@ -22,6 +22,7 @@ function ButtonWidget(props) {
         variant="contained"
         color="Primary"
         size={"small"}
+        disabled={props?.schema?.disabled}
         className={classes.button}
         onClick={() => onClickAction && onClickAction(options.element?.meta?.buttonActionProps)}
       >
@@ -36,6 +37,7 @@ export default extendType(_dummy,(props) => () => ({
     type: 'string',
     ...(props.buttonActions === undefined ? { default: ''} : undefined),
     buttonActions: props.buttonActions,
+    disabled: props?.fillProps?.disableElementButtons
   },
   uiSchema: {
     'ui:widget': ButtonWidget,
