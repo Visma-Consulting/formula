@@ -1,4 +1,10 @@
-# 0.4.154
+# 0.4.156
+
+- Incremental indentation
+- Add layers to submit api requests
+- Upgrade to `@visma/rjsf-*@3.1.0-65`
+
+# 0.4.155
 
 - Add button question type
 

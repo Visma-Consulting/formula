@@ -11,12 +11,18 @@ export default ({ formData, schema, uiSchema, ...otherProps }) => {
         formData={formData}
       />)
     } else {
+      const itemOptions = {
+        ...uiSchema?.items?.['ui:options'],
+        element: {
+          ...uiSchema?.items?.['ui:options']?.element,
+          indent: 0}
+      }
       return (formData.map((formData, index) => (
         <Field
           {...otherProps}
           key={index}
           schema={schema.items}
-          uiSchema={uiSchema?.items}
+          uiSchema={{...uiSchema?.items, 'ui:options': itemOptions}}
           formData={formData}
         />
       )));

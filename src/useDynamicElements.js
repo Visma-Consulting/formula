@@ -103,6 +103,20 @@ function resetDisabledToDefaultValues(formData, initialFormData, config, allDisa
   return resetFormData;
 }
 
+const getIndentNumber = (element, elements) => {
+  const query = element?.filter?.show?.query;
+
+  if (query) {
+    const source = Object.keys(query)[0];
+    const sourceElement = elements.find(element => element.key === source);
+    if (sourceElement && !sourceElement.hidden) {
+      return 1 + getIndentNumber(sourceElement, elements);
+    }
+  }
+
+  return 0;
+}
+
 export function dynamicElements(config, formData = {}) {
   // config.list element is filtered in ArrayField component.
   if (config.list || !typesWithElements.includes(config.type)) {
@@ -134,21 +148,17 @@ export function dynamicElements(config, formData = {}) {
       })
       .map((element) =>
         dynamicElements(element, filteredFormData[element.key])
-      ).map((element) => {
+      ).map(function getIndentation(element) {
         if (element.type === 'pageTitle') {
           return element;
         }
 
-        const query = element.filter?.show?.query;
-
-        if (query) {
-          const source = Object.keys(element.filter.show.query)[0];
-          if (!elements.find(element => element.key === source)?.hidden) {
-            return {...element, indent: true}
-          }
+        if (element.list && element.type === 'formGroup') {
+          const formGroupElements = element.elements.map(getIndentation);
+          return {...element, elements: formGroupElements, indent: getIndentNumber(element, elements), listItem: element.list}
         }
 
-        return {...element, indent: false}
+        return {...element, indent: getIndentNumber(element, elements), listItem: element.list}
       }
     ).map(element => {
         const query = element.filter?.enable?.query;
