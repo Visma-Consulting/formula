@@ -1,7 +1,8 @@
 import { utils } from '@visma/rjsf-core';
 import { get } from 'lodash';
 import { useContext, useEffect } from 'react';
-import { defineMessage, FormattedMessage, useIntl } from 'react-intl';
+import { defineMessage, useIntl } from 'react-intl';
+import { Typography } from '@material-ui/core';
 
 function Bmi(props) {
   const intl = useIntl();
@@ -40,11 +41,7 @@ function Bmi(props) {
     );
   }
 
-  return (
-    <>
-      <FormattedMessage defaultMessage="Kysymysryhmässä tai lomakkeella pitää olla pituus- ja painokysymykset." />
-    </>
-  );
+  return (<Typography>-</Typography>);
 }
 
 export default (props) => {
