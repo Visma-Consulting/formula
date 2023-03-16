@@ -21,7 +21,7 @@ function ButtonWidget(props) {
   const onClickAction = props.schema?.buttonActions && props.schema?.buttonActions[options.element?.meta?.buttonOnClickAction];
   const onClick = () => {
     const response = onClickAction(options.element?.meta?.buttonActionProps)
-    if (response) {
+    if (response === true) {
       setShowSuccessText(true)
     }
   }
