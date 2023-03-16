@@ -16,12 +16,11 @@ function ButtonWidget(props) {
   const classes = useStyles();
   const {options} = props;
   const [showSuccessText, setShowSuccessText] = useState(false)
-  const assignFormSuccessText = options.element?.meta?.buttonActionProps?.assignFormSuccessText;
+  const successText = options.element?.meta?.buttonActionProps?.successText;
   const buttonText = options?.element?.useLabel ? options?.element?.label : options?.element?.title
   const onClickAction = props.schema?.buttonActions && props.schema?.buttonActions[options.element?.meta?.buttonOnClickAction];
-  const onClick = () => {
-    const response = onClickAction(options.element?.meta?.buttonActionProps)
-    console.log(response);
+  const onClick = async () => {
+    const response = await onClickAction(options.element?.meta?.buttonActionProps)
     if (response === true) {
       setShowSuccessText(true)
     }
@@ -29,7 +28,7 @@ function ButtonWidget(props) {
 
   return (
     <div>
-      {(showSuccessText && assignFormSuccessText) ? <Typography>{assignFormSuccessText}</Typography> :
+      {(showSuccessText && successText) ? <Typography>{successText}</Typography> :
         <Button
           variant="contained"
           color="Primary"
