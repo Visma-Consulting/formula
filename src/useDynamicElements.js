@@ -108,7 +108,7 @@ const getIndentNumber = (element, elements) => {
 
   if (query) {
     const queryKey = Object.keys(query)[0];
-    const source = queryKey === '$or' | queryKey === '$and' ? Object.keys(query[queryKey])[0] : queryKey;
+    const source = queryKey === '$or' || queryKey === '$and' ? Object.keys(query[queryKey])[0] : queryKey;
     const sourceElement = elements.find(element => element.key === source);
     if (sourceElement && !sourceElement.hidden) {
       return 1 + getIndentNumber(sourceElement, elements);
