@@ -1,3 +1,9 @@
+# 0.4.162
+
+- Fix indentations for multichoice
+- Remove BMI info text
+- Fix scrolling in withSteps
+
 # 0.4.159
 
 - Button question type modifications
