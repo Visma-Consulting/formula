@@ -12,10 +12,6 @@ export default function withLoader(Form) {
     const {values: formData, form, dataId: _id, activeStep} = useSubmittedFormData(id, rev, credentials, dataId, dataIsDraft);
     const formId = String(form.id);
     const formRev = String(form.rev);
-    console.log(/^fm_\d+_\d+$/.test(id));
-    console.log(id == null || String(id) === formId);
-    console.log(rev == null || String(rev) === formRev);
-    console.log(String(id).includes('latest'));
 
     if (/^fm_\d+_\d+$/.test(id)) {
       const formIdOfData = `fm_${formId}_${formRev}`;
