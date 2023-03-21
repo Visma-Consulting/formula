@@ -33,10 +33,10 @@ export default function withSteps(Form) {
       if (nextStep < steps.length) {
         setMaxJump((prev) => Math.max(prev, nextStep));
         setActiveStep(nextStep);
-        const stepId = 'formula-step-' + steps[nextStep]['ui:options']?.element?.key;
-        const selection = formWrapperRef.current?.querySelector('#' + stepId);
-        selection.scrollIntoView(true);
         setTimeout(()=> {
+          const stepId = 'formula-step-' + steps[nextStep]['ui:options']?.element?.key;
+          const selection = formWrapperRef.current?.querySelector('#' + stepId);
+          selection.scrollIntoView(true);
           const focusableElements = 'a:not([disabled]), button:not([disabled]), input:not([disabled]), [tabindex]:not([disabled]):not([tabindex="-1"])';
           const allFocusableElements = formWrapperRef.current?.querySelectorAll(focusableElements)
           const focusableFormElements = Array.prototype.slice.call(allFocusableElements).filter((element) => !element.id.startsWith('formula-step'));
