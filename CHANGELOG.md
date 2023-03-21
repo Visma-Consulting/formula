@@ -1,3 +1,7 @@
+# 0.4.166
+
+- Remove unnecessary console logs
+
 # 0.4.164
 
 - Button debugging
