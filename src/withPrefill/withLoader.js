@@ -4,6 +4,8 @@ import {useSubmittedFormData} from '../api';
 
 export default function withLoader(Form) {
   const Loader = forwardRef(({id, rev, dataId, credentials, dataIsDraft, ...other}, ref) => {
+    console.log(dataId);
+    console.log(other.formData);
     invariant(
       !(dataId && other.formData),
       'You should not use prop `dataId` with `formData`'
@@ -12,9 +14,13 @@ export default function withLoader(Form) {
     const {values: formData, form, dataId: _id, activeStep} = useSubmittedFormData(id, rev, credentials, dataId, dataIsDraft);
     const formId = String(form.id);
     const formRev = String(form.rev);
-
+    console.log("formId " + formId);
+    console.log("formRev " + formRev);
+    console.log("id " + id);
+    console.log("rev " + rev);
     if (/^fm_\d+_\d+$/.test(id)) {
       const formIdOfData = `fm_${formId}_${formRev}`;
+      console.log("formIdOfData " + formIdOfData);
       invariant(
         String(id) === formIdOfData,
         'Form data is linked to a different form identifier. You should not provide `id` with `dataId`'
