@@ -38,6 +38,18 @@ const afterDay = (date) => {
   }
 }
 
+const getDefaultValue = ({type, defaultValue, limitType, limitAmount}) => {
+  switch (type) {
+    case 'noDefault': return null;
+    case 'today': return moment();
+    case 'fixed': return moment(defaultValue);
+    case 'limit': return limitAmount < 0
+      ? moment(beforeDay({type: limitType, numberValue: limitAmount * -1 }))
+      : moment(afterDay({type: limitType, numberValue: limitAmount }));
+  }
+  return undefined;
+}
+
 function SingleDatePickerWidget({ id, onChange, options, schema, value, required }) {
   const intl = useIntl();
   const language = intl.locale.split('-')[0] !== 'en';
@@ -60,7 +72,7 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value, required
   return (
     <div>
       <SingleDatePicker
-        date={value === undefined ? null : moment(value)}
+        date={value === undefined ? (options.dateDefault ? getDefaultValue(options.dateDefault) : null) : moment(value)}
         onDateChange={(date) => date && onChange(date.format('YYYY-MM-DD'))}
         focused={focused}
         {...language ? {phrases : mapValues(DateRangePickerPhrases, message => intl.formatMessage(message))} : {}}
@@ -95,7 +107,7 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value, required
   );
 }
 
-export default ({ config: { disableBefore, disableAfter } }) => ({
+export default ({ config: { disableBefore, disableAfter, dateDefault } }) => ({
   schema: {
     format: 'date',
     type: 'string',
@@ -105,6 +117,7 @@ export default ({ config: { disableBefore, disableAfter } }) => ({
     'ui:options': {
       disableBefore,
       disableAfter,
+      dateDefault
     }
   }
 });
