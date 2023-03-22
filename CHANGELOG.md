@@ -1,3 +1,7 @@
+# 0.4.167
+
+- Upgrade to `@visma/rjsf-*@3.1.0-66`
+
 # 0.4.166
 
 - Remove unnecessary console logs
