@@ -54,13 +54,23 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value, required
   const intl = useIntl();
   const language = intl.locale.split('-')[0] !== 'en';
   const [focused, setFocused] = useState();
+  const [dateValue, setDateValue] = useState(value !== undefined ? moment(value) : (options.dateDefault ? getDefaultValue(options.dateDefault) : undefined));
   const { label, list } = options.element;
   const handleFocusChange = ({ focused }) => setFocused(focused);
   const { locale } = intl;
   const classes = useStyles();
+
   useEffect(() => {
     moment.locale(locale);
   }, [locale]);
+
+  useEffect(() => {
+    if (dateValue) {
+      onChange(dateValue.format('YYYY-MM-DD'));
+    } else {
+      onChange(undefined);
+    }
+  }, [dateValue]);
 
   const ariaLabel = getAriaLabel(
     label,
@@ -72,8 +82,8 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value, required
   return (
     <div>
       <SingleDatePicker
-        date={value === undefined ? (options.dateDefault ? getDefaultValue(options.dateDefault) : null) : moment(value)}
-        onDateChange={(date) => date && onChange(date.format('YYYY-MM-DD'))}
+        date={dateValue}
+        onDateChange={setDateValue}
         focused={focused}
         {...language ? {phrases : mapValues(DateRangePickerPhrases, message => intl.formatMessage(message))} : {}}
         ariaLabel={ariaLabel}
@@ -92,13 +102,13 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value, required
             m.isAfter(afterDay(options.element.disableAfter), 'day') && options.element.disableAfter.type !== 'noValue')
         }
       />
-      {value !== undefined ?
+      {dateValue !== undefined ?
       <Button
         variant="contained"
         color="secondary"
         size={"small"}
         className={classes.button}
-        onClick={(value) => value && list ? onChange([undefined]) : value && onChange(undefined)}
+        onClick={(value) => value && list ? setDateValue([undefined]) : value && setDateValue(undefined)}
       >
         <FormattedMessage defaultMessage="Tyhjennä" />
       </Button>
