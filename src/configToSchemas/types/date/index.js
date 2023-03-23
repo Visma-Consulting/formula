@@ -54,7 +54,7 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value, required
   const intl = useIntl();
   const language = intl.locale.split('-')[0] !== 'en';
   const [focused, setFocused] = useState();
-  const [dateValue, setDateValue] = useState(value !== undefined ? moment(value) : (options.dateDefault ? getDefaultValue(options.dateDefault) : undefined));
+  const [dateValue, setDateValue] = useState();
   const { label, list } = options.element;
   const handleFocusChange = ({ focused }) => setFocused(focused);
   const { locale } = intl;
@@ -64,13 +64,24 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value, required
     moment.locale(locale);
   }, [locale]);
 
+  useEffect(() =>{
+    setDateValue(value !== undefined ? moment(value) : (options.dateDefault ? getDefaultValue(options.dateDefault) : undefined));
+  }, [])
+
   useEffect(() => {
     if (dateValue) {
       onChange(dateValue.format('YYYY-MM-DD'));
-    } else {
-      onChange(undefined);
     }
-  }, [dateValue]);
+  }, [dateValue, onChange]);
+
+  const onClickEmpty = (value) => {
+    setDateValue(undefined);
+    if (value && list) {
+      onChange([undefined])
+    } else {
+      onChange(undefined)
+    }
+  }
 
   const ariaLabel = getAriaLabel(
     label,
@@ -108,7 +119,7 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value, required
         color="secondary"
         size={"small"}
         className={classes.button}
-        onClick={(value) => value && list ? setDateValue([undefined]) : value && setDateValue(undefined)}
+        onClick={onClickEmpty}
       >
         <FormattedMessage defaultMessage="Tyhjennä" />
       </Button>
