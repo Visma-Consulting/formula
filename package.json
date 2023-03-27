@@ -1,6 +1,6 @@
 {
   "name": "@visma/formula",
-  "version": "0.4.169",
+  "version": "0.4.170",
   "description": "React component for configurable forms. Optionally connect to the backend to fetch external config and submit form data to.",
   "homepage": "https://github.com/Visma-Consulting/formula#readme",
   "repository": {

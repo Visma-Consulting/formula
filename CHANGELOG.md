@@ -1,3 +1,11 @@
+# 0.4.170
+
+- Upgrade to `@visma/rjsf-*@3.1.0-68`
+- Added subtitle element
+- Editor improvements
+- DateFormat when filling forms
+- Extra list options
+
 # 0.4.169
 
 - Upgrade to `@visma/rjsf-*@3.1.0-67`
