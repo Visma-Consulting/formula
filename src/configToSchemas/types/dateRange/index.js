@@ -27,7 +27,8 @@ function DateRangePickerField(props) {
   const { idSchema, onChange, schema, formData, uiSchema, required } = props;
   const intl = useIntl();
   const [focusedInput, setFocusedInput] = useState();
-  const { disableEnd, disableStart, dateFormat } = props.uiSchema['ui:options'].element;
+  const { disableEnd, disableStart } = props.uiSchema['ui:options'].element;
+  const { dateFormat } = schema?.properties;
   const handleFocusChange = (focusedInput) => setFocusedInput(focusedInput);
   const { locale } = intl;
   const language = intl.locale.split('-')[0] !== 'en';
