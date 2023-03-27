@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { mapValues } from 'lodash';
 import { DateRangePickerPhrases } from '../../../../lib/configToSchemas/types/date/phrases';
-import { FormHelperText, Typography } from '@material-ui/core';
+import { getAriaLabel } from '../../../utils.js';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function DateRangePickerField(props) {
-  const { idSchema, onChange, schema, formData, uiSchema } = props;
+  const { idSchema, onChange, schema, formData, uiSchema, required } = props;
   const intl = useIntl();
   const [focusedInput, setFocusedInput] = useState();
   const { disableEnd, disableStart, dateFormat } = props.uiSchema['ui:options'].element;
@@ -65,18 +65,26 @@ function DateRangePickerField(props) {
     }
   }
 
+  const ariaLabel = getAriaLabel(
+    uiSchema?.['ui:options']?.element?.label,
+    uiSchema?.['ui:options'],
+    required,
+    intl.formatMessage({defaultMessage: 'Pakollinen kenttä'})
+  );
+
   return (
-        <div>
+    <div>
       <DateRangePicker
         onDatesChange={({ startDate, endDate }) => (startDate || endDate) && onChange({ start: startDate?.format('YYYY-MM-DD'), end: endDate?.format('YYYY-MM-DD')})}
         onFocusChange={handleFocusChange}
         focusedInput={focusedInput}
         small={true}
         numberOfMonths={1}
+        aria-label={ariaLabel}
+        screenReaderInputMessage={ariaLabel}
         displayFormat={dateFormat ?? 'D.M.yyyy'}
         disabled={schema.readOnly || uiSchema.readonly}
         {...language ? {phrases : mapValues(DateRangePickerPhrases, message => intl.formatMessage(message))} : {}}
-        screenReaderInputMessage={<FormattedMessage defaultMessage={'Päivämäärähaarukka'}/> }
         hideKeyboardShortcutsPanel
         startDate={formData?.start === undefined ? null : moment(formData?.start)}
         startDateId={idSchema.start.$id}
@@ -110,7 +118,7 @@ function DateRangePickerField(props) {
           <FormattedMessage defaultMessage="Tyhjennä" />
         </Button>
           : <></>}
-        </div>
+    </div>
   );
 }
 

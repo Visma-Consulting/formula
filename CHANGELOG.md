@@ -1,3 +1,78 @@
+# 0.4.169
+
+- Upgrade to `@visma/rjsf-*@3.1.0-67`
+
+# 0.4.168
+
+- Upgrade to `@visma/rjsf-*@3.1.0-67`
+
+# 0.4.167
+
+- Upgrade to `@visma/rjsf-*@3.1.0-66`
+
+# 0.4.166
+
+- Remove unnecessary console logs
+
+# 0.4.164
+
+- Button debugging
+
+# 0.4.163
+
+- Bugfix indentations for multichoice
+
+# 0.4.162
+
+- Fix indentations for multichoice
+- Remove BMI info text
+- Fix scrolling in withSteps
+
+# 0.4.159
+
+- Button question type modifications
+
+# 0.4.158
+
+- Button question type modifications
+
+# 0.4.157
+
+- Button question type disable option
+
+# 0.4.156
+
+- Incremental indentation
+- Add layers to submit api requests
+- Upgrade to `@visma/rjsf-*@3.1.0-65`
+
+# 0.4.155
+
+- Add button question type
+
+# 0.4.154
+
+- Add draft page numbered reload
+
+# 0.4.153
+
+- Add layer to api requests
+
+# 0.4.152
+
+- Accessibility updates
+- Upgrade to `@visma/rjsf-*@3.1.0-63`
+
+# 0.4.151
+
+- Fix hiding all elements while filtering stepTitles
+- Upgrade to `@visma/rjsf-*@3.1.0-62`
+
+# 0.4.150
+
+- Fix filtering stepTitles
+- Upgrade to `@visma/rjsf-*@3.1.0-61`
+
 # 0.4.149
 
 - Add dateformat prop and default format

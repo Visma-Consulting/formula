@@ -12,13 +12,12 @@ export default function withFormConfigLoader(Form) {
     />
   ));
 
-  const Loader = forwardRef(({id, rev, ...other}, ref) => {
+  const Loader = forwardRef(({id, rev, layer, ...other}, ref) => {
     invariant(
       !(id && other.config),
       'You should not use prop `id` with `config`'
     );
-
-    return <Form ref={ref} id={id} rev={rev} {...other} config={useAtomicForm(id, rev)}/>;
+    return <Form ref={ref} id={id} rev={rev} layer={layer} {...other} config={useAtomicForm(id, rev, layer)}/>;
   });
 
   return forwardRef((props, ref) => {

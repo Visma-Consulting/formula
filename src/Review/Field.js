@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 import { createContext, useContext } from 'react';
 import { Customize } from '../utils';
 import * as types from './types';
@@ -26,9 +27,13 @@ export default function Field({ __withStepped_original_props__, ...props }) {
   }
 
   if (props.uiSchema &&
-    (props.uiSchema['ui:widget'] === 'hidden' || props.uiSchema['ui:options']?.element?.type === 'compose')) {
+    (props.uiSchema['ui:widget'] === 'hidden' || props.uiSchema['ui:options']?.element?.type === 'compose' || props.uiSchema['ui:options']?.element?.type === 'button')) {
     return null;
   }
+
+  const element = props.uiSchema?.items
+    ? props.uiSchema.items['ui:options']?.element
+    : props.uiSchema?.['ui:options']?.element;
 
   return (
     <TitleVariantContext.Provider
@@ -42,19 +47,21 @@ export default function Field({ __withStepped_original_props__, ...props }) {
         }[variant]
       }
     >
-      <Customize
-        customizer={props[props.preview ? 'previewField' : 'reviewField']}
-        {...props}
-      >
-        {props.schema.title && (
-          <Typography variant={variant} gutterBottom>
-            {props.schema.title}
-          </Typography>
-        )}
-        <div className={classes.typeContainer}>
-          <Type {...props} />
-        </div>
-      </Customize>
+      <Box pl={element && element.indent ? 3 * element.indent : 0}>
+        <Customize
+          customizer={props[props.preview ? 'previewField' : 'reviewField']}
+          {...props}
+        >
+          {props.schema.title && (
+            <Typography variant={variant} gutterBottom>
+              {props.schema.title}
+            </Typography>
+          )}
+          <div className={classes.typeContainer}>
+            <Type {...props} />
+          </div>
+        </Customize>
+      </Box>
     </TitleVariantContext.Provider>
   );
 }

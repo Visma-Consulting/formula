@@ -29,6 +29,7 @@ export default function withConfirmSubmit(Form) {
         credentials,
         dataIsDraft,
         customMessages,
+        layer,
         ...otherProps
       },
       ref
@@ -62,6 +63,7 @@ export default function withConfirmSubmit(Form) {
               formDataAction={formDataAction}
               dataIsDraft={dataIsDraft}
               customMessages={customMessages}
+              layer={layer}
               {...otherProps}
               onSubmit={chain([
                 onPreSubmit,
@@ -83,7 +85,7 @@ export default function withConfirmSubmit(Form) {
                     ...formMetaData,
                     values: formData,
                     captchaChallenge,
-                    _id: otherProps.dataId,
+                    _id: otherProps.dataId
                   };
                   try {
                     const response = await onSubmit(
@@ -91,6 +93,7 @@ export default function withConfirmSubmit(Form) {
                       credentials,
                       formDataAction,
                       dataIsDraft,
+                      layer,
                       ...args
                     );
 

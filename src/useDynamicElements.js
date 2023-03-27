@@ -34,8 +34,10 @@ function pageTitleElementOf(elements, element) {
     return undefined;
   }
 
+  const findElement = elements.find(el => el.key === element.key);
+
   // eslint-disable-next-line @super-template/no-loops/no-loops
-  for (let i = elements.indexOf(element) - 1; i >= 0; i--) {
+  for (let i = elements.indexOf(findElement) - 1; i >= 0; i--) {
     if (elements[i].type === 'pageTitle') {
       return elements[i];
       break;
@@ -101,6 +103,34 @@ function resetDisabledToDefaultValues(formData, initialFormData, config, allDisa
   return resetFormData;
 }
 
+const getElementIndentation = (element, elements) => {
+  if (element.type === 'pageTitle') {
+    return element;
+  }
+
+  if (element.list && element.type === 'formGroup') {
+    const formGroupElements = element.elements.map(el => getElementIndentation(el, element.elements));
+    return {...element, elements: formGroupElements, indent: getIndentNumber(element, elements), listItem: element.list}
+  }
+
+  return {...element, indent: getIndentNumber(element, elements), listItem: element.list}
+}
+
+const getIndentNumber = (element, elements) => {
+  const query = element?.filter?.show?.query;
+
+  if (query) {
+    const queryKey = Object.keys(query)[0];
+    const source = queryKey === '$or' || queryKey === '$and' || queryKey === '$in' ? Object.keys(query[queryKey][0])[0] : queryKey;
+    const sourceElement = elements.find(element => element.key === source);
+    if (sourceElement && !sourceElement.hidden) {
+      return 1 + getIndentNumber(sourceElement, elements);
+    }
+  }
+
+  return 0;
+}
+
 export function dynamicElements(config, formData = {}) {
   // config.list element is filtered in ArrayField component.
   if (config.list || !typesWithElements.includes(config.type)) {
@@ -132,32 +162,17 @@ export function dynamicElements(config, formData = {}) {
       })
       .map((element) =>
         dynamicElements(element, filteredFormData[element.key])
-      ).map((element) => {
-        if (element.type === 'pageTitle') {
-          return element;
-        }
+      ).map(element => getElementIndentation(element, elements)
+      ).map(element => {
+          const query = element.filter?.enable?.query;
 
-        const query = element.filter?.show?.query;
-
-        if (query) {
-          const source = Object.keys(element.filter.show.query)[0];
-          if (!elements.find(element => element.key === source)?.hidden) {
-            return {...element, indent: true}
+          if (!query) {
+            return element;
+          } else {
+            return { ...element, disabled: !sift(query)(filteredFormData) }
           }
         }
-
-        return {...element, indent: false}
-      }
-    ).map(element => {
-        const query = element.filter?.enable?.query;
-
-        if (!query) {
-          return element;
-        } else {
-          return { ...element, disabled: !sift(query)(filteredFormData) }
-        }
-      }
-    );
+      );
     checkChanges = elements.length !== length;
   }
 

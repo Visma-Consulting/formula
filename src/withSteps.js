@@ -18,51 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function withSteps(Form) {
   const WithSteps = forwardRef(({ onSubmit, onChange, onError, formData, steps, ...otherProps }, ref) => {
-    const resolveResumePoint = () => {
-      let result = 0;
-
-      if (formData === undefined) {
-        return result;
-      }
-
-      if (Object.keys(formData).length < 1) {
-        return result;
-      }
-
-      const elements = otherProps.config.elements.slice();
-      const pages = [];
-      let tempSorter = [];
-      elements.forEach(el => {
-        if (el.type === "pageTitle") {
-          if (tempSorter.length > 0) {
-            pages.push(tempSorter);
-            tempSorter = [];
-          }
-        } else {
-          tempSorter.push(el);
-        }
-      })
-
-      pages.push(tempSorter);
-
-      for (let i = pages.length - 1; i >= 0; i--) {
-        let found = false;
-        pages[i].forEach(pageElement => {
-          if (formData[pageElement.key]) {
-              found = true;
-          }
-        });
-
-        if (found) {
-          result = i;
-          break;
-        }
-      }
-
-      return result;
-    };
-
-    const [activeStep, setActiveStep] = useState(otherProps.resumeBasedOnData ? resolveResumePoint() : 0);
+    const [activeStep, setActiveStep] = useState(otherProps.dataIsDraft && otherProps.activeStep ? otherProps.activeStep : 0);
     const [maxJump, setMaxJump] = useState(activeStep);
     const [noValidate, setNoValidate] = useState(false);
     const [liveValidate, setLiveValidate] = useState(false);
@@ -77,10 +33,10 @@ export default function withSteps(Form) {
       if (nextStep < steps.length) {
         setMaxJump((prev) => Math.max(prev, nextStep));
         setActiveStep(nextStep);
-        const stepId = 'formula-step-' + steps[nextStep]['ui:options']?.element?.key;
-        const selection = formWrapperRef.current?.querySelector('#' + stepId);
-        selection.scrollIntoView(true);
         setTimeout(()=> {
+          const stepId = 'formula-step-' + steps[nextStep]['ui:options']?.element?.key;
+          const selection = formWrapperRef.current?.querySelector('#' + stepId);
+          selection.scrollIntoView(true);
           const focusableElements = 'a:not([disabled]), button:not([disabled]), input:not([disabled]), [tabindex]:not([disabled]):not([tabindex="-1"])';
           const allFocusableElements = formWrapperRef.current?.querySelectorAll(focusableElements)
           const focusableFormElements = Array.prototype.slice.call(allFocusableElements).filter((element) => !element.id.startsWith('formula-step'));

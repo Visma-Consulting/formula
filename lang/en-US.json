@@ -260,10 +260,10 @@
   "XOPDit": {
     "defaultMessage": "a valid email address"
   },
-  "wu4pA8": {
-    "defaultMessage": "Formgroup or form needs to have height and weight fields."
-  },
   "56lFh0": {
     "defaultMessage": "At least one question in form group \"{field}\" must be answered"
+  },
+  "WTXEWy": {
+    "defaultMessage": "\"{field}\" is included in form group where at least one question must be answered"
   }
 }

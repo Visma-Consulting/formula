@@ -9,8 +9,7 @@ export default function withLoader(Form) {
       'You should not use prop `dataId` with `formData`'
     );
 
-    const {values: formData, form, dataId: _id} = useSubmittedFormData(id, rev, credentials, dataId, dataIsDraft);
-
+    const {values: formData, form, dataId: _id, activeStep} = useSubmittedFormData(id, rev, credentials, dataId, dataIsDraft);
     const formId = String(form.id);
     const formRev = String(form.rev);
 
@@ -29,6 +28,10 @@ export default function withLoader(Form) {
         rev == null || String(rev) === formRev,
         'Form data is linked to a different form revision. You should not provide `rev` with `dataId`'
       );
+      invariant(
+        String(id).includes('latest'),
+        'Form data is linked to a different form identifier. You should not provide `id` with `dataId`'
+      );
     }
 
     return (
@@ -41,6 +44,7 @@ export default function withLoader(Form) {
         dataId={dataId}
         credentials={credentials}
         dataIsDraft={dataIsDraft}
+        activeStep={activeStep}
       />
     );
   });
