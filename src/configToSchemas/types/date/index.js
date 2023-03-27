@@ -39,7 +39,6 @@ const afterDay = (date) => {
 }
 
 function SingleDatePickerWidget({ id, onChange, options, schema, value, required} ) {
-  console.log(options);
   const intl = useIntl();
   const language = intl.locale.split('-')[0] !== 'en';
   const [focused, setFocused] = useState();
