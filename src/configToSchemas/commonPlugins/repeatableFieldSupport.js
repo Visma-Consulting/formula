@@ -31,6 +31,7 @@ export default (config) => (props) => {
       items: itemsSchema,
       maxItems: config.maxItems,
       minItems: config.minItems,
+      extraListOptions: config.extraListOptions,
       default: emptyDefault ? [] : config.minItems > 1 ? Array(config.minItems).fill(defaultByType) : [defaultByType],
     }
 
