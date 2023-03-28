@@ -1,3 +1,8 @@
+# 0.4.171
+
+- Bugfix: subtitle review
+- Bugfix: dateRange dateFormat
+
 # 0.4.170
 
 - Upgrade to `@visma/rjsf-*@3.1.0-68`
