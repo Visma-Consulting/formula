@@ -1,3 +1,7 @@
+# x.y.z
+
+- Upgrade to `@visma/rjsf-*@3.1.0-69`
+
 # 0.4.171
 
 - Bugfix: subtitle review
