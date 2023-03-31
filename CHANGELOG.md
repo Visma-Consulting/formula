@@ -1,4 +1,4 @@
-# x.y.z
+# 0.4.172
 
 - Add placeholder for `dll` types
 - Add missing ESM exports
