@@ -1,5 +1,6 @@
 # x.y.z
 
+- Add missing ESM exports
 - Upgrade to `@visma/rjsf-*@3.1.0-69`
 
 # 0.4.171

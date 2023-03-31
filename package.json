@@ -14,7 +14,10 @@
   },
   "type": "module",
   "exports": {
-    ".": "./lib/index.js"
+    ".": "./lib/index.js",
+    "./lib/client": "./lib/client.js",
+    "./lib/dll": "./lib/dll.js",
+    "./api.json": "./api.json"
   },
   "main": "./lib/index.cjs",
   "module": "./lib/index.js",
