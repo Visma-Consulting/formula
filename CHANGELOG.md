@@ -1,5 +1,6 @@
 # x.y.z
 
+- Add placeholder for `dll` types
 - Add missing ESM exports
 - Upgrade to `@visma/rjsf-*@3.1.0-69`
 
