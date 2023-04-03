@@ -66,11 +66,11 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value, required
 
   useEffect(() =>{
     setDateValue(value !== undefined ? moment(value) : (options.dateDefault ? getDefaultValue(options.dateDefault) : undefined));
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (dateValue) {
-      onChange(dateValue.format('YYYY-MM-DD'));
+      setTimeout(() => { onChange(dateValue.format('YYYY-MM-DD')) });
     }
   }, [dateValue, onChange]);
 
