@@ -70,13 +70,7 @@
     "sift": "^15.0.0",
     "tiny-invariant": "^1.1.0",
     "use-axios": "^0.3.7",
-    "util-deprecate": "^1.0.2",
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^10.0.27",
-    "@mui/base": "^5.0.0-alpha.122",
-    "@mui/material": "^5.11.15",
-    "@mui/x-date-pickers": "^6.0.3",
-    "dayjs": "^1.11.7"
+    "util-deprecate": "^1.0.2"
   },
   "devDependencies": {
     "@formatjs/cli": "^4.2.29",
