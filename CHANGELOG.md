@@ -1,3 +1,42 @@
+# 0.4.172
+
+- Add placeholder for `dll` types
+- Add missing ESM exports
+- Upgrade to `@visma/rjsf-*@3.1.0-69`
+
+# 0.4.171
+
+- Bugfix: subtitle review
+- Bugfix: dateRange dateFormat
+
+# 0.4.170
+
+- Upgrade to `@visma/rjsf-*@3.1.0-68`
+- Added subtitle element
+- Editor improvements
+- DateFormat when filling forms
+- Extra list options
+
+# 0.4.169
+
+- Upgrade to `@visma/rjsf-*@3.1.0-67`
+
+# 0.4.168
+
+- Upgrade to `@visma/rjsf-*@3.1.0-67`
+
+# 0.4.167
+
+- Upgrade to `@visma/rjsf-*@3.1.0-66`
+
+# 0.4.166
+
+- Remove unnecessary console logs
+
+# 0.4.164
+
+- Button debugging
+
 # 0.4.163
 
 - Bugfix indentations for multichoice

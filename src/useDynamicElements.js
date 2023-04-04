@@ -103,12 +103,25 @@ function resetDisabledToDefaultValues(formData, initialFormData, config, allDisa
   return resetFormData;
 }
 
+const getElementIndentation = (element, elements) => {
+  if (element.type === 'pageTitle') {
+    return element;
+  }
+
+  if (element.list && element.type === 'formGroup') {
+    const formGroupElements = element.elements.map(el => getElementIndentation(el, element.elements));
+    return {...element, elements: formGroupElements, indent: getIndentNumber(element, elements), listItem: element.list}
+  }
+
+  return {...element, indent: getIndentNumber(element, elements), listItem: element.list}
+}
+
 const getIndentNumber = (element, elements) => {
   const query = element?.filter?.show?.query;
 
   if (query) {
     const queryKey = Object.keys(query)[0];
-    const source = queryKey === '$or' || queryKey === '$and' ? Object.keys(query[queryKey][0])[0] : queryKey;
+    const source = queryKey === '$or' || queryKey === '$and' || queryKey === '$in' ? Object.keys(query[queryKey][0])[0] : queryKey;
     const sourceElement = elements.find(element => element.key === source);
     if (sourceElement && !sourceElement.hidden) {
       return 1 + getIndentNumber(sourceElement, elements);
@@ -149,28 +162,17 @@ export function dynamicElements(config, formData = {}) {
       })
       .map((element) =>
         dynamicElements(element, filteredFormData[element.key])
-      ).map(function getIndentation(element) {
-        if (element.type === 'pageTitle') {
-          return element;
-        }
+      ).map(element => getElementIndentation(element, elements)
+      ).map(element => {
+          const query = element.filter?.enable?.query;
 
-        if (element.list && element.type === 'formGroup') {
-          const formGroupElements = element.elements.map(getIndentation);
-          return {...element, elements: formGroupElements, indent: getIndentNumber(element, elements), listItem: element.list}
+          if (!query) {
+            return element;
+          } else {
+            return { ...element, disabled: !sift(query)(filteredFormData) }
+          }
         }
-
-        return {...element, indent: getIndentNumber(element, elements), listItem: element.list}
-      }
-    ).map(element => {
-        const query = element.filter?.enable?.query;
-
-        if (!query) {
-          return element;
-        } else {
-          return { ...element, disabled: !sift(query)(filteredFormData) }
-        }
-      }
-    );
+      );
     checkChanges = elements.length !== length;
   }
 

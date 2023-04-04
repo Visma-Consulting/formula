@@ -27,7 +27,7 @@ function DateRangePickerField(props) {
   const { idSchema, onChange, schema, formData, uiSchema, required } = props;
   const intl = useIntl();
   const [focusedInput, setFocusedInput] = useState();
-  const { disableEnd, disableStart } = props.uiSchema['ui:options'].element;
+  const { element: {disableEnd, disableStart}, dateFormat } = props.uiSchema['ui:options'];
   const handleFocusChange = (focusedInput) => setFocusedInput(focusedInput);
   const { locale } = intl;
   const language = intl.locale.split('-')[0] !== 'en';
@@ -82,6 +82,7 @@ function DateRangePickerField(props) {
         numberOfMonths={1}
         aria-label={ariaLabel}
         screenReaderInputMessage={ariaLabel}
+        displayFormat={dateFormat ?? 'D.M.yyyy'}
         disabled={schema.readOnly || uiSchema.readonly}
         {...language ? {phrases : mapValues(DateRangePickerPhrases, message => intl.formatMessage(message))} : {}}
         hideKeyboardShortcutsPanel
@@ -121,7 +122,7 @@ function DateRangePickerField(props) {
   );
 }
 
-export default ({ config: { disableBefore, disableAfter, required, list } }) => ({
+export default ({ config: { disableBefore, disableAfter, required, list }, reviewProps }) => ({
   schema: {
     type: 'object',
     ...(required ? { required: ['start', 'end']} : undefined),
@@ -142,6 +143,7 @@ export default ({ config: { disableBefore, disableAfter, required, list } }) => 
     'ui:options': {
       disableBefore,
       disableAfter,
+      dateFormat: reviewProps?.dateFormat?.replaceAll('d', 'D')
     },
   },
 });

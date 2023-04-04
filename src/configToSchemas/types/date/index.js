@@ -100,6 +100,7 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value, required
         ariaLabel={ariaLabel}
         onFocusChange={handleFocusChange}
         id={id}
+        displayFormat={options.dateFormat ?? 'D.M.yyyy'}
         numberOfMonths={1}
         disabled={schema.readOnly || options.readonly}
         small={true}
@@ -128,7 +129,7 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value, required
   );
 }
 
-export default ({ config: { disableBefore, disableAfter, dateDefault } }) => ({
+export default ({ config: { disableBefore, disableAfter, dateDefault }, reviewProps}) => ({
   schema: {
     format: 'date',
     type: 'string',
@@ -138,7 +139,8 @@ export default ({ config: { disableBefore, disableAfter, dateDefault } }) => ({
     'ui:options': {
       disableBefore,
       disableAfter,
-      dateDefault
+      dateDefault,
+      dateFormat: reviewProps?.dateFormat?.replaceAll('d', 'D')
     }
   }
 });

@@ -28,6 +28,10 @@ export default function withLoader(Form) {
         rev == null || String(rev) === formRev,
         'Form data is linked to a different form revision. You should not provide `rev` with `dataId`'
       );
+      invariant(
+        String(id).includes('latest'),
+        'Form data is linked to a different form identifier. You should not provide `id` with `dataId`'
+      );
     }
 
     return (
