@@ -38,17 +38,50 @@ const afterDay = (date) => {
   }
 }
 
-function SingleDatePickerWidget({ id, onChange, options, schema, value, required} ) {
+const getDefaultValue = ({type, defaultValue, limitType, limitAmount}) => {
+  switch (type) {
+    case 'noDefault': return null;
+    case 'today': return moment();
+    case 'fixed': return moment(defaultValue);
+    case 'limit': return limitAmount < 0
+      ? moment(beforeDay({type: limitType, numberValue: limitAmount * -1 }))
+      : moment(afterDay({type: limitType, numberValue: limitAmount }));
+  }
+  return undefined;
+}
+
+function SingleDatePickerWidget({ id, onChange, options, schema, value, required }) {
   const intl = useIntl();
   const language = intl.locale.split('-')[0] !== 'en';
   const [focused, setFocused] = useState();
+  const [dateValue, setDateValue] = useState();
   const { label, list } = options.element;
   const handleFocusChange = ({ focused }) => setFocused(focused);
   const { locale } = intl;
   const classes = useStyles();
+
   useEffect(() => {
     moment.locale(locale);
   }, [locale]);
+
+  useEffect(() =>{
+    setDateValue(value !== undefined ? moment(value) : (options.dateDefault ? getDefaultValue(options.dateDefault) : undefined));
+  }, []);
+
+  useEffect(() => {
+    if (dateValue) {
+      setTimeout(() => { onChange(dateValue.format('YYYY-MM-DD')) });
+    }
+  }, [dateValue, onChange]);
+
+  const onClickEmpty = (value) => {
+    setDateValue(undefined);
+    if (value && list) {
+      onChange([undefined])
+    } else {
+      onChange(undefined)
+    }
+  }
 
   const ariaLabel = getAriaLabel(
     label,
@@ -60,8 +93,8 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value, required
   return (
     <div>
       <SingleDatePicker
-        date={value === undefined ? null : moment(value)}
-        onDateChange={(date) => date && onChange(date.format('YYYY-MM-DD'))}
+        date={dateValue}
+        onDateChange={setDateValue}
         focused={focused}
         {...language ? {phrases : mapValues(DateRangePickerPhrases, message => intl.formatMessage(message))} : {}}
         ariaLabel={ariaLabel}
@@ -81,13 +114,13 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value, required
             m.isAfter(afterDay(options.element.disableAfter), 'day') && options.element.disableAfter.type !== 'noValue')
         }
       />
-      {value !== undefined ?
+      {dateValue !== undefined ?
       <Button
         variant="contained"
         color="secondary"
         size={"small"}
         className={classes.button}
-        onClick={(value) => value && list ? onChange([undefined]) : value && onChange(undefined)}
+        onClick={onClickEmpty}
       >
         <FormattedMessage defaultMessage="Tyhjennä" />
       </Button>
@@ -96,20 +129,21 @@ function SingleDatePickerWidget({ id, onChange, options, schema, value, required
   );
 }
 
-export default ({ config: { disableBefore, disableAfter }, reviewProps }) => ({
-    schema: {
-      format: 'date',
-      type: 'string',
-    },
-    uiSchema: {
-      'ui:widget': SingleDatePickerWidget,
-      'ui:options': {
-        disableBefore,
-        disableAfter,
-        dateFormat: reviewProps?.dateFormat?.replaceAll('d', 'D')
-      }
+export default ({ config: { disableBefore, disableAfter, dateDefault }, reviewProps}) => ({
+  schema: {
+    format: 'date',
+    type: 'string',
+  },
+  uiSchema: {
+    'ui:widget': SingleDatePickerWidget,
+    'ui:options': {
+      disableBefore,
+      disableAfter,
+      dateDefault,
+      dateFormat: reviewProps?.dateFormat?.replaceAll('d', 'D')
     }
-  })
+  }
+});
 
 export const name = defineMessage({
   defaultMessage: 'Päivämäärä',

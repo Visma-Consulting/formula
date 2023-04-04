@@ -2,12 +2,11 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   image: {
-    maxWidth: '15%',
+    maxWidth: '20%',
     maxHeight: '100px',
     width: 'inherit',
     height: 'inherit',
     float: 'right',
-    objectFit: 'contain'
   },
 });
 
@@ -20,7 +19,7 @@ function Image(logoUrl) {
 export default (config) => (props) => {
   props.schema.title ??= config.useLabel ? config.label : config.logo ?
     <div style={{ overflow: 'hidden' }}>
+      {Image(config.logo)}
     {config.title}
-    {Image(config.logo)}
   </div> : config.title;
 };
