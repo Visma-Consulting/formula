@@ -1,3 +1,8 @@
+# 0.4.173
+
+- Add date default
+- Upgrade to `@visma/rjsf-*@3.1.0-70`
+
 # 0.4.172
 
 - Add placeholder for `dll` types
