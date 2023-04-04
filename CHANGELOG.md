@@ -1,3 +1,7 @@
+# 0.4.174
+
+- Added new datepicker component
+
 # 0.4.173
 
 - Add date default
