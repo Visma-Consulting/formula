@@ -71,7 +71,13 @@
     "tiny-invariant": "^1.1.0",
     "use-axios": "^0.3.7",
     "util-deprecate": "^1.0.2",
-    "@mui/x-date-pickers": "^6.0.3"
+    "@mui/x-date-pickers": "^6.0.3",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^10.0.27",
+    "@mui/base": "^5.0.0-alpha.122",
+    "@mui/material": "^5.11.15",
+    "dayjs": "^1.11.7",
+    "@emotion/core": "^11.0.0"
   },
   "devDependencies": {
     "@formatjs/cli": "^4.2.29",
@@ -81,13 +87,7 @@
     "typedoc": "^0.22.11",
     "webpack": "^4.44.2",
     "webpack-cli": "^4.9.2",
-    "webpack-manifest-plugin": "^4.1.1",
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^10.0.27",
-    "@mui/base": "^5.0.0-alpha.122",
-    "@mui/material": "^5.11.15",
-    "dayjs": "^1.11.7",
-    "@emotion/core": "^11.0.0"
+    "webpack-manifest-plugin": "^4.1.1"
   },
   "peerDependencies": {
     "react": "^17.0.1",
