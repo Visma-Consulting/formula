@@ -4,6 +4,14 @@ import { defineMessages } from '@formatjs/intl';
 import { get, mapValues } from 'lodash';
 import { useIntl } from 'react-intl';
 
+const minItemsDefaults = defineMessages({
+  multiselect: { defaultMessage: '"{field}" tulee sisältää vähintään {limit} valintaa'},
+});
+
+const maxItemsDefaults = defineMessages({
+  multiselect: { defaultMessage: '"{field}" tulee sisältää korkeintaan {limit} valintaa'},
+});
+
 const messages = defineMessages({
   minItems: {
     defaultMessage: '"{field}" tulee sisältää vähintään {limit} alkiota',
@@ -51,7 +59,7 @@ const type = defineMessages({
   array: { defaultMessage: 'taulu' },
 });
 
-const params = { type };
+const params = { type, minItemsDefaults, maxItemsDefaults };
 
 export default (props) => {
   const intl = useIntl();
@@ -61,7 +69,7 @@ export default (props) => {
     transformErrors: (errors) => {
       const transformedErrors = errors.map((error) => {
         const errorName = error.property.includes('.end') ? 'requiredEnd' : error.property.includes('.start') ? 'requiredStart' : error.property.includes('choices') ? 'choices' : error.name;
-        const messageDescriptor = messages[errorName];
+        let messageDescriptor = messages[errorName];
         if (!messageDescriptor) {
           return error;
         }
@@ -113,6 +121,11 @@ export default (props) => {
           );
         const title = fieldSchema?.title !== '' ? fieldSchema?.title : (fieldUISchema['ui:options']?.element?.labelError !== '' && fieldUISchema['ui:options']?.element?.useLabel) ? fieldUISchema['ui:options']?.element?.labelError : '';
         const { patternDescription } = fieldUISchema ?? {};
+        if (error.name === 'minItems' && minItemsDefaults[fieldUISchema['ui:options']?.element.type]) {
+          messageDescriptor = minItemsDefaults[fieldUISchema['ui:options']?.element.type];
+        } else if (error.name === 'maxItems' && maxItemsDefaults[fieldUISchema['ui:options']?.element.type]) {
+          messageDescriptor = maxItemsDefaults[fieldUISchema['ui:options']?.element.type];
+        }
         const message = intl.formatMessage(messageDescriptor, {
           field: title,
           description: { pattern: patternDescription }[errorName],
