@@ -143,6 +143,9 @@
   "hmeyg+": {
     "defaultMessage": "\"{field}\" should contain at least {limit} items"
   },
+  "G6+GRP": {
+    "defaultMessage": "\"{field}\" should contain at least {limit} choices"
+  },
   "IVPaJf": {
     "defaultMessage": "\"{field}\" {limit, plural, =1 {is mandatory field} other {should contain at least # chars}}"
   },
@@ -175,6 +178,9 @@
   },
   "W4OYt3": {
     "defaultMessage": "\"{field}\" should contain at most {limit} items"
+  },
+  "/rNoT8": {
+    "defaultMessage": "\"{field}\" should contain at most {limit} choices"
   },
   "G7a3as": {
     "defaultMessage": "\"{field}\" {limit, plural, =1 {is mandatory field} other {should contain at most # chars}}"

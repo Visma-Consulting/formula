@@ -134,6 +134,9 @@
   "hmeyg+": {
     "defaultMessage": "\"{field}\" bör innehålla minst {limit} objekt"
   },
+  "G6+GRP": {
+    "defaultMessage": "\"{field}\" bör innehålla minst {limit} val"
+  },
   "IVPaJf": {
     "defaultMessage": "\"{field}\" {limit, plural, =1 {är obligatoriskt fält} other {bör innehålla minst # tecken}}"
   },
@@ -184,6 +187,9 @@
   },
   "W4OYt3": {
     "defaultMessage": "\"{field}\" bör innehålla högst {limit} objekt"
+  },
+  "/rNoT8": {
+    "defaultMessage": "\"{field}\" bör innehålla högst {limit} val"
   },
   "G7a3as": {
     "defaultMessage": "\"{field}\" {limit, plural, =1 {är obligatoriskt fält} other {bör innehålla högst # tecken}}"
