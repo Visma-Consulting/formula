@@ -24,7 +24,8 @@ const getChildBmi = (age, bmi, table) => {
   const row = table.find(el => el.age === Math.round((age + Number.EPSILON) * 100)/100);
   if (row) {
     const {mu, sigma, nu} = row;
-    const {mu: M, sigma: S, nu: L} = table.find(el => el.age === -1);
+    // Käytetään vertailuarvoina 18 vuotiaan mu, sigma ja nu arvoja
+    const {mu: M, sigma: S, nu: L} = table.find(el => el.age === 18);
     const zScore = (Math.pow((bmi/mu), nu) -1 )/(nu * sigma);
     const childBmi = M * Math.pow(1 + L * S * zScore, 1/L);
     return childBmi;
