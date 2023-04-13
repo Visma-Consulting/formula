@@ -1,3 +1,7 @@
+# 0.4.177
+
+- Improved error messages for multichoice question type
+
 # 0.4.176
 
 - Package fixes
