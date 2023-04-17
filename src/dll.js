@@ -1,5 +1,6 @@
 import * as materialUICore from '@material-ui/core';
 import * as materialUIStyles from '@material-ui/styles';
+import * as emotionReact from '@emotion/react';
 import * as react from 'react';
 import * as reactDom from 'react-dom';
 import * as reactIntl from 'react-intl';
@@ -15,6 +16,7 @@ const externals = {
   react,
   'react-dom': reactDom,
   'react-intl': reactIntl,
+  '@emotion/react' : emotionReact,
 };
 
 export const init = async (url) => {

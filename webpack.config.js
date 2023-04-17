@@ -19,6 +19,7 @@ export default {
       'react',
       'react-dom',
       'react-intl',
+      '@emotion/react',
     ].map((name) => [name, `${globalVar}_${name}`])
   ),
   module: {
