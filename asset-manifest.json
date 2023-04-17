@@ -1,23 +1,23 @@
 {
   "files": {
-    "compiled-lang.en-US.js": "/formula/static/js/compiled-lang.en-US.1bcfdc90.chunk.js",
-    "compiled-lang.en-US.js.map": "/formula/static/js/compiled-lang.en-US.1bcfdc90.chunk.js.map",
-    "compiled-lang.fi-FI.js": "/formula/static/js/compiled-lang.fi-FI.ba11f3c5.chunk.js",
-    "compiled-lang.fi-FI.js.map": "/formula/static/js/compiled-lang.fi-FI.ba11f3c5.chunk.js.map",
-    "compiled-lang.sv-SE.js": "/formula/static/js/compiled-lang.sv-SE.5f969156.chunk.js",
-    "compiled-lang.sv-SE.js.map": "/formula/static/js/compiled-lang.sv-SE.5f969156.chunk.js.map",
-    "main.js": "/formula/static/js/main.619ec0ec.chunk.js",
-    "main.js.map": "/formula/static/js/main.619ec0ec.chunk.js.map",
-    "runtime-main.js": "/formula/static/js/runtime-main.ec6577c0.js",
-    "runtime-main.js.map": "/formula/static/js/runtime-main.ec6577c0.js.map",
-    "static/js/5.efe65262.chunk.js": "/formula/static/js/5.efe65262.chunk.js",
-    "static/js/5.efe65262.chunk.js.map": "/formula/static/js/5.efe65262.chunk.js.map",
+    "compiled-lang.en-US.js": "/formula/static/js/compiled-lang.en-US.53209163.chunk.js",
+    "compiled-lang.en-US.js.map": "/formula/static/js/compiled-lang.en-US.53209163.chunk.js.map",
+    "compiled-lang.fi-FI.js": "/formula/static/js/compiled-lang.fi-FI.db3d502a.chunk.js",
+    "compiled-lang.fi-FI.js.map": "/formula/static/js/compiled-lang.fi-FI.db3d502a.chunk.js.map",
+    "compiled-lang.sv-SE.js": "/formula/static/js/compiled-lang.sv-SE.0792dc6c.chunk.js",
+    "compiled-lang.sv-SE.js.map": "/formula/static/js/compiled-lang.sv-SE.0792dc6c.chunk.js.map",
+    "main.js": "/formula/static/js/main.06faf829.chunk.js",
+    "main.js.map": "/formula/static/js/main.06faf829.chunk.js.map",
+    "runtime-main.js": "/formula/static/js/runtime-main.c5cf099d.js",
+    "runtime-main.js.map": "/formula/static/js/runtime-main.c5cf099d.js.map",
+    "static/js/5.85d91964.chunk.js": "/formula/static/js/5.85d91964.chunk.js",
+    "static/js/5.85d91964.chunk.js.map": "/formula/static/js/5.85d91964.chunk.js.map",
     "index.html": "/formula/index.html",
-    "static/js/5.efe65262.chunk.js.LICENSE.txt": "/formula/static/js/5.efe65262.chunk.js.LICENSE.txt"
+    "static/js/5.85d91964.chunk.js.LICENSE.txt": "/formula/static/js/5.85d91964.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.ec6577c0.js",
-    "static/js/5.efe65262.chunk.js",
-    "static/js/main.619ec0ec.chunk.js"
+    "static/js/runtime-main.c5cf099d.js",
+    "static/js/5.85d91964.chunk.js",
+    "static/js/main.06faf829.chunk.js"
   ]
 }
