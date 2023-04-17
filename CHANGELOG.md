@@ -1,3 +1,7 @@
+# 0.4.179
+
+- DLL fixes
+
 # 0.4.177
 
 - Improved error messages for multichoice question type
