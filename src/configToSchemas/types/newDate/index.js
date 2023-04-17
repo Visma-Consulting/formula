@@ -56,9 +56,9 @@ function BasicDatePicker(props) {
 
   const handleLocaleText = () => {
     if(locale === 'fi-FI') {
-      return fiFI.components.MuiLocalizationProvider.defaultProps.localeText;
+      return fiFI?.components?.MuiLocalizationProvider?.defaultProps?.localeText;
     } else if(locale === 'sv-SE') {
-      return svSE.components.MuiLocalizationProvider.defaultProps.localeText
+      return svSE?.components?.MuiLocalizationProvider?.defaultProps?.localeText;
     }
   }
 
