@@ -1,5 +1,10 @@
 import * as materialUICore from '@material-ui/core';
 import * as materialUIStyles from '@material-ui/styles';
+import * as xDatePickers from '@mui/x-date-pickers';
+import * as muiBase from '@mui/base';
+import * as muiMaterial from '@mui/material';
+import * as emotionCore from '@emotion/core';
+import * as emotionStyled from '@emotion/styled';
 import * as emotionReact from '@emotion/react';
 import * as react from 'react';
 import * as reactDom from 'react-dom';
@@ -16,7 +21,12 @@ const externals = {
   react,
   'react-dom': reactDom,
   'react-intl': reactIntl,
-  '@emotion/react' : emotionReact,
+  '@emotion/react': emotionReact,
+  '@emotion/core': emotionCore,
+  '@mui/x-date-pickers': xDatePickers,
+  '@emotion/styled': emotionStyled,
+  '@mui/base': muiBase,
+  '@mui/material': muiMaterial,
 };
 
 export const init = async (url) => {

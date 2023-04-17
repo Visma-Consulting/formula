@@ -20,6 +20,11 @@ export default {
       'react-dom',
       'react-intl',
       '@emotion/react',
+      '@emotion/core',
+      '@mui/x-date-pickers',
+      '@emotion/styled',
+      '@mui/base',
+      '@mui/material'
     ].map((name) => [name, `${globalVar}_${name}`])
   ),
   module: {
