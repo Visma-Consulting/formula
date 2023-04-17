@@ -19,6 +19,7 @@ import withSnackbar from './withSnackbar';
 import withFormulaErrorBoundary from './withFormulaErrorBoundary';
 import withCustomValidation from './withCustomValidation';
 import withScrollToError from './withScrollToError';
+import withFillActions from './withFillActions';
 
 /**
  * RJSFForm is extended with these higher-order components. Extensions are
@@ -38,6 +39,7 @@ export const Form =
   |> withConfirmSubmit
   |> withSteps
   |> withReview
+  |> withFillActions
   |> withDraftSave
   |> withPropsUpdater(configToSchemas)
   |> withPropsUpdater(useDynamicElements)
