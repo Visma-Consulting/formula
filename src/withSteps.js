@@ -14,10 +14,18 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginRight: theme.spacing(1),
   },
+  buttonContainer: {
+    '& > *': {
+      marginRight: theme.spacing(1),
+      '@media print': {
+        display: 'none',
+      },
+    },
+  },
 }));
 
 export default function withSteps(Form) {
-  const WithSteps = forwardRef(({ onSubmit, onChange, onError, formData, steps, ...otherProps }, ref) => {
+  const WithSteps = forwardRef(({ onSubmit, onChange, onError, formData, steps, fillProps, ...otherProps }, ref) => {
     const [activeStep, setActiveStep] = useState(otherProps.dataIsDraft && otherProps.activeStep ? otherProps.activeStep : 0);
     const [maxJump, setMaxJump] = useState(activeStep);
     const [noValidate, setNoValidate] = useState(false);
@@ -117,6 +125,7 @@ export default function withSteps(Form) {
                     <StepContent>
                       <Form
                         {...otherProps}
+                        fillProps={fillProps}
                         onSubmit={isLastStep ? onSubmit : undefined}
                         onPreSubmit={handleStepChange}
                         ref={ref}
@@ -160,33 +169,35 @@ export default function withSteps(Form) {
                           ),
                         }}
                       >
-                        {activeStep !== 0 && (
-                          <Button
-                            className={classes.button}
-                            onClick={createHandleJump(activeStep - 1)}
-                          >
-                            <FormattedMessage defaultMessage="Takaisin" />
-                          </Button>
-                        )}
-                        {otherProps.draftButton}
-                          {isLastStep ? (
+                        <div className={classes.buttonContainer}>
+                          { fillProps?.actions && fillProps.actions }
+                          {activeStep !== 0 && (
                             <Button
-                              type="submit"
-                              onClick={handleSubmit}
-                              variant="contained"
-                              color="primary"
+                              onClick={createHandleJump(activeStep - 1)}
                             >
-                              <FormattedMessage defaultMessage="Lähetä" />
-                            </Button>
-                          ) : (
-                            <Button
-                              onClick={createHandleJump(activeStep + 1)}
-                              variant="contained"
-                              color="primary"
-                            >
-                              <FormattedMessage defaultMessage="Eteenpäin" />
+                              <FormattedMessage defaultMessage="Takaisin" />
                             </Button>
                           )}
+                          {otherProps.draftButton}
+                            {isLastStep ? (
+                              <Button
+                                type="submit"
+                                onClick={handleSubmit}
+                                variant="contained"
+                                color="primary"
+                              >
+                                <FormattedMessage defaultMessage="Lähetä" />
+                              </Button>
+                            ) : (
+                              <Button
+                                onClick={createHandleJump(activeStep + 1)}
+                                variant="contained"
+                                color="primary"
+                              >
+                                <FormattedMessage defaultMessage="Eteenpäin" />
+                              </Button>
+                            )}
+                          </div>
                         </Form>
                       </StepContent>
                     )}
