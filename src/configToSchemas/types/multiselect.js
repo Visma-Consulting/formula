@@ -47,7 +47,7 @@ function MultiSelect(props) {
   );
 }
 
-export default extendType(select, ({ config }) => (props) => {
+export default extendType(select, ({ config, fillProps }) => (props) => {
   const {
     autocomplete,
     choices = [],
@@ -77,7 +77,8 @@ export default extendType(select, ({ config }) => (props) => {
   props.uiSchema = {
     'ui:widget': MultiSelect,
     'ui:options': {
-      inline: widget && widget.endsWith('Row')
+      inline: widget && widget.endsWith('Row'),
+      showScore: fillProps?.showScores
     }
   };
 });
