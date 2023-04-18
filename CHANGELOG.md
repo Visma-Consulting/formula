@@ -1,3 +1,9 @@
+# 0.4.181
+
+- Upgrade to `@visma/rjsf-*@3.1.0-71`
+- Multichoice score
+- Child bmi
+
 # 0.4.180
 
 - Datepicker nullcheck
