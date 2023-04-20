@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { LocalizationProvider } from '@mui/x-date-pickers';
 import { DatePicker, fiFI, svSE } from '@mui/x-date-pickers';
 import { defineMessage, FormattedMessage, useIntl } from 'react-intl';
 import dayjs from 'dayjs';
