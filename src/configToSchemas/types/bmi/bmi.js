@@ -3,8 +3,8 @@ import { get } from 'lodash';
 import { useContext, useEffect, useState } from 'react';
 import { defineMessage, useIntl } from 'react-intl';
 import { Typography } from '@material-ui/core';
-import bmi_male from './bmi_male.csv';
-import bmi_female from './bmi_female.csv';
+import bmi_male from './bmi_male';
+import bmi_female from './bmi_female';
 
 const getTable = (csvTableString) => {
   const csvTableArray = csvTableString.split('\n');
@@ -74,8 +74,7 @@ function Bmi(props) {
           ? formData[props.options.ageFieldKey]
           : null;
       if (gender !== undefined && age && !Number.isNaN(bmi)) {
-        const file = await fetch(gender === '1' ? bmi_female : bmi_male);
-        const table = await file.text();
+        const table = gender === '1' ? bmi_female : bmi_male;
         const childBmi = getChildBmi(age, bmi, getTable(table));
         setData(childBmi);
       } else {

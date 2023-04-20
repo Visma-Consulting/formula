@@ -19,6 +19,7 @@ module.exports = async ({ env }) => {
         '@material-ui': path.resolve(
           `${workspaceRoot}/node_modules/@material-ui`
         ),
+        '@emotion/core': '@emotion/react'
       },
     },
   };
