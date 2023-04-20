@@ -4,10 +4,35 @@ React component for configurable forms. Optionally connect to the backend to fet
 
 ## Requirements
 
-Material UI v4 and `react-intl` are required. Install and set up if necessary:
+1. Material UI v4, MUI v5 and `react-intl` are required. Install and set up if necessary:
 
 ```sh
-npm i @visma/formula @material-ui/core @material-ui/icons @material-ui/lab react-intl --legacy-peer-deps
+npm i @visma/formula @emotion/styled @emotion/react @mui/x-date-pickers @mui/base @mui/material @material-ui/core @material-ui/styles @material-ui/icons @material-ui/lab react-intl --legacy-peer-deps
+```
+
+2. Add Vite / Webpack alias for `@emotion/core`:
+
+```js
+// vite.config.js
+//...
+export default defineConfig({
+   resolve: {
+     alias: {
+       '@emotion/core': '@emotion/react',
+     },
+   },
+});
+
+// webpack.config.js
+module.exports = {
+  //...
+   resolve: {
+     alias: {
+       '@emotion/core': '@emotion/react',
+     },
+   },
+};
+```
 ```
 
 ## Examples
