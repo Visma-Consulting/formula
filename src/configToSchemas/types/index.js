@@ -24,4 +24,3 @@ export * as consent from './consent';
 export * as compose from './compose';
 export * as button from './button';
 export * as subtitle from './subtitle';
-export * as newDate from './newDate';

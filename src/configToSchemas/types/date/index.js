@@ -1,149 +1,124 @@
-/* eslint import/no-webpack-loader-syntax: "off" */
-/* eslint import/no-unresolved: "off" */
-import '!style-loader!css-loader!react-dates/lib/css/_datepicker.css';
-import '!style-loader!css-loader!./style.css';
-import { sub, add } from 'date-fns';
-import moment from 'moment';
-import 'moment/locale/fi';
-import 'moment/locale/sv';
-import { useEffect, useState } from 'react';
-import { SingleDatePicker } from 'react-dates';
-import 'react-dates/initialize';
+import * as React from 'react';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { DatePicker, fiFI, svSE } from '@mui/x-date-pickers';
 import { defineMessage, FormattedMessage, useIntl } from 'react-intl';
+import dayjs from 'dayjs';
+import "dayjs/locale/fi";
+import "dayjs/locale/en-gb";
+import "dayjs/locale/sv";
+import { add, sub } from 'date-fns';
+import { getAriaLabel } from '../../../utils';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import { mapValues } from 'lodash';
-import { DateRangePickerPhrases } from '../../../../lib/configToSchemas/types/date/phrases';
-import { getAriaLabel } from '../../../utils.js';
 
 const useStyles = makeStyles((theme) => ({
   button: {
     marginRight: theme.spacing(1),
     marginLeft: theme.spacing(1),
   },
+  dateBox: {
+    display: 'flex',
+    alignItems: 'center',
+  }
 }));
-const beforeDay = (date) => {
-  if(date.type !== undefined) {
-    return date.type !== 'date' ? sub(new Date(), { [date.type]: date.numberValue }) : date.dateValue;
-  } else {
-    return null;
-  }
-}
 
-const afterDay = (date) => {
-  if(date.type !== undefined) {
-    return date.type !== 'date' ? add(new Date(), { [date.type]: date.numberValue }) : date.dateValue;
-  } else {
-    return null;
-  }
-}
-
-const getDefaultValue = ({type, defaultValue, limitType, limitAmount}) => {
-  switch (type) {
-    case 'noDefault': return null;
-    case 'today': return moment();
-    case 'fixed': return moment(defaultValue);
-    case 'limit': return limitAmount < 0
-      ? moment(beforeDay({type: limitType, numberValue: limitAmount * -1 }))
-      : moment(afterDay({type: limitType, numberValue: limitAmount }));
-  }
-  return undefined;
-}
-
-function SingleDatePickerWidget({ id, onChange, options, schema, value, required }) {
+function BasicDatePicker(props) {
+  const { onChange, options } = props;
+  const [value, setValue] = React.useState(null);
   const intl = useIntl();
-  const language = intl.locale.split('-')[0] !== 'en';
-  const [focused, setFocused] = useState();
-  const [dateValue, setDateValue] = useState();
-  const { label, list } = options.element;
-  const handleFocusChange = ({ focused }) => setFocused(focused);
   const { locale } = intl;
+  const { disableBefore, disableAfter } = options?.element;
   const classes = useStyles();
 
-  useEffect(() => {
-    moment.locale(locale);
-  }, [locale]);
-
-  useEffect(() =>{
-    setDateValue(value !== undefined ? moment(value) : (options.dateDefault ? getDefaultValue(options.dateDefault) : undefined));
-  }, []);
-
-  useEffect(() => {
-    if (dateValue) {
-      setTimeout(() => { onChange(dateValue.format('YYYY-MM-DD')) });
-    }
-  }, [dateValue, onChange]);
-
-  const onClickEmpty = (value) => {
-    setDateValue(undefined);
-    if (value && list) {
-      onChange([undefined])
+  const beforeDay = () => {
+    if(disableBefore?.type && disableBefore?.type !== 'noValue') {
+      return dayjs((disableBefore.type !== 'date' ? sub(new Date(), { [disableBefore.type]: disableBefore.numberValue }) : disableBefore.dateValue));
     } else {
-      onChange(undefined)
+      return null;
+    }
+  }
+
+  const afterDay = () => {
+    if(disableAfter?.type && disableAfter?.type !== 'noValue') {
+      return dayjs((disableAfter.type !== 'date' ? add(new Date(), { [disableAfter.type]: disableAfter.numberValue }) : disableAfter.dateValue));
+    } else {
+      return null;
     }
   }
 
   const ariaLabel = getAriaLabel(
-    label,
-    options,
-    required,
+    props.label,
+    props.options,
+    props.required,
     intl.formatMessage({defaultMessage: 'Pakollinen kenttä'})
   );
 
+  const handleLocaleText = () => {
+    if(locale === 'fi-FI') {
+      return fiFI?.components?.MuiLocalizationProvider?.defaultProps?.localeText;
+    } else if(locale === 'sv-SE') {
+      return svSE?.components?.MuiLocalizationProvider?.defaultProps?.localeText;
+    }
+  }
+
+  function onDateChange(value) {
+    onChange(value?.format('YYYY-MM-DD'))
+    setValue(value)
+  }
+
   return (
-    <div>
-      <SingleDatePicker
-        date={dateValue}
-        onDateChange={setDateValue}
-        focused={focused}
-        {...language ? {phrases : mapValues(DateRangePickerPhrases, message => intl.formatMessage(message))} : {}}
-        ariaLabel={ariaLabel}
-        onFocusChange={handleFocusChange}
-        id={id}
-        displayFormat={options.dateFormat ?? 'D.M.yyyy'}
-        numberOfMonths={1}
-        disabled={schema.readOnly || options.readonly}
-        small={true}
-        placeholder={intl.formatMessage({defaultMessage: "Päivämäärä"})}
-        screenReaderInputMessage={ariaLabel}
-        hideKeyboardShortcutsPanel
-        isOutsideRange={(m) =>
-          (options.disableBefore && options.element.disableBefore.type &&
-            m.isBefore(beforeDay(options.element.disableBefore), 'day') && options.element.disableBefore.type !== 'noValue') ||
-          (options.disableAfter && options.element.disableAfter.type &&
-            m.isAfter(afterDay(options.element.disableAfter), 'day') && options.element.disableAfter.type !== 'noValue')
-        }
-      />
-      {dateValue !== undefined ?
-      <Button
-        variant="contained"
-        color="secondary"
-        size={"small"}
-        className={classes.button}
-        onClick={onClickEmpty}
-      >
-        <FormattedMessage defaultMessage="Tyhjennä" />
-      </Button>
-      : <></>}
-    </div>
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={locale.split('-')[0].toString()} localeText={handleLocaleText()} >
+      <div className={classes.dateBox}>
+        <DatePicker
+          value={value}
+          label={intl.formatMessage({defaultMessage: "Päivämäärä"})}
+          minDate={beforeDay()}
+          maxDate={afterDay()}
+          sx={{
+            maxWidth: 200,
+            "& .MuiInputBase-input.Mui-disabled": {
+              WebkitTextFillColor: "#000000",
+            },
+          }}
+          arialabel={ariaLabel}
+          format={'DD.MM.YYYY'}
+          onChange={(newValue) => onDateChange(newValue)}
+          slotProps={{
+            textField: {
+              disabled: true
+            }
+          }}
+        />
+        {value ?
+          <Button
+            variant="contained"
+            color="secondary"
+            size={"small"}
+            className={classes.button}
+            onClick={(value) => value && props.list ? onChange([null]) : value && onDateChange(null)}
+          >
+            <FormattedMessage defaultMessage="Tyhjennä" />
+          </Button>
+          : <></>}
+      </div>
+    </LocalizationProvider>
   );
 }
 
-export default ({ config: { disableBefore, disableAfter, dateDefault }, reviewProps}) => ({
+export default ({ config: { disableBefore, disableAfter } }) => ({
   schema: {
     format: 'date',
     type: 'string',
   },
   uiSchema: {
-    'ui:widget': SingleDatePickerWidget,
+    'ui:widget': BasicDatePicker,
     'ui:options': {
       disableBefore,
       disableAfter,
-      dateDefault,
-      dateFormat: reviewProps?.dateFormat?.replaceAll('d', 'D')
     }
   }
-});
+})
 
 export const name = defineMessage({
   defaultMessage: 'Päivämäärä',
