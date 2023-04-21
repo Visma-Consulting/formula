@@ -11,6 +11,7 @@ import { add, sub } from 'date-fns';
 import { getAriaLabel } from '../../../utils';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import { useEffect } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -23,29 +24,41 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const getDefaultValue = ({type, defaultValue, limitType, limitAmount}) => {
+  switch (type) {
+    case 'noDefault': return null;
+    case 'today': return dayjs();
+    case 'fixed': return dayjs(defaultValue);
+    case 'limit': return limitAmount < 0
+      ? beforeDay({type: limitType, numberValue: limitAmount * -1 })
+      : afterDay({type: limitType, numberValue: limitAmount });
+  }
+  return undefined;
+}
+
+const beforeDay = (disableBefore) => {
+  if(disableBefore?.type && disableBefore?.type !== 'noValue') {
+    return dayjs((disableBefore.type !== 'date' ? sub(new Date(), { [disableBefore.type]: disableBefore.numberValue }) : disableBefore.dateValue));
+  } else {
+    return null;
+  }
+}
+
+const afterDay = (disableAfter) => {
+  if(disableAfter?.type && disableAfter?.type !== 'noValue') {
+    return dayjs((disableAfter.type !== 'date' ? add(new Date(), { [disableAfter.type]: disableAfter.numberValue }) : disableAfter.dateValue));
+  } else {
+    return null;
+  }
+}
+
 function BasicDatePicker(props) {
   const { onChange, options } = props;
-  const [value, setValue] = React.useState(null);
+  const [value, setValue] = React.useState(undefined);
   const intl = useIntl();
   const { locale } = intl;
   const { disableBefore, disableAfter } = options?.element;
   const classes = useStyles();
-
-  const beforeDay = () => {
-    if(disableBefore?.type && disableBefore?.type !== 'noValue') {
-      return dayjs((disableBefore.type !== 'date' ? sub(new Date(), { [disableBefore.type]: disableBefore.numberValue }) : disableBefore.dateValue));
-    } else {
-      return null;
-    }
-  }
-
-  const afterDay = () => {
-    if(disableAfter?.type && disableAfter?.type !== 'noValue') {
-      return dayjs((disableAfter.type !== 'date' ? add(new Date(), { [disableAfter.type]: disableAfter.numberValue }) : disableAfter.dateValue));
-    } else {
-      return null;
-    }
-  }
 
   const ariaLabel = getAriaLabel(
     props.label,
@@ -62,19 +75,23 @@ function BasicDatePicker(props) {
     }
   }
 
-  function onDateChange(value) {
-    onChange(value?.format('YYYY-MM-DD'))
-    setValue(value)
-  }
+  useEffect(() =>{
+    setValue(value !== undefined ? new Date(props?.value) : (options.dateDefault ? getDefaultValue(options.dateDefault) : undefined));
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => { onChange(value?.format('YYYY-MM-DD')) })
+  }, [value]);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={locale.split('-')[0].toString()} localeText={handleLocaleText()} >
       <div className={classes.dateBox}>
         <DatePicker
+          {...options?.dateDefault ? {defaultValue: getDefaultValue(options.dateDefault)} : {}}
           value={value}
           label={intl.formatMessage({defaultMessage: "Päivämäärä"})}
-          minDate={beforeDay()}
-          maxDate={afterDay()}
+          minDate={beforeDay(disableBefore)}
+          maxDate={afterDay(disableAfter)}
           sx={{
             maxWidth: 200,
             "& .MuiInputBase-input.Mui-disabled": {
@@ -82,8 +99,8 @@ function BasicDatePicker(props) {
             },
           }}
           arialabel={ariaLabel}
-          format={'DD.MM.YYYY'}
-          onChange={(newValue) => onDateChange(newValue)}
+          format={props?.options?.dateFormat ?? 'D.M.YYYY'}
+          onChange={setValue}
           slotProps={{
             textField: {
               disabled: true
@@ -96,7 +113,7 @@ function BasicDatePicker(props) {
             color="secondary"
             size={"small"}
             className={classes.button}
-            onClick={(value) => value && props.list ? onChange([null]) : value && onDateChange(null)}
+            onClick={(value) => value && props.list ? onChange([null]) : value && setValue(null)}
           >
             <FormattedMessage defaultMessage="Tyhjennä" />
           </Button>
@@ -106,7 +123,7 @@ function BasicDatePicker(props) {
   );
 }
 
-export default ({ config: { disableBefore, disableAfter } }) => ({
+export default ({ config: { disableBefore, disableAfter, dateDefault }, reviewProps }) => ({
   schema: {
     format: 'date',
     type: 'string',
@@ -116,6 +133,8 @@ export default ({ config: { disableBefore, disableAfter } }) => ({
     'ui:options': {
       disableBefore,
       disableAfter,
+      dateDefault,
+      dateFormat: reviewProps?.dateFormat?.replaceAll('d', 'D')
     }
   }
 })
