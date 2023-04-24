@@ -184,7 +184,7 @@ export function dynamicElements(config, formData = {}) {
 
 export default function useDynamicElements(props) {
   const [formData, setFormData] = useStatePreferInitial(props.formData);
-  const [initialFormData] = useStatePreferInitial(props.formData);
+  const [initialFormData] = useStatePreferInitial(props?.fillProps?.disableResetFormdata ? undefined : props.formData);
 
   return {
     ...props,
