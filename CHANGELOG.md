@@ -1,3 +1,10 @@
+# 0.4.186
+
+- Datepicker fixes
+- Disable reset formdata
+- Improved review styles
+- Add fill actions
+
 # 0.4.185
 
 - Replace old datepicker with new one
