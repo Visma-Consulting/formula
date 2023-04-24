@@ -57,9 +57,13 @@ export default function Field({ __withStepped_original_props__, ...props }) {
               {props.schema.title}
             </Typography>
           )}
+          { ((element?.type === "formGroup" && !element?.list)
+            || (element?.type === "formGroup" && element?.list && props?.schema?.type === "array"))
+            && <hr/> }
           <div className={classes.typeContainer}>
             <Type {...props} />
           </div>
+          { element?.type === "formGroup" && props?.schema?.type !== "array" && <><hr/><p></p></> }
         </Customize>
       </Box>
     </TitleVariantContext.Provider>

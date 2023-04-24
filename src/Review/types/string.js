@@ -27,12 +27,15 @@ export default ({ formData, schema, uiSchema, pageTitles, reviewProps}) => {
   }
   if ((uiSchema?.['ui:field'] === StepTitle || uiSchema?.['ui:field'] === TitleField) && uiSchema['ui:title']) {
     return (
-      <Typography variant="h5"
-        style={{
-        paddingTop: "35px"
-      }}>
-        {calculatePageTitleNumber(pageTitles, uiSchema)}{uiSchema['ui:title']}
-      </Typography>
+      <>
+        <Typography variant="h5"
+          style={{
+          paddingTop: "35px"
+        }}>
+          {calculatePageTitleNumber(pageTitles, uiSchema)}{uiSchema['ui:title']}
+        </Typography>
+        <hr style={{border: "1px solid"}}/>
+      </>
     );
   }
 

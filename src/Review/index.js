@@ -16,8 +16,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   successTextBox: {
-    marginBottom: '5px',
-    marginTop: '5px',
+    marginBottom: theme.spacing(3),
+    marginTop: theme.spacing(3),
     color: theme.palette.primary,
     borderStyle: 'solid',
     borderRadius: '3px',
@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
   successText: {
   padding: '5px',
   paddingLeft: '20px',
+  paddingRight: '20px',
   color: theme.palette.primary,
   fontWeight: 'bold',
   fontSize: '1.1em'
