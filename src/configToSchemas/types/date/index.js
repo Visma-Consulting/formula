@@ -33,7 +33,7 @@ const getDefaultValue = ({type, defaultValue, limitType, limitAmount}) => {
       ? beforeDay({type: limitType, numberValue: limitAmount * -1 })
       : afterDay({type: limitType, numberValue: limitAmount });
   }
-  return undefined;
+  return null;
 }
 
 const beforeDay = (disableBefore) => {
@@ -76,7 +76,7 @@ function BasicDatePicker(props) {
   }
 
   useEffect(() =>{
-    setValue(value !== null ? dayjs(props?.value) : (options.dateDefault ? getDefaultValue(options.dateDefault) : null));
+    setValue(props?.value ? dayjs(props?.value) : (options.dateDefault ? getDefaultValue(options.dateDefault) : null));
   }, []);
 
   useEffect(() => {
