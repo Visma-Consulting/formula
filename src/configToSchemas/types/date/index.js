@@ -54,7 +54,7 @@ const afterDay = (disableAfter) => {
 
 function BasicDatePicker(props) {
   const { onChange, options } = props;
-  const [value, setValue] = React.useState(undefined);
+  const [value, setValue] = React.useState(null);
   const intl = useIntl();
   const { locale } = intl;
   const { disableBefore, disableAfter } = options?.element;
@@ -76,7 +76,7 @@ function BasicDatePicker(props) {
   }
 
   useEffect(() =>{
-    setValue(value !== undefined ? new Date(props?.value) : (options.dateDefault ? getDefaultValue(options.dateDefault) : undefined));
+    setValue(value !== null ? dayjs(props?.value) : (options.dateDefault ? getDefaultValue(options.dateDefault) : null));
   }, []);
 
   useEffect(() => {
