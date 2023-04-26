@@ -1,3 +1,7 @@
+# 0.4.187
+
+- Upgrade to `@visma/rjsf-*@3.1.0-72`
+
 # 0.4.186
 
 - Datepicker fixes
