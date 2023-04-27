@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  labelContainer: {
+    textAlign: 'start',
+  },
 }));
 
 export default function withSteps(Form) {
@@ -118,6 +121,7 @@ export default function withSteps(Form) {
                     disabled={current || !active}
                     active={active}
                     onClick={createHandleJump(index)}
+                    className={classes.labelContainer}
                   >
                     {title}
                   </StepButton>
