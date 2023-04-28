@@ -92,7 +92,8 @@ export default ({ formData, schema, uiSchema, pageTitles, reviewProps}) => {
     const element = uiSchema?.['ui:options']?.element;
     switch (element?.type) {
       case 'body': return <Markdown>{element.content?.replace('\\*', '*')}</Markdown>;
-      case 'title': case 'subtitle': return <Typography variant="h6">{element?.content}</Typography>;
+      case 'title': return <Typography variant="h6" component="h3">{element?.content}</Typography>;
+      case 'subtitle': return <Typography variant="h6" component="p">{element?.content}</Typography>;
       default: return <Typography variant="body1">{element?.content}</Typography>;
     }
   }

@@ -13,6 +13,11 @@ const useStyles = makeStyles((theme) => ({
 
 const TitleVariantContext = createContext();
 
+const titleComponents = {
+  form: 'h2',
+  formGroup: 'h3',
+}
+
 export default function Field({ __withStepped_original_props__, ...props }) {
   const classes = useStyles();
   if (__withStepped_original_props__) {
@@ -53,7 +58,9 @@ export default function Field({ __withStepped_original_props__, ...props }) {
           {...props}
         >
           {props.schema.title && (
-            <Typography variant={variant} gutterBottom>
+            <Typography variant={variant} component={
+              Object.keys(titleComponents).includes(element.type) ? titleComponents[element.type] : 'p'
+            } gutterBottom>
               {props.schema.title}
             </Typography>
           )}
