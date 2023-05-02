@@ -1,3 +1,8 @@
+# 0.4.188
+
+- Accessibility and format fixes
+- Move reCaptcha to form
+
 # 0.4.187
 
 - Upgrade to `@visma/rjsf-*@3.1.0-72`
