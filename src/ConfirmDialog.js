@@ -58,7 +58,7 @@ export default forwardRef(function ConfirmDialog(
   }));
 
   // const dialogContentFlexNoneClasses = useStylesDialogContentFlexNone();
-
+  const pageTitlesArray = otherProps?.config?.elements.filter(x => (x.type === 'pageTitle' && x.content));
   const confirmRef = useRef();
   const hasCaptchaValue = hasCaptcha(otherProps);
   const hasConsentValue = hasConsent(otherProps);
@@ -126,6 +126,7 @@ export default forwardRef(function ConfirmDialog(
               <Field
                 preview // For selecting optional preview / review customization
                 root
+                pageTitles={pageTitlesArray}
                 {...otherProps}
               />
             </>
