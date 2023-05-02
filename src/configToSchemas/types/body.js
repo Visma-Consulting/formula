@@ -6,7 +6,7 @@ import _dummy from './_dummy';
 export default extendType(_dummy, ({ config: { content, type }}) => (props) => {
   props.schema.additionalType = type;
   props.uiSchema ??= {};
-  props.uiSchema['ui:field'] = () => <Markdown>{content}</Markdown>;
+  props.uiSchema['ui:field'] = () => <Markdown tabIndex="0">{content}</Markdown>;
   props.uiSchema['ui:should-update'] = content;
 });
 
