@@ -133,6 +133,7 @@ export default function withSteps(Form) {
                         onSubmit={isLastStep ? onSubmit : undefined}
                         onPreSubmit={handleStepChange}
                         ref={ref}
+                        isLastStep={isLastStep}
                         formData={formData}
                         onChange={(...args) => {
                           onChange?.(...args);
