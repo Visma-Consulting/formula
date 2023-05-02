@@ -28,7 +28,7 @@ export default ({ formData, schema, uiSchema, pageTitles, reviewProps}) => {
   if ((uiSchema?.['ui:field'] === StepTitle || uiSchema?.['ui:field'] === TitleField) && uiSchema['ui:title']) {
     return (
       <>
-        <Typography variant="h5"
+        <Typography variant="h5" component="h3"
           style={{
           paddingTop: "35px"
         }}>
