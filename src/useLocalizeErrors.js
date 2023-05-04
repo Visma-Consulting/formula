@@ -57,6 +57,7 @@ const type = defineMessages({
   number: { defaultMessage: 'numero'},
   boolean: { defaultMessage: 'booleanarvo' },
   array: { defaultMessage: 'taulu' },
+  'number,null': { defaultMessage: 'numero'},
 });
 
 const params = { type, minItemsDefaults, maxItemsDefaults };
