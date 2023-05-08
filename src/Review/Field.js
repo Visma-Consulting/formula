@@ -40,8 +40,6 @@ export default function Field({ __withStepped_original_props__, ...props }) {
     ? props.uiSchema.items['ui:options']?.element
     : props.uiSchema?.['ui:options']?.element;
 
-  console.log(element);
-
   return (
     <TitleVariantContext.Provider
       value={
