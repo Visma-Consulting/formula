@@ -27,11 +27,23 @@ export default function withRecaptcha(Form) {
     const classes = useStyles();
     const theme = useTheme().palette.type;
     const [captchaChallenge, setCaptchaChallenge] = useState();
+    const [recaptchaComponent, setRecaptchaComponent] = useState();
     const { recaptcha } = useConfig();
+
+    const onCloseDialog = () => {
+      setCaptchaChallenge(undefined);
+      recaptchaComponent?.reset();
+    }
+
     if (otherProps?.config?.publicForm && (otherProps?.isLastStep === true || otherProps?.isLastStep === undefined)) {
       return (
-        <Form ref={ref} fillProps={fillProps} {...otherProps} captcha={captchaChallenge} >
-          <ReCAPTCHA sitekey={recaptcha.sitekey} theme={theme} hl={intl.locale?.split('-')[0]} onChange={setCaptchaChallenge} className={classes.recaptcha} />
+        <Form ref={ref} fillProps={fillProps} {...otherProps} captcha={captchaChallenge} onCloseDialog={onCloseDialog} >
+          <ReCAPTCHA
+            ref={e => setRecaptchaComponent(e)}
+            sitekey={recaptcha.sitekey}
+            theme={theme}
+            hl={intl.locale?.split('-')[0]}
+            onChange={setCaptchaChallenge} className={classes.recaptcha} />
           <div className={classes.buttonContainer}>
             {fillProps?.actions ?? null}
             <Button
