@@ -8,7 +8,8 @@ export default ({
     maximum,
     minimum,
     multipleOf,
-    type: 'number',
+    type: ['number', 'null'],
+    allowedCharacters: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', '.']
   },
 });
 
