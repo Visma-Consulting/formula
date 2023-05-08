@@ -69,10 +69,13 @@ export default forwardRef(function ConfirmDialog(
   const [consent, setConsent] = useState(false);
   const intl = useIntl();
 
+  console.log(otherProps);
+
   function handleClose() {
     setLoading(false);
     setError(false);
     setOpen(false);
+    otherProps?.onCloseDialog?.();
   }
 
   function handleDismiss() {
