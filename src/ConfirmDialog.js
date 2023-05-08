@@ -27,7 +27,7 @@ const sendErrorMessages = {
 };
 
 export default forwardRef(function ConfirmDialog(
-  { container, title, description, children, onConfirm, confirmComponent, customMessages, ...otherProps },
+  { container, title, description, children, onConfirm, confirmComponent, customMessages, onCloseDialog, ...otherProps },
   ref
 ) {
   useImperativeHandle(ref, () => ({
@@ -69,13 +69,11 @@ export default forwardRef(function ConfirmDialog(
   const [consent, setConsent] = useState(false);
   const intl = useIntl();
 
-  console.log(otherProps);
-
   function handleClose() {
     setLoading(false);
     setError(false);
     setOpen(false);
-    otherProps?.onCloseDialog?.();
+    onCloseDialog?.();
   }
 
   function handleDismiss() {

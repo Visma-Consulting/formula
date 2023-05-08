@@ -31,8 +31,8 @@ export default function withRecaptcha(Form) {
     const { recaptcha } = useConfig();
 
     const onCloseDialog = () => {
-      setCaptchaChallenge();
-      recaptchaComponent.reset();
+      setCaptchaChallenge(undefined);
+      recaptchaComponent?.reset();
     }
 
     if (otherProps?.config?.publicForm && (otherProps?.isLastStep === true || otherProps?.isLastStep === undefined)) {
