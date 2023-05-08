@@ -23,7 +23,7 @@ export default function Field({ __withStepped_original_props__, ...props }) {
   if (__withStepped_original_props__) {
     props = { ...props, ...__withStepped_original_props__ };
   }
-  const Type = types[props.schema.type];
+  const Type = types[Array.isArray(props.schema.type) ? 'number' : props.schema.type]
   const variant = useContext(TitleVariantContext) ?? 'h4';
 
   if (!Type) {
