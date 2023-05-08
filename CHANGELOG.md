@@ -1,3 +1,12 @@
+# 0.4.189
+
+- Upgrade to `@visma/rjsf-*@3.1.0-73`
+- Add summary element type
+- Numbered steptitles in review dialog
+- Bugfix reCaptcha
+- Bugfix numberfield accepting other characters than numbers
+- FormGroup review changes
+
 # 0.4.188
 
 - Accessibility and format fixes
