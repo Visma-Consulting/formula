@@ -40,15 +40,29 @@ export default function Review(props) {
   const { config } = props;
   const showSuccessText = props.reviewProps?.showSuccessText !== false;
   const highlightSuccessText = props.reviewProps?.highlightSuccessText;
+  const summaries = config?.elements?.filter(element => element.type === 'summary');
   useEffect(() => {
     window.scrollTo(0, 0)
   }, []);
   const pageTitlesArray = props?.config?.elements.filter(x => (x.type === 'pageTitle' && x.content));
   function checkSuccessHighlight() {
     return highlightSuccessText === true ?
-        <div className={classes.successTextBox}>
-        <Markdown className={classes.successText}>{props.config.successText}</Markdown> </div> :
-        <Markdown>{props.config.successText}</Markdown>
+      <div className={classes.successTextBox}>
+        {summaries && <>
+          {summaries?.map(summary => (
+            <Markdown className={classes.successText}>
+              {summary.content}
+            </Markdown>
+          ))}
+        </>} <Markdown className={classes.successText}>{props.config.successText}</Markdown>   </div> :
+
+      <div>{summaries && <>
+        {summaries?.map(summary => (
+          <Markdown>
+            {summary.content}
+          </Markdown>
+        ))}
+      </>}<Markdown>{props.config.successText}</Markdown></div>
   }
   return (
     <>
