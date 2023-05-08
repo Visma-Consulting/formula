@@ -64,8 +64,8 @@ export default function Field({ __withStepped_original_props__, ...props }) {
               {props.schema.title}
             </Typography>
           )}
-          { ((element?.type === "formGroup" && !element?.list)
-            || (element?.type === "formGroup" && element?.list && props?.schema?.type === "array"))
+          { (((element?.type === "formGroup" && !element?.list)
+            || (element?.type === "formGroup" && element?.list && props?.schema?.type === "array")) && props.schema.title !== '')
             && <hr/> }
           <div className={classes.typeContainer}>
             <Type {...props} />
