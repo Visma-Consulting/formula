@@ -34,8 +34,7 @@ export default function withRecaptcha(Form) {
       setCaptchaChallenge(undefined);
       recaptchaComponent?.reset();
     }
-
-    if (otherProps?.config?.publicForm && (otherProps?.isLastStep === true || otherProps?.isLastStep === undefined)) {
+    if (otherProps?.config?.publicForm && otherProps?.config?.requireCaptcha && (otherProps?.isLastStep === true || otherProps?.isLastStep === undefined)) {
       return (
         <Form ref={ref} fillProps={fillProps} {...otherProps} captcha={captchaChallenge} onCloseDialog={onCloseDialog} >
           <ReCAPTCHA
