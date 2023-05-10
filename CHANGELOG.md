@@ -1,3 +1,7 @@
+# 0.4.190
+
+- Bugfix reCaptcha
+
 # 0.4.189
 
 - Upgrade to `@visma/rjsf-*@3.1.0-73`
