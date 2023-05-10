@@ -40,6 +40,10 @@ export default function Field({ __withStepped_original_props__, ...props }) {
     ? props.uiSchema.items['ui:options']?.element
     : props.uiSchema?.['ui:options']?.element;
 
+  console.log(element?.title);
+  console.log(element);
+  console.log(props?.schema);
+
   return (
     <TitleVariantContext.Provider
       value={
@@ -70,7 +74,7 @@ export default function Field({ __withStepped_original_props__, ...props }) {
           <div className={classes.typeContainer}>
             <Type {...props} />
           </div>
-          { element?.type === "formGroup" && props?.schema?.type !== "array" && <><hr/><p></p></> }
+          { element?.type === "formGroup" && element?.listItem && props?.schema?.type !== "array" && <><hr/><p></p></> }
         </Customize>
       </Box>
     </TitleVariantContext.Provider>
