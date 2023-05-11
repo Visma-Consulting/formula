@@ -67,7 +67,7 @@ export default function Field({ __withStepped_original_props__, ...props }) {
           <div className={classes.typeContainer}>
             <Type {...props} />
           </div>
-          { element?.type === "formGroup" && element?.listItem && props?.schema?.type !== "array" && <><hr/><p></p></> }
+          { element?.type === "formGroup" && element?.listItem && props?.schema?.type !== "array" && !props?.lastItem && <><hr/><p></p></> }
         </Customize>
       </Box>
     </TitleVariantContext.Provider>
