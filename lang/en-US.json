@@ -274,5 +274,8 @@
   },
   "BFjxIc": {
     "defaultMessage": "I confirm that the information provided is correct"
+  },
+  "Q2D7I9": {
+    "defaultMessage": "In between {minimum} - {maximum}"
   }
 }
