@@ -5,6 +5,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
+  CircularProgress,
   DialogContentText,
   DialogTitle,
   FormControlLabel,
@@ -149,6 +150,11 @@ export default forwardRef(function ConfirmDialog(
                 defaultMessage: 'Vahvistan ilmoitetut tiedot oikeiksi',
               })}
             />
+          )}
+          {loading && (
+            <div>
+              <CircularProgress />
+            </div>
           )}
           {error && (
             <DialogContentText>
