@@ -18,6 +18,9 @@ function calculatePageTitleNumber(pageTitles, pageTitle) {
 }
 
 export default ({ formData, schema, uiSchema, pageTitles, reviewProps}) => {
+  const intl = useIntl();
+  const { locale } = intl;
+
   if (schema.enumNames) {
     if (schema.inline) {
       formData = formData.map((data) => schema.enumNames[schema.enum.indexOf(data)]).join(', ');
@@ -55,23 +58,35 @@ export default ({ formData, schema, uiSchema, pageTitles, reviewProps}) => {
     formData = '********';
   }
 
-  if (
-    uiSchema?.['ui:widget'] === 'range' &&
-    uiSchema['ui:options'].element?.widget === 'customScale'
-  ) {
-    return (
-      <>
-        <Typography variant="caption">
-          {sortBy(uiSchema['ui:options'].element.scaleMarks, 'value')
-            .map(({ value, label }) => value + ' = ' + label)
-            .join(', ')}
-        </Typography>
-        <Data>{formData}</Data>
-      </>
-    );
+  if (uiSchema?.['ui:widget'] === 'range') {
+    const element = uiSchema['ui:options'].element;
+    if (element?.widget === 'customScale') {
+      const scaleMarks = sortBy(uiSchema['ui:options'].element.scaleMarks, 'value')
+        .filter(scale => scale.showInReview);
+      return (
+        <>
+          <Typography variant="caption">
+            {scaleMarks.length > 0 ?
+              scaleMarks.map(({ value, label }) => value + ' = ' + label).join(', ') :
+              intl.formatMessage({defaultMessage: 'Arvoväliltä {minimum} - {maximum}'},
+                {minimum: element.minimum, maximum: element.maximum} )
+            }
+          </Typography>
+          <Data>{formData}</Data>
+        </>
+      );
+    } else if (element?.minimum !== undefined && element?.maximum !== undefined) {
+      const { minimum, maximum } = element;
+      return (
+        <>
+          <Typography variant="caption">
+            {intl.formatMessage({defaultMessage: 'Arvoväliltä {minimum} - {maximum}'}, {minimum, maximum} )}
+          </Typography>
+          <Data>{formData}</Data>
+        </>
+      );
+    }
   }
-
-  const { locale } = useIntl();
 
   if (schema.format === 'data-url') {
     if (formData) {
