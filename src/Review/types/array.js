@@ -17,15 +17,16 @@ export default ({ formData, schema, uiSchema, ...otherProps }) => {
           ...uiSchema?.items?.['ui:options']?.element,
           indent: 0}
       }
-      return (formData.map((formData, index) => (
-        <Field
-          {...otherProps}
-          key={index}
-          schema={schema.items}
-          uiSchema={{...uiSchema?.items, 'ui:options': itemOptions}}
-          formData={formData}
-        />
-      )));
+      return (formData.map((data, index) => (
+          <Field
+            {...otherProps}
+            key={index}
+            lastItem={formData.length === index + 1}
+            schema={schema.items}
+            uiSchema={{...uiSchema?.items, 'ui:options': itemOptions}}
+            formData={data}
+          />
+        )));
     }
   } else {
     return empty;
