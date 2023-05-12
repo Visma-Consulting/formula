@@ -1,3 +1,11 @@
+# 0.4.191
+
+- Revert recaptcha to confirm dialog
+- Upgrade to `@visma/rjsf-*@3.1.0-74`
+- Fix repeatable form group error messages
+- Scale mark fixes
+- Review fixes
+
 # 0.4.190
 
 - Bugfix reCaptcha
