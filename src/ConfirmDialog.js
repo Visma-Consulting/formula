@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Checkbox,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -10,11 +11,14 @@ import {
   FormControlLabel,
   Typography,
   useMediaQuery,
+  useTheme,
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import produce from 'immer';
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
 import { FormattedMessage, useIntl, defineMessage } from 'react-intl';
+import { useConfig } from './api';
 import { hasCaptcha, hasConsent, hasPreview } from './customizations';
 import { PrintButton } from './PrintButton';
 import Field from './Review/Field';
@@ -27,7 +31,7 @@ const sendErrorMessages = {
 };
 
 export default forwardRef(function ConfirmDialog(
-  { container, title, description, children, onConfirm, confirmComponent, customMessages, onCloseDialog, ...otherProps },
+  { container, title, description, children, onConfirm, confirmComponent, customMessages, ...otherProps },
   ref
 ) {
   useImperativeHandle(ref, () => ({
@@ -66,6 +70,8 @@ export default forwardRef(function ConfirmDialog(
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showReCAPTCHA, setShowReCAPTCHA] = useState(hasCaptchaValue);
+  const [captchaChallenge, setCaptchaChallenge] = useState();
   const [consent, setConsent] = useState(false);
   const intl = useIntl();
 
@@ -73,7 +79,7 @@ export default forwardRef(function ConfirmDialog(
     setLoading(false);
     setError(false);
     setOpen(false);
-    onCloseDialog?.();
+    setShowReCAPTCHA(hasCaptchaValue);
   }
 
   function handleDismiss() {
@@ -97,7 +103,7 @@ export default forwardRef(function ConfirmDialog(
   }
 
   function handleConfirm() {
-    confirmRef.current(hasCaptchaValue ? otherProps.captcha : true);
+    confirmRef.current(hasCaptchaValue ? captchaChallenge : true);
   }
 
   return (
@@ -150,6 +156,14 @@ export default forwardRef(function ConfirmDialog(
               })}
             />
           )}
+          {showReCAPTCHA && !loading && !error ? (
+            <DialogContentReCAPTCHA hl={intl.locale?.split('-')[0]} onChange={setCaptchaChallenge} />
+          ) : null}
+          {loading && (
+            <div>
+              <CircularProgress />
+            </div>
+          )}
           {error && (
             <DialogContentText>
               <Alert severity="warning">{error}</Alert>
@@ -165,6 +179,7 @@ export default forwardRef(function ConfirmDialog(
             <Button
               disabled={
                 (hasConsentValue && !consent) ||
+                (showReCAPTCHA && !captchaChallenge) ||
                 loading ||
                 error
               }
@@ -181,3 +196,14 @@ export default forwardRef(function ConfirmDialog(
     </Customize>
   );
 });
+
+function DialogContentReCAPTCHA(props) {
+  const theme = useTheme().palette.type;
+  const { recaptcha } = useConfig();
+
+  return (
+    <DialogContent>
+      <ReCAPTCHA sitekey={recaptcha.sitekey} theme={theme} {...props} />
+    </DialogContent>
+  );
+}
