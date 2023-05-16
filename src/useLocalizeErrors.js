@@ -102,7 +102,7 @@ export default (props) => {
                   fieldUISchema: (itemUiSchema?.items?.patternDescription) ? itemUiSchema?.items : itemUiSchema,
                 };
               }
-              if (fieldSchema.type === 'array') {
+              if (fieldSchema.type === 'array' && !fieldSchema.items.enum) {
                 return accumulator(
                   {
                     fieldSchema: fieldSchema.items,
