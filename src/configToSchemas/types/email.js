@@ -6,7 +6,7 @@ export default extendType(text, ({ config }) => (props) => {
   props.schema ??= {};
   props.schema = {
     ...props.schema,
-    pattern: '^$|^(.*@[a-zA-Z0-9]+[a-zA-Z0-9\\.-]*\\.[a-zA-Z0-9]{2,})$'
+    pattern: config.required ? '[^\\s]+^$|^(.*@[a-zA-Z0-9]+[a-zA-Z0-9\\.-]*\\.[a-zA-Z0-9]{2,})$' : '^$|^(.*@[a-zA-Z0-9]+[a-zA-Z0-9\\.-]*\\.[a-zA-Z0-9]{2,})$'
   }
   props.uiSchema ??= {};
   props.uiSchema['ui:widget'] = 'email';
