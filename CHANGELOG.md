@@ -1,3 +1,11 @@
+# 0.4.193
+
+- Multiselect error message fix
+- Upgrade to `@visma/rjsf-*@3.1.0-76`
+- URL form prefill
+- Email field validation fix
+- Button field value to formdata
+
 # 0.4.191
 
 - Revert recaptcha to confirm dialog
