@@ -1,9 +1,9 @@
-import { defineMessage, FormattedMessage, useIntl } from 'react-intl';
+import { defineMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import extendType from './_extendType';
 import _dummy from './_dummy';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
@@ -14,25 +14,30 @@ const useStyles = makeStyles((theme) => ({
 
 function ButtonWidget(props) {
   const classes = useStyles();
-  const {options} = props;
-  const [showSuccessText, setShowSuccessText] = useState(false)
+  const {options, onChange} = props;
+  const [value, setValue] = useState();
   const successText = options.element?.meta?.buttonActionProps?.successText;
   const buttonText = options?.element?.useLabel ? options?.element?.label : options?.element?.title
   const onClickAction = props.schema?.buttonActions && props.schema?.buttonActions[options.element?.meta?.buttonOnClickAction];
   const onClick = async () => {
     const response = await onClickAction(options.element?.meta?.buttonActionProps)
     if (response === true) {
-      setShowSuccessText(true)
+      setValue(true);
     }
   }
 
+  useEffect(() => {
+    setTimeout(() => { onChange(value) })
+  }, [value]);
+
   return (
     <div>
-      {(showSuccessText && successText) ? <Typography>{successText}</Typography> :
+      {(value === true && successText) ? <Typography>{successText}</Typography> :
         <Button
           variant="contained"
           color="Primary"
           size={"small"}
+          value={value}
           disabled={props?.schema?.disabled}
           className={classes.button}
           onClick={onClick}
@@ -45,7 +50,7 @@ function ButtonWidget(props) {
 
 export default extendType(_dummy,(props) => () => ({
   schema: {
-    type: 'string',
+    type: 'boolean',
     ...(props.buttonActions === undefined ? { default: ''} : undefined),
     buttonActions: props.buttonActions,
     disabled: props?.fillProps?.disableElementButtons
