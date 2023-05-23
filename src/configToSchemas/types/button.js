@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 function ButtonWidget(props) {
   const classes = useStyles();
   const {options, onChange} = props;
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(props.value);
   const successText = options.element?.meta?.buttonActionProps?.successText;
   const buttonText = options?.element?.useLabel ? options?.element?.label : options?.element?.title
   const onClickAction = props.schema?.buttonActions && props.schema?.buttonActions[options.element?.meta?.buttonOnClickAction];
