@@ -1,3 +1,9 @@
+# 0.4.195
+
+- Upgrade to `@visma/rjsf-*@3.1.0-77`
+- ConfigFragment interface
+- Fix withFillActions and withDraftSave not working together
+
 # 0.4.194
 
 - Button field fix
