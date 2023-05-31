@@ -156,5 +156,9 @@ export function useMutations() {
     async importData(data, usePortkeys) {
       await client.postConfigs({usePortkeys: usePortkeys}, data);
     },
+
+    async updateConfig(data) {
+      await client.postConfig(null, data);
+    },
   };
 }
