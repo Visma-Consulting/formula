@@ -18,7 +18,7 @@ function Compose(props) {
       .map(value => {
         const [key, id] = value ? value.split('.') : ['error', 'error'];
         return key === 'error' ? { value: undefined } : {
-          value: usableFormData[key],
+          value: usableFormData?.[key],
           key: key,
           id: parseInt(id)
         }
