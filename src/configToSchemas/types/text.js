@@ -27,6 +27,9 @@ export default ({ config }) => {
 const validationMessages = defineMessages({
   hetuError: {
     defaultMessage: `"{title}" on virheellinen henkilöturvatunnus.`
+  },
+  ytunnusError: {
+    defaultMessage: `"{title}" on virheellinen Y-tunnus.`
   }
 });
 
@@ -81,6 +84,58 @@ export const validators = {
         if (isNaN(tCheckString) || tArray[parseInt(tCheckString) % 31] !== value[10]) {
           // Tarkiste ei ole oikea
           return validationMessages.hetuError;
+        }
+      }
+    }
+  },
+  ytunnus: {
+    name: defineMessage({
+      defaultMessage: 'Y-tunnus'
+    }),
+    fn: (value, element) => {
+      /*
+      Y-tunnus on muotoa NNNNNNN-T, jossa N luku 0-9 ja T varmistusnumero
+      N lukuja voi olla seitsemän tai kuusi, jos lukuja on kuusi eteen lisätään 0
+      N luvuista otetaan painotettu tulo ja se jaetaan luvulla 11
+      Jakojäännös määrää varmistusnumeron T, T ei voi olla 1
+       */
+
+      if (value && value.length > 0) {
+        const pattern = /^\d{6,7}-\d$/;
+
+        // Y-tunnuksen täytyy olla muoto NNNNNNN-T tai NNNNNN-T
+        if (!pattern.test(value)) {
+          return validationMessages.ytunnusError;
+        }
+
+        let [identificationNumbers, controlNumber] = value.split('-');
+
+        const identification = identificationNumbers.length === 6 ? `0${identificationNumbers}` : identificationNumbers;
+        const control = Number.parseInt(controlNumber);
+
+        // Lasketaan painotettu summa
+        const sum = 7 * Number.parseInt(identification[0]) +
+          9 * Number.parseInt(identification[1]) +
+          10 * Number.parseInt(identification[2]) +
+          5 * Number.parseInt(identification[3]) +
+          8 * Number.parseInt(identification[4]) +
+          4 * Number.parseInt(identification[5]) +
+          2 * Number.parseInt(identification[6]);
+
+        // Jakojäännös
+        const remainder = sum % 11;
+
+        // Jakojäännös ei saa olla 1.
+        if (remainder === 1) {
+          return validationMessages.ytunnusError;
+        }
+
+        // Jos jakojäännös on 0, tunnistenumeron pitää olla nolla, muussa tapauksessa 11 - jakojäännös
+        const compareControl = remainder === 0 ? 0 : 11 - remainder;
+
+        // tunnistenumeroiden pitää olla samat
+        if (compareControl !== control) {
+          return validationMessages.ytunnusError;
         }
       }
     }
