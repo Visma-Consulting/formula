@@ -280,5 +280,11 @@
   },
   "Q2D7I9": {
     "defaultMessage": "Mellan {minimum} - {maximum}"
+  },
+  "WKcTdd": {
+    "defaultMessage": "\"{title}\" är ett ogiltigt FO-nummer."
+  },
+  "FUUT/g": {
+    "defaultMessage": "FO-nummer"
   }
 }
