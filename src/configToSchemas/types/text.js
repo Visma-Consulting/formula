@@ -108,7 +108,7 @@ export const validators = {
           return validationMessages.ytunnusError;
         }
 
-        let [identificationNumbers, controlNumber] = value.split('-');
+        const [identificationNumbers, controlNumber] = value.split('-');
 
         const identification = identificationNumbers.length === 6 ? `0${identificationNumbers}` : identificationNumbers;
         const control = Number.parseInt(controlNumber);
