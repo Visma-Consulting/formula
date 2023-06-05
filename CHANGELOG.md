@@ -1,3 +1,9 @@
+# 0.4.196
+
+- Upgrade to `@visma/rjsf-*@3.1.0-78`
+- Business ID validation
+- Fix compose bug
+
 # 0.4.195
 
 - Upgrade to `@visma/rjsf-*@3.1.0-77`
