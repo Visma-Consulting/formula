@@ -277,5 +277,11 @@
   },
   "Q2D7I9": {
     "defaultMessage": "In between {minimum} - {maximum}"
+  },
+  "WKcTdd": {
+    "defaultMessage": "\"{title}\" is an invalid Business ID."
+  },
+  "FUUT/g": {
+    "defaultMessage": "Business ID"
   }
 }
