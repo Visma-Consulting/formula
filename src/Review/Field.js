@@ -58,7 +58,10 @@ export default function Field({ __withStepped_original_props__, ...props }) {
           {...props}
         >
           {props.schema.title && (
-            <Typography variant={variant} component={
+            <Typography
+              style={{wordBreak: 'break-all'}}
+              variant={variant}
+              component={
               Object.keys(titleComponents).includes(element.type) ? titleComponents[element.type] : 'p'
             } gutterBottom>
               {props.schema.title}
