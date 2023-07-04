@@ -9,7 +9,8 @@ import { useEffect, useRef } from 'react';
 const useStyles = makeStyles((theme) => ({
   buttonContainer: {
     '& > *': {
-      margin: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      marginTop: theme.spacing(1),
       '@media print': {
         display: 'none',
       },
