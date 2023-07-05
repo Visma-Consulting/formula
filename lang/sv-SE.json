@@ -286,5 +286,14 @@
   },
   "FUUT/g": {
     "defaultMessage": "FO-nummer"
+  },
+  "00WiO4": {
+    "defaultMessage": "Ikon, sida {page}: aktiva"
+  },
+  "BM+uIV": {
+    "defaultMessage": "Ikon, sida {page}: avslutad"
+  },
+  "eQag3L": {
+    "defaultMessage": "Ikon, sida {page}: inte avslutad"
   }
 }

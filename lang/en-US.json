@@ -283,5 +283,14 @@
   },
   "FUUT/g": {
     "defaultMessage": "Business ID"
+  },
+  "00WiO4": {
+    "defaultMessage": "Icon, page {page}: active"
+  },
+  "BM+uIV": {
+    "defaultMessage": "icon, page {page}: completed"
+  },
+  "eQag3L": {
+    "defaultMessage": "Icon, page {page}: incomplete"
   }
 }
