@@ -143,10 +143,11 @@ export default function withSteps(Form) {
                     completed={index < activeStep}
                     disabled={current || !active}
                     active={active}
-                    aria-expanded={active}
                     onClick={createHandleJump(index)}
                     className={classes.labelContainer}
                     icon={<StepIcon pageNumber={index + 1} active={active} completed={index < activeStep}/>}
+                    aria-expanded={current}
+                    aria-disabled={current}
                   >
                     <Typography variant="subtitle2" component="h3">{title}</Typography>
                   </StepButton>
