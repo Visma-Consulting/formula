@@ -1,3 +1,11 @@
+# 0.4.197
+
+- Upgrade to `@visma/rjsf-*@3.1.0-80`
+- withSteps accessibility fixes
+- Review title formatting changes
+- Button element fixes
+- Send etc buttons style changes
+
 # 0.4.196
 
 - Upgrade to `@visma/rjsf-*@3.1.0-78`
