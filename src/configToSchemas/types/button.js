@@ -20,7 +20,7 @@ function ButtonWidget(props) {
   const buttonText = options?.element?.useLabel ? options?.element?.label : options?.element?.title
   const onClickAction = props.schema?.buttonActions && props.schema?.buttonActions[options.element?.meta?.buttonOnClickAction];
   const onClick = async () => {
-    const response = await onClickAction(options.element?.meta?.buttonActionProps)
+    const response = onClickAction && await onClickAction(options.element?.meta?.buttonActionProps)
     if (response === true) {
       setValue(true);
     }
@@ -51,7 +51,7 @@ function ButtonWidget(props) {
 export default extendType(_dummy,(props) => () => ({
   schema: {
     type: 'boolean',
-    ...(props.buttonActions === undefined ? { default: ''} : undefined),
+    ...(props.buttonActions === undefined ? { default: false} : undefined),
     buttonActions: props.buttonActions,
     disabled: props?.fillProps?.disableElementButtons
   },
