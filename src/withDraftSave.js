@@ -62,7 +62,7 @@ export default function withDraftSave(Form) {
           return false;
         }
 
-        const response = await onSave(data, props.credentials, props.formDataAction, isDraft);
+        const response = await onSave(data, props.credentials, props.formDataAction, isDraft, props.layer);
 
         if (response) {
           enqueueSnackbar(
