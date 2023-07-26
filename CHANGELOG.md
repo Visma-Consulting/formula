@@ -1,3 +1,7 @@
+# 0.4.198
+
+- Enable 0 default for sliders
+
 # 0.4.197
 
 - Upgrade to `@visma/rjsf-*@3.1.0-80`
