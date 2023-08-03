@@ -1,3 +1,7 @@
+# 0.4.199
+
+- Page number icon fix
+
 # 0.4.198
 
 - Enable 0 default for sliders
