@@ -26,6 +26,29 @@ const useStyles = makeStyles((theme) => ({
   labelContainer: {
     textAlign: 'start',
   },
+  stepIconActive: {
+    color: '#0077C7',
+    fill: 'currentColor',
+    width: '1em',
+    height: '1em',
+    display: 'inline-block',
+    fontSize: '1.5rem',
+    transition: 'fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+    flexShrink: '0',
+    userSelect: 'none'
+    },
+  stepIcon: {
+    color: 'rgba(0, 0, 0, 0.38)',
+    fill: 'currentColor',
+    width: '1em',
+    height: '1em',
+    display: 'inline-block',
+    fontSize: '1.5rem',
+    transition: 'fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+    flexShrink: '0',
+    userSelect: 'none'
+  },
+
 }));
 
 export default function withSteps(Form) {
@@ -114,7 +137,7 @@ export default function withSteps(Form) {
                 ? intl.formatMessage({defaultMessage: 'Ikoni, sivu {page}: aktiivinen'}, {page: pageNumber})
                 : intl.formatMessage({defaultMessage: 'Ikoni, sivu {page}: täyttämätön'}, {page: pageNumber})
           }
-          className={active ? "MuiSvgIcon-root MuiStepIcon-root MuiStepIcon-active" : "MuiSvgIcon-root MuiStepIcon-root"}
+          className={active ? classes.stepIconActive : classes.stepIcon}
           focusable={false}
           viewBox="0 0 24 24">
           <circle cx={12} cy={12} r={12} aria-hidden />
