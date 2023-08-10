@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
   buttonContainer: {
     '& > *': {
       marginRight: theme.spacing(1),
+      marginTop: theme.spacing(1),
       '@media print': {
         display: 'none',
       },
