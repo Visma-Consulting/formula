@@ -28,22 +28,27 @@ export default function withRecaptcha(Form) {
     const theme = useTheme().palette.type;
     const [captchaChallenge, setCaptchaChallenge] = useState();
     const [recaptchaComponent, setRecaptchaComponent] = useState();
+    const [hideCaptcha, setHideCaptcha] = useState(false);
     const { recaptcha } = useConfig();
 
     const onCloseDialog = () => {
       setCaptchaChallenge(undefined);
+      setHideCaptcha(false);
       recaptchaComponent?.reset();
     }
 
     if (otherProps?.config?.publicForm && (otherProps?.isLastStep === true || otherProps?.isLastStep === undefined)) {
       return (
         <Form ref={ref} fillProps={fillProps} {...otherProps} captcha={captchaChallenge} onCloseDialog={onCloseDialog} >
-          <ReCAPTCHA
-            ref={e => setRecaptchaComponent(e)}
-            sitekey={recaptcha.sitekey}
-            theme={theme}
-            hl={intl.locale?.split('-')[0]}
-            onChange={setCaptchaChallenge} className={classes.recaptcha} />
+          <div style={hideCaptcha ? {display: 'none'} : {}}>
+            <ReCAPTCHA
+              ref={e => setRecaptchaComponent(e)}
+              sitekey={recaptcha.sitekey}
+              theme={theme}
+              hl={intl.locale?.split('-')[0]}
+              onChange={setCaptchaChallenge}
+              className={classes.recaptcha} />
+          </div>
           <div className={classes.buttonContainer}>
             {fillProps?.actions ?? null}
             <Button
@@ -51,6 +56,7 @@ export default function withRecaptcha(Form) {
               variant="contained"
               color="primary"
               disabled={!captchaChallenge}
+              onClick={() => {setHideCaptcha(true)}}
             >
               <FormattedMessage defaultMessage="Lähetä" />
             </Button>
