@@ -156,9 +156,16 @@ export default forwardRef(function ConfirmDialog(
           )}
           {error && (
             <DialogContentText>
-              <Alert severity="warning">{error}</Alert>
+              <Alert severity="error">{error}</Alert>
             </DialogContentText>
           )}
+          {!loading && hasCaptchaValue && !otherProps.captcha &&
+            <DialogContentText>
+              <Alert severity="warning">
+                <FormattedMessage defaultMessage="Captcha-vahvistus on vanhentunut. Palaa lomakkeelle ja vahvista captcha uudelleen." />
+              </Alert>
+            </DialogContentText>
+          }
         </DialogContent>
         <Box displayPrint="none">
           <DialogActions>
