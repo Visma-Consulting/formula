@@ -177,7 +177,8 @@ export default forwardRef(function ConfirmDialog(
               disabled={
                 (hasConsentValue && !consent) ||
                 loading ||
-                error
+                error ||
+                (!loading && hasCaptchaValue && !otherProps.captcha)
               }
               onClick={handleConfirm}
               variant="contained"
