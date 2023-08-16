@@ -1,3 +1,7 @@
+# 0.4.201
+
+- Title element style fix
+
 # 0.4.200
 
 - Date element style fixes
