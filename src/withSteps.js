@@ -226,6 +226,24 @@ export default function withSteps(Form) {
                       >
                         <div className={classes.buttonContainer}>
                           { fillProps?.actions && fillProps.actions }
+                          {isLastStep ? (
+                            <Button
+                              type="submit"
+                              onClick={handleSubmit}
+                              variant="contained"
+                              color="primary"
+                            >
+                              <FormattedMessage defaultMessage="Lähetä" />
+                            </Button>
+                          ) : (
+                            <Button
+                              onClick={createHandleJump(activeStep + 1)}
+                              variant="contained"
+                              color="primary"
+                            >
+                              <FormattedMessage defaultMessage="Eteenpäin" />
+                            </Button>
+                          )}
                           {activeStep !== 0 && (
                             <Button
                               onClick={createHandleJump(activeStep - 1)}
@@ -234,24 +252,6 @@ export default function withSteps(Form) {
                             </Button>
                           )}
                           {otherProps.draftButton}
-                            {isLastStep ? (
-                              <Button
-                                type="submit"
-                                onClick={handleSubmit}
-                                variant="contained"
-                                color="primary"
-                              >
-                                <FormattedMessage defaultMessage="Lähetä" />
-                              </Button>
-                            ) : (
-                              <Button
-                                onClick={createHandleJump(activeStep + 1)}
-                                variant="contained"
-                                color="primary"
-                              >
-                                <FormattedMessage defaultMessage="Eteenpäin" />
-                              </Button>
-                            )}
                           </div>
                         </Form>
                       </StepContent>
