@@ -59,7 +59,7 @@ export default function Field({ __withStepped_original_props__, ...props }) {
         >
           {props.schema.title && (
             <Typography
-              style={{wordBreak: 'break-all'}}
+              style={{wordBreak: 'break-word'}}
               variant={variant}
               component={
               Object.keys(titleComponents).includes(element.type) ? titleComponents[element.type] : 'p'
