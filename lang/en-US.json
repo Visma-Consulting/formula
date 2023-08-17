@@ -292,5 +292,8 @@
   },
   "eQag3L": {
     "defaultMessage": "Icon, page {page}: incomplete"
+  },
+  "+I4cMz": {
+    "defaultMessage": "Choices can not have duplicate foreign keys."
   }
 }
