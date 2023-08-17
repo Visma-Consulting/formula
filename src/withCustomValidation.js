@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 import { validators as textValidators } from './configToSchemas/types/text';
 import { validators as tableFieldValidators } from './configToSchemas/types/tableField';
 import { validators as formGroupValidators } from './configToSchemas/typePlugins/formGroupList';
+import { generalValidators } from "./utils.js";
 import { useIntl } from 'react-intl';
 
 const elementHasValidator = (element) => {
@@ -32,7 +33,8 @@ export default function withCustomValidation(Form) {
 
         const validateOne = (formData, errors, element, listIndex) => {
           const { key, type, validator, useLabel, label, labelError, title } = element;
-          const errorMessage = validateFunctions[type]?.[validator]?.fn?.(formData, element);
+          const functions = validateFunctions[type] ?? generalValidators;
+          const errorMessage = functions?.[validator]?.fn?.(formData, element);
           if (errorMessage) {
             const elementTitle = useLabel ? (label === "" ? labelError : label) : title;
             const formattedErrorMessage = intl.formatMessage(errorMessage, {...element, title: elementTitle});
