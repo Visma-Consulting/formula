@@ -295,5 +295,8 @@
   },
   "eQag3L": {
     "defaultMessage": "Ikon, sida {page}: inte avslutad"
+  },
+  "+I4cMz": {
+    "defaultMessage": "Val kan inte ha dubbletter av främmande nycklar."
   }
 }
