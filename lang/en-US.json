@@ -295,5 +295,8 @@
   },
   "+I4cMz": {
     "defaultMessage": "Choices can not have duplicate foreign keys."
+  },
+  "H8QuK6": {
+    "defaultMessage": "Captcha har gått ut. Gå tillbaka till formuläret och kontrollera captcha igen."
   }
 }

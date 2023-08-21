@@ -298,5 +298,8 @@
   },
   "+I4cMz": {
     "defaultMessage": "Val kan inte ha dubbletter av främmande nycklar."
+  },
+  "H8QuK6": {
+    "defaultMessage": "Captcha-vahvistus on vanhentunut. Palaa lomakkeelle ja vahvista captcha uudelleen."
   }
 }
