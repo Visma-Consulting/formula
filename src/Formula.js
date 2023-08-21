@@ -20,6 +20,7 @@ import withFormulaErrorBoundary from './withFormulaErrorBoundary';
 import withCustomValidation from './withCustomValidation';
 import withScrollToError from './withScrollToError';
 import withFillActions from './withFillActions';
+import withRecaptcha from './withRecaptcha';
 
 /**
  * RJSFForm is extended with these higher-order components. Extensions are
@@ -37,6 +38,7 @@ export const Form =
   |> withPropsUpdater(useFields)
   |> withPropsUpdater(useLocalizeErrors)
   |> withConfirmSubmit
+  |> withRecaptcha
   |> withSteps
   |> withReview
   |> withFillActions
