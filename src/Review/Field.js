@@ -23,7 +23,7 @@ export default function Field({ __withStepped_original_props__, ...props }) {
   if (__withStepped_original_props__) {
     props = { ...props, ...__withStepped_original_props__ };
   }
-  const Type = types[props.schema.type];
+  const Type = types[Array.isArray(props.schema.type) ? 'number' : props.schema.type]
   const variant = useContext(TitleVariantContext) ?? 'h4';
 
   if (!Type) {
@@ -58,19 +58,19 @@ export default function Field({ __withStepped_original_props__, ...props }) {
           {...props}
         >
           {props.schema.title && (
-            <Typography variant={variant} component={
+            <Typography
+              style={{wordBreak: 'break-word'}}
+              variant={variant}
+              component={
               Object.keys(titleComponents).includes(element.type) ? titleComponents[element.type] : 'p'
             } gutterBottom>
               {props.schema.title}
             </Typography>
           )}
-          { ((element?.type === "formGroup" && !element?.list)
-            || (element?.type === "formGroup" && element?.list && props?.schema?.type === "array"))
-            && <hr/> }
           <div className={classes.typeContainer}>
             <Type {...props} />
           </div>
-          { element?.type === "formGroup" && props?.schema?.type !== "array" && <><hr/><p></p></> }
+          { element?.type === "formGroup" && element?.listItem && props?.schema?.type !== "array" && !props?.lastItem && <><hr/><p></p></> }
         </Customize>
       </Box>
     </TitleVariantContext.Provider>

@@ -1,5 +1,6 @@
 import { useMutations } from './api';
 import { chain } from './utils';
+import { useIntl } from 'react-intl';
 
 export default ({
   onSubmit,
@@ -11,7 +12,8 @@ export default ({
 }) => {
   const { submit } = useMutations();
   const { config } = other;
-
+  const intl = useIntl();
+  const { locale } = intl
   onSubmit ??= submit;
 
   return {
@@ -24,6 +26,7 @@ export default ({
           form: {
             id: config._id,
             rev: config._rev,
+            lang: locale.split('-')[0],
           },
           ...formMetaData,
           values: formData,

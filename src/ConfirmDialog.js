@@ -11,6 +11,7 @@ import {
   FormControlLabel,
   Typography,
   useMediaQuery,
+  useTheme,
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import produce from 'immer';

@@ -98,10 +98,11 @@ export default (props) => {
                 const itemUiSchema = get(fieldUISchema, `[${pathPart}]`);
                 return {
                   fieldSchema: get(fieldSchema.properties, `[${pathPart}]`),
-                  fieldUISchema: (itemUiSchema?.items?.patternDescription || itemUiSchema?.items) ? itemUiSchema?.items : itemUiSchema,
+                  //fieldUISchema: (itemUiSchema?.items?.patternDescription || itemUiSchema?.items) ? itemUiSchema?.items : itemUiSchema,
+                  fieldUISchema: (itemUiSchema?.items?.patternDescription) ? itemUiSchema?.items : itemUiSchema,
                 };
               }
-              if (fieldSchema.type === 'array') {
+              if (fieldSchema.type === 'array' && !fieldSchema.items.enum) {
                 return accumulator(
                   {
                     fieldSchema: fieldSchema.items,

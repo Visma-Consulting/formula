@@ -68,11 +68,26 @@ function Bmi(props) {
         : formData
           ? formData[props.options.genderFieldKey]
           : null;
-      const age = data
-        ? data[props.options.ageFieldKey]
+      const birthday = data
+        ? data[props.options.birthdayFieldKey]
         : formData
-          ? formData[props.options.ageFieldKey]
+          ? formData[props.options.birthdayFieldKey]
           : null;
+      const measuringDay = data
+        ? data[props.options.measuringDayFieldKey]
+        : formData
+          ? formData[props.options.measuringDayFieldKey]
+          : null;
+      let age;
+      if (birthday && measuringDay) {
+        try {
+          const birthdayDate = new Date(birthday);
+          const measuringDayDate = new Date(measuringDay);
+          age = (measuringDayDate - birthdayDate)/(1000 * 60 * 60 * 24 * 365.25);
+        } catch (e) {
+          console.error(e)
+        }
+      }
       if (gender !== undefined && age && !Number.isNaN(bmi)) {
         const table = gender === '1' ? bmi_female : bmi_male;
         const childBmi = getChildBmi(age, bmi, getTable(table));
@@ -105,8 +120,9 @@ function Bmi(props) {
 export default (props) => {
   const heightFieldKey = props.config?.bmiFieldKeys?.heightFieldKey ?? 0;
   const weightFieldKey = props.config?.bmiFieldKeys?.weightFieldKey ?? 1;
-  const ageFieldKey = props.config?.bmiFieldKeys?.ageFieldKey;
   const genderFieldKey = props.config?.bmiFieldKeys?.genderFieldKey;
+  const birthdayFieldKey = props.config?.bmiFieldKeys?.birthdayFieldKey;
+  const measuringDayFieldKey = props.config?.bmiFieldKeys?.measuringDayFieldKey;
   const type = props.config?.bmiFieldKeys?.bmiType;
   return {
     schema: {
@@ -117,8 +133,9 @@ export default (props) => {
       'ui:options': {
         heightFieldKey,
         weightFieldKey,
-        ageFieldKey,
         genderFieldKey,
+        birthdayFieldKey,
+        measuringDayFieldKey,
         type,
         unit: 'kg/m²',
       },

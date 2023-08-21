@@ -1,3 +1,73 @@
+# 0.4.201
+
+- Title element style fix
+
+# 0.4.200
+
+- Date element style fixes
+- Form button style fixes
+
+# 0.4.199
+
+- Page number icon fix
+
+# 0.4.198
+
+- Enable 0 default for sliders
+
+# 0.4.197
+
+- Upgrade to `@visma/rjsf-*@3.1.0-80`
+- withSteps accessibility fixes
+- Review title formatting changes
+- Button element fixes
+- Send etc buttons style changes
+
+# 0.4.196
+
+- Upgrade to `@visma/rjsf-*@3.1.0-78`
+- Business ID validation
+- Fix compose bug
+
+# 0.4.195
+
+- Upgrade to `@visma/rjsf-*@3.1.0-77`
+- ConfigFragment interface
+- Fix withFillActions and withDraftSave not working together
+
+# 0.4.194
+
+- Button field fix
+
+# 0.4.193
+
+- Multiselect error message fix
+- Upgrade to `@visma/rjsf-*@3.1.0-76`
+- URL form prefill
+- Email field validation fix
+- Button field value to formdata
+
+# 0.4.191
+
+- Revert recaptcha to confirm dialog
+- Upgrade to `@visma/rjsf-*@3.1.0-74`
+- Fix repeatable form group error messages
+- Scale mark fixes
+- Review fixes
+
+# 0.4.190
+
+- Bugfix reCaptcha
+
+# 0.4.189
+
+- Upgrade to `@visma/rjsf-*@3.1.0-73`
+- Add summary element type
+- Numbered steptitles in review dialog
+- Bugfix reCaptcha
+- Bugfix numberfield accepting other characters than numbers
+- FormGroup review changes
+
 # 0.4.188
 
 - Accessibility and format fixes

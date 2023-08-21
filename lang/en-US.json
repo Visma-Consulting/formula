@@ -275,6 +275,27 @@
   "BFjxIc": {
     "defaultMessage": "I confirm that the information provided is correct"
   },
+  "Q2D7I9": {
+    "defaultMessage": "In between {minimum} - {maximum}"
+  },
+  "WKcTdd": {
+    "defaultMessage": "\"{title}\" is an invalid Business ID."
+  },
+  "FUUT/g": {
+    "defaultMessage": "Business ID"
+  },
+  "00WiO4": {
+    "defaultMessage": "Icon, page {page}: active"
+  },
+  "BM+uIV": {
+    "defaultMessage": "icon, page {page}: completed"
+  },
+  "eQag3L": {
+    "defaultMessage": "Icon, page {page}: incomplete"
+  },
+  "+I4cMz": {
+    "defaultMessage": "Choices can not have duplicate foreign keys."
+  },
   "H8QuK6": {
     "defaultMessage": "Captcha har gått ut. Gå tillbaka till formuläret och kontrollera captcha igen."
   }

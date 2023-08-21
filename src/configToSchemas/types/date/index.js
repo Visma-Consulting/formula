@@ -17,10 +17,18 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginRight: theme.spacing(1),
     marginLeft: theme.spacing(1),
+    [theme.breakpoints.down('xs')]: {
+      marginTop: theme.spacing(1),
+      marginLeft: '0px',
+    },
   },
   dateBox: {
     display: 'flex',
     alignItems: 'center',
+    [theme.breakpoints.down('xs')]: {
+      flexDirection: 'column',
+      alignItems: 'start',
+    },
   }
 }));
 

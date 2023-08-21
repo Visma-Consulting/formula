@@ -3,7 +3,7 @@ import number from './number';
 import { defineMessage } from 'react-intl';
 
 export default extendType(number, ({ config }) => (props) => {
-  if (!config.numberDefault || config.numberDefault > config.maximum || config.numberDefault < config.minimum) {
+  if (config.numberDefault === undefined || config.numberDefault > config.maximum || config.numberDefault < config.minimum) {
     props.schema.default = config.minimum ?? 0;
   }
   props.uiSchema ??= {};

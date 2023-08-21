@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
   buttonContainer: {
     '& > *': {
       marginRight: theme.spacing(1),
+      marginTop: theme.spacing(1),
       '@media print': {
         display: 'none',
       },
@@ -15,25 +16,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function withFillActions(Form) {
-  return forwardRef(({fillProps, ...otherProps}, ref) => {
+  return forwardRef(({fillProps, customMessages, ...otherProps}, ref) => {
     const classes = useStyles();
     if (fillProps?.actions) {
       return (
-        <Form ref={ref} fillProps={fillProps} {...otherProps}>
+        <Form ref={ref} fillProps={fillProps} customMessages={customMessages}  {...otherProps}>
           <div className={classes.buttonContainer}>
             {fillProps.actions}
+            {otherProps.draftButton}
             <Button
               type="submit"
               variant="contained"
               color="primary"
             >
-              <FormattedMessage defaultMessage="Lähetä" />
+              {customMessages?.submit ?? <FormattedMessage defaultMessage="Lähetä" />}
             </Button>
           </div>
         </Form>
       )
     } else {
-      return <Form ref={ref} fillProps={fillProps} {...otherProps} />
+      return <Form ref={ref} fillProps={fillProps} customMessages={customMessages} {...otherProps} />
     }
   })
 }

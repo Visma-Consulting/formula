@@ -9,7 +9,8 @@ import { useEffect, useRef } from 'react';
 const useStyles = makeStyles((theme) => ({
   buttonContainer: {
     '& > *': {
-      margin: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      marginTop: theme.spacing(1),
       '@media print': {
         display: 'none',
       },
@@ -48,21 +49,24 @@ export default function Review(props) {
   function checkSuccessHighlight() {
     return highlightSuccessText === true ?
       <div className={classes.successTextBox}>
+        <Markdown className={classes.successText}>{props.config.successText}</Markdown>
         {summaries && <>
           {summaries?.map(summary => (
             <Markdown className={classes.successText}>
               {summary.content}
             </Markdown>
           ))}
-        </>} <Markdown className={classes.successText}>{props.config.successText}</Markdown>   </div> :
-
-      <div>{summaries && <>
+        </>} </div>
+      :
+      <div>
+        <Markdown>{props.config.successText}</Markdown>
+        {summaries && <>
         {summaries?.map(summary => (
           <Markdown>
             {summary.content}
           </Markdown>
         ))}
-      </>}<Markdown>{props.config.successText}</Markdown></div>
+      </>} </div>
   }
   return (
     <>

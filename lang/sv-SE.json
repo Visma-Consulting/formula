@@ -278,6 +278,27 @@
   "BFjxIc": {
     "defaultMessage": "Jag bekräftar att den lämnade informationen är korrekt"
   },
+  "Q2D7I9": {
+    "defaultMessage": "Mellan {minimum} - {maximum}"
+  },
+  "WKcTdd": {
+    "defaultMessage": "\"{title}\" är ett ogiltigt FO-nummer."
+  },
+  "FUUT/g": {
+    "defaultMessage": "FO-nummer"
+  },
+  "00WiO4": {
+    "defaultMessage": "Ikon, sida {page}: aktiva"
+  },
+  "BM+uIV": {
+    "defaultMessage": "Ikon, sida {page}: avslutad"
+  },
+  "eQag3L": {
+    "defaultMessage": "Ikon, sida {page}: inte avslutad"
+  },
+  "+I4cMz": {
+    "defaultMessage": "Val kan inte ha dubbletter av främmande nycklar."
+  },
   "H8QuK6": {
     "defaultMessage": "Captcha-vahvistus on vanhentunut. Palaa lomakkeelle ja vahvista captcha uudelleen."
   }

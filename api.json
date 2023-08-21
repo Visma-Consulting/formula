@@ -861,6 +861,15 @@
             }
           }
         }
+      },
+      "post": {
+        "summary": "Update public server config",
+        "operationId": "postConfig",
+        "responses": {
+          "200": {
+            "description": "OK response"
+          }
+        }
       }
     }
   },

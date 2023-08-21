@@ -1,5 +1,5 @@
 import { forwardRef, useRef } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import Button from "@material-ui/core/Button";
 import { useMutations } from './api';
 import ConfirmDialog from './ConfirmDialog';
@@ -39,9 +39,9 @@ export default function withConfirmSubmit(Form) {
       const confirmDialogRef = useRef();
       const containerRef = useRef();
       const classes = useStyles();
-
+      const intl = useIntl();
+      const { locale } = intl
       const hasConfirmValue = hasConfirm(otherProps);
-
       return (
         <>
           {hasConfirmValue && (
@@ -81,6 +81,7 @@ export default function withConfirmSubmit(Form) {
                     form: {
                       id: config._id,
                       rev: config._rev,
+                      lang: locale.split('-')[0],
                     },
                     ...formMetaData,
                     values: formData,

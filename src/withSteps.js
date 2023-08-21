@@ -7,8 +7,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { mapValues, pick } from 'lodash';
 import { forwardRef, useRef, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { StepTitle } from './configToSchemas/types/stepTitle';
+import CheckIcon from '@material-ui/icons/Check'
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -17,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
   buttonContainer: {
     '& > *': {
       marginRight: theme.spacing(1),
+      marginTop: theme.spacing(1),
       '@media print': {
         display: 'none',
       },
@@ -25,10 +27,34 @@ const useStyles = makeStyles((theme) => ({
   labelContainer: {
     textAlign: 'start',
   },
+  stepIconActive: {
+    color: '#0077C7',
+    fill: 'currentColor',
+    width: '1em',
+    height: '1em',
+    display: 'inline-block',
+    fontSize: '1.5rem',
+    transition: 'fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+    flexShrink: '0',
+    userSelect: 'none'
+    },
+  stepIcon: {
+    color: 'rgba(0, 0, 0, 0.38)',
+    fill: 'currentColor',
+    width: '1em',
+    height: '1em',
+    display: 'inline-block',
+    fontSize: '1.5rem',
+    transition: 'fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+    flexShrink: '0',
+    userSelect: 'none'
+  },
+
 }));
 
 export default function withSteps(Form) {
   const WithSteps = forwardRef(({ onSubmit, onChange, onError, formData, steps, fillProps, ...otherProps }, ref) => {
+    const intl = useIntl();
     const [activeStep, setActiveStep] = useState(otherProps.dataIsDraft && otherProps.activeStep ? otherProps.activeStep : 0);
     const [maxJump, setMaxJump] = useState(activeStep);
     const [noValidate, setNoValidate] = useState(false);
@@ -102,6 +128,27 @@ export default function withSteps(Form) {
         });
       };
 
+    const StepIcon = ({pageNumber, active, completed}) => {
+      return (
+        <svg
+          aria-label={
+            completed
+              ? intl.formatMessage({defaultMessage: 'Ikoni, sivu {page}: täytetty'}, {page: pageNumber})
+              : active
+                ? intl.formatMessage({defaultMessage: 'Ikoni, sivu {page}: aktiivinen'}, {page: pageNumber})
+                : intl.formatMessage({defaultMessage: 'Ikoni, sivu {page}: täyttämätön'}, {page: pageNumber})
+          }
+          className={active ? classes.stepIconActive : classes.stepIcon}
+          focusable={false}
+          viewBox="0 0 24 24">
+          <circle cx={12} cy={12} r={12} aria-hidden />
+          {completed ?
+            <CheckIcon style={{color: 'white'}} aria-hidden/>
+            : <text className="MuiStepIcon-text" x={12} y={16} textAnchor="middle" aria-hidden>{pageNumber}</text>}
+        </svg>
+      )
+    };
+
     return (
       <div ref={formWrapperRef}>
         <Typography component="h2" variant="h5" gutterBottom>
@@ -122,8 +169,11 @@ export default function withSteps(Form) {
                     active={active}
                     onClick={createHandleJump(index)}
                     className={classes.labelContainer}
+                    icon={<StepIcon pageNumber={index + 1} active={active} completed={index < activeStep}/>}
+                    aria-expanded={current}
+                    aria-disabled={current}
                   >
-                    {title}
+                    <Typography variant="subtitle2" component="h3">{title}</Typography>
                   </StepButton>
                   {current && (
                     <StepContent>
@@ -176,6 +226,24 @@ export default function withSteps(Form) {
                       >
                         <div className={classes.buttonContainer}>
                           { fillProps?.actions && fillProps.actions }
+                          {isLastStep ? (
+                            <Button
+                              type="submit"
+                              onClick={handleSubmit}
+                              variant="contained"
+                              color="primary"
+                            >
+                              <FormattedMessage defaultMessage="Lähetä" />
+                            </Button>
+                          ) : (
+                            <Button
+                              onClick={createHandleJump(activeStep + 1)}
+                              variant="contained"
+                              color="primary"
+                            >
+                              <FormattedMessage defaultMessage="Eteenpäin" />
+                            </Button>
+                          )}
                           {activeStep !== 0 && (
                             <Button
                               onClick={createHandleJump(activeStep - 1)}
@@ -184,24 +252,6 @@ export default function withSteps(Form) {
                             </Button>
                           )}
                           {otherProps.draftButton}
-                            {isLastStep ? (
-                              <Button
-                                type="submit"
-                                onClick={handleSubmit}
-                                variant="contained"
-                                color="primary"
-                              >
-                                <FormattedMessage defaultMessage="Lähetä" />
-                              </Button>
-                            ) : (
-                              <Button
-                                onClick={createHandleJump(activeStep + 1)}
-                                variant="contained"
-                                color="primary"
-                              >
-                                <FormattedMessage defaultMessage="Eteenpäin" />
-                              </Button>
-                            )}
                           </div>
                         </Form>
                       </StepContent>
