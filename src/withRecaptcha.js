@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function withRecaptcha(Form) {
-  return forwardRef(({fillProps, ...otherProps}, ref) => {
+  return forwardRef(({fillProps, onError, ...otherProps}, ref) => {
     const intl = useIntl();
     const classes = useStyles();
     const theme = useTheme().palette.type;
@@ -39,7 +39,16 @@ export default function withRecaptcha(Form) {
 
     if (otherProps?.config?.publicForm && (otherProps?.isLastStep === true || otherProps?.isLastStep === undefined)) {
       return (
-        <Form ref={ref} fillProps={fillProps} {...otherProps} captcha={captchaChallenge} onCloseDialog={onCloseDialog} >
+        <Form
+          ref={ref}
+          fillProps={fillProps}
+          {...otherProps}
+          onError={(props) => {
+            setHideCaptcha(false);
+            onError(props);
+          }}
+          captcha={captchaChallenge}
+          onCloseDialog={onCloseDialog} >
           <div style={hideCaptcha ? {display: 'none'} : {}}>
             <ReCAPTCHA
               ref={e => setRecaptchaComponent(e)}
@@ -56,7 +65,7 @@ export default function withRecaptcha(Form) {
               variant="contained"
               color="primary"
               disabled={!captchaChallenge}
-              onClick={() => {setHideCaptcha(true)}}
+              onClick={() => setHideCaptcha(true)}
             >
               <FormattedMessage defaultMessage="Lähetä" />
             </Button>
