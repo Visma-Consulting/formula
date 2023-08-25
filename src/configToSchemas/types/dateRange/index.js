@@ -20,7 +20,19 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginRight: theme.spacing(1),
     marginLeft: theme.spacing(1),
+    [theme.breakpoints.down('xs')]: {
+      marginTop: theme.spacing(1),
+      marginLeft: '0px',
+    },
   },
+  dateBox: {
+    display: 'flex',
+    alignItems: 'center',
+    [theme.breakpoints.down('xs')]: {
+      flexDirection: 'column',
+      alignItems: 'start',
+    },
+  }
 }));
 
 function DateRangePickerField(props) {
@@ -73,7 +85,7 @@ function DateRangePickerField(props) {
   );
 
   return (
-    <div>
+    <div className={classes.dateBox}>
       <DateRangePicker
         onDatesChange={({ startDate, endDate }) => (startDate || endDate) && onChange({ start: startDate?.format('YYYY-MM-DD'), end: endDate?.format('YYYY-MM-DD')})}
         onFocusChange={handleFocusChange}
