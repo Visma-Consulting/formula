@@ -240,6 +240,7 @@ export default function withSteps(Form) {
                               onClick={createHandleJump(activeStep + 1)}
                               variant="contained"
                               color="primary"
+                              aria-label={`${intl.formatMessage({defaultMessage: 'Eteenpäin'})}: ${steps[index + 1]?.['ui:title']}`}
                             >
                               <FormattedMessage defaultMessage="Eteenpäin" />
                             </Button>
@@ -247,6 +248,7 @@ export default function withSteps(Form) {
                           {activeStep !== 0 && (
                             <Button
                               onClick={createHandleJump(activeStep - 1)}
+                              aria-label={`${intl.formatMessage({defaultMessage: 'Takaisin'})}: ${steps[index - 1]?.['ui:title']}`}
                             >
                               <FormattedMessage defaultMessage="Takaisin" />
                             </Button>
