@@ -1,3 +1,8 @@
+# 0.4.204
+
+- Daterange style fixes
+- Accessibility fixes
+
 # 0.4.203
 
 - validation with recaptcha fix
