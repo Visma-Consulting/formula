@@ -1,9 +1,10 @@
 import TextField from '@material-ui/core/TextField';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import RichTextEditor from 'react-rte';
 import { useStatePreferInitial } from '../utils';
 import './styles.css';
 import { editor } from './styles.module.css';
+import useToolbarConfig from './toolbarConfig';
 
 const isMobile = do {
   const x = navigator.userAgent || navigator.vendor || window.opera;
@@ -39,9 +40,10 @@ const RichText = isMobile
           String(value)?.replace(/\\/g, '\\\\').replace('\\*', '*') ?? '',
           format
         );
-
+      const { useLabel, label, title } = options.element;
       const [editorValue, setEditorValue] = useState(setState);
-
+      const editorRef = useRef(null);
+      const toolbarConfig = useToolbarConfig();
       useEffect(() => {
         const prevValue = editorValue?.toString(format);
         if (value !== prevValue) {
@@ -51,11 +53,21 @@ const RichText = isMobile
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [value]);
 
-      const { useLabel, label, title } = options.element;
+      useEffect(() => {
+        const editorContainer = document.querySelector('.DraftEditor-editorContainer');
+        if(editorContainer) {
+          const targetElement = editorContainer.querySelector('[role="textbox"]');
+          if (targetElement) {
+            targetElement.setAttribute('aria-label', useLabel ? label : title);
+          }
+        }
+      }, []);
 
       return (
         <div className={editor} tabIndex={0} aria-label={useLabel ? label : title}>
           <RichTextEditor
+            ref={editorRef}
+            toolbarConfig={toolbarConfig}
             value={editorValue}
             onChange={useCallback((editorValue) => {
               setEditorValue(editorValue);

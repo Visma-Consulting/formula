@@ -16,9 +16,7 @@ import {
 import { Alert } from '@material-ui/lab';
 import produce from 'immer';
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
 import { FormattedMessage, useIntl, defineMessage } from 'react-intl';
-import { useConfig } from './api';
 import { hasCaptcha, hasConsent, hasPreview } from './customizations';
 import { PrintButton } from './PrintButton';
 import Field from './Review/Field';
@@ -31,7 +29,7 @@ const sendErrorMessages = {
 };
 
 export default forwardRef(function ConfirmDialog(
-  { container, title, description, children, onConfirm, confirmComponent, customMessages, ...otherProps },
+  { container, title, description, children, onConfirm, confirmComponent, customMessages, onCloseDialog, ...otherProps },
   ref
 ) {
   useImperativeHandle(ref, () => ({
@@ -70,8 +68,6 @@ export default forwardRef(function ConfirmDialog(
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [showReCAPTCHA, setShowReCAPTCHA] = useState(hasCaptchaValue);
-  const [captchaChallenge, setCaptchaChallenge] = useState();
   const [consent, setConsent] = useState(false);
   const intl = useIntl();
 
@@ -79,7 +75,7 @@ export default forwardRef(function ConfirmDialog(
     setLoading(false);
     setError(false);
     setOpen(false);
-    setShowReCAPTCHA(hasCaptchaValue);
+    onCloseDialog?.();
   }
 
   function handleDismiss() {
@@ -103,7 +99,7 @@ export default forwardRef(function ConfirmDialog(
   }
 
   function handleConfirm() {
-    confirmRef.current(hasCaptchaValue ? captchaChallenge : true);
+    confirmRef.current(hasCaptchaValue ? otherProps.captcha : true);
   }
 
   return (
@@ -156,19 +152,21 @@ export default forwardRef(function ConfirmDialog(
               })}
             />
           )}
-          {showReCAPTCHA && !loading && !error ? (
-            <DialogContentReCAPTCHA hl={intl.locale?.split('-')[0]} onChange={setCaptchaChallenge} />
-          ) : null}
           {loading && (
-            <div>
-              <CircularProgress />
-            </div>
+            <div><CircularProgress/></div>
           )}
           {error && (
             <DialogContentText>
-              <Alert severity="warning">{error}</Alert>
+              <Alert severity="error">{error}</Alert>
             </DialogContentText>
           )}
+          {!loading && hasCaptchaValue && !otherProps.captcha &&
+            <DialogContentText>
+              <Alert severity="warning">
+                <FormattedMessage defaultMessage="Captcha-vahvistus on vanhentunut. Palaa lomakkeelle ja vahvista captcha uudelleen." />
+              </Alert>
+            </DialogContentText>
+          }
         </DialogContent>
         <Box displayPrint="none">
           <DialogActions>
@@ -179,9 +177,9 @@ export default forwardRef(function ConfirmDialog(
             <Button
               disabled={
                 (hasConsentValue && !consent) ||
-                (showReCAPTCHA && !captchaChallenge) ||
                 loading ||
-                error
+                error ||
+                (!loading && hasCaptchaValue && !otherProps.captcha)
               }
               onClick={handleConfirm}
               variant="contained"
@@ -196,14 +194,3 @@ export default forwardRef(function ConfirmDialog(
     </Customize>
   );
 });
-
-function DialogContentReCAPTCHA(props) {
-  const theme = useTheme().palette.type;
-  const { recaptcha } = useConfig();
-
-  return (
-    <DialogContent>
-      <ReCAPTCHA sitekey={recaptcha.sitekey} theme={theme} {...props} />
-    </DialogContent>
-  );
-}

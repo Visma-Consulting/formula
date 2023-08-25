@@ -107,6 +107,69 @@
   "kL1KfA": {
     "defaultMessage": "Password"
   },
+  "LlgX1c": {
+    "defaultMessage": "Bold"
+  },
+  "6DKEqJ": {
+    "defaultMessage": "Italic"
+  },
+  "F1CswO": {
+    "defaultMessage": "Strikethrough"
+  },
+  "vDWuqJ": {
+    "defaultMessage": "Monospace"
+  },
+  "K1Y0DE": {
+    "defaultMessage": "Underline"
+  },
+  "RILCHk": {
+    "defaultMessage": "Align right"
+  },
+  "LF2LHS": {
+    "defaultMessage": "Align middle"
+  },
+  "qW+mdu": {
+    "defaultMessage": "Align left"
+  },
+  "yWLu7A": {
+    "defaultMessage": "Align justify"
+  },
+  "5rr6LY": {
+    "defaultMessage": "UL"
+  },
+  "gbpzSa": {
+    "defaultMessage": "OL"
+  },
+  "atwSNk": {
+    "defaultMessage": "Blockquote"
+  },
+  "uBiFTc": {
+    "defaultMessage": "Link"
+  },
+  "dDra1B": {
+    "defaultMessage": "Remove link"
+  },
+  "TuztIS": {
+    "defaultMessage": "Image"
+  },
+  "ISJXJx": {
+    "defaultMessage": "Undo"
+  },
+  "qRD0FT": {
+    "defaultMessage": "Redo"
+  },
+  "Dcuxwn": {
+    "defaultMessage": "Normal"
+  },
+  "R3beF8": {
+    "defaultMessage": "Heading medium"
+  },
+  "n+gaJ8": {
+    "defaultMessage": "Heading large"
+  },
+  "6WoZDj": {
+    "defaultMessage": "Heading small"
+  },
   "mrf29j": {
     "defaultMessage": "Multiple choice list"
   },
@@ -292,5 +355,11 @@
   },
   "eQag3L": {
     "defaultMessage": "Icon, page {page}: incomplete"
+  },
+  "+I4cMz": {
+    "defaultMessage": "Choices can not have duplicate foreign keys."
+  },
+  "H8QuK6": {
+    "defaultMessage": "Captcha har gått ut. Gå tillbaka till formuläret och kontrollera captcha igen."
   }
 }

@@ -1,5 +1,7 @@
 import { mapValues, omitBy } from 'lodash';
 import { forwardRef, useEffect, useState } from 'react';
+import { defineMessage } from 'react-intl';
+import { defineMessages } from '@formatjs/intl';
 
 export const setDefaultType = (type) => (config) => ({ type, ...config });
 
@@ -110,4 +112,28 @@ export function getAriaLabel(label, options, required, requiredMessage) {
   }
 
   return ariaLabel;
+}
+
+const generalErrorMessages = defineMessages({
+  duplicateKeyError: {
+    defaultMessage: "Vaihtoehdoissa ei saa olla duplikaatti vierasavaimia."
+  }
+});
+
+export const generalValidators = {
+  noDuplicateKeys: {
+    name: defineMessage({defaultMessage: "Ei duplikaatti avaimia"}),
+    fn: (value, _) => {
+      if (value && value.length > 0) {
+        const keys = [];
+        for (const choice of value) {
+          if (choice.enum && !keys.includes(choice.enum)) {
+            keys.push(choice.enum);
+          } else if (keys.includes(choice.enum)) {
+            return generalErrorMessages.duplicateKeyError;
+          }
+        }
+      }
+    }
+  }
 }

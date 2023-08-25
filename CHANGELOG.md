@@ -1,3 +1,14 @@
+# 0.4.203
+
+- validation with recaptcha fix
+
+# 0.4.202
+
+- Custom validation: General validation
+- Move reCaptcha to form
+- Accessibility: Rich text field, button layout in stepped forms
+- Formatting changes
+
 # 0.4.201
 
 - Title element style fix
