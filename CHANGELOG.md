@@ -1,3 +1,7 @@
+# 0.4.206
+
+- ReCaptcha withSteps hotfixes
+
 # 0.4.205
 
 - Daterange style fixes
