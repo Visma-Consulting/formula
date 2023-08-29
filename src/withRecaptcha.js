@@ -59,7 +59,6 @@ export default function withRecaptcha(Form) {
               className={classes.recaptcha} />
           </div>
           <div className={classes.buttonContainer}>
-            {fillProps?.actions ?? null}
             <Button
               type="submit"
               variant="contained"
@@ -69,11 +68,12 @@ export default function withRecaptcha(Form) {
             >
               <FormattedMessage defaultMessage="Lähetä" />
             </Button>
+            {fillProps?.actions ?? null}
           </div>
         </Form>
       )
     } else {
-      return <Form ref={ref} {...otherProps} />
+      return <Form ref={ref} onError={onError} {...otherProps} />
     }
   })
 }

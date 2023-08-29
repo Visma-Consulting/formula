@@ -22,8 +22,6 @@ export default function withFillActions(Form) {
       return (
         <Form ref={ref} fillProps={fillProps} customMessages={customMessages}  {...otherProps}>
           <div className={classes.buttonContainer}>
-            {fillProps.actions}
-            {otherProps.draftButton}
             <Button
               type="submit"
               variant="contained"
@@ -31,6 +29,8 @@ export default function withFillActions(Form) {
             >
               {customMessages?.submit ?? <FormattedMessage defaultMessage="Lähetä" />}
             </Button>
+            {otherProps.draftButton}
+            {fillProps.actions}
           </div>
         </Form>
       )

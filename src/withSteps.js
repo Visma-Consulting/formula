@@ -179,7 +179,20 @@ export default function withSteps(Form) {
                     <StepContent>
                       <Form
                         {...otherProps}
-                        fillProps={fillProps}
+                        fillProps={isLastStep ? {
+                          ...fillProps,
+                          actions: (
+                            <>
+                              {fillProps?.actions}
+                              <Button
+                                onClick={createHandleJump(activeStep - 1)}
+                                aria-label={`${intl.formatMessage({defaultMessage: 'Takaisin'})}: ${steps[index - 1]?.['ui:title']}`}
+                              >
+                                <FormattedMessage defaultMessage="Takaisin" />
+                              </Button>
+                            </>
+                          )
+                        } : fillProps}
                         onSubmit={isLastStep ? onSubmit : undefined}
                         onPreSubmit={handleStepChange}
                         ref={ref}
