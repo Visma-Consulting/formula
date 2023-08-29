@@ -1,3 +1,7 @@
+# 0.4.208
+
+- Change fillProps action positions
+
 # 0.4.207
 
 - Fix recaptcha always showing on public forms
