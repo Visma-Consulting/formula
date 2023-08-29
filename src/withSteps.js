@@ -183,13 +183,13 @@ export default function withSteps(Form) {
                           ...fillProps,
                           actions: (
                             <>
-                              {fillProps?.actions}
                               <Button
                                 onClick={createHandleJump(activeStep - 1)}
                                 aria-label={`${intl.formatMessage({defaultMessage: 'Takaisin'})}: ${steps[index - 1]?.['ui:title']}`}
                               >
                                 <FormattedMessage defaultMessage="Takaisin" />
                               </Button>
+                              {fillProps?.actions}
                             </>
                           )
                         } : fillProps}
@@ -238,7 +238,6 @@ export default function withSteps(Form) {
                         }}
                       >
                         <div className={classes.buttonContainer}>
-                          { fillProps?.actions && fillProps.actions }
                           {isLastStep ? (
                             <Button
                               type="submit"
@@ -267,6 +266,7 @@ export default function withSteps(Form) {
                             </Button>
                           )}
                           {otherProps.draftButton}
+                          { fillProps?.actions && fillProps.actions }
                           </div>
                         </Form>
                       </StepContent>
