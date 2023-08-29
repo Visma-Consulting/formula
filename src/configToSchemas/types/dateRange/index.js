@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       flexDirection: 'column',
       alignItems: 'start',
+      '& input::placeholder': {
+        fontSize: '13px',
+      },
     },
   }
 }));
