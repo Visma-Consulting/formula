@@ -1,3 +1,7 @@
+# 0.4.207
+
+- Fix recaptcha always showing on public forms
+
 # 0.4.206
 
 - ReCaptcha withSteps hotfixes
