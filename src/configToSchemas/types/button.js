@@ -19,10 +19,14 @@ function ButtonWidget(props) {
   const successText = options.element?.meta?.buttonActionProps?.successText;
   const buttonText = options?.element?.useLabel ? options?.element?.label : options?.element?.title
   const onClickAction = props.schema?.buttonActions && props.schema?.buttonActions[options.element?.meta?.buttonOnClickAction];
-  const onClick = async () => {
-    const response = onClickAction && await onClickAction(options.element?.meta?.buttonActionProps)
-    if (response === true) {
-      setValue(true);
+  const onClick = async() => {
+    if(onClickAction) {
+      const response = onClickAction && await onClickAction(options.element?.meta?.buttonActionProps)
+      if (response === true) {
+        setValue(true);
+      }
+    } else if (options.element.onClickAction) {
+      options?.element?.onClickAction();
     }
   }
 

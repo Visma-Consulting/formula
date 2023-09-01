@@ -141,8 +141,9 @@ export function useMutations() {
     },
 
     async postField(data) {
-      await client.postField(null, handleLegacyConfig(data));
+      const response = await client.postField(null, handleLegacyConfig(data));
       await refetchFields(data._id);
+      return response;
     },
     async putField(data) {
       await client.putField(null, handleLegacyConfig(data));
