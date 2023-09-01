@@ -52,6 +52,8 @@ export const validators = {
         'A', 'B', 'C', 'D', 'E', 'F', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'R',
         'S', 'T', 'U', 'V', 'W', 'X', 'Y'];
 
+        const decadeArray = ['+', '-', 'Y', 'X', 'W', 'V', 'U', 'A', 'B', 'C', 'D', 'E', 'F'];
+
         if (value.length !== 11) {
           // Väärän pituinen
           return validationMessages.hetuError;
@@ -59,7 +61,7 @@ export const validators = {
 
         const decade = value[6];
 
-        if (!['+', '-', 'A'].includes(decade)) {
+        if (!decadeArray.includes(decade)) {
           // Väärä vuosisataa esittävä merkki
           return validationMessages.hetuError;
         }
