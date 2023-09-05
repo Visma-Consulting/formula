@@ -22,7 +22,7 @@ export const translateProperties = [
   'labelError',
 ];
 
-export const translateArrayProperties = ['choices', 'elements', 'scaleMarks'];
+export const translateArrayProperties = ['choices', 'elements', 'scaleMarks', 'tableRows'];
 
 export const translateArray = ['tableColumns'];
 
