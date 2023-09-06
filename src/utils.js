@@ -117,6 +117,9 @@ export function getAriaLabel(label, options, required, requiredMessage) {
 const generalErrorMessages = defineMessages({
   duplicateKeyError: {
     defaultMessage: "Vaihtoehdoissa ei saa olla duplikaatti vierasavaimia."
+  },
+  missingKeyError: {
+    defaultMessage: "Vaihtoehdoilla täytyy olla vierasavaimet."
   }
 });
 
@@ -127,9 +130,11 @@ export const generalValidators = {
       if (value && value.length > 0) {
         const keys = [];
         for (const choice of value) {
-          if (choice.enum && !keys.includes(choice.enum)) {
+          if (!choice.enum) {
+            return generalErrorMessages.missingKeyError;
+          } else if (!keys.includes(choice.enum)) {
             keys.push(choice.enum);
-          } else if (keys.includes(choice.enum)) {
+          } else {
             return generalErrorMessages.duplicateKeyError;
           }
         }
