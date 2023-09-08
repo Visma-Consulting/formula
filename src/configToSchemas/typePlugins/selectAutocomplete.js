@@ -4,7 +4,7 @@ import { utils } from '@visma/rjsf-core';
 import produce from 'immer';
 import { useContext } from 'react';
 
-export const types = ['select'];
+export const types = ['select', 'selectV2'];
 
 export function AutocompleteSelectField(props) {
   return (
