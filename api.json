@@ -385,6 +385,24 @@
         }
       }
     },
+    "/formgroup/usage": {
+      "get": {
+        "summary": "List usage count of formgroup by id",
+        "operationId": "getFormgroupUsageCount",
+        "responses": {
+          "200": {
+            "description": "An object containing id, count -pairs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/field": {
       "get": {
         "summary": "List all fields",
@@ -466,6 +484,24 @@
         "responses": {
           "200": {
             "description": "Null response"
+          }
+        }
+      }
+    },
+    "/field/usage": {
+      "get": {
+        "summary": "List usage count of field by id",
+        "operationId": "getFieldUsageCount",
+        "responses": {
+          "200": {
+            "description": "An object containing id, count -pairs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
           }
         }
       }

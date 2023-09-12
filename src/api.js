@@ -69,6 +69,9 @@ export const useFormData = (dataId) => client.useFormData({ dataId });
 
 export const useTags = () => client.useFormTags();
 
+export const useFieldUsageCounts = () => client.useFieldUsageCount();
+export const useFormgroupUsageCounts = () => client.useFormgroupUsageCount();
+
 export const useFormHandlers = () => client.useFormHandlers();
 
 export function useMutations() {
