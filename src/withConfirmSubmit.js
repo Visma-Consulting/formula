@@ -36,19 +36,24 @@ export default function withConfirmSubmit(Form) {
     ) => {
       const { submit } = useMutations();
       const { config, onSubmit = submit } = otherProps;
+      const { meta } = config;
       const confirmDialogRef = useRef();
       const containerRef = useRef();
       const classes = useStyles();
       const intl = useIntl();
       const { locale } = intl
       const hasConfirmValue = hasConfirm(otherProps);
+      const dialogTitle = customMessages?.confirmDialogTitle ??
+        (meta?.preview ? <FormattedMessage defaultMessage="Tarkista ja lähetä lomake" />
+          : meta?.consent ? <FormattedMessage defaultMessage="Vahvista ja lähetä lomake" />
+            : <FormattedMessage defaultMessage="Lähetä lomake" />);
       return (
         <>
           {hasConfirmValue && (
             <>
               <div ref={containerRef} />
               <ConfirmDialog
-                title={customMessages?.confirmDialogTitle ?? <FormattedMessage defaultMessage="Lähetetäänkö lomake?" />}
+                title={dialogTitle}
                 ref={confirmDialogRef}
                 customMessages={customMessages}
                 container={containerRef.current}

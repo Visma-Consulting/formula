@@ -220,6 +220,7 @@ export default function withSteps(Form) {
                           ),
                         }}
                         uiSchema={{
+                          formWithSteps: true,
                           // Hide elements outside current step
                           ...mapValues(
                             otherProps.schema.properties,

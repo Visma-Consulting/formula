@@ -361,5 +361,17 @@
   },
   "H8QuK6": {
     "defaultMessage": "Captcha har gått ut. Gå tillbaka till formuläret och kontrollera captcha igen."
+  },
+  "xHIKd5": {
+    "defaultMessage": "Review you answers before submitting."
+  },
+  "2bIMAQ": {
+    "defaultMessage": "Review and submit form"
+  },
+  "iO1LSB": {
+    "defaultMessage": "Confirm and submit form"
+  },
+  "90nFnm": {
+    "defaultMessage": "Submit form"
   }
 }

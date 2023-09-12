@@ -1,3 +1,7 @@
 .public-DraftEditor-content {
   min-height: 140px;
 }
+
+a {
+  color: #0077C7;
+}

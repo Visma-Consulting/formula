@@ -288,7 +288,7 @@
     "defaultMessage": "\"{field}\" måste vara mindre än {limit}"
   },
   "yFga8M": {
-    "defaultMessage": "Start datum"
+    "defaultMessage": "Startdatum"
   },
   "l26Isu": {
     "defaultMessage": "Slutdatum"
@@ -364,5 +364,17 @@
   },
   "H8QuK6": {
     "defaultMessage": "Captcha-vahvistus on vanhentunut. Palaa lomakkeelle ja vahvista captcha uudelleen."
+  },
+  "xHIKd5": {
+    "defaultMessage": "Granska dina svar innan du skickar in."
+  },
+  "2bIMAQ": {
+    "defaultMessage": "Granska och skicka in formuläret"
+  },
+  "iO1LSB": {
+    "defaultMessage": "Bekräfta och skicka in formuläret"
+  },
+  "90nFnm": {
+    "defaultMessage": "Skicka formulär"
   }
 }
