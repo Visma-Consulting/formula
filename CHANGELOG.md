@@ -1,3 +1,8 @@
+# 0.4.209
+
+- API for usage counts
+- Link styling fixes
+
 # 0.4.208
 
 - Change fillProps action positions
