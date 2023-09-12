@@ -10,16 +10,16 @@ const useStyles = makeStyles({
   },
 });
 
-function Image(logoUrl) {
+function Image(logoUrl, alt) {
   const classes = useStyles();
 
-  return <img src={logoUrl} alt={'Logo'} className={classes.image} />;
+  return <img src={logoUrl} alt={alt ?? 'Logo'} className={classes.image} />;
 }
 
 export default (config) => (props) => {
   props.schema.title ??= config.useLabel ? config.label : config.logo ?
     <div style={{ overflow: 'hidden' }}>
-      {Image(config.logo)}
+      {Image(config.logo, config.logoAlt)}
     {config.title}
   </div> : config.title;
 };
