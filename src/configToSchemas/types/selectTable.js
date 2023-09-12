@@ -1,22 +1,37 @@
 import { defineMessage } from 'react-intl';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, RadioGroup, Radio, FormControlLabel } from "@mui/material";
-import {useState} from "react";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Radio } from "@mui/material";
+import {useEffect, useState} from "react";
 
-const getRow = (row, columns) => {
+const SelectTableRow = ({row, columns, formData, updateData}) => {
+  const onChange = (props, value) => {
+    if (props.target.checked) {
+      updateData(row, value);
+    }
+  }
+
   return <TableRow>
     <TableCell align="left" key={row.enum}>{row.title}</TableCell>
-    {columns.map(column => <TableCell align="center"><Radio/></TableCell>)}
+    {columns.map((column, index) => <TableCell align="center"><Radio onChange={(props) => onChange(props, index)} checked={formData === index}/></TableCell>)}
   </TableRow>
 }
 
 const SelectTable = (props) => {
-  console.log(props);
   const {uiSchema, formData, onChange} = props;
   const config = uiSchema['ui:options'].element;
-  console.log(config);
+  const [data, setData] = useState(formData ?? {});
   const {tableColumns = [], tableRows = []} = config;
 
   const tableHeaders = [<TableCell align="center" key="empty" />, ...tableColumns.map((column, index) => <TableCell align="center" key={`header-${index}`}>{column}</TableCell>)];
+
+  const updateRowData = (row, rowData) => {
+    const tempData = {...data};
+    tempData[row.enum] = rowData;
+    setData(tempData);
+  }
+
+  useEffect(() => {
+    onChange(data);
+  }, [data])
 
   return (<TableContainer>
     <Table size="small" style={{tableLayout: 'fixed'}}>
@@ -26,7 +41,7 @@ const SelectTable = (props) => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {tableRows.map(row => getRow(row, tableColumns))}
+        {tableRows.map(row => <SelectTableRow row={row} columns={tableColumns} formData={data[row.enum]} updateData={updateRowData} />)}
       </TableBody>
     </Table>
   </TableContainer>);
