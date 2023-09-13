@@ -75,6 +75,30 @@ export default (props) => {
     }
   }
 
+  // select table
+  if (schema.format === 'table') {
+    const {rows, columns} = uiSchema['ui:options'];
+    return (
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableCell key="header-empty" />
+            {columns.map((column,index) => <TableCell align="center" key={`header-${index}`}>{column}</TableCell>)}
+          </TableHead>
+          {rows.map((row) => {
+            const rowData = formData[row.enum];
+            return (
+              <TableRow>
+                <TableCell align="left">{row.title}</TableCell>
+                {columns.map((_,index) => <TableCell align="center">{rowData === index ? 'X' : ''}</TableCell>)}
+              </TableRow>
+            )
+          })}
+        </Table>
+      </TableContainer>
+    )
+  }
+
   // tables
   if (schema.properties?.table) {
     const columns = uiSchema['ui:options'].element.tableColumns;
