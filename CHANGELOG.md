@@ -1,3 +1,7 @@
+# 0.4.210
+
+- Upgrade to `@visma/rjsf-*@3.1.0-81`
+
 # 0.4.209
 
 - API for usage counts
