@@ -26,7 +26,8 @@ function ButtonWidget(props) {
         setValue(true);
       }
     } else if (options.element.onClickAction) {
-      options?.element?.onClickAction();
+      const buttonId = props.id
+      options?.element?.onClickAction(buttonId);
     }
   }
 
