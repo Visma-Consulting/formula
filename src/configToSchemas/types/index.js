@@ -14,7 +14,6 @@ export * as number from './number';
 export * as password from './password';
 export * as range from './range';
 export * as richtext from './richtext';
-export * as select from './select';
 export * as pageTitle from './stepTitle';
 export * as tableField from './tableField';
 export * as text from './text';
@@ -25,4 +24,4 @@ export * as compose from './compose';
 export * as button from './button';
 export * as subtitle from './subtitle';
 export * as summary from './summary';
-export * as selectV2 from './selectV2'
+export * as select from './selectV2'
