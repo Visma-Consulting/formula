@@ -1,6 +1,6 @@
 import { defineMessage } from 'react-intl';
 import { ensureValueIsAvailable, sortChoices } from '../../utils';
-import select from './select';
+import select from './selectV2';
 import extendType from './_extendType';
 import sift from 'sift';
 
