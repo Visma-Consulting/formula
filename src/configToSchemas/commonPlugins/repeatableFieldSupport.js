@@ -1,4 +1,4 @@
-const nonListFields = ['boolean', 'consent', 'tableField'];
+const nonListFields = ['boolean', 'consent', 'tableField', 'selectTable'];
 
 const getDefaultByType = (type) => {
   switch (type) {
