@@ -68,7 +68,7 @@ export default ({ config, fillProps }) => {
   }};
 
 export const name = defineMessage({
-  defaultMessage: 'ValintaV2',
+  defaultMessage: 'Valinta',
 });
 
 export const elementType = 'field';
