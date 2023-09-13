@@ -50,15 +50,16 @@ const SelectTable = (props) => {
 export default ({ config }) => {
   const { tableRows = [], tableColumns = [] } = config;
 
+  const properties = {}
+  for (const row of tableRows) {
+    properties[row.enum] = {type: 'number'}
+  }
+
   return {
     schema: {
       format: 'table',
       type: 'object',
-      elements: [
-        {
-          ...tableRows.map((row, index) => {return {type: 'number', key: row.enum ?? `${index}`, title: row.title}})
-        }
-      ]
+      properties: properties
     },
     uiSchema: {
       'ui:field': SelectTable,
