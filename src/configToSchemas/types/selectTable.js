@@ -1,6 +1,7 @@
 import { defineMessage } from 'react-intl';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Radio } from "@mui/material";
 import {useEffect, useState} from "react";
+import {defineMessages} from "@formatjs/intl";
 
 const SelectTableRow = ({row, columns, formData, updateData}) => {
   const onChange = (props, value) => {
@@ -73,6 +74,32 @@ export default ({ config }) => {
       }
     },
   };
+};
+
+const validationMessages = defineMessages({
+  emptyValue: {
+    defaultMessage: `Kaikkiin valintoihin taulukossa "{title}" täytyy vastata`
+  }
+});
+
+export const validators = {
+  required: {
+    name: defineMessage({
+      defaultMessage: 'Pakollinen valintataulukko'
+    }),
+    fn: (value, _) => {
+      if (value) {
+        const keys = Object.keys(value);
+        for (const key of keys) {
+          if (value[key] === undefined) {
+            return validationMessages.emptyValue;
+          }
+        }
+      } else {
+        return validationMessages.emptyValue;
+      }
+    }
+  }
 };
 
 export const name = defineMessage({

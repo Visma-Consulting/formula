@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 import { validators as textValidators } from './configToSchemas/types/text';
 import { validators as tableFieldValidators } from './configToSchemas/types/tableField';
 import { validators as formGroupValidators } from './configToSchemas/typePlugins/formGroupList';
+import { validators as selectTableValidators } from './configToSchemas/types/selectTable';
 import { generalValidators } from "./utils.js";
 import { useIntl } from 'react-intl';
 
@@ -28,7 +29,8 @@ export default function withCustomValidation(Form) {
         const validateFunctions = {
           text: textValidators,
           tableField: tableFieldValidators,
-          formGroup: formGroupValidators
+          formGroup: formGroupValidators,
+          selectTable: selectTableValidators
         }
 
         const validateOne = (formData, errors, element, listIndex) => {
