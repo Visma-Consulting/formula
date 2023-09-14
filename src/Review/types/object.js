@@ -88,7 +88,7 @@ export default (props) => {
           {rows.map((row) => {
             const rowData = formData[row.enum];
             return (
-              <TableRow>
+              <TableRow aria-label={`${row.title}: ${columns[rowData]}`}>
                 <TableCell align="left">{row.title}</TableCell>
                 {columns.map((_,index) => <TableCell align="center">{rowData === index ? 'X' : ''}</TableCell>)}
               </TableRow>

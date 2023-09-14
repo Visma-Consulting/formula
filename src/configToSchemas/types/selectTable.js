@@ -10,8 +10,12 @@ const SelectTableRow = ({row, columns, formData, updateData}) => {
   }
 
   return <TableRow>
-    <TableCell align="left" key={row.enum}>{row.title}</TableCell>
-    {columns.map((column, index) => <TableCell align="center"><Radio onChange={(props) => onChange(props, index)} checked={formData === index}/></TableCell>)}
+    <TableCell align="left" key={`row-${row.enum}`}>{row.title}</TableCell>
+    {columns.map((column, index) => (
+      <TableCell align="center">
+        <Radio size="small" aria-labelledby={`row-${row.enum}`} aria-describedby={`header-${index}`} onChange={(props) => onChange(props, index)} checked={formData === index}/>
+      </TableCell>))
+    }
   </TableRow>
 }
 
