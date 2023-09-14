@@ -37,20 +37,29 @@ export const converter = (formulaProps) => (props) => {
 
 const validationMessages = defineMessages({
   duplicateKey: {
-    defaultMessage: `"{title}" ei saa sisältää samaa tekstiavainta kahdesti.`
+    defaultMessage: `"{title}" ei saa sisältää samaa avainta kahdesti.`
+  },
+  missingKey: {
+    defaultMessage: `"{title}" ei saa sisältää alkioita, joilla ei ole avainta.`
   }
 });
 
 export const validators = {
-  noDuplicateElementKeys: {
+  noDuplicateEnums: {
     name: "Ei duplikaattiavaimia",
     fn: (value, element) => {
-      const keys = [];
-      for (const field of value) {
-        if (keys.includes(field.key)) {
-          return validationMessages.duplicateKey;
-        } else {
-          keys.push(field.key);
+      if (value && Object.keys(value)?.length > 0) {
+        const usedEnums = []
+        const keys = Object.keys(value);
+        for (const key of keys) {
+          const valueEnum = value[key].enum;
+          if (valueEnum === undefined || valueEnum === "") {
+            return validationMessages.missingKey;
+          } else if (usedEnums.includes(valueEnum)) {
+            return validationMessages.duplicateKey;
+          } else {
+            usedEnums.push(valueEnum);
+          }
         }
       }
     }
