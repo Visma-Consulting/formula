@@ -376,5 +376,11 @@
   },
   "90nFnm": {
     "defaultMessage": "Skicka formulär"
+  },
+  "VC/mTo": {
+    "defaultMessage": "Varje rad i tabellen \"{title}\" måste besvaras"
+  },
+  "kAb/RV": {
+    "defaultMessage": "Obligatorisk välj tabell"
   }
 }

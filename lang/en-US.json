@@ -373,5 +373,11 @@
   },
   "90nFnm": {
     "defaultMessage": "Submit form"
+  },
+  "VC/mTo": {
+    "defaultMessage": "Every row in table \"{title}\" must be answered"
+  },
+  "kAb/RV": {
+    "defaultMessage": "Required select table"
   }
 }
