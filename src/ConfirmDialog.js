@@ -109,7 +109,7 @@ export default forwardRef(function ConfirmDialog(
         open={open}
         onClose={handleDismiss}
         aria-labelledby="confirm-dialog-title"
-        aria-describedby="confirm-dialog-description"
+        {...description && {"aria-describedby": "confirm-dialog-description"}}
         fullScreen={useMediaQuery('print')}
         container={container}
         disableBackdropClick
