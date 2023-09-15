@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 function Image(logoUrl, alt) {
   const classes = useStyles();
 
-  return <img src={logoUrl} alt={alt ?? 'Logo'} className={classes.image} />;
+  return <img src={logoUrl} alt={alt ? alt : 'Logo'} className={classes.image} />;
 }
 
 export default (config) => (props) => {
