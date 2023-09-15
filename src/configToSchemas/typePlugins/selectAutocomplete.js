@@ -10,6 +10,7 @@ export function AutocompleteSelectField(props) {
   return (
     <Autocomplete
       options={props.schema.enumNames}
+      aria-label={utils.generateAriaLabel(props.schema.title, props.uiSchema['ui:options'], props.schema.required)}
       value={props.schema.enumNames[props.schema.enum.indexOf(props.formData)]}
       onChange={(event, value) =>
         props.onChange(props.schema.enum[props.schema.enumNames.indexOf(value)])
