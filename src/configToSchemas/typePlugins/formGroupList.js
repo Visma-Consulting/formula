@@ -44,13 +44,17 @@ const validationMessages = defineMessages({
 export const validators = {
   noDuplicateElementKeys: {
     name: "Ei duplikaattiavaimia",
-    fn: (value, element) => {
-      const keys = [];
-      for (const field of value) {
-        if (keys.includes(field.key)) {
-          return validationMessages.duplicateKey;
-        } else {
-          keys.push(field.key);
+    fn: (value, _) => {
+      if (value) {
+        const valueKeys = Object.keys(value);
+        const keys = [];
+        for (const valueKey of valueKeys) {
+          const elementKey = value[valueKey].key;
+          if (keys.includes(elementKey)) {
+            return validationMessages.duplicateKey;
+          } else {
+            keys.push(elementKey);
+          }
         }
       }
     }
