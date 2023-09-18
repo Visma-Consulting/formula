@@ -30,7 +30,6 @@ function DefaultSelect(props) {
               inputProps={{
                 'aria-labelledby': id,
               }}
-              InputLabelProps={{'aria-label': 'age selection'}}
             >
               {choicesSorted?.map((choice) => (
                 <MenuItem key={choice.enum} value={choice.enum}>
