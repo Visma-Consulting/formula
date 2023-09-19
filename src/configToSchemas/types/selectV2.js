@@ -52,15 +52,23 @@ export default ({ config, fillProps }) => {
   const choices = config.choices !== null ? config.choices : [];
   const autoSort = false;
   const choicesSorted = sortChoices(choices, autoSort);
+  const { defaults, autocomplete } = config
   return {
-    schema: {
-      type: 'string',
-      default: undefined,
-      enum: choicesSorted.map((v, i) => v?.enum ?? String(i)),
-      enumNames: choicesSorted.map((v) =>
-        typeof v === 'object' ? v.enumNames : v
-      ),
-    },
+    schema:
+      choicesSorted.length || autocomplete
+        ? {
+          default: defaults,
+          enum: choicesSorted.map((v, i) => v?.enum ?? String(i)),
+          enumNames: choicesSorted.map((v) =>
+            typeof v === 'object' ? v.enumNames : v
+          ),
+          type: 'string',
+        } :
+        {
+          type: 'string',
+          default: '',
+          readOnly: true,
+        },
     uiSchema: {
       'ui:placeholder': config.placeholder,
       'ui:enumDisabled': config.choicesDisabled,
