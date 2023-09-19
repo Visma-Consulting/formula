@@ -17,7 +17,7 @@ function DefaultSelect(props) {
     <div style={{display: 'flex'}}>
       <div style={{flex: '1 1'}}>
         <Box>
-          <FormControl variant="standard" sx={{ minWidth: '100%' }}>
+          <FormControl variant="standard" sx={{ minWidth: '100%' }} disabled={options.disabled || options.readonly}>
             <Select
               id={id}
               value={value || ''}
@@ -52,7 +52,7 @@ export default ({ config, fillProps }) => {
   const choices = config.choices !== null ? config.choices : [];
   const autoSort = false;
   const choicesSorted = sortChoices(choices, autoSort);
-  const { defaults, autocomplete } = config
+  const { default: defaults, autocomplete } = config
   return {
     schema:
       choicesSorted.length || autocomplete
