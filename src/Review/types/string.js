@@ -8,6 +8,14 @@ import { empty } from '..';
 import { StepTitle } from '../../configToSchemas/types/stepTitle';
 import { TitleField } from '../../configToSchemas/types/title';
 import Markdown from '../../Markdown';
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  image: {
+    maxWidth: '100%',
+    width: 'fit-content',
+  },
+});
 
 const dataUrlByteLength = (dataUrl) => byteLength(dataUrl.split(',')[1]);
 
@@ -20,6 +28,7 @@ function calculatePageTitleNumber(pageTitles, pageTitle) {
 export default ({ formData, schema, uiSchema, pageTitles, reviewProps}) => {
   const intl = useIntl();
   const { locale } = intl;
+  const classes = useStyles();
 
   if (schema.enumNames) {
     if (schema.inline) {
@@ -40,6 +49,11 @@ export default ({ formData, schema, uiSchema, pageTitles, reviewProps}) => {
         <hr style={{border: "1px solid"}}/>
       </>
     );
+  }
+
+  if (schema.additionalType === 'image') {
+    const element = uiSchema?.['ui:options']?.element;
+    return <img src={element.url} alt={element.altText} className={classes.image} />
   }
 
   if (schema.format === 'date') {
