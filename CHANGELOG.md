@@ -1,3 +1,11 @@
+# 0.4.211
+
+- Upgrade to `@visma/rjsf-*@3.1.0-82`
+- Select field upgrade
+- Aria label fixes
+- Duplicate text key validation
+- Logo custom alt text
+
 # 0.4.210
 
 - Upgrade to `@visma/rjsf-*@3.1.0-81`
