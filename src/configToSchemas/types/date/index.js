@@ -8,7 +8,7 @@ import "dayjs/locale/fi";
 import "dayjs/locale/en-gb";
 import "dayjs/locale/sv";
 import { add, sub } from 'date-fns';
-import { getAriaLabel } from '../../../utils';
+import { getAriaLabel, ariaDescribedBy } from '../../../utils';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { useEffect } from 'react';
@@ -74,7 +74,9 @@ function BasicDatePicker(props) {
     props.required,
     intl.formatMessage({defaultMessage: 'Pakollinen kenttä'})
   );
-
+  const ariaDaySelected = intl.formatMessage({defaultMessage: 'Valitse päivä, valittu päivä on'});
+  const ariaNoSelection = intl.formatMessage({defaultMessage: 'Valitse päivä'});
+  const ariaToUse = value ? `${ariaDaySelected} ${value?.format('YYYY-MM-DD')}` : ariaNoSelection;
   const handleLocaleText = () => {
     if(locale === 'fi-FI') {
       return fiFI?.components?.MuiLocalizationProvider?.defaultProps?.localeText;
@@ -112,6 +114,10 @@ function BasicDatePicker(props) {
           slotProps={{
             textField: {
               disabled: true
+            },
+            openPickerButton: {
+              'aria-label': `${ariaLabel}, ${ariaToUse}`,
+              'aria-describedby': ariaDescribedBy(props.id, props.uiSchema)
             }
           }}
         />
