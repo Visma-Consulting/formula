@@ -1,5 +1,5 @@
 import { TextField } from '@material-ui/core';
-import { Autocomplete } from '@material-ui/lab';
+import { Autocomplete, createFilterOptions } from '@material-ui/lab';
 import { utils } from '@visma/rjsf-core';
 import produce from 'immer';
 import { useContext } from 'react';
@@ -26,8 +26,14 @@ export const types = ['select', 'selectV2'];
 
 export function AutocompleteSelectField(props) {
   const classes = useStyles();
+  const matchFrom = props.uiSchema["ui:options"]?.element?.matchFromStart ? 'start' : 'any';
+  const filterOptions = createFilterOptions({
+    matchFrom: matchFrom,
+    ignoreAccents: false
+  })
   return (
     <Autocomplete
+      filterOptions={filterOptions}
       options={props.schema.enumNames}
       value={props.schema.enumNames[props.schema.enum.indexOf(props.formData)]}
       onChange={(event, value) =>
