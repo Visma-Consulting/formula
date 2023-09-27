@@ -10,7 +10,7 @@ function CheckboxWidget({ options, onChange, value, id }) {
   const title = (useLabel ? label : options.element.title) + (required ? ' *' : '');
   return (
     <>
-      <Typography component="label" variant="subtitle1">
+      <Typography component="p" variant="subtitle1">
         {title}
       </Typography>
       <br/>
