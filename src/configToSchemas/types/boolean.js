@@ -3,15 +3,17 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import { defineMessage, useIntl } from 'react-intl';
 import { ensureValueIsAvailable } from '../../utils';
+import { utils } from '@visma/rjsf-core';
 
-const Switch = ({ onChange, options, schema, value }) => {
+const Switch = ({ onChange, options, schema, value, id, rawErrors }) => {
   const title = options.element.required ? schema.title + ' *' : schema.title;
   return(
     <>
       <Typography component="p" variant="subtitle1">{title}</Typography>
-      {options?.element?.list ? <></> : <FormHelperText component="span" variant="contained" >{options?.element?.description}</FormHelperText> }
+      {options?.element?.list ? <></> : <FormHelperText id={`${id}__description`} component="span" variant="contained" >{options?.element?.description}</FormHelperText> }
       <ToggleButtonGroup
         exclusive
+        aria-labelledby={utils.ariaDescribedBy(id, options, rawErrors)}
         value={value}
         onChange={(event, value) => {
           value === null ? onChange(undefined) : onChange(value);
