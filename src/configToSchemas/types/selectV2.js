@@ -72,7 +72,7 @@ export default ({ config, fillProps }) => {
     uiSchema: {
       'ui:placeholder': config.placeholder,
       'ui:enumDisabled': config.choicesDisabled,
-      'ui:widget': (config?.type === 'select' && config.widget === undefined) ? DefaultSelect : config?.widget?.endsWith('Row') ? config.widget.slice(0,-3) : config.widget,
+      'ui:widget': (config?.type === 'select' && (config.widget === undefined || config.widget === 'select')) ? DefaultSelect : config?.widget?.endsWith('Row') ? config.widget.slice(0,-3) : config.widget,
       'ui:options': {
         inline: config?.widget && config?.widget.endsWith('Row'),
         showScore: fillProps?.showScores
