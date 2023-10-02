@@ -9,7 +9,7 @@ import { Typography } from '@material-ui/core';
 import { utils } from '@visma/rjsf-core';
 
 function DefaultSelect(props) {
-  const { id, options, value, onChange, label, onBlur, onFocus, uiSchema, required} = props;
+  const { id, options, value, onChange, label, onBlur, onFocus, uiSchema, required, rawErrors} = props;
   const choicesSorted = sortChoices(options?.element?.choices, options?.element?.autoSort);
   const scoreObject = uiSchema["ui:options"]?.showScore ? choicesSorted.find( choice => choice.enum === value) : undefined
 
@@ -23,6 +23,7 @@ function DefaultSelect(props) {
               value={value || ''}
               label={label}
               aria-label={utils.generateAriaLabel(label, options, required)}
+              aria-describedby={utils.ariaDescribedBy(id, uiSchema, rawErrors)}
               onBlur={onBlur}
               onFocus={onFocus}
               onChange={(e) => onChange(e.target.value)}
@@ -72,7 +73,7 @@ export default ({ config, fillProps }) => {
     uiSchema: {
       'ui:placeholder': config.placeholder,
       'ui:enumDisabled': config.choicesDisabled,
-      'ui:widget': (config?.type === 'select' && config.widget === undefined) ? DefaultSelect : config?.widget?.endsWith('Row') ? config.widget.slice(0,-3) : config.widget,
+      'ui:widget': (config?.type === 'select' && (config.widget === undefined || config.widget === 'select')) ? DefaultSelect : config?.widget?.endsWith('Row') ? config.widget.slice(0,-3) : config.widget,
       'ui:options': {
         inline: config?.widget && config?.widget.endsWith('Row'),
         showScore: fillProps?.showScores
