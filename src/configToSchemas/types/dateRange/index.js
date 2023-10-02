@@ -15,6 +15,7 @@ import Button from '@material-ui/core/Button';
 import { mapValues } from 'lodash';
 import { DateRangePickerPhrases } from '../../../../lib/configToSchemas/types/date/phrases';
 import { getAriaLabel } from '../../../utils.js';
+import { utils } from '@visma/rjsf-core';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function DateRangePickerField(props) {
-  const { idSchema, onChange, schema, formData, uiSchema, required } = props;
+  const { idSchema, onChange, schema, formData, uiSchema, required, rawErrors } = props;
   const intl = useIntl();
   const [focusedInput, setFocusedInput] = useState();
   const { element: {disableEnd, disableStart}, dateFormat } = props.uiSchema['ui:options'];
@@ -88,7 +89,7 @@ function DateRangePickerField(props) {
   );
 
   return (
-    <div className={classes.dateBox}>
+    <div className={classes.dateBox} aria-labelledby={utils.ariaDescribedBy(idSchema.$id, uiSchema, rawErrors)}>
       <DateRangePicker
         onDatesChange={({ startDate, endDate }) => (startDate || endDate) && onChange({ start: startDate?.format('YYYY-MM-DD'), end: endDate?.format('YYYY-MM-DD')})}
         onFocusChange={handleFocusChange}

@@ -5,6 +5,7 @@ import { useStatePreferInitial } from '../utils';
 import './styles.css';
 import { editor } from './styles.module.css';
 import useToolbarConfig from './toolbarConfig';
+import { utils } from '@visma/rjsf-core';
 
 const isMobile = do {
   const x = navigator.userAgent || navigator.vendor || window.opera;
@@ -31,10 +32,11 @@ const RichText = isMobile
             setValue(value);
           }}
           onBlur={() => props.onChange(value)}
+          aria-labelledby={utils.ariaDescribedBy(props.id, props.uiSchema, props.rawErrors)}
         />
       );
     }
-  : function RichText({ value, onChange, options }) {
+  : function RichText({ value, onChange, options, uiSchema, id, rawErrors }) {
       const setState = () =>
         RichTextEditor.createValueFromString(
           String(value)?.replace(/\\/g, '\\\\').replace('\\*', '*') ?? '',
@@ -64,7 +66,7 @@ const RichText = isMobile
       }, []);
 
       return (
-        <div className={editor} tabIndex={0} aria-label={useLabel ? label : title}>
+        <div className={editor} tabIndex={0} aria-label={useLabel ? label : title} aria-labelledby={utils.ariaDescribedBy(id, uiSchema, rawErrors)}>
           <RichTextEditor
             ref={editorRef}
             toolbarConfig={toolbarConfig}

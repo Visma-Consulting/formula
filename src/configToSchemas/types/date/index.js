@@ -12,6 +12,7 @@ import { getAriaLabel, ariaDescribedBy } from '../../../utils';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { useEffect } from 'react';
+import { utils } from '@visma/rjsf-core';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -67,6 +68,7 @@ function BasicDatePicker(props) {
   const { locale } = intl;
   const { disableBefore, disableAfter } = options?.element;
   const classes = useStyles();
+  console.log(props);
 
   const ariaLabel = getAriaLabel(
     props.label,
@@ -109,6 +111,7 @@ function BasicDatePicker(props) {
             },
           }}
           arialabel={ariaLabel}
+          aria-describedby={utils.ariaDescribedBy(props.id, props.uiSchema, props.rawErrors)}
           format={props?.options?.dateFormat ?? 'D.M.YYYY'}
           onChange={setValue}
           slotProps={{
