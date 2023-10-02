@@ -68,7 +68,6 @@ function BasicDatePicker(props) {
   const { locale } = intl;
   const { disableBefore, disableAfter } = options?.element;
   const classes = useStyles();
-  console.log(props);
 
   const ariaLabel = getAriaLabel(
     props.label,
