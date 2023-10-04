@@ -8,6 +8,59 @@ import { format } from 'date-fns';
 import Field from '../Field';
 import { dynamicElements } from '../../useDynamicElements';
 
+
+const STATIC_ELEMENTS = ['body', 'image', 'title', 'pageTitle', 'subtitle', 'review']
+
+const isAnswered = (element, formData) => {
+  if (STATIC_ELEMENTS.includes(element.type)) {
+    // Static elements like body, title etc
+    return true;
+  } else if (formData === undefined || formData === '' || formData.length === 0) {
+    // Formdata is empty
+    return false;
+  } else if (element.list) {
+    // Check every item in a list. If even one exists, return true
+    for (const formDatum of formData) {
+      if (isAnswered({...element, list: false}, formDatum)) {
+        return true;
+      }
+    }
+    return false;
+  } else {
+    // check rest of the situations based on element.type
+    switch (element.type) {
+      case 'dateRange': return formData.start || formData.end;
+      case 'boolean':
+        if (formData) {
+          return true;
+        } else {
+          return element.widget !== 'checkbox';
+        }
+      case 'tableField':
+        if (formData.table.length === 0) {
+          return false;
+        } else {
+          for (const row of formData.table) {
+            for (const column of row) {
+              if (column && column !== '') {
+                return true;
+              }
+            }
+          }
+          return false;
+        }
+      case 'formGroup':
+        for (const subElement of element.elements) {
+          if (isAnswered(subElement, formData[subElement.key])) {
+            return true;
+          }
+        }
+        return false;
+      default: return true;
+    }
+  }
+}
+
 export default (props) => {
   const { formData, schema, uiSchema, ...otherProps } = props;
 
@@ -53,7 +106,8 @@ export default (props) => {
       ).elements.map(element => element.key);
       return uiSchema['ui:order'].filter((name) => {
         return elementKeys.includes(name);
-      }).map((name) => (
+      }).filter(key => isAnswered(uiSchema[key]?.['ui:options']?.items?.element ?? uiSchema[key]?.['ui:options']?.element, formData[key]))
+        .map((name) => (
         <Field
           {...otherProps}
           key={name}
@@ -63,14 +117,16 @@ export default (props) => {
         />
       ));
     } else {
-      return uiSchema['ui:order'].map((name) => (
-        <Field
-          {...otherProps}
-          key={name}
-          formData={formData?.[name]}
-          schema={schema.properties[name]}
-          uiSchema={uiSchema?.[name]}
-        />
+      return uiSchema['ui:order']
+        .filter(key => isAnswered(props.config.elements.find(el => el.key === key), formData[key]))
+        .map((name) => (
+          <Field
+            {...otherProps}
+            key={name}
+            formData={formData?.[name]}
+            schema={schema.properties[name]}
+            uiSchema={uiSchema?.[name]}
+          />
       ));
     }
   }
