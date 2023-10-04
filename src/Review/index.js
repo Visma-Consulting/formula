@@ -88,7 +88,7 @@ export default function Review(props) {
             checked={hideNotAnswered}
             onChange={props => setHideNotAnswered(props.target.checked)}
             control={<Checkbox/>}
-            label="Piilota vastaamattomat kysymykset" />
+            label={intl.formatMessage({defaultMessage: 'Piilota vastaamattomat kysymykset'})} />
           : <></>
       }
       <Field root {...props} pageTitles={pageTitlesArray} hideNotAnswered={hideNotAnswered} />
