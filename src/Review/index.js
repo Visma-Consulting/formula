@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 import Markdown from '../Markdown';
 import { PrintButton } from '../PrintButton';
 import Field from './Field';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useState} from 'react';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
@@ -34,6 +34,13 @@ const useStyles = makeStyles((theme) => ({
   fontWeight: 'bold',
   fontSize: '1.1em'
 },
+  noPrint: {
+    '& > *': {
+      '@media print': {
+        display: 'none',
+      },
+    },
+  }
 
 }));
 
@@ -85,9 +92,14 @@ export default function Review(props) {
       {
         props.reviewProps?.hideNotAnswered
           ? <FormControlLabel
+            className={classes.noPrint}
             checked={hideNotAnswered}
             onChange={props => setHideNotAnswered(props.target.checked)}
-            control={<Checkbox/>}
+            control={<Checkbox sx={{'& > *': {
+                '@media print': {
+                  display: 'none',
+                },
+              }}}/>}
             label={intl.formatMessage({defaultMessage: 'Piilota vastaamattomat kysymykset'})} />
           : <></>
       }
