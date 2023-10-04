@@ -95,6 +95,7 @@ export default (props) => {
 
   // forms and formGroups
   if (uiSchema['ui:order']) {
+    console.log(props);
     if (uiSchema['ui:options']?.element?.type === 'formGroup') {
       const elementKeys = dynamicElements(
         {
@@ -106,7 +107,7 @@ export default (props) => {
       ).elements.map(element => element.key);
       return uiSchema['ui:order'].filter((name) => {
         return elementKeys.includes(name);
-      }).filter(key => isAnswered(uiSchema[key]?.['ui:options']?.items?.element ?? uiSchema[key]?.['ui:options']?.element, formData[key]))
+      }).filter(key => props.hideNotAnswered ? isAnswered(props.config.elements.find(el => el.key === key), formData[key]) : true)
         .map((name) => (
         <Field
           {...otherProps}
@@ -118,7 +119,7 @@ export default (props) => {
       ));
     } else {
       return uiSchema['ui:order']
-        .filter(key => isAnswered(props.config.elements.find(el => el.key === key), formData[key]))
+        .filter(key => props.hideNotAnswered ? isAnswered(props.config.elements.find(el => el.key === key), formData[key]) : true)
         .map((name) => (
           <Field
             {...otherProps}

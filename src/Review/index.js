@@ -4,7 +4,9 @@ import { useIntl } from 'react-intl';
 import Markdown from '../Markdown';
 import { PrintButton } from '../PrintButton';
 import Field from './Field';
-import { useEffect, useRef } from 'react';
+import {useEffect, useRef, useState} from 'react';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 const useStyles = makeStyles((theme) => ({
   buttonContainer: {
@@ -42,6 +44,7 @@ export default function Review(props) {
   const showSuccessText = props.reviewProps?.showSuccessText !== false;
   const highlightSuccessText = props.reviewProps?.highlightSuccessText;
   const summaries = config?.elements?.filter(element => element.type === 'summary');
+  const [hideNotAnswered, setHideNotAnswered] = useState(props.reviewProps?.hideNotAnswered ?? false);
   useEffect(() => {
     window.scrollTo(0, 0)
   }, []);
@@ -79,7 +82,16 @@ export default function Review(props) {
         showSuccessText && config?.showSuccessTextOnTop ?
           checkSuccessHighlight(): <></>
       }
-      <Field root {...props} pageTitles={pageTitlesArray} />
+      {
+        props.reviewProps?.hideNotAnswered
+          ? <FormControlLabel
+            checked={hideNotAnswered}
+            onChange={props => setHideNotAnswered(props.target.checked)}
+            control={<Checkbox/>}
+            label="Piilota vastaamattomat kysymykset" />
+          : <></>
+      }
+      <Field root {...props} pageTitles={pageTitlesArray} hideNotAnswered={hideNotAnswered} />
       {
         showSuccessText && !config?.showSuccessTextOnTop ?
           checkSuccessHighlight() : <></>
