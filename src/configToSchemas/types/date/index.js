@@ -13,6 +13,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { useEffect } from 'react';
 import { utils } from '@visma/rjsf-core';
+import { useMediaQuery } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -68,7 +69,7 @@ function BasicDatePicker(props) {
   const { locale } = intl;
   const { disableBefore, disableAfter } = options?.element;
   const classes = useStyles();
-
+  const isDesktop = useMediaQuery('@media (pointer: fine)');
   const ariaLabel = getAriaLabel(
     props.label,
     props.options,
@@ -115,7 +116,8 @@ function BasicDatePicker(props) {
           onChange={setValue}
           slotProps={{
             textField: {
-              disabled: true
+              disabled: isDesktop,
+              placeholder: ''
             },
             openPickerButton: {
               'aria-label': `${ariaLabel}, ${ariaToUse}`,
