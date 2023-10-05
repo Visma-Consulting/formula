@@ -1,8 +1,9 @@
 import { defineMessage } from 'react-intl';
 import { Typography, Checkbox, FormControlLabel, FormHelperText } from '@material-ui/core';
+import { utils } from '@visma/rjsf-core';
 
 
-function CheckboxWidget({ options, onChange, value, id }) {
+function CheckboxWidget({ options, onChange, value, id, rawErrors }) {
   const required = options.element?.required;
   const useLabel = options.element?.useLabel;
   const label = options.element?.label;
@@ -17,7 +18,7 @@ function CheckboxWidget({ options, onChange, value, id }) {
       {(useLabel === false || useLabel === undefined)&& (
         <Typography component="span" variant="subtitle1" >{label}</Typography>
       )}
-      <FormHelperText component="span" variant="contained" >{options?.element?.description}</FormHelperText>
+      <FormHelperText id={`${id}__description`} component="span" variant="contained" >{options?.element?.description}</FormHelperText>
 
       <FormControlLabel
         control={
@@ -28,7 +29,9 @@ function CheckboxWidget({ options, onChange, value, id }) {
             checked={value}
           />
         }
-        label={consentMessage}/>
+        label={consentMessage}
+        aria-labelledby={utils.ariaDescribedBy(id, options, rawErrors)}
+      />
     </>
   );
 }

@@ -69,6 +69,7 @@ function TableField(props) {
     uiSchema,
     idSchema,
     schema,
+    rawErrors
   } = props;
   const config = uiSchema['ui:options'].element;
   const {
@@ -171,8 +172,8 @@ function TableField(props) {
 
   return (
     <div>
-      <FormHelperText component="span">{description}</FormHelperText>
-      <TableContainer>
+      <FormHelperText id={`${idSchema.$id}__description`} component="span">{description}</FormHelperText>
+      <TableContainer aria-describedby={utils.ariaDescribedBy(idSchema.$id, uiSchema, rawErrors)}>
         <Table size="small">
           <TableHead>
             <TableRow>{tableHeaders}</TableRow>
