@@ -129,6 +129,7 @@ export default forwardRef(function ConfirmDialog(
               <Field
                 preview // For selecting optional preview / review customization
                 root
+                hideNotAnswered={otherProps.reviewProps?.hideNotAnswered}
                 pageTitles={pageTitlesArray}
                 {...otherProps}
               />
