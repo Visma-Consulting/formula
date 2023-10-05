@@ -1,3 +1,10 @@
+# 0.4.213
+
+- Upgrade to `@visma/rjsf-*@3.1.0-84`
+- Hide unanswered fields in review
+- Accessibility aria-describedby upgrades
+- Date field mobile fix
+
 # 0.4.211
 
 - Upgrade to `@visma/rjsf-*@3.1.0-82`
