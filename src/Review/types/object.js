@@ -117,17 +117,58 @@ export default (props) => {
         />
       ));
     } else {
-      return uiSchema['ui:order']
-        .filter(key => props.hideNotAnswered ? isAnswered(props.config.elements.find(el => el.key === key), formData[key]) : true)
-        .map((name) => (
-          <Field
-            {...otherProps}
-            key={name}
-            formData={formData?.[name]}
-            schema={schema.properties[name]}
-            uiSchema={uiSchema?.[name]}
-          />
-      ));
+      if (props.hideNotAnswered) {
+        return uiSchema['ui:order']
+          .filter(key => isAnswered(props.config.elements.find(el => el.key === key), formData[key]))
+          .map((name) => (
+            <Field
+              {...otherProps}
+              key={name}
+              formData={formData?.[name]}
+              schema={schema.properties[name]}
+              uiSchema={uiSchema?.[name]}
+            />
+          ));
+
+        /*
+        // Remove empty pages. Remove comments from lines 121-133 and 159 to use
+        const hiddenRemovedKeys = uiSchema['ui:order']
+          .filter(key => isAnswered(props.config.elements.find(el => el.key === key), formData[key]));
+        const noEmptyPages = [];
+        // eslint-disable-next-line @super-template/no-loops/no-loops
+        for (const i in hiddenRemovedKeys) {
+          if (Number(i) < hiddenRemovedKeys.length - 1) {
+            const currentElement = props.config.elements.find(el => el.key === hiddenRemovedKeys[i]);
+            const nextElement = props.config.elements.find(el => el.key === hiddenRemovedKeys[Number(i) + 1]);
+            if (!(currentElement.type === 'pageTitle' && nextElement.type === 'pageTitle')) {
+              noEmptyPages.push(hiddenRemovedKeys[i])
+            }
+          } else if (props.config.elements.find(el => el.key === hiddenRemovedKeys[i]).type !== 'pageTitle') {
+            noEmptyPages.push(hiddenRemovedKeys[i])
+          }
+        }
+        return noEmptyPages.map((name) => (
+            <Field
+              {...otherProps}
+              key={name}
+              formData={formData?.[name]}
+              schema={schema.properties[name]}
+              uiSchema={uiSchema?.[name]}
+            />
+          ));
+          */
+      } else {
+        return uiSchema['ui:order']
+          .map((name) => (
+            <Field
+              {...otherProps}
+              key={name}
+              formData={formData?.[name]}
+              schema={schema.properties[name]}
+              uiSchema={uiSchema?.[name]}
+            />
+          ));
+      }
     }
   }
 
