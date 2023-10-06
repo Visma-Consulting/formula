@@ -24,7 +24,7 @@ const SelectTable = (props) => {
   const {uiSchema, formData, onChange} = props;
   const config = uiSchema['ui:options'].element;
   const [data, setData] = useState(formData ?? {});
-  const {tableColumns = [], tableRows = []} = config;
+  const {tableColumns = [], selectTableRows = []} = config;
 
   const tableHeaders = [<TableCell align="center" key="empty" />, ...tableColumns.map((column, index) => <TableCell align="center" key={`header-${index}`}>{column}</TableCell>)];
 
@@ -36,7 +36,7 @@ const SelectTable = (props) => {
 
   useEffect(() => {
     onChange(data);
-  }, [data])
+  }, [data]);
 
   return (<TableContainer>
     <Table size="small" style={{tableLayout: 'fixed'}}>
@@ -46,17 +46,17 @@ const SelectTable = (props) => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {tableRows.map(row => <SelectTableRow row={row} columns={tableColumns} formData={data[row.enum]} updateData={updateRowData} />)}
+        {selectTableRows.map(row => <SelectTableRow row={row} columns={tableColumns} formData={data[row.enum]} updateData={updateRowData} />)}
       </TableBody>
     </Table>
   </TableContainer>);
 }
 
 export default ({ config }) => {
-  const { tableRows = [], tableColumns = [] } = config;
+  const { selectTableRows = [], tableColumns = [] } = config;
 
   const properties = {}
-  for (const row of tableRows) {
+  for (const row of selectTableRows) {
     properties[row.enum] = {type: 'number'}
   }
 
@@ -69,7 +69,7 @@ export default ({ config }) => {
     uiSchema: {
       'ui:field': SelectTable,
       'ui:options': {
-        rows: tableRows,
+        rows: selectTableRows,
         columns: tableColumns
       }
     },
