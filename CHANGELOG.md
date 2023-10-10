@@ -1,3 +1,7 @@
+# 0.4.214
+
+- Hide unanswered fields in review bugfixcd @
+
 # 0.4.213
 
 - Upgrade to `@visma/rjsf-*@3.1.0-84`
