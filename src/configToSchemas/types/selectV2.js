@@ -51,9 +51,8 @@ function DefaultSelect(props) {
 }
 export default ({ config, fillProps }) => {
   const choices = config.choices !== null ? config.choices : [];
-  const autoSort = false;
+  const { default: defaults, autocomplete, autoSort = false } = config
   const choicesSorted = sortChoices(choices, autoSort);
-  const { default: defaults, autocomplete } = config
   return {
     schema:
       choicesSorted.length || autocomplete
