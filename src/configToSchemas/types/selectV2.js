@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { defineMessage } from 'react-intl';
-import { sortChoices } from '../../utils';
+import {ensureValueIsAvailable, sortChoices} from '../../utils';
 import { Typography } from '@material-ui/core';
 import { utils } from '@visma/rjsf-core';
 
@@ -72,7 +72,7 @@ export default ({ config, fillProps }) => {
     uiSchema: {
       'ui:placeholder': config.placeholder,
       'ui:enumDisabled': config.choicesDisabled,
-      'ui:widget': (config?.type === 'select' && (config.widget === undefined || config.widget === 'select')) ? DefaultSelect : config?.widget?.endsWith('Row') ? config.widget.slice(0,-3) : config.widget,
+      'ui:widget': (config?.type === 'select' && (config.widget === undefined || config.widget === 'select')) ? DefaultSelect : config?.widget?.endsWith('Row') ? config.widget.slice(0,-3) : ensureValueIsAvailable(config.widget, widgets),
       'ui:options': {
         inline: config?.widget && config?.widget.endsWith('Row'),
         showScore: fillProps?.showScores
