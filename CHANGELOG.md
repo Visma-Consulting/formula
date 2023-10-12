@@ -1,3 +1,9 @@
+# 0.4.215
+
+- Broken aria fix
+- Error when switching field type in editor
+- Upgrade to `@visma/rjsf-*@3.1.0-85`
+
 # 0.4.214
 
 - Hide unanswered fields in review bugfixcd @
