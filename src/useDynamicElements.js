@@ -54,6 +54,11 @@ function resetDisabledToDefaultValues(formData, initialFormData, config, allDisa
 
   for (const key in formData) {
     const element = config.elements.find(element => element.key === key);
+
+    if(element?.filter?.show?.query && resetFormData && !sift(element.filter.show.query)(formData)) {
+      delete resetFormData[element.key];
+    }
+
     if (allDisabled || (element?.filter?.enable && !sift(element.filter.enable.query)(formData))) {
       if (initialFormData && initialFormData[key]) {
         resetFormData[key] = initialFormData[key];
