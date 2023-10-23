@@ -91,6 +91,8 @@ function TableField(props) {
 
   const classes = useStyles();
 
+  const ariaDescribedby = utils.ariaDescribedBy(idSchema.$id, uiSchema, rawErrors);
+
   const onPropertyChange = (tableData) => {
     onChange({ table: tableData }, errorSchema);
     if (totalRows !== tableData.length) {
@@ -137,7 +139,7 @@ function TableField(props) {
                 tableData[rowNum][colNum] = event.target.value || defaultValue;
                 onPropertyChange(tableData);
               }}
-              InputProps={{classes: { formControl: classes.inputFormControl} }}
+              InputProps={{classes: { formControl: classes.inputFormControl}, 'aria-describedby': ariaDescribedby}}
               InputLabelProps={{
                 htmlFor: `${id}-${rowNum}-${colNum}`,
                 shrink: false,
@@ -173,7 +175,7 @@ function TableField(props) {
   return (
     <div>
       <FormHelperText id={`${idSchema.$id}__description`} component="span">{description}</FormHelperText>
-      <TableContainer aria-describedby={utils.ariaDescribedBy(idSchema.$id, uiSchema, rawErrors)}>
+      <TableContainer>
         <Table size="small">
           <TableHead>
             <TableRow>{tableHeaders}</TableRow>

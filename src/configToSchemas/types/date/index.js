@@ -111,17 +111,17 @@ function BasicDatePicker(props) {
             },
           }}
           arialabel={ariaLabel}
-          aria-describedby={utils.ariaDescribedBy(props.id, props.uiSchema, props.rawErrors)}
           format={props?.options?.dateFormat ?? 'D.M.YYYY'}
           onChange={setValue}
           slotProps={{
             textField: {
               disabled: isDesktop,
-              placeholder: ''
+              placeholder: '',
+              'aria-describedby': utils.ariaDescribedBy(props.id, props.uiSchema, props.rawErrors)
             },
             openPickerButton: {
               'aria-label': `${ariaLabel}, ${ariaToUse}`,
-              'aria-describedby': ariaDescribedBy(props.id, props.uiSchema)
+              'aria-describedby': utils.ariaDescribedBy(props.id, props.uiSchema, props.rawErrors)
             }
           }}
         />

@@ -40,12 +40,12 @@ export function AutocompleteSelectField(props) {
         props.onChange(props.schema.enum[props.schema.enumNames.indexOf(value)])
       }
       getOptionSelected={(option, value) => option === value}
+      aria-describedby={utils.ariaDescribedBy(props.idSchema.$id, props.uiSchema, props.rawErrors)}
       renderInput={(params) =>
         <TextField
           {...params}
           hiddenLabel
           label={utils.generateAriaLabel(props.schema.title, props.uiSchema?.['ui:options'], props.required)}
-          aria-describedby={utils.ariaDescribedBy(props.idSchema.$id, props.uiSchema, props.rawErrors)}
           InputLabelProps={{shrink: false, className: classes.inputLabelRoot}}
         />
       }
