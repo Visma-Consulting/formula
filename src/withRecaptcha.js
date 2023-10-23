@@ -2,7 +2,7 @@ import { forwardRef, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage, useIntl } from 'react-intl';
 import Button from '@material-ui/core/Button';
-import ReCAPTCHA from 'react-google-recaptcha';
+import ReCAPTCHA from 'react-google-invisible-recaptcha';
 import { useTheme } from '@material-ui/core';
 import { useConfig } from './client';
 
@@ -55,7 +55,7 @@ export default function withRecaptcha(Form) {
               sitekey={recaptcha.sitekey}
               theme={theme}
               hl={intl.locale?.split('-')[0]}
-              onChange={setCaptchaChallenge}
+              onResolved={setCaptchaChallenge}
               className={classes.recaptcha} />
           </div>
           <div className={classes.buttonContainer}>
@@ -63,8 +63,7 @@ export default function withRecaptcha(Form) {
               type="submit"
               variant="contained"
               color="primary"
-              disabled={!captchaChallenge}
-              onClick={() => setHideCaptcha(true)}
+              onClick={() => recaptchaComponent.execute()}
             >
               <FormattedMessage defaultMessage="Lähetä" />
             </Button>
