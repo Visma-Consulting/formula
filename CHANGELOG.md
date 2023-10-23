@@ -1,3 +1,11 @@
+# 0.4.216
+
+- Decimal amount in number type
+- Recaptcha changed to invisible badge
+- Bugfix: removing formdata from filtered items
+- Accessibility: screen reading description, help and errors
+- Upgrade to `@visma/rjsf-*@3.1.0-86`
+
 # 0.4.215
 
 - Broken aria fix
