@@ -27,6 +27,7 @@ export default function withConfirmSubmit(Form) {
         onPostSubmit,
         formDataAction,
         credentials,
+        credentialsCallback,
         dataIsDraft,
         customMessages,
         layer,
@@ -94,9 +95,10 @@ export default function withConfirmSubmit(Form) {
                     _id: otherProps.dataId
                   };
                   try {
+                    const callbackCredentials = credentialsCallback ? await credentialsCallback() : credentials;
                     const response = await onSubmit(
                       data,
-                      credentials,
+                      callbackCredentials,
                       formDataAction,
                       dataIsDraft,
                       layer,
@@ -127,7 +129,7 @@ export default function withConfirmSubmit(Form) {
                   >
                     {customMessages?.submit ?? <FormattedMessage defaultMessage="Lähetä" />}
                   </Button>
-                  </div>}
+                </div>}
             </Form>
           </div>
         </>
