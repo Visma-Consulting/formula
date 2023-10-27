@@ -66,6 +66,7 @@ export default function withConfirmSubmit(Form) {
             <Form
               ref={ref}
               credentials={credentials}
+              credentialsCallback={credentialsCallback}
               formDataAction={formDataAction}
               dataIsDraft={dataIsDraft}
               customMessages={customMessages}
