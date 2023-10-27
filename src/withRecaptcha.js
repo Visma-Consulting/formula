@@ -1,4 +1,4 @@
-import { forwardRef, useState } from 'react';
+import {forwardRef, useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage, useIntl } from 'react-intl';
 import Button from '@material-ui/core/Button';
@@ -49,6 +49,26 @@ export default function withRecaptcha(Form) {
           }}
           captcha={captchaChallenge}
           onCloseDialog={onCloseDialog} >
+          <div className={classes.buttonContainer}>
+            {captchaChallenge === undefined &&
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => {recaptchaComponent.execute()}}
+              >
+                <FormattedMessage defaultMessage="En ole robotti" />
+              </Button>
+            }
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={captchaChallenge === undefined}
+            >
+              <FormattedMessage defaultMessage="Lähetä" />
+            </Button>
+            {fillProps?.actions ?? null}
+          </div>
           <div style={hideCaptcha ? {display: 'none'} : {}}>
             <ReCAPTCHA
               ref={e => setRecaptchaComponent(e)}
@@ -57,17 +77,6 @@ export default function withRecaptcha(Form) {
               hl={intl.locale?.split('-')[0]}
               onResolved={setCaptchaChallenge}
               className={classes.recaptcha} />
-          </div>
-          <div className={classes.buttonContainer}>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              onClick={() => recaptchaComponent.execute()}
-            >
-              <FormattedMessage defaultMessage="Lähetä" />
-            </Button>
-            {fillProps?.actions ?? null}
           </div>
         </Form>
       )
