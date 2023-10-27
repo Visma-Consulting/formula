@@ -113,13 +113,13 @@
 </tr>
 <tr>
 <td><code>reviewProps</code></td>
-<td><code>{ actions: ReactNode, showSuccessText: boolean, highlightSuccessText: boolean, hideNotAnswered: boolean }</code></td>
-<td>actions: Additional action buttons<br/>showSuccessText: show success text and summary in review, default <code>true</code><br/>highlightSuccessText: make summary more noticeable, default <code>false</code><br/>hideNotAnswered: hide not answered fields in review, user can see the full form by unchecking a checkbox, default <code>false</code></td>
+<td><code>{ actions: ReactNode, showSuccessText: boolean }</code></td>
+<td>actions: Additional action buttons. showSuccessText: show success text and summary in review, default <code>true</code></td>
 </tr>
 <tr>
 <td><code>fillProps</code></td>
-<td><code>{ actions: ReactNode, disableSteps: boolean, disableResetFormdata: boolean, disableElementButtons: boolean, showScores: boolean }</code></td>
-<td>actions: Additional action buttons<br/>disableSteps: disables steps when filling the form, default <code>false</code><br/>disableResetFormdata: disable resetting formData to initial formData in disabled fields, default <code>false</code><br/>disableElementButtons: disable all button elements, default <code>false</code><br/>showScores: show scores if required metadata is available, default <code>false</code></td>
+<td><code>{ disableSteps: boolean }</code></td>
+<td>disableSteps: disables steps when filling the form, default <code>false</code></td>
 </tr>
 <tr>
 <td><code>confirmComponent</code>, <code>previewField</code>, <code>reviewField</code></td>
@@ -130,11 +130,6 @@
 <td><code>customMessages</code></td>
 <td><code>{ submit: string, reviewSubmitConfirmation: string, confirmDialogTitle: string, confirmDialogConsent: string, confirmDialogPreview: string, confirmDialogSendButton: string, confirmDialogCancelButton: string }</code></td>
 <td>Overrides default texts in submit button, confirmation dialog and confirm message.</td>
-</tr>
-<tr>
-<td><code>buttonActions</code></td>
-<td><code>object</code></td>
-<td>Functions for button elements, <code>{functionKey: (buttonActionProps) =&gt; boolean}</code></td>
 </tr>
 </tbody></table>
 
