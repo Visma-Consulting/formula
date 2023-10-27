@@ -1,3 +1,7 @@
+# 0.4.215-hotfix
+
+- Add credentialsCallback
+
 # 0.4.215
 
 - Broken aria fix
