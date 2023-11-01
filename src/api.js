@@ -110,9 +110,9 @@ export function useMutations() {
         );
       } else {
         if (isDraft && data.status === "SUBMITTED") {
-          return client.postFormData({ actionId: formDataAction, draftReference: data._id, layer: layer }, data);
+          return client.postFormData({ actionId: formDataAction, credentials: credentials, draftReference: data._id, layer: layer }, data);
         } else {
-          return client.postFormData({ actionId: formDataAction, layer: layer }, data);
+          return client.postFormData({ actionId: formDataAction, credentials: credentials, layer: layer }, data);
         }
       }
     },
