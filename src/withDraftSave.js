@@ -45,6 +45,7 @@ export default function withDraftSave(Form) {
             id: props?.config?._id,
             rev: props?.config?._rev,
           },
+          credentials: props?.credentials,
           values: props?.formData,
           _id: draftId,
         };

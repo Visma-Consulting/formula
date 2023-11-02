@@ -530,58 +530,10 @@
             }
           },
           {
-            "name": "layer",
-            "in": "query",
-            "required": false,
-            "description": "The layer of the form",
-            "schema": {
-              "type": "number"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Structured object with handler id and attribute map",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {}
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/formdata/submit/{dataId}": {
-      "post": {
-        "summary": "Resubmit a form",
-        "operationId": "resubmitFormData",
-        "parameters": [
-          {
-            "name": "dataId",
-            "in": "path",
-            "required": true,
-            "description": "The id of the data",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "name": "credentials",
             "in": "query",
             "required": true,
             "description": "Credentials of the user",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "actionId",
-            "in": "query",
-            "required": false,
-            "description": "Action for data submission",
             "schema": {
               "type": "string"
             }
