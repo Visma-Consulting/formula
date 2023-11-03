@@ -1,3 +1,7 @@
+# 0.4.219
+
+- Underscores in element keys fix
+
 # 0.4.218
 
 - Pass credential in every formdata submit
