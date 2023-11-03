@@ -6,6 +6,10 @@
 - Accessibility: screen reading description, help and errors
 - Upgrade to `@visma/rjsf-*@3.1.0-86`
 
+# 0.4.215-hotfix
+
+- Add credentialsCallback
+
 # 0.4.215
 
 - Broken aria fix
