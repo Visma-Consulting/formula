@@ -1,3 +1,8 @@
+# 0.4.218
+
+- Pass credential in every formdata submit
+- Upgrade to `@visma/rjsf-*@3.1.0-87`
+
 # 0.4.216
 
 - Decimal amount in number type
@@ -6,7 +11,7 @@
 - Accessibility: screen reading description, help and errors
 - Upgrade to `@visma/rjsf-*@3.1.0-86`
 
-# 0.4.215-hotfix
+# 0.4.217 (0.4.215 hotfix)
 
 - Add credentialsCallback
 
