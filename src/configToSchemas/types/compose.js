@@ -2,14 +2,28 @@ import { defineMessage, useIntl } from 'react-intl';
 import { utils } from '@visma/rjsf-core';
 import { useContext, useEffect } from 'react';
 import { useFields } from '../../api';
-import { get } from 'lodash';
+
+const getUsableFormData = (id, element, rootSchema, formData) => {
+  if (element.containingFormgroup) {
+    for (const key of Object.keys(rootSchema.properties)) {
+      const formgroupConfig = rootSchema.properties[key];
+      if (formgroupConfig.items && formgroupConfig.items.originalConfig?.id === element.containingFormgroup) {
+        return formData[key][id.substring(key.length + 6).split('_')[0]];
+      } else if (formgroupConfig?.originalConfig?.id === element.containingFormgroup) {
+        return formData[key];
+      }
+    }
+  }
+
+  return formData;
+}
 
 function Compose(props) {
   const intl = useIntl();
   const { formData } = useContext(utils.Context);
   const fields = useFields();
-  const path = props.id.split('_').slice(1, -1);
-  const usableFormData = path.length > 0 ? get(formData, path) : formData;
+  const element = props.uiSchema?.['ui:options']?.element;
+  const usableFormData = getUsableFormData(props.id, element, props.registry?.rootSchema, formData);
 
   useEffect(() => {
     const { values, separator } = props.options;
