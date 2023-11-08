@@ -1,3 +1,7 @@
+# 0.4.220
+
+- Removing formdata of hidden fields is now conditional
+
 # 0.4.219
 
 - Underscores in element keys fix
