@@ -198,7 +198,8 @@ export default function useDynamicElements(props) {
     config: dynamicElements(props.config, formData),
     onChange(...args) {
       const [{ formData}] = args;
-      const resetFormData = resetDisabledToDefaultValues(formData, initialFormData, props.config, false);
+      const resetFormData = props.fillProps?.disableRemoveHiddenFormData
+        ? formData : resetDisabledToDefaultValues(formData, initialFormData, props.config, false);
       props.onChange?.(...args);
       setFormData(resetFormData);
     },
