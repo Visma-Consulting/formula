@@ -10,7 +10,7 @@ import {
   DialogTitle,
   FormControlLabel,
   Typography,
-  useMediaQuery,
+  useMediaQuery
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import produce from 'immer';
@@ -38,9 +38,9 @@ export default forwardRef(function ConfirmDialog(
           resolve(
             hasCaptcha(otherProps)
               ? confirm &&
-                  produce(args, ([data]) => {
-                    data.captchaChallenge = confirm;
-                  })
+              produce(args, ([data]) => {
+                data.captchaChallenge = confirm;
+              })
               : confirm
           );
         };
@@ -108,7 +108,7 @@ export default forwardRef(function ConfirmDialog(
         open={open}
         onClose={handleDismiss}
         aria-labelledby="confirm-dialog-title"
-        {...description && {"aria-describedby": "confirm-dialog-description"}}
+        aria-describedby="confirm-dialog-description"
         fullScreen={useMediaQuery('print')}
         container={container}
         disableBackdropClick
@@ -122,13 +122,12 @@ export default forwardRef(function ConfirmDialog(
           )}
           {hasPreview(otherProps) && (
             <>
-              <Typography variant="subtitle1" component="p">
-                {customMessages?.confirmDialogPreview ?? <FormattedMessage defaultMessage="Tarkista lähetettävät tiedot ennen lähetystä." />}
+              <Typography variant="subtitle1" component="h3">
+                {customMessages?.confirmDialogPreview ?? <FormattedMessage defaultMessage="Lähetettävien tietojen esikatselu" />}
               </Typography>
               <Field
                 preview // For selecting optional preview / review customization
                 root
-                hideNotAnswered={otherProps.reviewProps?.hideNotAnswered}
                 pageTitles={pageTitlesArray}
                 {...otherProps}
               />
@@ -160,6 +159,13 @@ export default forwardRef(function ConfirmDialog(
               <Alert severity="error">{error}</Alert>
             </DialogContentText>
           )}
+          {!loading && hasCaptchaValue && !otherProps.captcha &&
+            <DialogContentText>
+              <Alert severity="warning">
+                <FormattedMessage defaultMessage="Captcha-vahvistus on vanhentunut. Palaa lomakkeelle ja vahvista captcha uudelleen." />
+              </Alert>
+            </DialogContentText>
+          }
         </DialogContent>
         <Box displayPrint="none">
           <DialogActions>
