@@ -1,3 +1,7 @@
+# 0.4.223
+
+- Force hide recaptcha
+
 # 0.4.222
 
 - Revert invisible recaptcha changes
