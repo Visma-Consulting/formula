@@ -37,7 +37,7 @@ export default function withRecaptcha(Form) {
       recaptchaComponent?.reset();
     }
 
-    if (otherProps?.config?.requireCaptcha && (otherProps?.isLastStep === true || otherProps?.isLastStep === undefined)) {
+    if (!otherProps?.noReCaptcha && otherProps?.config?.requireCaptcha && (otherProps?.isLastStep === true || otherProps?.isLastStep === undefined)) {
       return (
         <Form
           ref={ref}
