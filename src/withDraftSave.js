@@ -37,6 +37,7 @@ export default function withDraftSave(Form) {
       const { enqueueSnackbar } = useSnackbar();
       const multiPageForm = props?.config?.elements.find(element => element.type === 'pageTitle') ? true : false;
       const draftSave = async () => {
+        const callbackCredentials = props.credentialsCallback ? await props.credentialsCallback() : props.credentials;
         const data = {
           status: 'DRAFT',
         ...multiPageForm &&
@@ -45,7 +46,7 @@ export default function withDraftSave(Form) {
             id: props?.config?._id,
             rev: props?.config?._rev,
           },
-          credentials: props?.credentials,
+          credentials: callbackCredentials,
           values: props?.formData,
           _id: draftId,
         };
@@ -63,7 +64,7 @@ export default function withDraftSave(Form) {
           return false;
         }
 
-        const response = await onSave(data, props.credentials, props.formDataAction, isDraft, props.layer);
+        const response = await onSave(data, callbackCredentials, props.formDataAction, isDraft, props.layer);
 
         if (response) {
           enqueueSnackbar(
