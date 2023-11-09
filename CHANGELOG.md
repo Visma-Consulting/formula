@@ -1,3 +1,7 @@
+# 0.4.222
+
+- Revert invisible recaptcha changes
+
 # 0.4.221
 
 - CallbackCredentials in draft save
