@@ -59,8 +59,8 @@ function resetDisabledToDefaultValues(formData, initialFormData, config, allDisa
       delete resetFormData[element.key];
     }
 
-    if (allDisabled || (element?.filter?.enable && !sift(element.filter.enable.query)(formData))) {
-      if (initialFormData && initialFormData[key]) {
+    if ((allDisabled && element?.type !== 'compose') || (element?.filter?.enable && !sift(element.filter.enable.query)(formData))) {
+      if (initialFormData && initialFormData[key] !== undefined) {
         resetFormData[key] = initialFormData[key];
       } else if (element.elements && element.elements.length > 0) {
         const resetSubValues = resetDisabledToDefaultValues(
