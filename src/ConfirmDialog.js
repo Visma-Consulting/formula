@@ -20,6 +20,7 @@ import { hasCaptcha, hasConsent, hasPreview } from './customizations';
 import { PrintButton } from './PrintButton';
 import Field from './Review/Field';
 import { Customize } from './utils';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 const sendErrorMessages = {
   10: defineMessage({defaultMessage: 'Lomakkeen lähetys ei onnistunut.'}),
@@ -69,6 +70,7 @@ export default forwardRef(function ConfirmDialog(
   const [error, setError] = useState(null);
   const [consent, setConsent] = useState(false);
   const intl = useIntl();
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   function handleClose() {
     setLoading(false);
