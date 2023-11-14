@@ -1,3 +1,9 @@
+# 0.4.224
+
+- Fix resetting disabled fields when element is compose field
+- Fix resetting data in filtered fields
+- Compose adjustments
+
 # 0.4.223
 
 - Force hide recaptcha
