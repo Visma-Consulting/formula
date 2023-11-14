@@ -2,20 +2,42 @@ import { defineMessage, useIntl } from 'react-intl';
 import { utils } from '@visma/rjsf-core';
 import { useContext, useEffect } from 'react';
 import { useFields } from '../../api';
+import sift from 'sift';
+
+const getRepeatableFormgroupElementKeys = (formdata, originalElements) => {
+  const elementKeys = [];
+  const formDataKeys = Object.keys(formdata ?? {});
+  formDataKeys.forEach(key => {
+    const element = originalElements.find(el => el.key === key);
+    if (element
+      && (!element.filter?.show
+        || (element.filter?.show?.query && sift(element.filter.show.query)(formdata)))) {
+      elementKeys.push(key);
+    }
+  });
+  return elementKeys;
+}
 
 const getUsableFormData = (id, element, rootSchema, formData) => {
   if (element.containingFormgroup) {
     for (const key of Object.keys(rootSchema.properties)) {
       const formgroupConfig = rootSchema.properties[key];
       if (formgroupConfig.items && formgroupConfig.items.originalConfig?.id === element.containingFormgroup) {
-        return formData[key][id.substring(key.length + 6).split('_')[0]];
+        const data = formData[key][id.substring(key.length + 6).split('_')[0]];
+        return {
+          usableFormData: data,
+          existingDataKeys: getRepeatableFormgroupElementKeys(data, formgroupConfig.items.originalConfig.elements)
+        };
       } else if (formgroupConfig?.originalConfig?.id === element.containingFormgroup) {
-        return formData[key];
+        return {
+          usableFormData: formData[key],
+          existingDataKeys: Object.keys(formgroupConfig?.properties)
+        };
       }
     }
   }
 
-  return formData;
+  return {usableFormData: formData, existingDataKeys: Object.keys(rootSchema.properties)};
 }
 
 function Compose(props) {
@@ -23,7 +45,7 @@ function Compose(props) {
   const { formData } = useContext(utils.Context);
   const fields = useFields();
   const element = props.uiSchema?.['ui:options']?.element;
-  const usableFormData = getUsableFormData(props.id, element, props.registry?.rootSchema, formData);
+  const {usableFormData, existingDataKeys} = getUsableFormData(props.id, element, props.registry?.rootSchema, formData);
 
   useEffect(() => {
     const { values, separator } = props.options;
@@ -40,7 +62,7 @@ function Compose(props) {
       .filter(data => data.value !== undefined)
       .map(function getStringValue(data) {
         const field = fields.find(field => field._id === data.id);
-        if (!field) { return undefined }
+        if (!field || !existingDataKeys.includes(data.key)) { return undefined }
         if (Array.isArray(data.value)) {
           const listValue = data.value.map(dataValue => {
             return getStringValue({...data, value: dataValue})
@@ -66,7 +88,7 @@ function Compose(props) {
             case 'dateRange':
               return `${data.value.start ?? ''} - ${data.value.end ?? ''}`;
             case 'text': case 'textarea': case 'richtext': case 'email':
-              case 'number':case 'password': case 'range': case 'bmi': case 'date':
+            case 'number':case 'password': case 'range': case 'bmi': case 'date':
               return data.value;
             default:
               return undefined;
