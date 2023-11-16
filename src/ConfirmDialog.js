@@ -99,8 +99,13 @@ export default forwardRef(function ConfirmDialog(
     setLoading(false);
   }
 
-  function handleConfirm() {
-    confirmRef.current(hasCaptchaValue ? otherProps.captcha : true);
+  async function handleConfirm() {
+    if (hasCaptchaValue) {
+      const token = await executeRecaptcha('submit');
+      confirmRef.current(token);
+    } else {
+      confirmRef.current(true);
+    }
   }
 
   return (
@@ -174,7 +179,7 @@ export default forwardRef(function ConfirmDialog(
                 (hasConsentValue && !consent) ||
                 loading ||
                 error ||
-                (!loading && hasCaptchaValue && !otherProps.captcha)
+                (!loading && hasCaptchaValue && !executeRecaptcha)
               }
               onClick={handleConfirm}
               variant="contained"
