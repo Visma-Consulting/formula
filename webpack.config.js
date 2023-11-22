@@ -24,7 +24,8 @@ export default {
       '@mui/x-date-pickers',
       '@emotion/styled',
       '@mui/base',
-      '@mui/material'
+      '@mui/material',
+      '@mui/styled-engine'
     ].map((name) => [name, `${globalVar}_${name}`])
   ),
   module: {
