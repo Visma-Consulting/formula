@@ -13,18 +13,20 @@ export default {
     libraryTarget: 'umd',
     filename: `${filename}.[contenthash].js`,
   },
-  externals: Object.fromEntries(
-    [
-      /^\@material\-ui\/.*/,
-      /^\@mui\/.*/,
-      'react',
-      'react-dom',
-      'react-intl',
-      '@emotion/react',
-      '@emotion/core',
-      '@emotion/styled',
-    ].map((name) => [name, `${globalVar}_${name}`])
-  ),
+  externals: [
+    /^\@material\-ui\/.*/,
+    /^\@mui\/.*/,
+    Object.fromEntries(
+      [
+        'react',
+        'react-dom',
+        'react-intl',
+        '@emotion/react',
+        '@emotion/core',
+        '@emotion/styled',
+      ].map((name) => [name, `${globalVar}_${name}`])
+    )
+  ],
   module: {
     rules: [
       {
