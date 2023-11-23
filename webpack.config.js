@@ -15,6 +15,8 @@ export default {
   },
   externals: Object.fromEntries(
     [
+      /^@mui.*/,
+      /^@material-ui.*/,
       '@material-ui/core',
       '@material-ui/styles',
       'react',
