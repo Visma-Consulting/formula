@@ -15,19 +15,13 @@ export default {
   },
   externals: Object.fromEntries(
     [
-      /^\@material\-ui\/core\/.*/,
-      /^\@material\-ui\/system\/.*/,
-      /^\@material\-ui\/styles\/.*/,
-      /^\@mui\/base\/.*/,
-      /^\@mui\/material\/.*/,
-      /^\@mui\/system\/.*/,
-      /^\@mui\/styled-engine\/.*/,
+      /^\@material\-ui\/.*/,
+      /^\@mui\/.*/,
       'react',
       'react-dom',
       'react-intl',
       '@emotion/react',
       '@emotion/core',
-      '@mui/x-date-pickers',
       '@emotion/styled',
     ].map((name) => [name, `${globalVar}_${name}`])
   ),
