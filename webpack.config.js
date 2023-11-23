@@ -14,16 +14,23 @@ export default {
     filename: `${filename}.[contenthash].js`,
   },
   externals: [
-    /^\@material\-ui\/.*/,
-    /^\@mui\/.*/,
+    // /^\@material\-ui\/.*/,
+    // /^\@mui\/.*/,
     Object.fromEntries(
       [
+        '@material-ui/core',
+        '@material-ui/styles',
         'react',
         'react-dom',
         'react-intl',
         '@emotion/react',
         '@emotion/core',
+        '@mui/x-date-pickers',
         '@emotion/styled',
+        '@mui/base',
+        '@mui/material',
+        '@mui/system',
+        '@mui/styled-engine'
       ].map((name) => [name, `${globalVar}_${name}`])
     )
   ],
