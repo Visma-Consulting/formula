@@ -6,6 +6,8 @@ import * as muiMaterial from '@mui/material';
 import * as emotionCore from '@emotion/core';
 import * as emotionStyled from '@emotion/styled';
 import * as emotionReact from '@emotion/react';
+import * as muiSystem from '@mui/system';
+import * as muiStyledEngine from '@mui/styled-engine';
 import * as react from 'react';
 import * as reactDom from 'react-dom';
 import * as reactIntl from 'react-intl';
@@ -27,6 +29,8 @@ const externals = {
   '@emotion/styled': emotionStyled,
   '@mui/base': muiBase,
   '@mui/material': muiMaterial,
+  '@mui/system': muiSystem,
+  '@mui/styled-engine': muiStyledEngine
 };
 
 export const init = async (url) => {
