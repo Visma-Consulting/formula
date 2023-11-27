@@ -6,6 +6,7 @@ import { filename, globalVar, version } from './dll.js';
 export default {
   mode: 'production',
   entry: './src/main.js',
+  devtool: "source-map",
   output: {
     path: path.resolve(process.cwd(), 'dist/dll', version),
     library: globalVar,
