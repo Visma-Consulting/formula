@@ -16,12 +16,19 @@ export default {
   externals: [
     Object.fromEntries(
       [
+        '@material-ui/core',
+        '@material-ui/styles',
         'react',
         'react-dom',
         'react-intl',
         '@emotion/react',
         '@emotion/core',
-        '@emotion/styled'
+        '@mui/x-date-pickers',
+        '@emotion/styled',
+        '@mui/base',
+        '@mui/material',
+        '@mui/system',
+        '@mui/styled-engine'
       ].map((name) => [name, `${globalVar}_${name}`])
     )
   ],

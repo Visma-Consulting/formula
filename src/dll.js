@@ -18,12 +18,19 @@ const DLL = {};
 export default DLL;
 
 const externals = {
+  '@material-ui/core': materialUICore,
+  '@material-ui/styles': materialUIStyles,
   react,
   'react-dom': reactDom,
   'react-intl': reactIntl,
   '@emotion/react': emotionReact,
   '@emotion/core': emotionCore,
+  '@mui/x-date-pickers': xDatePickers,
   '@emotion/styled': emotionStyled,
+  '@mui/base': muiBase,
+  '@mui/material': muiMaterial,
+  '@mui/system': muiSystem,
+  '@mui/styled-engine': muiStyledEngine
 };
 
 export const init = async (url) => {
@@ -42,6 +49,8 @@ export const init = async (url) => {
   linkElement.rel = 'stylesheet';
   linkElement.href = dllDir + manifest['main.css'];
   document.head.appendChild(linkElement);
+
+  console.log(window.__formula);
 
   Object.assign(DLL, window.__formula);
 };
