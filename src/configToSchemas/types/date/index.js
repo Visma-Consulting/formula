@@ -108,7 +108,6 @@ function BasicDatePicker(props) {
           onChange={setValue}
           slotProps={{
             textField: {
-              disabled: true
               disabled: isDesktop,
               placeholder: ''
             },
