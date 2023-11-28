@@ -6,32 +6,27 @@ import { filename, globalVar, version } from './dll.js';
 export default {
   mode: 'production',
   entry: './src/main.js',
-  devtool: "source-map",
   output: {
     path: path.resolve(process.cwd(), 'dist/dll', version),
     library: globalVar,
     libraryTarget: 'umd',
     filename: `${filename}.[contenthash].js`,
   },
-  externals: [
-    Object.fromEntries(
-      [
-        '@material-ui/core',
-        '@material-ui/styles',
-        'react',
-        'react-dom',
-        'react-intl',
-        '@emotion/react',
-        '@emotion/core',
-        '@mui/x-date-pickers',
-        '@emotion/styled',
-        '@mui/base',
-        '@mui/material',
-        '@mui/system',
-        '@mui/styled-engine'
-      ].map((name) => [name, `${globalVar}_${name}`])
-    )
-  ],
+  externals: Object.fromEntries(
+    [
+      '@material-ui/core',
+      '@material-ui/styles',
+      'react',
+      'react-dom',
+      'react-intl',
+      '@emotion/react',
+      '@emotion/core',
+      '@mui/x-date-pickers',
+      '@emotion/styled',
+      '@mui/base',
+      '@mui/material'
+    ].map((name) => [name, `${globalVar}_${name}`])
+  ),
   module: {
     rules: [
       {
