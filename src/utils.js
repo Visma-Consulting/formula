@@ -114,6 +114,37 @@ export function getAriaLabel(label, options, required, requiredMessage) {
   return ariaLabel;
 }
 
+// Create a consistent id for the field description element
+export const descriptionId = id => `${id}__description`;
+
+// Create a consistent id for the field help element
+export const helpId = id => `${id}__help`;
+
+// Create a consistent id for the field errors element
+export const errorsId = id => `${id}__errors`;
+
+// Create a list of element ids that contain additional information about the
+// field
+export const ariaDescribedBy = (id, uiSchema, rawErrors) => {
+  const listElement = uiSchema?.["ui:options"]?.element?.list;
+  let ariaId = `${
+    uiSchema["ui:description"] ||
+    uiSchema?.element?.description ||
+    uiSchema["ui:options"]?.element?.description
+      ? descriptionId(listElement ? id.substring(0, id.lastIndexOf("_")) : id)
+      : ""
+  } ${
+    uiSchema["ui:help"] ||
+    uiSchema?.element?.help ||
+    uiSchema["ui:options"]?.element?.help
+      ? helpId(listElement ? id.substring(0, id.lastIndexOf("_")) : id)
+      : ""
+  } ${rawErrors?.length > 0 ? errorsId(id) : ""}`;
+  if (ariaId !== "" && ariaId.length > 2) {
+    return ariaId;
+  }
+};
+
 const generalErrorMessages = defineMessages({
   duplicateKeyError: {
     defaultMessage: "Vaihtoehdoissa ei saa olla duplikaatti vierasavaimia."

@@ -8,10 +8,11 @@ import "dayjs/locale/fi";
 import "dayjs/locale/en-gb";
 import "dayjs/locale/sv";
 import { add, sub } from 'date-fns';
-import { getAriaLabel } from '../../../utils';
+import { getAriaLabel, ariaDescribedBy } from '../../../utils';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { useEffect } from 'react';
+import { useMediaQuery } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -31,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
     },
   }
 }));
-
 const getDefaultValue = ({type, defaultValue, limitType, limitAmount}) => {
   switch (type) {
     case 'noDefault': return null;
@@ -43,7 +43,6 @@ const getDefaultValue = ({type, defaultValue, limitType, limitAmount}) => {
   }
   return null;
 }
-
 const beforeDay = (disableBefore) => {
   if(disableBefore?.type && disableBefore?.type !== 'noValue') {
     return dayjs((disableBefore.type !== 'date' ? sub(new Date(), { [disableBefore.type]: disableBefore.numberValue }) : disableBefore.dateValue));
@@ -51,7 +50,6 @@ const beforeDay = (disableBefore) => {
     return null;
   }
 }
-
 const afterDay = (disableAfter) => {
   if(disableAfter?.type && disableAfter?.type !== 'noValue') {
     return dayjs((disableAfter.type !== 'date' ? add(new Date(), { [disableAfter.type]: disableAfter.numberValue }) : disableAfter.dateValue));
@@ -59,7 +57,6 @@ const afterDay = (disableAfter) => {
     return null;
   }
 }
-
 function BasicDatePicker(props) {
   const { onChange, options } = props;
   const [value, setValue] = React.useState(null);
@@ -68,13 +65,16 @@ function BasicDatePicker(props) {
   const { disableBefore, disableAfter } = options?.element;
   const classes = useStyles();
 
+  const isDesktop = useMediaQuery('@media (pointer: fine)');
   const ariaLabel = getAriaLabel(
     props.label,
     props.options,
     props.required,
     intl.formatMessage({defaultMessage: 'Pakollinen kenttä'})
   );
-
+  const ariaDaySelected = intl.formatMessage({defaultMessage: 'Valitse päivä, valittu päivä on'});
+  const ariaNoSelection = intl.formatMessage({defaultMessage: 'Valitse päivä'});
+  const ariaToUse = value ? `${ariaDaySelected} ${value?.format('YYYY-MM-DD')}` : ariaNoSelection;
   const handleLocaleText = () => {
     if(locale === 'fi-FI') {
       return fiFI?.components?.MuiLocalizationProvider?.defaultProps?.localeText;
@@ -82,15 +82,12 @@ function BasicDatePicker(props) {
       return svSE?.components?.MuiLocalizationProvider?.defaultProps?.localeText;
     }
   }
-
   useEffect(() =>{
     setValue(props?.value ? dayjs(props?.value) : (options.dateDefault ? getDefaultValue(options.dateDefault) : null));
   }, []);
-
   useEffect(() => {
     setTimeout(() => { onChange(value?.format('YYYY-MM-DD')) })
   }, [value]);
-
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={locale.split('-')[0].toString()} localeText={handleLocaleText()} >
       <div className={classes.dateBox}>
@@ -112,6 +109,12 @@ function BasicDatePicker(props) {
           slotProps={{
             textField: {
               disabled: true
+              disabled: isDesktop,
+              placeholder: ''
+            },
+            openPickerButton: {
+              'aria-label': `${ariaLabel}, ${ariaToUse}`,
+              'aria-describedby': ariaDescribedBy(props.id, props.uiSchema)
             }
           }}
         />
@@ -130,7 +133,6 @@ function BasicDatePicker(props) {
     </LocalizationProvider>
   );
 }
-
 export default ({ config: { disableBefore, disableAfter, dateDefault }, reviewProps }) => ({
   schema: {
     format: 'date',
@@ -146,9 +148,7 @@ export default ({ config: { disableBefore, disableAfter, dateDefault }, reviewPr
     }
   }
 })
-
 export const name = defineMessage({
   defaultMessage: 'Päivämäärä',
 });
-
 export const elementType = 'field';
