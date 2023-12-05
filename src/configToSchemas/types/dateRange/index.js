@@ -15,7 +15,6 @@ import Button from '@material-ui/core/Button';
 import { mapValues } from 'lodash';
 import { DateRangePickerPhrases } from '../../../../lib/configToSchemas/types/date/phrases';
 import { getAriaLabel } from '../../../utils.js';
-import { utils } from '@visma/rjsf-core';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -41,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 function DateRangePickerField(props) {
   const { idSchema, onChange, schema, formData, uiSchema, required, rawErrors } = props;
+  const {description, help} = uiSchema['ui:options']?.element;
   const intl = useIntl();
   const [focusedInput, setFocusedInput] = useState();
   const { element: {disableEnd, disableStart}, dateFormat } = props.uiSchema['ui:options'];
@@ -88,8 +88,13 @@ function DateRangePickerField(props) {
     intl.formatMessage({defaultMessage: 'Pakollinen kenttä'})
   );
 
+  const ariaArray = [ariaLabel];
+  if (description) {ariaArray.push(description)}
+  if (help) {ariaArray.push(help)}
+  if (rawErrors && rawErrors.length > 0) {ariaArray.push(...rawErrors)}
+
   return (
-    <div className={classes.dateBox} aria-labelledby={utils.ariaDescribedBy(idSchema.$id, uiSchema, rawErrors)}>
+    <div className={classes.dateBox}>
       <DateRangePicker
         onDatesChange={({ startDate, endDate }) => (startDate || endDate) && onChange({ start: startDate?.format('YYYY-MM-DD'), end: endDate?.format('YYYY-MM-DD')})}
         onFocusChange={handleFocusChange}
@@ -97,7 +102,7 @@ function DateRangePickerField(props) {
         small={true}
         numberOfMonths={1}
         aria-label={ariaLabel}
-        screenReaderInputMessage={ariaLabel}
+        screenReaderInputMessage={ariaArray.join(', ')}
         displayFormat={dateFormat ?? 'D.M.yyyy'}
         disabled={schema.readOnly || uiSchema.readonly}
         {...language ? {phrases : mapValues(DateRangePickerPhrases, message => intl.formatMessage(message))} : {}}
