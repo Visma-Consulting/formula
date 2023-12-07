@@ -73,6 +73,7 @@
     "react-dates": "^21.8.0",
     "react-error-boundary": "^3.1.0",
     "react-google-recaptcha": "^2.1.0",
+    "react-google-recaptcha-v3" : "^1.10.1",
     "react-rte": "^0.16.5",
     "sift": "^15.0.0",
     "tiny-invariant": "^1.1.0",

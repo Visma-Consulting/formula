@@ -20,6 +20,7 @@ import { hasCaptcha, hasConsent, hasPreview } from './customizations';
 import { PrintButton } from './PrintButton';
 import Field from './Review/Field';
 import { Customize } from './utils';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 const sendErrorMessages = {
   10: defineMessage({defaultMessage: 'Lomakkeen lähetys ei onnistunut.'}),
@@ -69,6 +70,7 @@ export default forwardRef(function ConfirmDialog(
   const [error, setError] = useState(null);
   const [consent, setConsent] = useState(false);
   const intl = useIntl();
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   function handleClose() {
     setLoading(false);
@@ -97,8 +99,13 @@ export default forwardRef(function ConfirmDialog(
     setLoading(false);
   }
 
-  function handleConfirm() {
-    confirmRef.current(hasCaptchaValue ? otherProps.captcha : true);
+  async function handleConfirm() {
+    if (hasCaptchaValue) {
+      const token = await executeRecaptcha('submit');
+      confirmRef.current(token);
+    } else {
+      confirmRef.current(true);
+    }
   }
 
   return (
@@ -178,7 +185,7 @@ export default forwardRef(function ConfirmDialog(
                 (hasConsentValue && !consent) ||
                 loading ||
                 error ||
-                (!loading && hasCaptchaValue && !otherProps.captcha)
+                (!loading && hasCaptchaValue && !executeRecaptcha)
               }
               onClick={handleConfirm}
               variant="contained"
