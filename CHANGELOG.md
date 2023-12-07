@@ -1,3 +1,9 @@
+# 0.4.226
+
+- Upgrade to `@visma/rjsf-*@3.1.0-88`
+- Accessibility fixes
+- Recaptcha V3
+
 # 0.4.225
 
 - Add @mui/styled-engine to externals
