@@ -31,6 +31,14 @@ export function AutocompleteSelectField(props) {
     matchFrom: matchFrom,
     ignoreAccents: false
   })
+  const {description, help} = props?.uiSchema?.['ui:options']?.element;
+  const {rawErrors} = props;
+  const ariaLabel = utils.generateAriaLabel(props.schema.title, props.uiSchema?.['ui:options'], props.required);
+  const ariaArray = [ariaLabel];
+  if (description) {ariaArray.push(description)}
+  if (help) {ariaArray.push(help)}
+  if (rawErrors) {ariaArray.push(rawErrors)}
+
   return (
     <Autocomplete
       filterOptions={filterOptions}
@@ -40,12 +48,11 @@ export function AutocompleteSelectField(props) {
         props.onChange(props.schema.enum[props.schema.enumNames.indexOf(value)])
       }
       getOptionSelected={(option, value) => option === value}
-      aria-describedby={utils.ariaDescribedBy(props.idSchema.$id, props.uiSchema, props.rawErrors)}
       renderInput={(params) =>
         <TextField
           {...params}
           hiddenLabel
-          label={utils.generateAriaLabel(props.schema.title, props.uiSchema?.['ui:options'], props.required)}
+          label={ariaArray.join(', ')}
           InputLabelProps={{shrink: false, className: classes.inputLabelRoot}}
         />
       }
