@@ -1,4 +1,8 @@
-#0.4.240
+# 0.4.241
+
+- Upgrade to `@visma/rjsf-*@3.1.0-89`
+
+# 0.4.240
 
 - Bump version number
 
