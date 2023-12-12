@@ -5,7 +5,7 @@ import ErrorFallback from './ErrorFallback';
 function withFormulaErrorBoundary(Form) {
   return forwardRef(
     ({ ...props }, ref) => {
-      return (<ErrorBoundary FallbackComponent={ErrorFallback}>
+      return (<ErrorBoundary fallbackRender={errorProps => <ErrorFallback {...errorProps} customMessage={props?.customMessages?.error} />}>
         <Form ref={ref} {...props} />
       </ErrorBoundary>);
     }
