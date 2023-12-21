@@ -33,6 +33,10 @@ export const converter = (formulaProps) => (props) => {
     props.uiSchema['ui:options'] ??= {};
     props.uiSchema['ui:options'].formulaProps = freeze(formulaProps);
   }
+  if (config.pagination) {
+    props.schema['pagination'] = true;
+    props.schema['elementsPerPage'] = config.elementsPerPage;
+  }
 };
 
 const validationMessages = defineMessages({
