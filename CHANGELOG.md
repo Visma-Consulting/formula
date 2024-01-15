@@ -1,3 +1,7 @@
+# 0.4.243
+
+- Add getFormStandardized to api
+
 # 0.4.241
 
 - Upgrade to `@visma/rjsf-*@3.1.0-89`
