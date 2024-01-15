@@ -185,6 +185,35 @@
         }
       }
     },
+    "/form/standardized/{formId}": {
+      "get": {
+        "summary": "Get a standardized form definition by id",
+        "operationId": "getFormStandardized",
+        "parameters": [
+          {
+            "name": "formId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A form",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FormDefinition"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/form/byIds": {
       "get": {
         "summary": "Get forms by ids",
@@ -948,6 +977,9 @@
         "items": {
           "$ref": "#/components/schemas/Data"
         }
+      },
+      "FormDefinition": {
+        "type": "object"
       },
       "Config": {
         "type": "object",
