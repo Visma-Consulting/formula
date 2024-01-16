@@ -74,6 +74,8 @@ export const useFormgroupUsageCounts = () => client.useFormgroupUsageCount();
 
 export const useFormHandlers = () => client.useFormHandlers();
 
+export const useStandardizedForm = (formId) => client.getFormStandardized({formId});
+
 export function useMutations() {
   // Trigger refetching paths on update. Only the paths that are currently
   // loaded by the app, will be refetched.
