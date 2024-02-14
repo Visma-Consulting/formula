@@ -36,6 +36,7 @@ const isAnswered = (element, formData) => {
         } else {
           return element.widget !== 'checkbox';
         }
+      case 'calcTable':
       case 'tableField':
         if (formData.table.length === 0) {
           return false;

@@ -26,6 +26,7 @@ export interface ElementBase {
     | 'richtext'
     | 'select'
     | 'tableField'
+    | 'calcTable'
     | 'text'
     | 'textarea'
     | Body['type']

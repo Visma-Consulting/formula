@@ -25,7 +25,8 @@ export const translateProperties = [
 
 export const translateArrayProperties = ['choices', 'elements', 'scaleMarks'];
 
-export const translateArray = ['tableColumns'];
+export const translateArray = ['tableColumns', 'rowTitles'];
+export const translateCalcArray = ['calcTableColumns'];
 
 export const isLecacyTranslationObject = (value, key) =>
   typeof value === 'object' && translateProperties.includes(key);
@@ -52,6 +53,10 @@ export function useLocalizeConfig() {
             ? value?.map((value) =>
                 typeof value === 'object' ? localize(value) : value
               )
+            // TODO calctable: fix this
+            // : translateCalcArray.includes(key)
+            // ? value?.forEach(col => col.name =
+            //       typeof col.name === 'object' ? localize(col.name) : col)
             : value
         ),
         ...mapValues(translate, localize),
