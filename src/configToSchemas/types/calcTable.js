@@ -11,6 +11,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TextField from '@material-ui/core/TextField';
 import { TableFooter } from '@mui/material';
+import DeleteIcon from "@material-ui/icons/Delete.js";
 
 const useStyles = makeStyles({
   inputLabelRoot: {
@@ -28,6 +29,14 @@ const useStyles = makeStyles({
     }
   }
 });
+
+const calcTypeSign = {
+  none: '',
+  sum: ' (+)',
+  minus: ' (-)',
+  multiplication: ' (*)',
+  fraction: ' (/)'
+}
 
 const tableLabel = defineMessage({
   defaultMessage: '{tableName} sarake {columnName} rivi {row}',
@@ -56,6 +65,38 @@ const getTotalColumns = ({ uiSchema }) => {
   return calcTableColumns.length || 0;
 };
 
+const getColumnData = (data, column) => {
+  return data.map(row => row[column])
+    .filter(val =>  val !== null)
+    .map(val => typeof val === 'string' ? val.replace(',', '.') : val)
+    .filter(val => !isNaN(Number(val)))
+    .map(val => parseFloat(val))
+    .filter(val => !isNaN(val));
+}
+
+const sanitizeResult = (value) => Number(value)
+    .toFixed(2)
+    .toString()
+    .replace('.', ',');
+
+const calculateResult = (type, data) => {
+  if (data.length > 0) {
+    switch (type) {
+      case 'sum':
+        return sanitizeResult(data.reduce((partialSum, next) => partialSum + next));
+      case 'multiplication':
+        return sanitizeResult(data.reduce((partialSum, next) => partialSum * next));
+      case 'minus':
+        return sanitizeResult(data.reduce((partialSum, next) => partialSum - next));
+      case 'fraction':
+        return sanitizeResult(data.reduce((partialSum, next) => partialSum / next));
+      default:
+        return '';
+    }
+  }
+  return '';
+}
+
 function CalcTable(props) {
   const {
     disabled,
@@ -67,6 +108,8 @@ function CalcTable(props) {
     idSchema,
     rawErrors
   } = props;
+
+  console.log(formData);
 
   const config = uiSchema['ui:options'].element;
   const {
@@ -92,21 +135,10 @@ function CalcTable(props) {
 
   const ariaDescribedby = utils.ariaDescribedBy(idSchema.$id, uiSchema, rawErrors);
 
-  const calcTypeSign = {
-    none: '',
-    sum: ' (+)',
-    minus: ' (-)',
-    multiplication: ' (*)',
-    fraction: ' (/)'
-  }
-
   const tableColumns = (ignoreTitleColumn) => {
 
-    console.log(calcTableColumns);
-
     const columns = calcTableColumns.map(col =>
-      // TODO: fix these references to col?.name after useLocalizeConfig fix
-      col?.name?.fi ? col.name.fi + calcTypeSign[col.calcType] : ""
+      col?.name ? col.name + calcTypeSign[col.calcType] : ""
     );
 
     if (useRowTitles && !ignoreTitleColumn) {
@@ -119,8 +151,6 @@ function CalcTable(props) {
   const tableData = makeTable(formData?.table || [], totalRows, totalCols);
 
   const makeRow = (data, dataIndex, row, tableColumns) => {
-
-    // TODO: delete row -button
 
     const cells = tableColumns(true).map((_, colNum) => (
         <TableCell key={`col-${colNum}`}>
@@ -154,7 +184,7 @@ function CalcTable(props) {
         </TableCell>));
 
     if (useRowTitles) {
-      cells.unshift(<TableCell align={"right"} key={'cell-' + dataIndex + '-' + '-1'}>
+      cells.unshift(<TableCell style={{fontWeight: 'bold'}} align={"right"} key={'cell-' + dataIndex + '-' + '-1'}>
         {(rowTitles.length === 0 || dataIndex > rowTitles.length) ? "" :
           rowTitles[dataIndex]}
       </TableCell>);
@@ -162,6 +192,25 @@ function CalcTable(props) {
 
     return <TableRow key={`row-${dataIndex}-${rev}`}>
       {cells}
+      {
+        tableData.length > tableRowMinimum ? (
+          dataIndex >= tableRowMinimum ? (
+            <TableCell key={'remove'}>
+              <IconButton
+                aria-label={intl.formatMessage({defaultMessage: 'Poista rivi'})}
+                onClick={(_) => {
+                  onRemoveRow(dataIndex);
+                }}
+                disabled={disabled || readonly}
+              >
+                <DeleteIcon alt={intl.formatMessage({defaultMessage: 'Poista rivi'})} />
+              </IconButton>
+            </TableCell>
+          ) : (
+            <TableCell key={'remove'}>&nbsp;</TableCell>
+          )
+        ) : <></>
+      }
     </TableRow>;
   };
 
@@ -183,44 +232,19 @@ function CalcTable(props) {
   const makeFooterCell = (colNum) => {
 
     const column = calcTableColumns[colNum];
-    const data = tableData.map(row => row[colNum])
-      .filter(val =>  val !== null)
-      .map(val => typeof val === 'string' ? val.replace(',', '.') : val)
-      .map(val => parseFloat(val))
-      .filter(val => !isNaN(val));
+    const data = getColumnData(tableData, colNum);
 
     if (data.length === 0) {
-      return <TableCell align={"right"}>
+      return <TableCell style={{fontWeight: 'bold'}} align={"right"}>
         {column.calcType !== 'none' ? '= ' : ''}
       </TableCell>;
     }
 
-    const sanitizeResult = (value) => '= ' +
-      Number(value)
-        .toFixed(2)
-        .toString()
-        .replace('.', ',');
-
-    switch (column.calcType) {
-      case 'sum':
-        return <TableCell align={"right"} key={`footer-col-${colNum}`}>
-          {sanitizeResult(data.reduce((partialSum, next) => partialSum + next))}
-        </TableCell>
-      case 'multiplication':
-        return <TableCell align={"right"} key={`footer-col-${colNum}`}>
-          {sanitizeResult(data.reduce((partialSum, next) => partialSum * next))}
-        </TableCell>
-      case 'minus':
-        return <TableCell align={"right"} key={`footer-col-${colNum}`}>
-          {sanitizeResult(data.reduce((partialSum, next) => partialSum - next))}
-        </TableCell>
-      case 'fraction':
-        return <TableCell align={"right"} key={`footer-col-${colNum}`}>
-          {sanitizeResult(data.reduce((partialSum, next) => partialSum / next))}
-        </TableCell>
-      default:
-        return <TableCell>{'= '}</TableCell>;
-    }
+    return (
+      <TableCell style={{fontWeight: 'bold'}} align={"right"} key={`footer-col-${colNum}`}>
+        {'= ' + calculateResult(column.calcType, data)}
+      </TableCell>
+    )
   }
 
   const options = {
@@ -241,9 +265,13 @@ function CalcTable(props) {
     onPropertyChange(makeTable(tableData, totalRows + 1, totalCols));
   };
 
+  const onRemoveRow = (rowNum) => {
+    onPropertyChange(tableData.filter((_, index) => index !== rowNum));
+  };
+
   const onPropertyChange = (tableData) => {
-    // TODO: update result row here
-    onChange({ table: tableData }, errorSchema);
+    const resultRow = calcTableColumns.map((column, index) => calculateResult(column.calcType, getColumnData(tableData, index)));
+    onChange({ table: tableData, resultRow: resultRow }, errorSchema);
     if (totalRows !== tableData.length) {
       setRev(uniqueId());
     }
@@ -282,6 +310,13 @@ export default ({ config }) => {
       format: 'table',
       type: 'object',
       properties: {
+        resultRow: {
+          type: 'array',
+          default: [],
+          items: {
+            type: 'string'
+          },
+        },
         table: {
           type: 'array',
           default: [],
