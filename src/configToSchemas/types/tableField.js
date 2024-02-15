@@ -128,7 +128,7 @@ function TableField(props) {
     return (
       <TableRow key={`row-${rowNum}-${rev}`}>
         {useRowTitles &&
-          <TableCell style={{fontWeight: 'bold'}}>{rowTitles[rowNum]}</TableCell>
+          <TableCell style={{fontWeight: 'bold'}}>{rowNum < rowTitles.length ? rowTitles[rowNum] : ''}</TableCell>
         }
         {row.map((_, colNum) => (
           <TableCell key={`col-${colNum}`}>
