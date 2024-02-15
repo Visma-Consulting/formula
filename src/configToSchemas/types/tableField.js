@@ -124,10 +124,12 @@ function TableField(props) {
     return headers;
   }
 
-  // TODO: add row titles in the fist column
   const tableCells = tableData.map((row, rowNum) => {
     return (
       <TableRow key={`row-${rowNum}-${rev}`}>
+        {useRowTitles &&
+          <TableCell style={{fontWeight: 'bold'}}>{rowTitles[rowNum]}</TableCell>
+        }
         {row.map((_, colNum) => (
           <TableCell key={`col-${colNum}`}>
             <TextField
