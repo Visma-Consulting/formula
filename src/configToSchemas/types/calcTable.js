@@ -255,7 +255,12 @@ function CalcTable(props) {
     pagination: false,
     selectableRows: 'none',
     customRowRender: (data, dataIndex) => makeRow(data, dataIndex, tableData[dataIndex], tableColumns),
-    customTableBodyFooterRender: () => makeFooter()
+    customTableBodyFooterRender: () => makeFooter(),
+    textLabels: {
+      body: {
+        noMatch: intl.formatMessage({defaultMessage: 'Ei näytettäviä rivejä. Lisää rivi painamalla + -painiketta taulukon alapuolella.'}),
+      }
+    }
   };
 
   const onAddRow = (_) => {

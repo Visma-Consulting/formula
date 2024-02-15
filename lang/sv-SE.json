@@ -388,5 +388,8 @@
   },
   "d64spB": {
     "defaultMessage": "Ett oväntat fel uppstod."
+  },
+  "UpIQEQ": {
+    "defaultMessage": "Inga rader att visa. Lägg till en rad genom att trycka på + -knappen under tabellen."
   }
 }

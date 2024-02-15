@@ -385,5 +385,8 @@
   },
   "d64spB": {
     "defaultMessage": "There was an unexpected error."
+  },
+  "UpIQEQ": {
+    "defaultMessage": "No rows to show. Add a row by pressing + -button under the table."
   }
 }
