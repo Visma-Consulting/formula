@@ -30,7 +30,7 @@ const useStyles = makeStyles({
   }
 });
 
-const calcTypeSign = {
+export const calcTypeSign = {
   none: '',
   sum: ' (+)',
   minus: ' (-)',
