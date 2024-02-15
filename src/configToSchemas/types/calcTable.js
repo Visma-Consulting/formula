@@ -108,9 +108,6 @@ function CalcTable(props) {
     idSchema,
     rawErrors
   } = props;
-
-  console.log(formData);
-
   const config = uiSchema['ui:options'].element;
   const {
     tableAddAllowed = false,
@@ -300,11 +297,6 @@ function CalcTable(props) {
 }
 
 export default ({ config }) => {
-
-  console.log("CONF");
-  console.log(config);
-
-  // TODO: add result row
   return {
     schema: {
       format: 'table',
