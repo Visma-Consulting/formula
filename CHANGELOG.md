@@ -1,3 +1,9 @@
+# 0.4.244
+
+- Upgrade to `@visma/rjsf-*@3.1.0-91`
+- Small fixes
+- List elements pagination
+
 # 0.4.243
 
 - getFormStandardized api bugfix
