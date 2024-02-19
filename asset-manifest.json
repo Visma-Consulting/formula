@@ -10,14 +10,14 @@
     "main.js.map": "/formula/static/js/main.3b1a5c3f.chunk.js.map",
     "runtime-main.js": "/formula/static/js/runtime-main.f37bc323.js",
     "runtime-main.js.map": "/formula/static/js/runtime-main.f37bc323.js.map",
-    "static/js/5.2775f60e.chunk.js": "/formula/static/js/5.2775f60e.chunk.js",
-    "static/js/5.2775f60e.chunk.js.map": "/formula/static/js/5.2775f60e.chunk.js.map",
+    "static/js/5.15573ff3.chunk.js": "/formula/static/js/5.15573ff3.chunk.js",
+    "static/js/5.15573ff3.chunk.js.map": "/formula/static/js/5.15573ff3.chunk.js.map",
     "index.html": "/formula/index.html",
-    "static/js/5.2775f60e.chunk.js.LICENSE.txt": "/formula/static/js/5.2775f60e.chunk.js.LICENSE.txt"
+    "static/js/5.15573ff3.chunk.js.LICENSE.txt": "/formula/static/js/5.15573ff3.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.f37bc323.js",
-    "static/js/5.2775f60e.chunk.js",
+    "static/js/5.15573ff3.chunk.js",
     "static/js/main.3b1a5c3f.chunk.js"
   ]
 }
