@@ -78,6 +78,8 @@ function TableField(props) {
     tableRowMaximum = Number.MAX_SAFE_INTEGER,
     useLabel = false,
     tableColumns = [],
+    rowTitles = [],
+    useRowTitles = false,
     label,
     title,
     description,
@@ -110,14 +112,25 @@ function TableField(props) {
 
   const tableData = makeTable(formData?.table || [], totalRows, totalCols);
 
-  const tableHeaders = tableColumns.map((columnName, index) => (
-    <TableCell key={index}>{columnName}</TableCell>
-  ));
+  const tableHeaders = (ignoreTitleColumn) => {
+    const headers = tableColumns.map((columnName, index) => (
+      <TableCell key={index}>{columnName}</TableCell>
+    ));
 
-  const tableCells = tableData.map((row, rowNum) => (
-    <TableRow key={`row-${rowNum}-${rev}`}>
-      {row
-        .map((_, colNum) => (
+    if (useRowTitles && !ignoreTitleColumn) {
+      headers.unshift(<TableCell key={-1}>{""}</TableCell>);
+    }
+
+    return headers;
+  }
+
+  const tableCells = tableData.map((row, rowNum) => {
+    return (
+      <TableRow key={`row-${rowNum}-${rev}`}>
+        {useRowTitles &&
+          <TableCell style={{fontWeight: 'bold'}}>{rowNum < rowTitles.length ? rowTitles[rowNum] : ''}</TableCell>
+        }
+        {row.map((_, colNum) => (
           <TableCell key={`col-${colNum}`}>
             <TextField
               id={`${id}-${rowNum}-${colNum}`}
@@ -169,8 +182,9 @@ function TableField(props) {
             []
           )
         )}
-    </TableRow>
-  ));
+      </TableRow>
+    );
+  });
 
   return (
     <div>
@@ -178,7 +192,7 @@ function TableField(props) {
       <TableContainer>
         <Table size="small">
           <TableHead>
-            <TableRow>{tableHeaders}</TableRow>
+            <TableRow>{tableHeaders()}</TableRow>
           </TableHead>
           <TableBody>{tableCells}</TableBody>
         </Table>

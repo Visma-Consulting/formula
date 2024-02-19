@@ -23,9 +23,9 @@ export const translateProperties = [
   'logoAlt'
 ];
 
-export const translateArrayProperties = ['choices', 'elements', 'scaleMarks'];
+export const translateArrayProperties = ['choices', 'elements', 'scaleMarks', 'calcTableColumns'];
 
-export const translateArray = ['tableColumns'];
+export const translateArray = ['tableColumns', 'rowTitles'];
 
 export const isLecacyTranslationObject = (value, key) =>
   typeof value === 'object' && translateProperties.includes(key);

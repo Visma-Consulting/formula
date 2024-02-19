@@ -4,9 +4,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import {TableFooter} from "@mui/material";
 import { format } from 'date-fns';
 import Field from '../Field';
 import { dynamicElements } from '../../useDynamicElements';
+import {calcTypeSign} from "../../configToSchemas/types/calcTable.js";
 
 
 const STATIC_ELEMENTS = ['body', 'image', 'title', 'pageTitle', 'subtitle', 'review']
@@ -36,6 +38,7 @@ const isAnswered = (element, formData) => {
         } else {
           return element.widget !== 'checkbox';
         }
+      case 'calcTable':
       case 'tableField':
         if (formData.table.length === 0) {
           return false;
@@ -174,12 +177,17 @@ export default (props) => {
 
   // tables
   if (schema.properties?.table) {
-    const columns = uiSchema['ui:options'].element.tableColumns;
+    const element = uiSchema['ui:options'].element;
+    const columns = element.type === 'calcTable'
+      ? element.calcTableColumns.map(column => column.name + calcTypeSign[column.calcType])
+      : element.tableColumns;
+    const rows = element.useRowTitles ? element.rowTitles : [];
     return (
       <TableContainer>
         <Table size="small">
           <TableHead>
             <TableRow>
+              {element.useRowTitles ? <TableCell key="header-row"/> : <></>}
               {columns.map((item, index) => (
                 <TableCell key={'header-' + index}>{item}</TableCell>
               ))}
@@ -188,6 +196,9 @@ export default (props) => {
           <TableBody>
             {formData?.table?.map((rowItem, rowIndex) => (
               <TableRow key={'row-' + rowIndex}>
+                {element.useRowTitles
+                  ? <TableCell style={{fontWeight: 'bold'}} key={'row-title-' + rowIndex}>{rowIndex < rows.length ? rows[rowIndex] : ''}</TableCell>
+                  : <></>}
                 {rowItem.map((item, itemIndex) => (
                   <TableCell key={'cell-' + rowIndex + '-' + itemIndex}>
                     {item}
@@ -196,6 +207,14 @@ export default (props) => {
               </TableRow>
             ))}
           </TableBody>
+          {element.type === 'calcTable' &&
+            <TableFooter>
+              {element.useRowTitles && <TableCell />}
+              {formData.resultRow && formData.resultRow.length > 0 &&
+                formData.resultRow.map(result => <TableCell style={{fontWeight: 'bold'}}>{result !== '' ? `= ${result}` : ''}</TableCell>)
+              }
+            </TableFooter>
+          }
         </Table>
       </TableContainer>
     );

@@ -16,6 +16,7 @@ export * as range from './range';
 export * as richtext from './richtext';
 export * as pageTitle from './stepTitle';
 export * as tableField from './tableField';
+export * as calcTable from './calcTable.js';
 export * as text from './text';
 export * as textarea from './textarea';
 export * as title from './title';
