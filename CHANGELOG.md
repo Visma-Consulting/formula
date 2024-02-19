@@ -1,4 +1,10 @@
-# 0.4.244
+# 0.4.246
+
+- Upgrade to `@visma/rjsf-*@3.1.0-92`
+- Add calcTable field type
+- Add row titles to tables
+
+# 0.4.245
 
 - Upgrade to `@visma/rjsf-*@3.1.0-91`
 - Small fixes
