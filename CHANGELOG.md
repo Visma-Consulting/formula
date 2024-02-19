@@ -1,3 +1,7 @@
+# 0.4.247
+
+- Dependencies fix
+
 # 0.4.246
 
 - Upgrade to `@visma/rjsf-*@3.1.0-92`
