@@ -1,3 +1,7 @@
+# 0.4.248
+
+- Calctable description fix
+
 # 0.4.247
 
 - Dependencies fix
