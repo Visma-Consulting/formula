@@ -281,6 +281,7 @@ function CalcTable(props) {
 
   return (
     <div>
+      <FormHelperText id={`${idSchema.$id}__description`} component="span">{description}</FormHelperText>
       <MUIDataTable
         data={tableData}
         columns={tableColumns()}
