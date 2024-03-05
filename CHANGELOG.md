@@ -1,3 +1,7 @@
+# 0.4.249
+
+- Add customMessages option for draft save -button
+
 # 0.4.248
 
 - Calctable description fix

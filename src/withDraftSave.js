@@ -93,7 +93,7 @@ export default function withDraftSave(Form) {
         onClick={() => draftSave()}
         className={classes.button}
       >
-        <FormattedMessage defaultMessage="Tallenna"/>
+        {props.customMessages?.draftSave ?? <FormattedMessage defaultMessage="Tallenna"/>}
       </Button>);
 
       return (props?.config?.draftSave && !isSubmittedData ?
