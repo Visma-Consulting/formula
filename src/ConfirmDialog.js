@@ -16,7 +16,7 @@ import { Alert } from '@material-ui/lab';
 import produce from 'immer';
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import { FormattedMessage, useIntl, defineMessage } from 'react-intl';
-import { hasCaptcha, hasConsent, hasPreview } from './customizations';
+import { hasCaptcha, hasConsent, hasPreview, hasPrint } from './customizations';
 import { PrintButton } from './PrintButton';
 import Field from './Review/Field';
 import { Customize } from './utils';
@@ -172,7 +172,7 @@ export default forwardRef(function ConfirmDialog(
             <Button disabled={loading && !error} onClick={handleDismiss}>
               {customMessages?.confirmDialogCancelButton ?? <FormattedMessage defaultMessage="Peruuta" />}
             </Button>
-            {hasPreview(otherProps) && <PrintButton />}
+            {hasPreview(otherProps) && hasPrint(otherProps) && <PrintButton />}
             <Button
               disabled={
                 (hasConsentValue && !consent) ||

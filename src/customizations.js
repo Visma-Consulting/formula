@@ -27,3 +27,6 @@ export const hasPreview = (props) =>
   props.config.meta?.preview ??
   // Default
   hasPreviewDefault;
+
+export const hasPrintDefault = true;
+export const hasPrint = (props) => props.fillProps?.disablePrint !== undefined ? !props.fillProps.disablePrint : hasPrintDefault;
