@@ -64,6 +64,9 @@ export default function withSteps(Form) {
     ref ??= formRef;
     const formWrapperRef = useRef();
     const jumpRef = useRef(null);
+
+    console.log(otherProps);
+
     function handleStepChange(...args) {
       const nextStep = jumpRef.current ?? activeStep + 1;
 
@@ -246,7 +249,7 @@ export default function withSteps(Form) {
                               variant="contained"
                               color="primary"
                             >
-                              <FormattedMessage defaultMessage="Lähetä" />
+                              {otherProps.customMessages?.submit ?? <FormattedMessage defaultMessage="Lähetä" />}
                             </Button>
                           ) : (
                             <Button

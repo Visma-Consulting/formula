@@ -1,3 +1,7 @@
+# 0.4.251
+
+- Add option to overwrite submit -message also to multistepped forms
+
 # 0.4.250
 
 - Add option to hide print buttons from dialogs
