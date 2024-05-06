@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function withSteps(Form) {
-  const WithSteps = forwardRef(({ onSubmit, onChange, onError, formData, steps, fillProps, ...otherProps }, ref) => {
+  const WithSteps = forwardRef(({ onSubmit, onChange, onError, formData, steps, fillProps, onPreSubmit, ...otherProps }, ref) => {
     const intl = useIntl();
     const [activeStep, setActiveStep] = useState(otherProps.dataIsDraft && otherProps.activeStep ? otherProps.activeStep : 0);
     const [maxJump, setMaxJump] = useState(activeStep);
@@ -65,9 +65,7 @@ export default function withSteps(Form) {
     const formWrapperRef = useRef();
     const jumpRef = useRef(null);
 
-    console.log(otherProps);
-
-    function handleStepChange(...args) {
+    function handleStepChange(args) {
       const nextStep = jumpRef.current ?? activeStep + 1;
 
       if (nextStep < steps.length) {
@@ -87,7 +85,7 @@ export default function withSteps(Form) {
       }
 
       // Submit
-      return true;
+      return onPreSubmit ? onPreSubmit(args) : true;
     }
 
     const handleSubmit = () => {

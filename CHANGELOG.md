@@ -1,3 +1,7 @@
+# 0.4.252
+
+- Fix onPreSubmit being skipped on multipage forms
+
 # 0.4.251
 
 - Add option to overwrite submit -message also to multistepped forms
