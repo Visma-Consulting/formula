@@ -4,6 +4,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import {utils} from "@visma/rjsf-core";
 import Typography from "@material-ui/core/Typography";
 import {defineMessages} from "@formatjs/intl";
+import {FormHelperText} from "@material-ui/core";
 
 const useStyles = makeStyles({
   inputLabelRoot: {
@@ -27,6 +28,7 @@ const ConfirmField = (props) => {
   const options = uiSchema['ui:options'].element;
   const classes = useStyles();
   return (<>
+    <FormHelperText id={`${idSchema.$id}__description`} component="span">{options.description}</FormHelperText>
     <TextField
       id={idSchema.value.$id}
       label={options.useLabel ? options.label : options.title}
