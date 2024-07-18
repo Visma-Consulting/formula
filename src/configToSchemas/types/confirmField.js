@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 });
 
 const ConfirmField = (props) => {
-  const {schema, uiSchema, formData, onChange, idSchema, required, readonly, disabled} = props;
+  const {schema, uiSchema, formData, onChange, idSchema, required, readonly, disabled, rawErrors} = props;
   const options = uiSchema['ui:options'].element;
   const classes = useStyles();
   return (<>
@@ -34,12 +34,16 @@ const ConfirmField = (props) => {
       required={required}
       readOnly={readonly}
       disabled={disabled}
-      value={formData.value}
+      value={formData?.value}
       pattern={schema.pattern}
+      error={rawErrors && rawErrors.length > 0}
       onChange={(e) => { onChange({...formData, value: e.target.value}) }}
+      aria-label={utils.generateAriaLabel(options.useLabel ? options.label : options.title, options, required)}
+      aria-labelledby={utils.ariaDescribedBy(props.id, uiSchema, rawErrors)}
     />
     <Typography
       aria-hidden={true}
+      id={`${idSchema.confirmation.$id}-title`}
       component="p"
       style={{paddingTop: 30}}
       variant="subtitle1">
@@ -48,13 +52,14 @@ const ConfirmField = (props) => {
     </Typography>
     <TextField
       id={idSchema.confirmation.$id}
-      label={(options.useLabel ? options.label : options.title) + + " (uudestaan)" }
+      label={options.confirmTitle }
       InputLabelProps={{shrink: false, className: classes.inputLabelRoot}}
       required={required}
       readOnly={readonly}
       disabled={disabled}
-      value={formData.confirmation}
+      value={formData?.confirmation}
       pattern={schema.pattern}
+      error={props.rawErrors && props.rawErrors.length > 0}
       onChange={(e) => { onChange({...formData, confirmation: e.target.value}) }}
     />
   </>)
