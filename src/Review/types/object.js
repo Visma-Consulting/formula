@@ -67,6 +67,8 @@ const isAnswered = (element, formData) => {
 export default (props) => {
   const { formData, schema, uiSchema, ...otherProps } = props;
 
+  console.log(props);
+
   // dateRange
   if (uiSchema['ui:options']?.element.type === 'dateRange') {
     let start;
@@ -90,6 +92,18 @@ export default (props) => {
       <Field
         {...otherProps}
         formData={dateValue}
+        schema={{ schema, type: 'string' }}
+        uiSchema={uiSchema}
+      />
+    );
+  }
+
+  // confirmField
+  if (uiSchema['ui:options']?.element.type === 'confirmField') {
+    return (
+      <Field
+        {...otherProps}
+        formData={formData.value}
         schema={{ schema, type: 'string' }}
         uiSchema={uiSchema}
       />
