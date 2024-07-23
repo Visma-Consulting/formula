@@ -67,8 +67,6 @@ const isAnswered = (element, formData) => {
 export default (props) => {
   const { formData, schema, uiSchema, ...otherProps } = props;
 
-  console.log(props);
-
   // dateRange
   if (uiSchema['ui:options']?.element.type === 'dateRange') {
     let start;
