@@ -12,7 +12,6 @@ const useToolbarConfig = () => {
       { label: intl.formatMessage({ defaultMessage: 'Kursivoitu' }), style: 'ITALIC' },
       { label: intl.formatMessage({ defaultMessage: 'Yliviivaus' }), style: 'STRIKETHROUGH' },
       { label: intl.formatMessage({ defaultMessage: 'Tasalevyinen' }), style: 'CODE' },
-      { label: intl.formatMessage({ defaultMessage: 'Alleviivaus' }), style: 'UNDERLINE' },
 
     ],
     BLOCK_ALIGNMENT_BUTTONS: [
