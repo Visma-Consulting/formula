@@ -391,5 +391,14 @@
   },
   "UpIQEQ": {
     "defaultMessage": "Inga rader att visa. Lägg till en rad genom att trycka på + -knappen under tabellen."
+  },
+  "pIsJyL": {
+    "defaultMessage": "\"{title}\" ingången måste vara densamma som \"{confirmTitle}\" ingången"
+  },
+  "WE/gs/": {
+    "defaultMessage": "E-postadress med bekräftelse"
+  },
+  "YodWUT": {
+    "defaultMessage": "\"{title}\" måste vara en giltig e-postadress"
   }
 }

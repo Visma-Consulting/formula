@@ -26,3 +26,4 @@ export * as button from './button';
 export * as subtitle from './subtitle';
 export * as summary from './summary';
 export * as select from './selectV2';
+export * as confirmField from './confirmField.js';

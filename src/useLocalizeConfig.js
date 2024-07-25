@@ -20,7 +20,8 @@ export const translateProperties = [
   'consentTitle',
   'consentMessage',
   'labelError',
-  'logoAlt'
+  'logoAlt',
+  'confirmTitle'
 ];
 
 export const translateArrayProperties = ['choices', 'elements', 'scaleMarks', 'calcTableColumns'];

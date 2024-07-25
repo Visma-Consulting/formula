@@ -388,5 +388,14 @@
   },
   "UpIQEQ": {
     "defaultMessage": "No rows to show. Add a row by pressing + -button under the table."
+  },
+  "pIsJyL": {
+    "defaultMessage": "\"{title}\" input must be the same as \"{confirmTitle}\" input"
+  },
+  "WE/gs/": {
+    "defaultMessage": "Email with confirmation"
+  },
+  "YodWUT": {
+    "defaultMessage": "\"{title}\" must be valid email address"
   }
 }

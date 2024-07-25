@@ -96,6 +96,18 @@ export default (props) => {
     );
   }
 
+  // confirmField
+  if (uiSchema['ui:options']?.element.type === 'confirmField') {
+    return (
+      <Field
+        {...otherProps}
+        formData={formData.value}
+        schema={{ schema, type: 'string' }}
+        uiSchema={uiSchema}
+      />
+    );
+  }
+
   // forms and formGroups
   if (uiSchema['ui:order']) {
     if (uiSchema['ui:options']?.element?.type === 'formGroup') {
