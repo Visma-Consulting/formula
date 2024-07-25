@@ -1,3 +1,8 @@
+# 0.4.253
+
+- Upgrade to `@visma/rjsf-*@3.1.0-95`
+- Add ConfirmField field type
+
 # 0.4.252
 
 - Fix onPreSubmit being skipped on multipage forms
