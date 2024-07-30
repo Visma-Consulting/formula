@@ -38,6 +38,10 @@ const isAnswered = (element, formData) => {
         } else {
           return element.widget !== 'checkbox';
         }
+      case 'confirmField': return (formData.value !== undefined
+        && formData.value !== ''
+        && formData.confirmation !== undefined
+        && formData.confirmation !== '');
       case 'calcTable':
       case 'tableField':
         if (formData.table.length === 0) {
