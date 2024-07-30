@@ -1,3 +1,8 @@
+# 0.4.254
+
+- ConfirmField bugfix
+- remove unnecessary buttons from rich text editor
+
 # 0.4.253
 
 - Upgrade to `@visma/rjsf-*@3.1.0-95`
