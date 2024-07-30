@@ -14,12 +14,6 @@ const useToolbarConfig = () => {
       { label: intl.formatMessage({ defaultMessage: 'Tasalevyinen' }), style: 'CODE' },
 
     ],
-    BLOCK_ALIGNMENT_BUTTONS: [
-      { label: intl.formatMessage({ defaultMessage: 'Tasaa vasemmalle' }), style: 'ALIGN_LEFT' },
-      { label: intl.formatMessage({ defaultMessage: 'Tasaa keskelle' }), style: 'ALIGN_CENTER' },
-      { label: intl.formatMessage({ defaultMessage: 'Tasaa oikealle' }), style: 'ALIGN_RIGHT' },
-      { label: intl.formatMessage({ defaultMessage: 'Tasaa molemmat reunat' }), style: 'ALIGN_JUSTIFY' },
-    ],
     BLOCK_TYPE_BUTTONS: [
       { label: intl.formatMessage({ defaultMessage: 'Luettelo' }), style: 'unordered-list-item' },
       { label: intl.formatMessage({ defaultMessage: 'Numeroitu luettelo' }), style: 'ordered-list-item' },
