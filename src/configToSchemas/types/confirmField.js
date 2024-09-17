@@ -106,18 +106,20 @@ export const validators = {
       defaultMessage: 'Kenttien vertaaminen'
     }),
     fn: (value, element) => {
-      const pattern = new RegExp('[^\\s]+^$|^(.*@[a-zA-Z0-9]+[a-zA-Z0-9\\.-]*\\.[a-zA-Z0-9]{2,})$');
+      if (value) {
+        const pattern = new RegExp('[^\\s]+^$|^(.*@[a-zA-Z0-9]+[a-zA-Z0-9\\.-]*\\.[a-zA-Z0-9]{2,})$');
 
-      if (element.required ||
-        (value.value !== undefined && value.value !== "") ||
-        (value.confirmation !== undefined && value.confirmation !== "")) {
+        if (element.required ||
+          (value.value !== undefined && value.value !== "") ||
+          (value.confirmation !== undefined && value.confirmation !== "")) {
 
-        if (!pattern.test(value.value)) {
-          return validationMessages.notEmail;
-        }
+          if (!pattern.test(value.value)) {
+            return validationMessages.notEmail;
+          }
 
-        if (value.value !== value.confirmation) {
-          return validationMessages.noMatch;
+          if (value.value !== value.confirmation) {
+            return validationMessages.noMatch;
+          }
         }
       }
     }
