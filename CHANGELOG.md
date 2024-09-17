@@ -1,3 +1,8 @@
+# 0.4.257
+
+- Upgrade to `@visma/rjsf-*@3.1.0-98`
+- ConfirmField bugfix
+
 # 0.4.256
 
 - Upgrade to `@visma/rjsf-*@3.1.0-97`
