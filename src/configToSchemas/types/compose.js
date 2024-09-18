@@ -88,7 +88,7 @@ function Compose(props) {
             case 'dateRange':
               return `${data.value.start ?? ''} - ${data.value.end ?? ''}`;
             case 'confirmField':
-              return data.value?.value;
+              return data?.value?.value;
             case 'text': case 'textarea': case 'richtext': case 'email':
             case 'number':case 'password': case 'range': case 'bmi': case 'date':
               return data.value;
