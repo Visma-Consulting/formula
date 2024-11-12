@@ -1,3 +1,7 @@
+# 0.4.258
+
+- Support for touch controls
+
 # 0.4.257
 
 - Upgrade to `@visma/rjsf-*@3.1.0-98`
