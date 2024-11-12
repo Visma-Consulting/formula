@@ -20,7 +20,7 @@ import withFormulaErrorBoundary from './withFormulaErrorBoundary';
 import withCustomValidation from './withCustomValidation';
 import withScrollToError from './withScrollToError';
 import withFillActions from './withFillActions';
-import withRecaptcha from './withRecaptcha';
+import withOnTouch from "./withOnTouch.js";
 import withRecaptchaProvider from "./withRecaptchaProvider.js";
 
 /**
@@ -54,6 +54,7 @@ export const Form =
   |> withFormConfigLoader
   |> withSnackbar
   |> withScrollToError
-  |> withFormulaErrorBoundary;
+  |> withFormulaErrorBoundary
+  |> withOnTouch;
 
 export const Formula = Form |> withFormulaProvider;
