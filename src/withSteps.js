@@ -67,7 +67,6 @@ export default function withSteps(Form) {
     const jumpRef = useRef(null);
 
     function handleStepChange(args) {
-      forceBlur();
       const nextStep = jumpRef.current ?? activeStep + 1;
 
       if (nextStep < steps.length) {
@@ -119,6 +118,7 @@ export default function withSteps(Form) {
     const createHandleJump = (step) =>
       function handleJump(event) {
         // If backward button pressed
+        forceBlur(event);
         step < activeStep ? setNoValidate(true) : setNoValidate(false);
         setLiveValidate(false);
         jumpRef.current = step;
