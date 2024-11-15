@@ -1,3 +1,7 @@
+# 0.4.259
+
+- Safety nets for touch controls
+
 # 0.4.258
 
 - Support for touch controls
