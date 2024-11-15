@@ -1,3 +1,7 @@
+# 0.4.260
+
+- Touch controls hotfix
+
 # 0.4.259
 
 - Safety nets for touch controls
