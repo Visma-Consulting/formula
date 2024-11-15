@@ -7,6 +7,7 @@ import { hasConfirm, hasPreview } from './customizations';
 import { chain } from './utils';
 import { makeStyles } from '@material-ui/core/styles';
 import { useMediaQuery } from '@material-ui/core';
+import { forceBlur } from "./withOnTouch.js";
 
 const useStyles = makeStyles((theme) => ({
   noPrint: {
@@ -124,6 +125,7 @@ export default function withConfirmSubmit(Form) {
                 <div>
                   {otherProps.draftButton}
                   <Button
+                    onTouchStart={forceBlur}
                     type="submit"
                     variant="contained"
                     color="primary"

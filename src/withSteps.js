@@ -187,6 +187,7 @@ export default function withSteps(Form) {
                           actions: (
                             <>
                               <Button
+                                onTouchStart={forceBlur}
                                 onClick={createHandleJump(activeStep - 1)}
                                 aria-label={`${intl.formatMessage({defaultMessage: 'Takaisin'})}: ${steps[index - 1]?.['ui:title']}`}
                               >
@@ -244,6 +245,7 @@ export default function withSteps(Form) {
                         <div className={classes.buttonContainer}>
                           {isLastStep ? (
                             <Button
+                              onTouchStart={forceBlur}
                               type="submit"
                               onClick={handleSubmit}
                               variant="contained"
@@ -253,6 +255,7 @@ export default function withSteps(Form) {
                             </Button>
                           ) : (
                             <Button
+                              onTouchStart={forceBlur}
                               onClick={createHandleJump(activeStep + 1)}
                               variant="contained"
                               color="primary"
@@ -263,6 +266,7 @@ export default function withSteps(Form) {
                           )}
                           {activeStep !== 0 && (
                             <Button
+                              onTouchStart={forceBlur}
                               onClick={createHandleJump(activeStep - 1)}
                               aria-label={`${intl.formatMessage({defaultMessage: 'Takaisin'})}: ${steps[index - 1]?.['ui:title']}`}
                             >
