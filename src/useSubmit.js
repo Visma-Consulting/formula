@@ -1,6 +1,7 @@
 import { useMutations } from './api';
 import { chain } from './utils';
 import { useIntl } from 'react-intl';
+import { forceBlur } from "./withOnTouch.js";
 
 export default ({
   onSubmit,
@@ -20,6 +21,7 @@ export default ({
     onSubmit: chain([
       onPreSubmit,
       async (...args) => {
+        forceBlur();
         const [{ captchaChallenge, formData }] = args;
         const data = {
           status: 'SUBMITTED',

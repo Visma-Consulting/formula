@@ -10,6 +10,7 @@ import { forwardRef, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { StepTitle } from './configToSchemas/types/stepTitle';
 import CheckIcon from '@material-ui/icons/Check'
+import { forceBlur } from "./withOnTouch.js";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -66,6 +67,7 @@ export default function withSteps(Form) {
     const jumpRef = useRef(null);
 
     function handleStepChange(args) {
+      forceBlur();
       const nextStep = jumpRef.current ?? activeStep + 1;
 
       if (nextStep < steps.length) {
