@@ -1,3 +1,8 @@
+# 0.4.262
+
+- Fix null error in compose field
+- Fix onTouchStart breaking some fields
+
 # 0.4.261
 
 - Touch controls hotfix's hotfix
