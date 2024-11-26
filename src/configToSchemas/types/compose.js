@@ -20,7 +20,7 @@ const getRepeatableFormgroupElementKeys = (formdata, originalElements) => {
 
 const getUsableFormData = (id, element, rootSchema, formData) => {
   if (element.containingFormgroup) {
-    for (const key of Object.keys(rootSchema.properties)) {
+    for (const key of Object.keys(rootSchema?.properties ?? {})) {
       const formgroupConfig = rootSchema.properties[key];
       if (formgroupConfig.items && formgroupConfig.items.originalConfig?.id === element.containingFormgroup) {
         const data = formData[key][id.substring(key.length + 6).split('_')[0]];

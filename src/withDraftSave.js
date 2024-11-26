@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import {useMutations} from './api';
 import { useSnackbar } from 'notistack';
 import {makeStyles} from "@material-ui/core/styles";
+import {forceBlur} from "./withOnTouch.js";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -90,6 +91,7 @@ export default function withDraftSave(Form) {
       const isSubmittedData = props?.dataId && !props?.dataIsDraft;
 
       const draftButton = (<Button
+        onTouchStart={forceBlur}
         onClick={() => draftSave()}
         className={classes.button}
       >
