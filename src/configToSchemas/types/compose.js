@@ -37,7 +37,7 @@ const getUsableFormData = (id, element, rootSchema, formData) => {
     }
   }
 
-  return {usableFormData: formData, existingDataKeys: Object.keys(rootSchema.properties)};
+  return {usableFormData: formData, existingDataKeys: Object.keys(rootSchema?.properties ?? {})};
 }
 
 function Compose(props) {
