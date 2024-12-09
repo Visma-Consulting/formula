@@ -1,3 +1,8 @@
+# 0.4.263
+
+- Upgrade to `@visma/rjsf-*@3.1.0-99`
+- Fix compose field breaking some editor views
+
 # 0.4.262
 
 - Fix null error in compose field
