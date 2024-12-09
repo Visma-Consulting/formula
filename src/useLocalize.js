@@ -2,9 +2,17 @@ import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import { some } from 'lodash/collection';
 
-export function useLocalize() {
+const getAllowedLanguage = (lang, languages) => {
+  // if allowed languages are not defined or empty, use lang
+  if (languages === undefined || languages.length === 0) return lang;
+  // if lang is not allowed language, return first language in the list
+  else if (!languages.includes(lang)) return languages[0];
+  else return lang;
+}
+
+export function useLocalize(languages) {
   const { locale, defaultLocale } = useIntl();
-  const [lang] = locale.split('-');
+  const [lang] = getAllowedLanguage(locale, languages).split('-');
   const [defaultLang] = defaultLocale.split('-');
 
   const getSomeTranslation = (messages) => {

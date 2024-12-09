@@ -31,8 +31,8 @@ export const translateArray = ['tableColumns', 'rowTitles'];
 export const isLecacyTranslationObject = (value, key) =>
   typeof value === 'object' && translateProperties.includes(key);
 
-export function useLocalizeConfig() {
-  const localize = useLocalize();
+export function useLocalizeConfig(languages) {
+  const localize = useLocalize(languages);
 
   return useCallback(
     function localizeConfig(config) {

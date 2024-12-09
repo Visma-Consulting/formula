@@ -13,8 +13,9 @@ const useNormalizeConfig_ = ({
   localize = true,
   // Default to top level form config.
   type = 'form',
+  languages = []
 } = {}) => {
-  const localizeConfig = useLocalizeConfig();
+  const localizeConfig = useLocalizeConfig(languages);
 
   return useCallback(
     (config) =>
@@ -39,7 +40,7 @@ const useNormalizeConfig_ = ({
 
 const useNormalizeConfig = (options) =>
   function useNormalizeConfig(config) {
-    const normalize = useNormalizeConfig_(options);
+    const normalize = useNormalizeConfig_({...options, languages: config?.meta?.languages});
     return useMemo(() => normalize(config), [config, normalize]);
   };
 

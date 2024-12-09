@@ -64,7 +64,7 @@ export default extendType(select, ({ config, fillProps }) => (props) => {
         items: props.schema,
         type: 'array',
         uniqueItems: true,
-        default: [],
+        default: config.defaultMulti ?? [],
         minItems: minItems ?? (required ? 1 : undefined),
       }
       : // Empty list of choices (enums) matches incorrectly when used in
