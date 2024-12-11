@@ -400,5 +400,8 @@
   },
   "YodWUT": {
     "defaultMessage": "\"{title}\" måste vara en giltig e-postadress"
+  },
+  "b+CLcj": {
+    "defaultMessage": "annat än tomt"
   }
 }
