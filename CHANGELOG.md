@@ -1,3 +1,8 @@
+# 0.4.264
+
+- Add defaultMulti to multiselect
+- Add missing translations
+
 # 0.4.263
 
 - Upgrade to `@visma/rjsf-*@3.1.0-99`
