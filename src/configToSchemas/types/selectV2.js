@@ -43,7 +43,7 @@ function DefaultSelect(props) {
       </div>
           { (uiSchema["ui:options"]?.showScore && value && scoreObject) &&
           <Typography>
-            {scoreObject.meta.score}
+            {scoreObject?.meta?.score}
           </Typography>
           }
     </div>
