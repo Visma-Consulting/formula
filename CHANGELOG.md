@@ -1,3 +1,7 @@
+# 0.4.265
+
+- Fix null error in selectV2
+
 # 0.4.264
 
 - Add defaultMulti to multiselect
