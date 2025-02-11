@@ -1,3 +1,7 @@
+# 0.4.266
+
+- Upgrade to `@visma/rjsf-*@3.1.0-100`
+
 # 0.4.265
 
 - Fix null error in selectV2
