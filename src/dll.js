@@ -3,6 +3,7 @@ import * as materialUIStyles from '@material-ui/styles';
 import * as xDatePickers from '@mui/x-date-pickers';
 import * as muiBase from '@mui/base';
 import * as muiMaterial from '@mui/material';
+import * as muiStyledEngine from '@mui/styled-engine';
 import * as emotionCore from '@emotion/core';
 import * as emotionStyled from '@emotion/styled';
 import * as emotionReact from '@emotion/react';
@@ -26,7 +27,8 @@ const externals = {
   '@mui/x-date-pickers': xDatePickers,
   '@emotion/styled': emotionStyled,
   '@mui/base': muiBase,
-  '@mui/material': muiMaterial
+  '@mui/material': muiMaterial,
+  '@mui/styled-engine': muiStyledEngine
 };
 
 export const init = async (url) => {
