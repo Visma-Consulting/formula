@@ -48,7 +48,5 @@ export const init = async (url) => {
   linkElement.href = dllDir + manifest['main.css'];
   document.head.appendChild(linkElement);
 
-  console.log(window.__formula);
-
   Object.assign(DLL, window.__formula);
 };
